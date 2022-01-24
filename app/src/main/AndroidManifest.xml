@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Welearn">
         <activity
-            android:name=".core.splashScreen.SplashScreenActivity"
+            android:name=".splashScreen.SplashScreenActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
