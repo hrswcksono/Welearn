@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.splashScreen
+package com.tugasakhir.welearn.presentation.ui.splashScreen
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

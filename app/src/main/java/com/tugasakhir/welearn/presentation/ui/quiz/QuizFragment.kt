@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.quiz
+package com.tugasakhir.welearn.presentation.ui.quiz
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

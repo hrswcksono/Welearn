@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.home
+package com.tugasakhir.welearn.presentation.ui.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
