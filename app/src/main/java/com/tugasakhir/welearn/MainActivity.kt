@@ -22,7 +22,11 @@ import com.tugasakhir.welearn.databinding.ActivityMainBinding
         setSupportActionBar(binding.appBarMain.toolbar)
 
         appBarConfiguration = AppBarConfiguration(setOf(
-
+            R.id.nav_home,
+            R.id.nav_profile,
+            R.id.nav_quiz,
+            R.id.nav_rank,
+            R.id.nav_score
         ), binding.drawerLayout)
 
         setupActionBarWithNavController(findNavController(R.id.nav_host_fragment), appBarConfiguration)
