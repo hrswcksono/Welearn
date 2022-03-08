@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.FragmentQuizBinding
 
 class QuizFragment : Fragment() {
@@ -25,5 +24,4 @@ class QuizFragment : Fragment() {
         super.onDestroyView()
         _binding = null
     }
-
 }
