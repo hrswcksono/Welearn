@@ -13,21 +13,21 @@
     <fragment
         android:id="@+id/nav_quiz"
         android:name="com.tugasakhir.welearn.presentation.ui.quiz.QuizFragment"
-        android:label="fragment_quiz"
+        android:label="@string/menu_quiz"
         tools:layout="@layout/fragment_quiz" />
     <fragment
         android:id="@+id/nav_profile"
         android:name="com.tugasakhir.welearn.presentation.ui.profile.ProfileFragment"
-        android:label="fragment_profile"
+        android:label="@string/menu_profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/nav_score"
         android:name="com.tugasakhir.welearn.presentation.ui.score.ScoreFragment"
-        android:label="fragment_score"
+        android:label="@string/menu_score"
         tools:layout="@layout/fragment_score" />
     <fragment
         android:id="@+id/nav_rank"
         android:name="com.tugasakhir.welearn.presentation.ui.rank.RankFragment"
-        android:label="fragment_rank"
+        android:label="@string/menu_rank"
         tools:layout="@layout/fragment_rank" />
 </navigation>
