@@ -17,4 +17,11 @@
     <string name="JenisKelamin">Jenis Kelamin</string>
     <string name="Register">Register</string>
     <string name="Login">Login</string>
+    <string name="score_huruf">Score Huruf</string>
+    <string name="score_angka">Score Angka</string>
+
+    <string name="canvasContentDescription">Mini Paint is a simple line drawing app.
+   Drag your fingers to draw. Rotate the phone to clear.</string>
+    <string name="title_home">Home</string>
+    <string name="title_user">User</string>
 </resources>
