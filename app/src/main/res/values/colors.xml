@@ -10,4 +10,6 @@
 
     <color name="colorBackground">#FFFF5500</color>
     <color name="colorPaint">#FFFFEB3B</color>
+
+    <color name="bgSplashScreen">#B7F9A1</color>
 </resources>
