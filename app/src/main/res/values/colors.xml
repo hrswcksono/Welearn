@@ -12,4 +12,10 @@
     <color name="colorPaint">#FFFFEB3B</color>
 
     <color name="bgSplashScreen">#B7F9A1</color>
+
+    <color name="bg_quiz">#e3ffdf</color>
+    <color name="item_grid">#b7f9a1</color>
+
+    <color name="bot_nav">#c1feb7</color>
+    <color name="main_bg">#e3ffdf</color>
 </resources>

@@ -13,16 +13,22 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.question.AngkaActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.question.HurufActivity"
+            android:exported="true" />
+        <activity
             android:name=".presentation.ui.home.HomeActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".presentation.ui.TestActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.auth.register.RegisterActivity"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.auth.login.LoginActivity"
             android:exported="false" />

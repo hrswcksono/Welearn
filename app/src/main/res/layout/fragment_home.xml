@@ -5,51 +5,44 @@
     android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     tools:context=".presentation.ui.home.HomeFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
-
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="140dp"
-        android:layout_height="125dp"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="180dp"
-        android:src="@drawable/teacher"
+        android:layout_width="333dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="84dp"
+        android:src="@drawable/btn_angka"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="82dp"
-        android:layout_height="114dp"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="52dp"
-        android:src="@drawable/write"
+        android:layout_width="334dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/btn_huruf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="232dp"
-        android:text="@string/berhitung"
+        android:layout_width="195dp"
+        android:layout_height="89dp"
+        android:layout_marginTop="80dp"
+        android:text="Ayo Belajar Bersama"
+        android:textAlignment="center"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        android:fontFamily="@font/rubik_regular"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.157"
-        app:layout_constraintStart_toEndOf="@+id/imageView2"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="160dp"
-        android:text="@string/menulis"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.389"
-        app:layout_constraintStart_toEndOf="@+id/imageView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>
