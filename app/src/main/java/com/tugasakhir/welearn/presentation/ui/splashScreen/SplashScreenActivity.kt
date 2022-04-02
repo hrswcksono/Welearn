@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
-import com.tugasakhir.welearn.presentation.ui.home.HomeActivity
+import com.tugasakhir.welearn.presentation.ui.MainActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashScreenActivity, HomeActivity::class.java))
+            startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
             finish()
         }, 3000)
 
