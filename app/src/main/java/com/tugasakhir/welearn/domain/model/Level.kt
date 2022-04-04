@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.domain.model
 
 data class Level(
-    val id_level: Int,
-    val level_soal: String
+    var id_level: Int = 0,
+    var level_soal: String = ""
 )

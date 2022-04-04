@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_restart"
+        android:icon="@drawable/icon_restart"
+        android:title="@string/menu_restart" />
+
+    <item
+        android:id="@+id/nav_submit"
+        android:icon="@drawable/icon_submit"
+        android:title="@string/menu_submit" />
+</menu>

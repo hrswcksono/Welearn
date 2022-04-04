@@ -24,4 +24,6 @@
    Drag your fingers to draw. Rotate the phone to clear.</string>
     <string name="title_home">Home</string>
     <string name="title_user">User</string>
+    <string name="menu_submit">Submit</string>
+    <string name="menu_restart">Restart</string>
 </resources>

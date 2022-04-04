@@ -7,11 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.FragmentModeHurufBinding
+import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 
-class ModeHurufFragment : Fragment() {
+class ListLevelHurufFragment : Fragment() {
 
-    private var _binding: FragmentModeHurufBinding? = null
+    private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,19 +19,15 @@ class ModeHurufFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentModeHurufBinding.inflate(inflater, container, false)
+        _binding = FragmentListLevelHurufBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSingleHuruf.setOnClickListener {
-            view.findNavController().navigate(R.id.to_level_huruf)
-        }
-
-        binding.modeHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_to_home_mode_huruf)
+        binding.listHurufBack.setOnClickListener {
+            view.findNavController().navigate(R.id.back_mode_huruf)
         }
     }
 
@@ -39,4 +35,5 @@ class ModeHurufFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

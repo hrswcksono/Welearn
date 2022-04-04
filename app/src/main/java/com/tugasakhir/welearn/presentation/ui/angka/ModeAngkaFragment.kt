@@ -25,6 +25,10 @@ class ModeAngkaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.btnSingleAngka.setOnClickListener {
+            view.findNavController().navigate(R.id.to_level_angka)
+        }
+
         binding.modeAngkaBack.setOnClickListener {
             view.findNavController().navigate(R.id.back_to_home_mode_angka)
         }

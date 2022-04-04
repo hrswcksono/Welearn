@@ -30,6 +30,9 @@
         <action
             android:id="@+id/back_to_home_mode_angka"
             app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/to_level_angka"
+            app:destination="@id/list_level_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/mode_huruf_nav"
@@ -39,6 +42,51 @@
         <action
             android:id="@+id/back_to_home_mode_huruf"
             app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/to_level_huruf"
+            app:destination="@id/list_level_huruf_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_level_angka_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.ListLevelAngkaFragment"
+        android:label="fragment_list_level_angka"
+        tools:layout="@layout/fragment_list_level_angka" >
+        <action
+            android:id="@+id/back_mode_angka"
+            app:destination="@id/mode_angka_nav" />
+        <action
+            android:id="@+id/to_soal_angka"
+            app:destination="@id/list_soal_angka_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_soal_angka_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.ListSoalAngkaFragment"
+        android:label="fragment_list_soal_angka"
+        tools:layout="@layout/fragment_list_soal_angka" >
+        <action
+            android:id="@+id/back_level_angka"
+            app:destination="@id/list_level_angka_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_level_huruf_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.ListLevelHurufFragment"
+        android:label="fragment_list_level_huruf"
+        tools:layout="@layout/fragment_list_level_huruf" >
+        <action
+            android:id="@+id/back_mode_huruf"
+            app:destination="@id/mode_huruf_nav" />
+        <action
+            android:id="@+id/to_soal_huruf"
+            app:destination="@id/list_soal_huruf_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/list_soal_huruf_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.ListSoalHurufFragment"
+        android:label="fragment_list_soal_huruf"
+        tools:layout="@layout/fragment_list_soal_huruf" >
+        <action
+            android:id="@+id/back_level_huruf"
+            app:destination="@id/list_level_huruf_nav" />
     </fragment>
 
 </navigation>

@@ -13,9 +13,17 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".presentation.ui.MainActivity"
+            android:name=".presentation.ui.huruf.SoalHurufActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".presentation.ui.angka.SoalAngkaActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".presentation.ui.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".presentation.ui.TestActivity"
             android:exported="true" />

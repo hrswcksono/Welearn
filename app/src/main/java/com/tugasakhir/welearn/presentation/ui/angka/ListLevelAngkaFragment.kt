@@ -1,5 +1,6 @@
-package com.tugasakhir.welearn.presentation.ui.huruf
+package com.tugasakhir.welearn.presentation.ui.angka
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -7,11 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.FragmentModeHurufBinding
+import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 
-class ModeHurufFragment : Fragment() {
+class ListLevelAngkaFragment : Fragment() {
 
-    private var _binding: FragmentModeHurufBinding? = null
+    private var _binding: FragmentListLevelAngkaBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -19,19 +20,19 @@ class ModeHurufFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentModeHurufBinding.inflate(inflater, container, false)
+        _binding = FragmentListLevelAngkaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.btnSingleHuruf.setOnClickListener {
-            view.findNavController().navigate(R.id.to_level_huruf)
+        binding.listAngkaBack.setOnClickListener {
+            view.findNavController().navigate(R.id.back_mode_angka)
         }
 
-        binding.modeHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_to_home_mode_huruf)
+        binding.levelAngka.setOnClickListener{
+            startActivity(Intent(requireActivity(), SoalAngkaActivity::class.java))
         }
     }
 
@@ -39,4 +40,5 @@ class ModeHurufFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 }

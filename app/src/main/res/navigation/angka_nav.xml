@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/angka_nav"
+    app:startDestination="@id/soalAngkaFragment">
+
+    <fragment
+        android:id="@+id/soalAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.SoalAngkaFragment"
+        android:label="fragment_soal_angka"
+        tools:layout="@layout/fragment_soal_angka" />
+</navigation>
