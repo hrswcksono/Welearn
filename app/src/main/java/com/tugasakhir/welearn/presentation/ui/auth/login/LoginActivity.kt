@@ -1,8 +1,10 @@
 package com.tugasakhir.welearn.presentation.ui.auth.login
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
+import com.tugasakhir.welearn.presentation.ui.MainActivity
 
 class LoginActivity : AppCompatActivity() {
 
@@ -12,5 +14,11 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        supportActionBar?.hide()
+
+        binding.btnLogin.setOnClickListener {
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+        }
     }
 }

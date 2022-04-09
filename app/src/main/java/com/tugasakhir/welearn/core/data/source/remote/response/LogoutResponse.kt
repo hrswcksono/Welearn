@@ -2,17 +2,11 @@ package com.tugasakhir.welearn.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class LogoutResponse(
 
 	@field:SerializedName("success")
 	val success: String? = null,
 
 	@field:SerializedName("message")
-	val message: Message? = null
-)
-
-data class Message(
-
-	@field:SerializedName("token")
-	val token: String? = null
+	val message: String? = null
 )

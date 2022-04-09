@@ -7,7 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 
 class ListLevelAngkaFragment : Fragment() {
@@ -33,6 +36,21 @@ class ListLevelAngkaFragment : Fragment() {
 
         binding.levelAngka.setOnClickListener{
             startActivity(Intent(requireActivity(), SoalAngkaActivity::class.java))
+        }
+
+
+        showGridView()
+    }
+
+    private fun showGridView() {
+        val Angkaadapter = ListLevelAngkaAdapter()
+        Angkaadapter.setData(LevelData.listLevel)
+        with(binding.rvLevelAngka) {
+            layoutManager = GridLayoutManager(context, 3)
+//            layoutManager = LinearLayoutManager(context)
+
+            setHasFixedSize(false)
+            adapter = Angkaadapter
         }
     }
 

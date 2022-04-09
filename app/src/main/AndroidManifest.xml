@@ -14,16 +14,13 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.ui.huruf.SoalHurufActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:exported="true"/>
         <activity
             android:name=".presentation.ui.angka.SoalAngkaActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:exported="true"/>
         <activity
             android:name=".presentation.ui.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="true" />
         <activity
             android:name=".presentation.ui.TestActivity"
             android:exported="true" />
@@ -35,8 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".presentation.ui.splashScreen.SplashScreenActivity"
-            android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

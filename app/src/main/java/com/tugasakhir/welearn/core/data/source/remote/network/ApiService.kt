@@ -1,29 +1,59 @@
 package com.tugasakhir.welearn.core.data.source.remote.network
 
-import com.tugasakhir.welearn.core.data.source.remote.response.LoginResponse
-import okhttp3.RequestBody
+import com.tugasakhir.welearn.core.data.source.remote.response.*
 import retrofit2.http.*
 
 interface ApiService {
 
+    // login
     @Headers("Content-Type: application/json")
-    @POST("signupNewUser?key=AIzaSyAV7wrlD-aII7AlrBGU9lEpAn_2iKqXVuk")
+    @FormUrlEncoded
+    @POST("login")
     suspend fun login(
-        @Body params: RequestBody
+        @Field("username") username: String,
+        @Field("password") password: String
     ): LoginResponse
 
-    @POST
-    suspend fun register()
+    // register
+    @FormUrlEncoded
+    @POST("register")
+    suspend fun register(
+        @Field("username") username: String,
+        @Field("password") password: String,
+        @Field("email") email: String,
+        @Field("name") name: String,
+        @Field("jenis_kelamin") jenis_kelamin: String,
+    ): RegisterResponse
 
-    @POST
-    suspend fun create()
+    // logout
+    @GET("logout")
+    suspend fun logout(): LogoutResponse
 
-    @GET
-    suspend fun read()
+    // detail
+    @GET("detail")
+    suspend fun detail(): DetailResponse
 
-    @PATCH
-    suspend fun update()
+    // random angka
+    @GET("randAngka")
+    suspend fun getRandomAngka(
+        @Path("id") id: String
+    )
 
-    @DELETE
-    suspend fun delete()
+    // random huruf
+    @GET("randHuruf")
+    suspend fun getRandomHuruf(
+        @Path("id") id: String
+    )
+
+    // soal angka
+    @GET("soalAngka")
+    suspend fun getSoalAngka(
+        @Path("id") id: String
+    ): SoalResponse
+
+    // soal huruf
+    @GET("soalHuruf")
+    suspend fun getSoalHuruf(
+        @Path("id") id: String
+    ): SoalResponse
 }
