@@ -41,8 +41,10 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_rank.xml" value="0.16302083333333334" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score.xml" value="0.1578125" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_soal_angka.xml" value="0.14635416666666667" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/item_grid_quiz.xml" value="0.25416666666666665" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/grid_level_angka.xml" value="0.23007246376811594" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/item_grid_quiz.xml" value="0.1" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/test.xml" value="0.23007246376811594" />
         <entry key="..\:/TA/welearn/app/src/main/res/menu/menu_bottom.xml" value="0.1484375" />
         <entry key="..\:/TA/welearn/app/src/main/res/menu/menu_soal.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/menu/nav_drawer.xml" value="0.264" />

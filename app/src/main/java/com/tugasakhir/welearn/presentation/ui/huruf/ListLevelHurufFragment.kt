@@ -31,6 +31,10 @@ class ListLevelHurufFragment : Fragment() {
         }
     }
 
+    private fun showGridHuruf(){
+
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

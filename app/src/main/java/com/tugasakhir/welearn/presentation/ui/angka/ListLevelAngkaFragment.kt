@@ -8,10 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
+import com.tugasakhir.welearn.presentation.ui.angka.adapter.ListLevelAngkaAdapter
 
 class ListLevelAngkaFragment : Fragment() {
 
@@ -38,15 +38,14 @@ class ListLevelAngkaFragment : Fragment() {
             startActivity(Intent(requireActivity(), SoalAngkaActivity::class.java))
         }
 
-
-        showGridView()
+        showGridAngka()
     }
 
-    private fun showGridView() {
+    private fun showGridAngka() {
         val Angkaadapter = ListLevelAngkaAdapter()
         Angkaadapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
-            layoutManager = GridLayoutManager(context, 3)
+            layoutManager = GridLayoutManager(context, 2)
 //            layoutManager = LinearLayoutManager(context)
 
             setHasFixedSize(false)
