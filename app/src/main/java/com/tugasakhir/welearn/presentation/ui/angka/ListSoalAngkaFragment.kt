@@ -6,8 +6,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
+import com.tugasakhir.welearn.presentation.ui.angka.adapter.ListSoalAngkaAdapter
 
 
 class ListSoalAngkaFragment : Fragment() {
@@ -29,6 +32,18 @@ class ListSoalAngkaFragment : Fragment() {
 
         binding.soalAngkaBack.setOnClickListener {
             view.findNavController().navigate(R.id.back_level_angka)
+        }
+
+        showGridSoalAngka()
+    }
+
+    private fun showGridSoalAngka() {
+        val soal_angka_adapter = ListSoalAngkaAdapter()
+        soal_angka_adapter.setData(LevelData.listLevel)
+        with(binding.rvSoalAngka) {
+            layoutManager = GridLayoutManager(context, 3)
+            setHasFixedSize(false)
+            adapter = soal_angka_adapter
         }
     }
 

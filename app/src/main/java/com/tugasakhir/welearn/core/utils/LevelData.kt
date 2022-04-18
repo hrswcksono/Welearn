@@ -5,11 +5,11 @@ import com.tugasakhir.welearn.domain.model.Level
 object LevelData {
 
     private val level = arrayOf(
-        1,2,3,4,5
+        0,1,2,3,4,5
     )
 
     private val name = arrayOf(
-        "level 1","level 2","level 3","level 4","level 5"
+        "level 0","level 1","level 2","level 3","level 4","level 5"
     )
 
     val listLevel: ArrayList<Level>

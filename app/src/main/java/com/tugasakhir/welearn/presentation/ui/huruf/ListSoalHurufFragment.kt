@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
+import com.tugasakhir.welearn.presentation.ui.huruf.adapter.ListSoalHurufAdapter
 
 
 class ListSoalHurufFragment : Fragment() {
@@ -30,6 +33,18 @@ class ListSoalHurufFragment : Fragment() {
 
         binding.soalHurufBack.setOnClickListener {
             view.findNavController().navigate(R.id.back_level_huruf)
+        }
+
+        showGridSoalHuruf()
+    }
+
+    private fun showGridSoalHuruf() {
+        val soal_huruf_adapter = ListSoalHurufAdapter()
+        soal_huruf_adapter.setData(LevelData.listLevel)
+        with(binding.rvSoalHuruf) {
+            layoutManager = GridLayoutManager(context, 3)
+            setHasFixedSize(false)
+            adapter = soal_huruf_adapter
         }
     }
 

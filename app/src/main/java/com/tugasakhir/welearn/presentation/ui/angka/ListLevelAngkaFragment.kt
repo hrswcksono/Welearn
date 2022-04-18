@@ -42,14 +42,12 @@ class ListLevelAngkaFragment : Fragment() {
     }
 
     private fun showGridAngka() {
-        val Angkaadapter = ListLevelAngkaAdapter()
-        Angkaadapter.setData(LevelData.listLevel)
+        val angka_adapter = ListLevelAngkaAdapter()
+        angka_adapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
             layoutManager = GridLayoutManager(context, 2)
-//            layoutManager = LinearLayoutManager(context)
-
             setHasFixedSize(false)
-            adapter = Angkaadapter
+            adapter = angka_adapter
         }
     }
 
