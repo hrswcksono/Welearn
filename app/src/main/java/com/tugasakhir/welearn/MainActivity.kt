@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui
+package com.tugasakhir.welearn
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

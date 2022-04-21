@@ -1,11 +1,11 @@
 package com.tugasakhir.welearn.core.data.source.remote
 
 import android.util.Log
+import android.view.View
+import android.widget.Toast
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
-import com.tugasakhir.welearn.core.data.source.remote.response.DetailResponse
-import com.tugasakhir.welearn.core.data.source.remote.response.LoginResponse
-import com.tugasakhir.welearn.core.data.source.remote.response.LogoutResponse
-import com.tugasakhir.welearn.core.data.source.remote.response.RegisterResponse
+import com.tugasakhir.welearn.core.data.source.remote.response.*
+import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,15 +15,18 @@ import java.lang.Exception
 
 class RemoteDataSource (private val apiService: ApiService) {
 
-    fun loginUser(username: String, password: String): Flow<LoginResponse> {
+    fun loginUser(username: String, password: String): Flow<Message> {
         return flow {
             try {
                 val response = apiService.login(username, password)
-                emit(response)
+                if (response.success != null) {
+                    emit(response.message)
+                } else if (response.error != null) {
+                }
             } catch (e: Exception){
                 Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(Dispatchers.IO) as Flow<Message>
     }
 
     fun registerUser(

@@ -19,7 +19,7 @@ object ApiConfig {
 
     fun provideApiService(context: Context): ApiService {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://www.googleapis.com/identitytoolkit/v3/relyingparty/")
+            .baseUrl("https://qwerty534534.loca.lt/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(provideOkHttpClient(context))
             .build()
