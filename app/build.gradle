@@ -76,5 +76,8 @@ dependencies {
     implementation "org.koin:koin-android:$koin_version"
     implementation "org.koin:koin-android-viewmodel:$koin_version"
 
+    implementation 'com.github.ajithvgiri:Canvas-Library:v1.1.1'
 
+//    implementation  'io.ak1:drawbox:1.0.2'
+    implementation 'com.github.imabhishekkumar:CanvasView:1.0'
 }

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
+import com.tugasakhir.welearn.presentation.ui.TestActivity
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {

@@ -25,9 +25,9 @@
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/white_rounded_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/tvScoreHuruf"
-        app:layout_constraintStart_toStartOf="@+id/tvScoreHuruf"
-        app:layout_constraintTop_toBottomOf="@+id/tvScoreHuruf" />
+        app:layout_constraintEnd_toEndOf="@+id/tv1"
+        app:layout_constraintStart_toStartOf="@+id/tv1"
+        app:layout_constraintTop_toBottomOf="@+id/tv1" />
 
     <View
         android:id="@+id/view1"
@@ -55,9 +55,9 @@
         android:layout_height="30dp"
         android:layout_marginTop="5dp"
         android:background="@drawable/white_rounded_rectangle"
-        app:layout_constraintEnd_toEndOf="@+id/tvScoreAngka"
-        app:layout_constraintStart_toStartOf="@+id/tvScoreAngka"
-        app:layout_constraintTop_toBottomOf="@+id/tvScoreAngka" />
+        app:layout_constraintEnd_toEndOf="@+id/tv2"
+        app:layout_constraintStart_toStartOf="@+id/tv2"
+        app:layout_constraintTop_toBottomOf="@+id/tv2" />
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/img_jenis"
@@ -73,7 +73,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvScoreHuruf"
+        android:id="@+id/tv1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -85,7 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tvNama" />
 
     <TextView
-        android:id="@+id/tvScoreAngka"
+        android:id="@+id/tv2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="36dp"
@@ -132,5 +132,30 @@
         app:layout_constraintEnd_toEndOf="@+id/view1"
         app:layout_constraintStart_toStartOf="@+id/view1"
         app:layout_constraintTop_toTopOf="@+id/view1" />
+
+    <TextView
+        android:id="@+id/tvScoreHuruf"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_regular"
+        android:text="0"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view_score_huruf"
+        app:layout_constraintEnd_toEndOf="@+id/view_score_huruf"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="@+id/view_score_huruf"
+        app:layout_constraintTop_toTopOf="@+id/view_score_huruf" />
+
+    <TextView
+        android:id="@+id/tvScoreAngka"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="17sp"
+        android:fontFamily="@font/rubik_regular"
+        android:text="0"
+        app:layout_constraintBottom_toBottomOf="@+id/view_score_huruf2"
+        app:layout_constraintEnd_toEndOf="@+id/view_score_huruf2"
+        app:layout_constraintStart_toStartOf="@+id/view_score_huruf2"
+        app:layout_constraintTop_toTopOf="@+id/view_score_huruf2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

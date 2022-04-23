@@ -27,11 +27,11 @@ interface ApiService {
 
     // logout
     @GET("logout")
-    suspend fun logout(): LogoutResponse
+    suspend fun logout(@Header("Authorization") token: String): LogoutResponse
 
     // detail
     @GET("detail")
-    suspend fun detail(): DetailResponse
+    suspend fun detail(@Header("Authorization") token: String): DetailResponse
 
     // random angka
     @GET("randAngka")

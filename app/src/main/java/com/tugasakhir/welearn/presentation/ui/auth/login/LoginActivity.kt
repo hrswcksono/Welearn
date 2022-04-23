@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
 import kotlinx.coroutines.Dispatchers
@@ -18,6 +19,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,6 +27,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        sessionManager = SharedPreference(this)
 
 //        binding.
 
@@ -47,7 +51,8 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun testLogin(login: Login) {
-//        Toast.makeText(this@LoginActivity, login.token, Toast.LENGTH_LONG).show()
+        sessionManager.saveAuthToken(login.token)
+        Toast.makeText(this@LoginActivity, login.token, Toast.LENGTH_LONG).show()
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }
