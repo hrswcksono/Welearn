@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.huruf
+package com.tugasakhir.welearn.presentation.ui.huruf.soal
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +9,13 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
-import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
-import com.tugasakhir.welearn.presentation.ui.huruf.adapter.ListLevelHurufAdapter
+import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
+import com.tugasakhir.welearn.presentation.ui.huruf.soal.ListSoalHurufAdapter
 
-class ListLevelHurufFragment : Fragment() {
 
-    private var _binding: FragmentListLevelHurufBinding? = null
+class ListSoalHurufFragment : Fragment() {
+
+    private var _binding: FragmentListSoalHurufBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -22,27 +23,27 @@ class ListLevelHurufFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentListLevelHurufBinding.inflate(inflater, container, false)
+        _binding = FragmentListSoalHurufBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.listHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_mode_huruf)
+        binding.soalHurufBack.setOnClickListener {
+            view.findNavController().navigate(R.id.back_level_huruf)
         }
 
-        showGridHuruf()
+        showGridSoalHuruf()
     }
 
-    private fun showGridHuruf(){
-        val huruf_adapter = ListLevelHurufAdapter()
-        huruf_adapter.setData(LevelData.listLevel)
-        with(binding.rvLevelHuruf) {
-            layoutManager = GridLayoutManager(context, 2)
+    private fun showGridSoalHuruf() {
+        val soal_huruf_adapter = ListSoalHurufAdapter()
+        soal_huruf_adapter.setData(LevelData.listLevel)
+        with(binding.rvSoalHuruf) {
+            layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
-            adapter = huruf_adapter
+            adapter = soal_huruf_adapter
         }
     }
 

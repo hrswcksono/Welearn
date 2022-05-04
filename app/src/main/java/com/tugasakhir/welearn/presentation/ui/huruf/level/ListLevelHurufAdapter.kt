@@ -1,14 +1,14 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.adapter
+package com.tugasakhir.welearn.presentation.ui.huruf.level
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.GridSoalHurufBinding
+import com.tugasakhir.welearn.databinding.GridLevelHurufBinding
 import com.tugasakhir.welearn.domain.model.Level
 
-class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewHolder>() {
+class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridViewHolder>() {
 
     private var listData = ArrayList<Level>()
     var onItemClick: ((Level) -> Unit)? = null
@@ -21,11 +21,11 @@ class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewH
     }
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = GridSoalHurufBinding.bind(itemView)
+        private val binding = GridLevelHurufBinding.bind(itemView)
         fun bind(data: Level) {
             with(binding) {
-                idSoalHuruf.text = data.id_level.toString()
-                soalHuruf.text = data.level_soal
+                idJenisGrid.text = data.id_level.toString()
+                jenisSoal.text = data.level_soal
             }
         }
 
@@ -39,7 +39,7 @@ class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewH
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_soal_huruf, parent, false))
+    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_level_huruf, parent, false))
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         val data = listData[position]

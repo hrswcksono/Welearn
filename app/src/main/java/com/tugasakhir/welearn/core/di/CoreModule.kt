@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-// jalankan lt --port 8000 --subdomain qwerty534534
+// jalankan lt --port 8000 --subdomain gfhdgdjsjcbsjcgdjsdjdjs
 val networkModule = module {
     single {
         OkHttpClient.Builder()
@@ -24,7 +24,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("https://qwerty534534.loca.lt/api/v1/")
+            .baseUrl("https://gfhdgdjsjcbsjcgdjsdjdjs.loca.lt/api/v1/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

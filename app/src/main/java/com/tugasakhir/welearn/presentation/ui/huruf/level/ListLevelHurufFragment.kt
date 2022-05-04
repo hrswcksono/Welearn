@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.angka
+package com.tugasakhir.welearn.presentation.ui.huruf.level
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,13 +9,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
-import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
-import com.tugasakhir.welearn.presentation.ui.angka.adapter.ListSoalAngkaAdapter
+import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 
+class ListLevelHurufFragment : Fragment() {
 
-class ListSoalAngkaFragment : Fragment() {
-
-    private var _binding: FragmentListSoalAngkaBinding? = null
+    private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -23,27 +21,27 @@ class ListSoalAngkaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding = FragmentListSoalAngkaBinding.inflate(inflater, container, false)
+        _binding = FragmentListLevelHurufBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.soalAngkaBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_level_angka)
+        binding.listHurufBack.setOnClickListener {
+            view.findNavController().navigate(R.id.back_mode_huruf)
         }
 
-        showGridSoalAngka()
+        showGridHuruf()
     }
 
-    private fun showGridSoalAngka() {
-        val soal_angka_adapter = ListSoalAngkaAdapter()
-        soal_angka_adapter.setData(LevelData.listLevel)
-        with(binding.rvSoalAngka) {
-            layoutManager = GridLayoutManager(context, 3)
+    private fun showGridHuruf(){
+        val huruf_adapter = ListLevelHurufAdapter()
+        huruf_adapter.setData(LevelData.listLevel)
+        with(binding.rvLevelHuruf) {
+            layoutManager = GridLayoutManager(context, 2)
             setHasFixedSize(false)
-            adapter = soal_angka_adapter
+            adapter = huruf_adapter
         }
     }
 

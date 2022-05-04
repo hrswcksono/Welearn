@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.angka
+package com.tugasakhir.welearn.presentation.ui.angka.level
 
 import android.content.Intent
 import android.os.Bundle
@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
-import com.tugasakhir.welearn.presentation.ui.angka.adapter.ListLevelAngkaAdapter
+import com.tugasakhir.welearn.presentation.ui.angka.SoalAngkaActivity
 
 class ListLevelAngkaFragment : Fragment() {
 

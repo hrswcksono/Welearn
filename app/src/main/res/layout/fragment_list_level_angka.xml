@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout4"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.angka.ListLevelAngkaFragment">
+    tools:context=".presentation.ui.angka.level.ListLevelAngkaFragment">
     <ImageView
         android:id="@+id/listAngkaBack"
         android:layout_width="40dp"

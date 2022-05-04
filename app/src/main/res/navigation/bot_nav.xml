@@ -48,7 +48,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_level_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.ListLevelAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.level.ListLevelAngkaFragment"
         android:label="fragment_list_level_angka"
         tools:layout="@layout/fragment_list_level_angka" >
         <action
@@ -60,7 +60,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_soal_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.ListSoalAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.soal.ListSoalAngkaFragment"
         android:label="fragment_list_soal_angka"
         tools:layout="@layout/fragment_list_soal_angka" >
         <action
@@ -69,7 +69,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.ListLevelHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.level.ListLevelHurufFragment"
         android:label="fragment_list_level_huruf"
         tools:layout="@layout/fragment_list_level_huruf" >
         <action
@@ -81,7 +81,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_soal_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.ListSoalHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.soal.ListSoalHurufFragment"
         android:label="fragment_list_soal_huruf"
         tools:layout="@layout/fragment_list_soal_huruf" >
         <action

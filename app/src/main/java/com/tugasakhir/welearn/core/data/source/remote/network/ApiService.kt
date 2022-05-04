@@ -36,24 +36,40 @@ interface ApiService {
     // random angka
     @GET("randAngka")
     suspend fun getRandomAngka(
-        @Path("id") id: String
-    )
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): RandomResponse
 
     // random huruf
     @GET("randHuruf")
     suspend fun getRandomHuruf(
-        @Path("id") id: String
-    )
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): RandomResponse
 
     // soal angka
     @GET("soalAngka")
     suspend fun getSoalAngka(
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
     @GET("soalHuruf")
     suspend fun getSoalHuruf(
-        @Path("id") id: String
+        @Path("id") id: String,
+        @Header("Authorization") token: String
     ): SoalResponse
+
+    // highscore huruf
+    @GET("scoreTHuruf")
+    suspend fun getHighScoreHuruf(
+        @Header("Authorization") token: String
+    ) : HighScoreResponse
+
+    // highscore angka
+    @GET("scoreTAngka")
+    suspend fun getHighScoreAngka(
+        @Header("Authorization") token: String
+    ) : HighScoreResponse
 }

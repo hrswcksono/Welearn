@@ -70,5 +70,47 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
+    fun randAngka(level: String, token: String): Flow<List<MessageItem>> {
+        return flow {
+            try {
+                val response = apiService.getRandomAngka(level, token = "Bearer ${token}")
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 
+    fun randHuruf(level: String, token: String): Flow<List<MessageItem>> {
+        return flow {
+            try {
+                val response = apiService.getRandomHuruf(level, token = "Bearer ${token}")
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun highScoreAngka(token: String): Flow<List<HMessageItem>> {
+        return flow {
+            try {
+                val response = apiService.getHighScoreAngka(token = "Bearer ${token}")
+                emit(response.message)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun highScoreHuruf(token: String): Flow<List<HMessageItem>> {
+        return flow {
+            try {
+                val response = apiService.getHighScoreAngka(token = "Bearer ${token}")
+                emit(response.message)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
 }
