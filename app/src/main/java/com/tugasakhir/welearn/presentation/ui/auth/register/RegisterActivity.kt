@@ -12,5 +12,15 @@ class RegisterActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        supportActionBar?.hide()
+    }
+
+    private fun register(){
+        val name = binding.nameRegister.editableText
+        val username = binding.usernameRegister.editableText
+        val email = binding.emailRegister.editableText
+        val jenis_kelamin = binding.jenisKelaminRegister.editableText
+        val password = binding.passwordRegister.editableText
+        val retype_password = binding.retypePasswordRegister.editableText
     }
 }

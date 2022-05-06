@@ -24,4 +24,14 @@
     </style>
 
     <style name="Theme.Welearn.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="Button.Yellow" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@color/main_bg</item>
+    </style>
+
+    <style name="Button.White" parent="ThemeOverlay.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+    </style>
+
+
 </resources>

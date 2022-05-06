@@ -11,23 +11,30 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tFLName"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:hintEnabled="false"
         android:layout_marginTop="100dp"
-        android:hint="@string/nama"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/name_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/nama"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:hintEnabled="false"
         android:layout_marginTop="25dp"
         android:hint="@string/username"
         app:layout_constraintEnd_toEndOf="parent"
@@ -35,8 +42,12 @@
         app:layout_constraintTop_toBottomOf="@+id/tFLName">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/username_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/username"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -44,48 +55,85 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField2"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:hintEnabled="false"
         android:layout_marginTop="25dp"
-        android:hint="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textField">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/email_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/email"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField3"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:hint="@string/password"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField2">
+        app:layout_constraintTop_toBottomOf="@+id/textField4">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/password_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/password"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textField4"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="300dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:hint="@string/JenisKelamin"
+        app:hintEnabled="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textField2">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/jenis_kelamin_register"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/JenisKelamin"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textField5"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        app:hintEnabled="false"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textField3">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/retype_password_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:hint="@string/retypepassword"
+            tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -93,9 +141,10 @@
         android:id="@+id/btn_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="40dp"
         android:text="@string/Register"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField4" />
+        app:layout_constraintTop_toBottomOf="@+id/textField5" />
 </androidx.constraintlayout.widget.ConstraintLayout>

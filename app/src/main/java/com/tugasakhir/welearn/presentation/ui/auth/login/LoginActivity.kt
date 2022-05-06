@@ -9,6 +9,7 @@ import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
+import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -34,6 +35,10 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnLogin.setOnClickListener {
             loginUser()
+        }
+
+        binding.tvReg.setOnClickListener {
+            startActivity(Intent(this, RegisterActivity::class.java))
         }
     }
 

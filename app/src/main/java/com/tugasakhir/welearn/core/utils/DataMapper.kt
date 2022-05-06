@@ -1,10 +1,10 @@
 package com.tugasakhir.welearn.core.utils
 
-import com.tugasakhir.welearn.core.data.source.remote.response.DMessage
-import com.tugasakhir.welearn.core.data.source.remote.response.LoginResponse
-import com.tugasakhir.welearn.core.data.source.remote.response.Message
+import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.model.Login
+import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.domain.model.User
+import com.tugasakhir.welearn.domain.model.UserScore
 
 object DataMapper {
     fun mapperLoginToken(it: Message) = Login(
@@ -18,4 +18,46 @@ object DataMapper {
         score = it.score.toString(),
         angka = it.angka.toString()
     )
+
+    fun mapperRandomSoal(input: List<MessageItem>): List<Soal> {
+        val soalList = ArrayList<Soal>()
+        input.map {
+            val soal = Soal(
+                id_soal = it.idSoal,
+                id_jenis_soal = it.idJenis,
+                id_level = it.idLevel,
+                soal = it.soal,
+                keterangan = it.keterangan,
+                jawaban = it.jawaban
+            )
+            soalList.add(soal)
+        }
+        return soalList
+    }
+
+    fun mapperHighScore(input: List<HMessageItem>): List<UserScore> {
+        val highScoreList = ArrayList<UserScore>()
+        input.map {
+            val highScore = UserScore(
+                name = it.name,
+                total = it.total
+            )
+            highScoreList.add(highScore)
+        }
+        return highScoreList
+    }
+
+    fun mapperRegister(input: RMessage): String {
+        var result: String = ""
+        result = input.token.toString()
+        return result
+    }
+
+    fun mapperLogout(input: LogoutResponse): String {
+        var result: String = ""
+        result = input.success.toString()
+        return result
+    }
+
+
 }

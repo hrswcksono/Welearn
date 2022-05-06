@@ -57,8 +57,6 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-
-
     fun logoutUser(token: String): Flow<LogoutResponse> {
         return flow {
             try {

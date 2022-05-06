@@ -3,6 +3,8 @@
     package="com.tugasakhir.welearn">
     <!-- permissions for INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- receiving broadcast from GCM server -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
         android:name=".MyApplication"
@@ -13,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
+        <service android:name=".core.utils.FirebaseService"
+            android:permission="com.google.android.c2dm.permission.SEND"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+
+        </service>
         <activity
             android:name=".presentation.ui.huruf.SoalHurufActivity"
             android:exported="true"/>
