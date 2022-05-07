@@ -11,8 +11,8 @@ interface WelearnUseCase {
                      email: String,
                      name: String,
                      jenis_kelamin: String): String
-//    fun angkaRandom(level: String, token: String): Flow<ListRandomSoal>
-//    fun hurufRandom(level: String, token: String): Flow<ListRandomSoal>
+    fun angkaRandom(level: Int, token: String): Flow<List<Soal>>
+    fun hurufRandom(level: Int, token: String): Flow<List<Soal>>
 //    fun angkaScore(token: String): Flow<Score>
 //    fun hurufScore(token: String): Flow<Score>
 //    fun angkaHighScore(token: String): Flow<HighScore>

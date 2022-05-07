@@ -66,6 +66,9 @@
         <action
             android:id="@+id/back_level_angka"
             app:destination="@id/list_level_angka_nav" />
+        <argument
+            android:name="id_level"
+            app:argType="integer" />
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"

@@ -12,8 +12,8 @@ interface IWelearnRepository {
                      name: String,
                      jenis_kelamin: String): String
     fun logoutUser(token: String) : String
-    fun randAngka(level: String, token: String): Flow<List<Soal>>
-    fun randHuruf(level: String, token: String): Flow<List<Soal>>
+    fun randAngka(level: Int, token: String): Flow<List<Soal>>
+    fun randHuruf(level: Int, token: String): Flow<List<Soal>>
     fun scoreAngka(token: String): Flow<Score>
     fun scoreHuruf(token: String): Flow<Score>
     fun highScoreAngka(token: String): Flow<List<UserScore>>

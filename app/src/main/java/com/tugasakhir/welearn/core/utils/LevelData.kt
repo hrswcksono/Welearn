@@ -23,4 +23,24 @@ object LevelData {
             }
             return list
         }
+
+    private val levelHuruf = arrayOf(
+        0,1,2,3
+    )
+
+    private val nameLevelHuruf = arrayOf(
+        "level 0","level 1","level 2","level 3"
+    )
+
+    val listLevelHuruf: ArrayList<Level>
+        get() {
+            val list = arrayListOf<Level>()
+            for(position in levelHuruf.indices) {
+                val lvl = Level()
+                lvl.id_level = levelHuruf[position]
+                lvl.level_soal = nameLevelHuruf[position]
+                list.add(lvl)
+            }
+            return list
+        }
 }

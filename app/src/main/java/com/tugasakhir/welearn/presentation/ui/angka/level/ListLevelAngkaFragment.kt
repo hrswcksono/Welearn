@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.presentation.ui.angka.level
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,6 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
-import com.tugasakhir.welearn.presentation.ui.angka.SoalAngkaActivity
 
 class ListLevelAngkaFragment : Fragment() {
 
@@ -34,15 +32,16 @@ class ListLevelAngkaFragment : Fragment() {
             view.findNavController().navigate(R.id.back_mode_angka)
         }
 
-        binding.levelAngka.setOnClickListener{
-            startActivity(Intent(requireActivity(), SoalAngkaActivity::class.java))
-        }
-
         showGridAngka()
     }
 
     private fun showGridAngka() {
         val angka_adapter = ListLevelAngkaAdapter()
+
+        angka_adapter.onItemClick = {
+            view?.findNavController()?.navigate(R.id.to_soal_angka, )
+        }
+
         angka_adapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
             layoutManager = GridLayoutManager(context, 2)

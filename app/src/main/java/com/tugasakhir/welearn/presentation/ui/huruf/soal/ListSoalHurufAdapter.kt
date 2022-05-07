@@ -7,13 +7,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.GridSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Level
+import com.tugasakhir.welearn.domain.model.Soal
 
 class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<Level>()
-    var onItemClick: ((Level) -> Unit)? = null
+    private var listData = ArrayList<Soal>()
+    var onItemClick: ((Soal) -> Unit)? = null
 
-    fun setData(newListData: List<Level>?) {
+    fun setData(newListData: List<Soal>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,10 +23,12 @@ class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewH
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridSoalHurufBinding.bind(itemView)
-        fun bind(data: Level) {
+        var index: Int = 0
+        fun bind(data: Soal) {
             with(binding) {
-                idSoalHuruf.text = data.id_level.toString()
-                soalHuruf.text = data.level_soal
+                idSoalHuruf.text = (absoluteAdapterPosition+1).toString()
+                index = absoluteAdapterPosition +1
+                soalHuruf.text = "Soal $index"
             }
         }
 

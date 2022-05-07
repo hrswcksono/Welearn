@@ -68,7 +68,7 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    fun randAngka(level: String, token: String): Flow<List<MessageItem>> {
+    fun randAngka(level: Int, token: String): Flow<List<MessageItem>> {
         return flow {
             try {
                 val response = apiService.getRandomAngka(level, token = "Bearer ${token}")
@@ -79,7 +79,7 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
-    fun randHuruf(level: String, token: String): Flow<List<MessageItem>> {
+    fun randHuruf(level: Int, token: String): Flow<List<MessageItem>> {
         return flow {
             try {
                 val response = apiService.getRandomHuruf(level, token = "Bearer ${token}")

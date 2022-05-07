@@ -18,4 +18,6 @@
 
     <color name="bot_nav">#a6e475</color>
     <color name="main_bg">#e3ffdf</color>
+
+    <color name="view_soal">#c1feb7</color>
 </resources>

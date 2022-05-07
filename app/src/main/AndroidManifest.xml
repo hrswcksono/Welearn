@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tugasakhir.welearn">
     <!-- permissions for INTERNET -->
-    <uses-permission android:name="android.permission.INTERNET" />
-    <!-- receiving broadcast from GCM server -->
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- receiving broadcast from GCM server -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
     <application
@@ -15,21 +14,38 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
-        <service android:name=".core.utils.FirebaseService"
-            android:permission="com.google.android.c2dm.permission.SEND"
-            android:exported="false">
+        <activity
+            android:name=".presentation.ui.huruf.canvas.HurufLevelTIgaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.huruf.canvas.HurufLevelSatuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.angka.canvas.AngkaLevelTigaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.angka.canvas.AngkaLevelDuaActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.angka.canvas.AngkaLevelSatuActivity"
+            android:exported="false" />
+
+        <service
+            android:name=".core.utils.FirebaseService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
                 <action android:name="com.google.android.c2dm.intent.RECEIVE" />
             </intent-filter>
-
         </service>
+
         <activity
-            android:name=".presentation.ui.huruf.SoalHurufActivity"
-            android:exported="true"/>
+            android:name=".presentation.ui.huruf.canvas.HurufLevelNolActivity"
+            android:exported="true" />
         <activity
-            android:name=".presentation.ui.angka.SoalAngkaActivity"
-            android:exported="true"/>
+            android:name=".presentation.ui.angka.canvas.AngkaLevelNolActivity"
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true" />

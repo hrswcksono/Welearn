@@ -9,7 +9,7 @@
     tools:context=".presentation.ui.angka.ModeAngkaFragment">
 
     <TextView
-        android:id="@+id/level_angka"
+        android:id="@+id/level_angka_ke"
         android:layout_width="195dp"
         android:layout_height="89dp"
         android:layout_marginTop="80dp"
@@ -31,7 +31,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_angka" />
+        app:layout_constraintTop_toBottomOf="@+id/level_angka_ke" />
 
     <ImageView
         android:id="@+id/btn_multi_angka"

@@ -13,7 +13,7 @@ interface ApiService {
 
     // login
     @FormUrlEncoded
-    @POST("$BASE_URL_API/login")
+    @POST("login")
     suspend fun login(
         @Field("username") username: String,
         @Field("password") password: String
@@ -21,7 +21,7 @@ interface ApiService {
 
     // register
     @FormUrlEncoded
-    @POST("$BASE_URL_API/register")
+    @POST("register")
     suspend fun register(
         @Field("username") username: String,
         @Field("password") password: String,
@@ -31,49 +31,63 @@ interface ApiService {
     ): RegisterResponse
 
     // logout
-    @GET("$BASE_URL_API/logout")
+    @GET("logout")
     suspend fun logout(@Header("Authorization") token: String): LogoutResponse
 
     // detail
-    @GET("$BASE_URL_API/detail")
+    @GET("detail")
     suspend fun detail(@Header("Authorization") token: String): DetailResponse
 
     // random angka
-    @GET("$BASE_URL_API/randAngka")
+    @GET("randAngka/{id}")
     suspend fun getRandomAngka(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): RandomResponse
 
     // random huruf
-    @GET("$BASE_URL_API/randHuruf")
+    @GET("randHuruf/{id}")
     suspend fun getRandomHuruf(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): RandomResponse
 
     // soal angka
-    @GET("$BASE_URL_API/soalAngka")
+    @GET("soalAngka")
     suspend fun getSoalAngka(
         @Path("id") id: String,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
-    @GET("s$BASE_URL_API/oalHuruf")
+    @GET("soalHuruf")
     suspend fun getSoalHuruf(
         @Path("id") id: String,
         @Header("Authorization") token: String
     ): SoalResponse
 
+    // soal angka
+    @GET("soalAngkabyID")
+    suspend fun getSoalAngkabyID(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): SoalResponse
+
+    // soal huruf
+    @GET("soalHurufbyID")
+    suspend fun getSoalHurufbyID(
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): SoalResponse
+
     // highscore huruf
-    @GET("$BASE_URL_API/scoreTHuruf")
+    @GET("scoreTHuruf")
     suspend fun getHighScoreHuruf(
         @Header("Authorization") token: String
     ) : HighScoreResponse
 
     // highscore angka
-    @GET("$BASE_URL_API/scoreTAngka")
+    @GET("scoreTAngka")
     suspend fun getHighScoreAngka(
         @Header("Authorization") token: String
     ) : HighScoreResponse
