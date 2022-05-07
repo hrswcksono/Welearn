@@ -13,6 +13,7 @@ import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
+import com.tugasakhir.welearn.presentation.ui.angka.soal.ListSoalAngkaFragmentDirections
 import com.tugasakhir.welearn.presentation.ui.angka.soal.ListSoalAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -50,10 +51,10 @@ class ListLevelHurufFragment : Fragment() {
     private fun showGridHuruf(){
         val huruf_adapter = ListLevelHurufAdapter()
 
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-//                viewModel.randomAngka()
-            }
+        huruf_adapter.onItemClick = {
+            val toSoalHuruf = ListLevelHurufFragmentDirections.toSoalHuruf()
+            toSoalHuruf.idLevel = it.id_level
+            view?.findNavController()?.navigate(toSoalHuruf)
         }
 
         huruf_adapter.setData(LevelData.listLevelHuruf)

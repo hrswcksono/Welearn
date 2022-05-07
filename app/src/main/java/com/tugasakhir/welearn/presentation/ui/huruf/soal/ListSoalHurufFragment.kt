@@ -52,9 +52,11 @@ class ListSoalHurufFragment : Fragment() {
     private fun showGridSoalHuruf() {
         val soal_huruf_adapter = ListSoalHurufAdapter()
 
+        val levelHuruf = ListSoalHurufFragmentArgs.fromBundle(arguments as Bundle).idLevel
+
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomHuruf(1, sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.randomHuruf(levelHuruf, sessionManager.fetchAuthToken().toString()).collectLatest {
                     soal_huruf_adapter.setData(it)
                 }
             }

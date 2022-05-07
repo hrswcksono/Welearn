@@ -39,7 +39,9 @@ class ListLevelAngkaFragment : Fragment() {
         val angka_adapter = ListLevelAngkaAdapter()
 
         angka_adapter.onItemClick = {
-            view?.findNavController()?.navigate(R.id.to_soal_angka, )
+            val toSoalAngka = ListLevelAngkaFragmentDirections.toSoalAngka()
+            toSoalAngka.idLevel = it.id_level
+            view?.findNavController()?.navigate(toSoalAngka)
         }
 
         angka_adapter.setData(LevelData.listLevel)

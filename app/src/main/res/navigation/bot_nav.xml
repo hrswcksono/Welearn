@@ -56,7 +56,11 @@
             app:destination="@id/mode_angka_nav" />
         <action
             android:id="@+id/to_soal_angka"
-            app:destination="@id/list_soal_angka_nav" />
+            app:destination="@id/list_soal_angka_nav" >
+            <argument
+                android:name="id_level"
+                android:defaultValue="0" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/list_soal_angka_nav"
@@ -68,7 +72,8 @@
             app:destination="@id/list_level_angka_nav" />
         <argument
             android:name="id_level"
-            app:argType="integer" />
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"
@@ -80,7 +85,11 @@
             app:destination="@id/mode_huruf_nav" />
         <action
             android:id="@+id/to_soal_huruf"
-            app:destination="@id/list_soal_huruf_nav" />
+            app:destination="@id/list_soal_huruf_nav" >
+            <argument
+                android:name="id_level"
+                android:defaultValue="0" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/list_soal_huruf_nav"
@@ -90,6 +99,10 @@
         <action
             android:id="@+id/back_level_huruf"
             app:destination="@id/list_level_huruf_nav" />
+        <argument
+            android:name="id_level"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 </navigation>

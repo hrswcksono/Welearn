@@ -4,6 +4,7 @@ import com.tugasakhir.welearn.core.data.WelearnRepository
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.utils.AppExecutors
+import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,7 +24,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://e415-125-166-8-30.ngrok.io/api/v1/")
+            .baseUrl("$BASE_URL_API")
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

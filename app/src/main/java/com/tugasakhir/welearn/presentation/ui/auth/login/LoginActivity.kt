@@ -57,7 +57,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun testLogin(login: Login) {
         sessionManager.saveAuthToken(login.token)
-        Toast.makeText(this@LoginActivity, login.token, Toast.LENGTH_LONG).show()
+//        Toast.makeText(this@LoginActivity, login.token, Toast.LENGTH_LONG).show()
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }

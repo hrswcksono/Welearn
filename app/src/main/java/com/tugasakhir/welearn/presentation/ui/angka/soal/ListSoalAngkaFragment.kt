@@ -55,9 +55,11 @@ class ListSoalAngkaFragment : Fragment() {
     private fun showGridSoalAngka() {
         val soal_angka_adapter = ListSoalAngkaAdapter()
 
+        val levelAngka = ListSoalAngkaFragmentArgs.fromBundle(arguments as Bundle).idLevel
+
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomAngka(1, sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.randomAngka(levelAngka, sessionManager.fetchAuthToken().toString()).collectLatest {
                     soal_angka_adapter.setData(it)
                 }
             }
