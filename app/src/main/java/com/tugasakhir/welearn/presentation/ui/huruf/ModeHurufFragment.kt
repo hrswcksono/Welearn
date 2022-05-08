@@ -27,11 +27,11 @@ class ModeHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSingleHuruf.setOnClickListener {
-            view.findNavController().navigate(R.id.to_level_huruf)
+            view.findNavController().navigate(ModeHurufFragmentDirections.toLevelHuruf())
         }
 
         binding.modeHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_to_home_mode_huruf)
+            view.findNavController().navigate(ModeHurufFragmentDirections.backToHomeModeHuruf())
         }
     }
 

@@ -29,7 +29,7 @@ class ListLevelAngkaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.listAngkaBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_mode_angka)
+            view.findNavController().navigate(ListLevelAngkaFragmentDirections.backModeAngka())
         }
 
         showGridAngka()

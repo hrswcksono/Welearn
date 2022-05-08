@@ -8,12 +8,16 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
+import com.tugasakhir.welearn.domain.model.Soal
 import dev.abhishekkumar.canvasview.CanvasView
 
 class AngkaLevelNolActivity : AppCompatActivity() {
 
+    companion object {
+        const val EXTRA_SOAL = "extra_soal"
+    }
+
     private lateinit var binding: ActivityAngkaLevelNolBinding
-//    private lateinit var navView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,18 +26,21 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-//        navView = binding.navViewAngka
-//
-//        val navController = findNavController(R.id.nav_host_angka)
-//
-//        navView.setupWithNavController(navController)
+        val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
 
-//        binding.level1AngkaBack.setOnClickListener {
-//            activity.onBackPressed()
-//        }
+        show(data)
+
+        binding.levelNolAngkaBack.setOnClickListener {
+            onBackPressed()
+        }
 
         drawOne()
         drawTwo()
+    }
+
+    private fun show(data: Soal){
+        binding.soalAngkaDipilih.setText(data.keterangan)
+        binding.levelAngkaKe.setText("Level ke ${data.id_level}")
     }
 
     private fun drawOne(){

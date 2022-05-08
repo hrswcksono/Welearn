@@ -26,11 +26,11 @@ class ModeAngkaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.btnSingleAngka.setOnClickListener {
-            view.findNavController().navigate(R.id.to_level_angka)
+            view.findNavController().navigate(ModeAngkaFragmentDirections.toLevelAngka())
         }
 
         binding.modeAngkaBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_to_home_mode_angka)
+            view.findNavController().navigate(ModeAngkaFragmentDirections.backToHomeModeAngka())
         }
     }
 

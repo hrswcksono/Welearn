@@ -40,7 +40,7 @@ class ListLevelHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.listHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_mode_huruf)
+            view.findNavController().navigate(ListLevelHurufFragmentDirections.backModeHuruf())
         }
 
         sessionManager = SharedPreference(requireContext())

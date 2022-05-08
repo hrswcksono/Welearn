@@ -16,7 +16,11 @@ import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
+import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,7 +48,7 @@ class ListSoalAngkaFragment : Fragment() {
 
 
         binding.soalAngkaBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_level_angka)
+            view.findNavController().navigate(ListSoalAngkaFragmentDirections.backLevelAngka())
         }
 
         sessionManager = SharedPreference(requireContext())
@@ -66,13 +70,38 @@ class ListSoalAngkaFragment : Fragment() {
         }
 
         soal_angka_adapter.onItemClick = {
-            startActivity(Intent(activity, AngkaLevelNolActivity::class.java))
+            moveDrawingActivity(it)
         }
 
         with(binding.rvSoalAngka) {
             layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
             adapter = soal_angka_adapter
+        }
+    }
+
+    private fun moveDrawingActivity(soal: Soal) {
+        when(soal.id_level){
+            0 -> {
+                val moveToLevelNolActivity = Intent(activity, AngkaLevelNolActivity::class.java)
+                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelNolActivity)
+            }
+            1 -> {
+                val moveToLevelSatuActivity = Intent(activity, AngkaLevelSatuActivity::class.java)
+                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelSatuActivity)
+            }
+            2 -> {
+                val moveToLevelDuaActivity = Intent(activity, AngkaLevelDuaActivity::class.java)
+                moveToLevelDuaActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelDuaActivity)
+            }
+            3 -> {
+                val moveToLevelTigaActivity = Intent(activity, AngkaLevelTigaActivity::class.java)
+                moveToLevelTigaActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelTigaActivity)
+            }
         }
     }
 

@@ -25,10 +25,10 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnAngka.setOnClickListener {
-            view.findNavController().navigate(R.id.to_mode_angka)
+            view.findNavController().navigate(HomeFragmentDirections.toModeAngka())
         }
         binding.btnHuruf.setOnClickListener {
-            view.findNavController().navigate(R.id.to_mode_huruf)
+            view.findNavController().navigate(HomeFragmentDirections.toModeHuruf())
         }
     }
 

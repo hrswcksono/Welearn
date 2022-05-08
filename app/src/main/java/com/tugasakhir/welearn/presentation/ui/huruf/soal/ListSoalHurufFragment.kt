@@ -13,7 +13,15 @@ import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
+import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTIgaActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,7 +49,7 @@ class ListSoalHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.soalHurufBack.setOnClickListener {
-            view.findNavController().navigate(R.id.back_level_huruf)
+            view.findNavController().navigate(ListSoalHurufFragmentDirections.backLevelHuruf())
         }
 
         sessionManager = SharedPreference(requireContext())
@@ -63,14 +71,38 @@ class ListSoalHurufFragment : Fragment() {
         }
 
         soal_huruf_adapter.onItemClick = {
-            startActivity(Intent(activity, HurufLevelNolActivity::class.java))
+            moveDrawingActivity(it)
         }
 
-//        soal_huruf_adapter.setData(LevelData.listLevel)
         with(binding.rvSoalHuruf) {
             layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
             adapter = soal_huruf_adapter
+        }
+    }
+
+    private fun moveDrawingActivity(soal: Soal) {
+        when(soal.id_level){
+            0 -> {
+                val moveToLevelNolActivity = Intent(activity, HurufLevelNolActivity::class.java)
+                moveToLevelNolActivity.putExtra(HurufLevelNolActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelNolActivity)
+            }
+            1 -> {
+                val moveToLevelSatuActivity = Intent(activity, HurufLevelSatuActivity::class.java)
+                moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelSatuActivity)
+            }
+            2 -> {
+                val moveToLevelDuaActivity = Intent(activity, HurufLevelDuaActivity::class.java)
+                moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelDuaActivity)
+            }
+            3 -> {
+                val moveToLevelTigaActivity = Intent(activity, HurufLevelTIgaActivity::class.java)
+                moveToLevelTigaActivity.putExtra(HurufLevelTIgaActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelTigaActivity)
+            }
         }
     }
 
