@@ -35,25 +35,19 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         }
 
         drawOne()
-        drawTwo()
     }
 
     private fun show(data: Soal){
         binding.soalAngkaDipilih.setText(data.keterangan)
         binding.levelAngkaKe.setText("Level ke ${data.id_level}")
+        binding.tvSoal.setText(data.soal)
     }
 
     private fun drawOne(){
-        val canvasView = findViewById<CanvasView>(R.id.canvasView)
+        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelNolAngka)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
     }
 
-    private fun drawTwo(){
-        val canvasView = findViewById<CanvasView>(R.id.canvasView1)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-    }
 }

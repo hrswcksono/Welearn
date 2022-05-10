@@ -10,7 +10,8 @@ interface WelearnUseCase {
                      password: String,
                      email: String,
                      name: String,
-                     jenis_kelamin: String): String
+                     jenis_kelamin: String): Flow<String>
+    fun userLogout(token: String): Flow<String>
     fun angkaRandom(level: Int, token: String): Flow<List<Soal>>
     fun hurufRandom(level: Int, token: String): Flow<List<Soal>>
 //    fun angkaScore(token: String): Flow<Score>

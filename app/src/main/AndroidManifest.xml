@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.angka.canvas.AngkaLevelEmpatActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.huruf.canvas.HurufLevelTIgaActivity"
             android:exported="false" />
         <activity
@@ -42,6 +45,9 @@
 
         <activity
             android:name=".presentation.ui.huruf.canvas.HurufLevelNolActivity"
+            android:exported="true" />
+        <activity
+            android:name=".presentation.ui.huruf.canvas.HurufLevelDuaActivity"
             android:exported="true" />
         <activity
             android:name=".presentation.ui.angka.canvas.AngkaLevelNolActivity"

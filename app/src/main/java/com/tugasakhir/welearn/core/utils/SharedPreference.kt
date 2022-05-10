@@ -9,6 +9,8 @@ class SharedPreference (context: Context) {
 
     companion object {
         const val USER_TOKEN = "user_token"
+        const val SUBSCRIBE_FCM = "subscribe_fcm"
+        const val SUBSCRIBE_NEW_FCM = "subscribe_new_fcm"
     }
 
     /**
@@ -25,5 +27,15 @@ class SharedPreference (context: Context) {
      */
     fun fetchAuthToken(): String? {
         return prefs.getString(USER_TOKEN, null)
+    }
+
+    fun newTokenFCM(string: String){
+        val token = prefs.edit()
+        token.putString(SUBSCRIBE_NEW_FCM, string)
+        token.apply()
+    }
+
+    fun fetchTokenFCM(): String? {
+        return prefs.getString(SUBSCRIBE_NEW_FCM, null)
     }
 }

@@ -20,4 +20,6 @@
     <color name="main_bg">#e3ffdf</color>
 
     <color name="view_soal">#c1feb7</color>
+
+    <color name="btn_logout">#0efc16</color>
 </resources>

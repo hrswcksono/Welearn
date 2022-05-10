@@ -9,15 +9,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
@@ -27,7 +21,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
-
 
 class ListSoalHurufFragment : Fragment() {
 
@@ -40,7 +33,6 @@ class ListSoalHurufFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         _binding = FragmentListSoalHurufBinding.inflate(inflater, container, false)
         return binding.root
     }

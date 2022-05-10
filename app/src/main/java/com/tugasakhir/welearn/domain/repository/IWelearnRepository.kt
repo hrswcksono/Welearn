@@ -10,8 +10,8 @@ interface IWelearnRepository {
                      password: String,
                      email: String,
                      name: String,
-                     jenis_kelamin: String): String
-    fun logoutUser(token: String) : String
+                     jenis_kelamin: String): Flow<String>
+    fun logoutUser(token: String) : Flow<String>
     fun randAngka(level: Int, token: String): Flow<List<Soal>>
     fun randHuruf(level: Int, token: String): Flow<List<Soal>>
     fun scoreAngka(token: String): Flow<Score>

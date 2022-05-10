@@ -7,15 +7,23 @@ import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 import kotlinx.coroutines.flow.Flow
 
 class WelearnInteractor(private val welearnRepository: IWelearnRepository): WelearnUseCase {
-    override fun userLogin(username: String, password: String): Flow<Login> = welearnRepository.loginUser(username, password)
-    override fun userDetail(token: String): Flow<User> = welearnRepository.detailUser(token)
+    override fun userLogin(username: String, password: String): Flow<Login> =
+        welearnRepository.loginUser(username, password)
+
+    override fun userDetail(token: String): Flow<User> =
+        welearnRepository.detailUser(token)
+
     override fun userRegister(
         username: String,
         password: String,
         email: String,
         name: String,
         jenis_kelamin: String
-    ) : String = welearnRepository.registerUser(username, password, email, name, jenis_kelamin)
+    ) : Flow<String> =
+        welearnRepository.registerUser(username, password, email, name, jenis_kelamin)
+
+    override fun userLogout(token: String): Flow<String> =
+        welearnRepository.logoutUser(token)
 
     override fun angkaRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randAngka(level, token)
     override fun hurufRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randHuruf(level, token)

@@ -20,11 +20,12 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         email: String,
         name: String,
         jenis_kelamin: String
-    ) : String = TODO("Not yet implemented")
+    ) : Flow<String> = remoteDataSource.registerUser(username, password, email, name, jenis_kelamin).map {
+        DataMapper.mapperRegister(it)
+    }
 
-
-    override fun logoutUser(token: String): String = TODO("Not yet implemented")
-//        remoteDataSource.logoutUser(token)
+    override fun logoutUser(token: String): Flow<String> =
+        remoteDataSource.logoutUser(token).map { DataMapper.mapperLogout(it) }
 
     override fun randAngka(level: Int, token: String): Flow<List<Soal>> =
         remoteDataSource.randAngka(level,token).map { DataMapper.mapperRandomSoal(it) }

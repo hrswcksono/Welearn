@@ -3,7 +3,6 @@ package com.tugasakhir.welearn.core.data.source.remote
 import android.util.Log
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.data.source.remote.response.*
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow

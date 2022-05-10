@@ -47,15 +47,15 @@ object DataMapper {
         return highScoreList
     }
 
-    fun mapperRegister(input: RMessage): String {
+    fun mapperRegister(input: RegisterResponse): String {
         var result: String = ""
-        result = input.token.toString()
+        result = input.success.toString()
         return result
     }
 
     fun mapperLogout(input: LogoutResponse): String {
         var result: String = ""
-        result = input.success.toString()
+        result = input.message.toString()
         return result
     }
 

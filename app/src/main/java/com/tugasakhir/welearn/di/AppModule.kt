@@ -4,6 +4,8 @@ import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import com.tugasakhir.welearn.presentation.ui.angka.soal.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginViewModel
+import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterViewModel
+import com.tugasakhir.welearn.presentation.ui.home.LogoutViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.soal.ListSoalHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.profile.ProfileViewModel
 import org.koin.android.viewmodel.dsl.viewModel
@@ -18,4 +20,6 @@ val viewModelModule = module {
     viewModel { ProfileViewModel(get()) }
     viewModel { ListSoalAngkaViewModel(get()) }
     viewModel { ListSoalHurufViewModel(get()) }
+    viewModel { LogoutViewModel(get()) }
+    viewModel { RegisterViewModel(get()) }
 }
