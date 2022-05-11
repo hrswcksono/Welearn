@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.domain.usecase
 import com.tugasakhir.welearn.domain.model.Login
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.domain.model.User
+import com.tugasakhir.welearn.domain.model.UserScore
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -27,5 +28,10 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun angkaRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randAngka(level, token)
     override fun hurufRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randHuruf(level, token)
+    override fun angkaHighScore(token: String): Flow<List<UserScore>> =
+        welearnRepository.highScoreAngka(token)
+
+    override fun hurufHighScore(token: String): Flow<List<UserScore>> =
+        welearnRepository.highScoreHuruf(token)
 
 }

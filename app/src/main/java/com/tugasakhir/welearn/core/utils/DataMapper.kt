@@ -1,10 +1,7 @@
 package com.tugasakhir.welearn.core.utils
 
 import com.tugasakhir.welearn.core.data.source.remote.response.*
-import com.tugasakhir.welearn.domain.model.Login
-import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.domain.model.User
-import com.tugasakhir.welearn.domain.model.UserScore
+import com.tugasakhir.welearn.domain.model.*
 
 object DataMapper {
     fun mapperLoginToken(it: Message) = Login(

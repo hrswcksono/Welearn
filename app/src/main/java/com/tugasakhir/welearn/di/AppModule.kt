@@ -8,6 +8,8 @@ import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterViewModel
 import com.tugasakhir.welearn.presentation.ui.home.LogoutViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.soal.ListSoalHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.profile.ProfileViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ScoreHurufViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -22,4 +24,6 @@ val viewModelModule = module {
     viewModel { ListSoalHurufViewModel(get()) }
     viewModel { LogoutViewModel(get()) }
     viewModel { RegisterViewModel(get()) }
+    viewModel { ScoreAngkaViewModel(get()) }
+    viewModel { ScoreHurufViewModel(get()) }
 }

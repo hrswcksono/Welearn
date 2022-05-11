@@ -16,6 +16,6 @@ interface WelearnUseCase {
     fun hurufRandom(level: Int, token: String): Flow<List<Soal>>
 //    fun angkaScore(token: String): Flow<Score>
 //    fun hurufScore(token: String): Flow<Score>
-//    fun angkaHighScore(token: String): Flow<HighScore>
-//    fun hurufHighScore(token: String): Flow<HighScore>
+    fun angkaHighScore(token: String): Flow<List<UserScore>>
+    fun hurufHighScore(token: String): Flow<List<UserScore>>
 }
