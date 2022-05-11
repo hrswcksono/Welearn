@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.score.ScoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.angka.canvas.AngkaLevelEmpatActivity"
             android:exported="false" />
         <activity

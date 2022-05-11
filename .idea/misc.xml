@@ -32,6 +32,7 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_login.xml" value="0.23854166666666668" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_main.xml" value="0.1578125" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_register.xml" value="0.264" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_score.xml" value="0.18385416666666668" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_soal_angka.xml" value="0.22488038277511962" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_soal_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
@@ -51,6 +52,8 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_quiz.xml" value="0.16302083333333334" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_rank.xml" value="0.16302083333333334" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score.xml" value="0.1578125" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_angka.xml" value="0.4" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_huruf.xml" value="0.18385416666666668" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_soal_angka.xml" value="0.14635416666666667" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/grid_level_angka.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/grid_level_huruf.xml" value="0.264" />
@@ -58,6 +61,8 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/grid_soal_huruf.xml" value="0.4" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/item_grid_quiz.xml" value="0.1" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/item_list_player.xml" value="0.4" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/item_score_angka.xml" value="0.264" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/item_score_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/list_player.xml" value="0.1" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/test.xml" value="0.23007246376811594" />

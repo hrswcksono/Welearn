@@ -8,6 +8,7 @@ import android.os.Looper
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
+import com.tugasakhir.welearn.presentation.ui.score.ScoreActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 
@@ -21,7 +22,7 @@ class SplashScreenActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         Handler(Looper.getMainLooper()).postDelayed({
-            startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
+            startActivity(Intent(this@SplashScreenActivity, ScoreActivity::class.java))
             finish()
         }, 3000)
 
