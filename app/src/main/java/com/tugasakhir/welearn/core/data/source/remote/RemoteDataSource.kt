@@ -115,7 +115,7 @@ class RemoteDataSource (private val apiService: ApiService) {
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse> {
         return flow {
             try {
-                val response = apiService.postNotification("$FCM_BASE_URL", body)
+                val response = apiService.postNotification(FCM_BASE_URL, body)
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
