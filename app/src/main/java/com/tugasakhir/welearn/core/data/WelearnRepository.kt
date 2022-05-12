@@ -47,5 +47,4 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     override fun highScoreHuruf(token: String): Flow<List<UserScore>> =
         remoteDataSource.highScoreHuruf(token).map { DataMapper.mapperHighScore(it) }
 
-
 }

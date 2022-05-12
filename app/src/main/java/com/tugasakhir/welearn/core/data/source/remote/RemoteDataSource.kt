@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.core.data.source.remote
 import android.util.Log
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.data.source.remote.response.*
+import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -105,6 +106,17 @@ class RemoteDataSource (private val apiService: ApiService) {
             try {
                 val response = apiService.getHighScoreAngka(token = "Bearer ${token}")
                 emit(response.message)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+    }
+
+    fun pushNotification(body: PushNotification): Flow<PushNotificationResponse> {
+        return flow {
+            try {
+                val response = apiService.postNotification("$FCM_BASE_URL", body)
+                emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }

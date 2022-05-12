@@ -1,16 +1,13 @@
 package com.tugasakhir.welearn.core.data.source.remote.network
 
 import com.tugasakhir.welearn.core.data.source.remote.response.*
-import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
 import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
-import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-
     // login
     @FormUrlEncoded
     @POST("login")
@@ -94,8 +91,9 @@ interface ApiService {
 
     @Headers("Authorization: key=$SERVER_KEY",
         "Content-Type:$CONTENT_TYPE")
-    @POST("$FCM_BASE_URL/fcm/send")
+    @POST
     suspend fun postNotification(
+        @Url url: String,
         @Body notification: PushNotification
-    ): Response<ResponseBody>
+    ): PushNotificationResponse
 }
