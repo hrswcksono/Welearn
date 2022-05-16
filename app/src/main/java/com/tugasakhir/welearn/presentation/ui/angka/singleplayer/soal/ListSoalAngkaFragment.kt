@@ -13,10 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuActivity
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaActivity
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -97,6 +94,11 @@ class ListSoalAngkaFragment : Fragment() {
                 val moveToLevelTigaActivity = Intent(activity, AngkaLevelTigaActivity::class.java)
                 moveToLevelTigaActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal)
                 startActivity(moveToLevelTigaActivity)
+            }
+            4 -> {
+                val moveToLevelEmpatActivity = Intent(activity, AngkaLevelEmpatActivity::class.java)
+                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, soal)
+                startActivity(moveToLevelEmpatActivity)
             }
         }
     }

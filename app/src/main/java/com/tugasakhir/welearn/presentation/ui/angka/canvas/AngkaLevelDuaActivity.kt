@@ -1,8 +1,10 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.util.Base64
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
@@ -12,6 +14,7 @@ import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import java.io.ByteArrayOutputStream
 
 class AngkaLevelDuaActivity : AppCompatActivity() {
 
@@ -47,9 +50,9 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
     }
 
     private fun show(data: Soal){
-        binding.soalAngkaDipilih.setText(data.keterangan)
-        binding.levelAngkaKe.setText("Level ke ${data.id_level}")
-        binding.tvSoalAngkaDua.setText(data.soal)
+        binding.soalAngkaDipilih.text = data.keterangan
+        binding.levelAngkaKe.text = "Level ke ${data.id_level}"
+        binding.tvSoalAngkaDua.text = data.soal
     }
 
     private fun speak(string: String) {
@@ -62,8 +65,15 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         googleCloudTTS.start(string);
     }
 
+    private fun encodeImage(bm: Bitmap): String? {
+        val imgBitmap = ByteArrayOutputStream()
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, imgBitmap)
+        val b = imgBitmap.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+
     private fun drawOne(){
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelSatuHuruf)
+        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaAngka)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)

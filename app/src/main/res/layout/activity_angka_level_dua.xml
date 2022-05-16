@@ -109,7 +109,7 @@
         app:layout_constraintTop_toTopOf="@+id/view2" />
 
     <dev.abhishekkumar.canvasview.CanvasView
-        android:id="@+id/cnvsLevelSatuHuruf"
+        android:id="@+id/cnvsLevelDuaAngka"
         android:layout_width="230dp"
         android:layout_height="230dp"
         android:layout_marginTop="30dp"
