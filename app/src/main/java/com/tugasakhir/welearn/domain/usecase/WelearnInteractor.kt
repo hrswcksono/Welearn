@@ -28,6 +28,18 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun angkaRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randAngka(level, token)
     override fun hurufRandom(level: Int, token: String): Flow<List<Soal>> = welearnRepository.randHuruf(level, token)
+
+    override fun soalMultiplayerAngka(level: Int, token: String): Flow<Soal> =
+        welearnRepository.soalAngkaMultiplayer(level, token)
+    override fun soalMultiplayerHuruf(level: Int, token: String): Flow<Soal> =
+        welearnRepository.soalHurufMultiplayer(level, token)
+
+    override fun getSoalAngkaByID(id: Int, token: String): Flow<Soal> =
+        welearnRepository.soalAngkaByID(id, token)
+
+    override fun getSoalHurufByID(id: Int, token: String): Flow<Soal> =
+        welearnRepository.soalHurufByID(id, token)
+
     override fun angkaHighScore(token: String): Flow<List<UserScore>> =
         welearnRepository.highScoreAngka(token)
 

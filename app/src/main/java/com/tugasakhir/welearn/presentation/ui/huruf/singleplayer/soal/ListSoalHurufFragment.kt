@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.soal
+package com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal
 
 import android.content.Intent
 import android.os.Bundle
@@ -8,14 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTIgaActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -50,26 +49,26 @@ class ListSoalHurufFragment : Fragment() {
     }
 
     private fun showGridSoalHuruf() {
-        val soal_huruf_adapter = ListSoalHurufAdapter()
+        val soalHurufAdapter = ListSoalHurufAdapter()
 
         val levelHuruf = ListSoalHurufFragmentArgs.fromBundle(arguments as Bundle).idLevel
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.randomHuruf(levelHuruf, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    soal_huruf_adapter.setData(it)
+                    soalHurufAdapter.setData(it)
                 }
             }
         }
 
-        soal_huruf_adapter.onItemClick = {
+        soalHurufAdapter.onItemClick = {
             moveDrawingActivity(it)
         }
 
         with(binding.rvSoalHuruf) {
             layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
-            adapter = soal_huruf_adapter
+            adapter = soalHurufAdapter
         }
     }
 
@@ -91,8 +90,8 @@ class ListSoalHurufFragment : Fragment() {
                 startActivity(moveToLevelDuaActivity)
             }
             3 -> {
-                val moveToLevelTigaActivity = Intent(activity, HurufLevelTIgaActivity::class.java)
-                moveToLevelTigaActivity.putExtra(HurufLevelTIgaActivity.EXTRA_SOAL, soal)
+                val moveToLevelTigaActivity = Intent(activity, HurufLevelTigaActivity::class.java)
+                moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.EXTRA_SOAL, soal)
                 startActivity(moveToLevelTigaActivity)
             }
         }

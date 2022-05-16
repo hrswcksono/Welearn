@@ -14,6 +14,10 @@ interface IWelearnRepository {
     fun logoutUser(token: String) : Flow<String>
     fun randAngka(level: Int, token: String): Flow<List<Soal>>
     fun randHuruf(level: Int, token: String): Flow<List<Soal>>
+    fun soalAngkaMultiplayer(level: Int, token: String): Flow<Soal>
+    fun soalHurufMultiplayer(level: Int, token: String): Flow<Soal>
+    fun soalAngkaByID(id:Int, token: String): Flow<Soal>
+    fun soalHurufByID(id: Int, token: String): Flow<Soal>
     fun scoreAngka(token: String): Flow<Score>
     fun scoreHuruf(token: String): Flow<Score>
     fun highScoreAngka(token: String): Flow<List<UserScore>>

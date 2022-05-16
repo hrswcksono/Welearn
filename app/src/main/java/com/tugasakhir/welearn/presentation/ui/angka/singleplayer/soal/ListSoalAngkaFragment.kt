@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.angka.soal
+package com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,14 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal

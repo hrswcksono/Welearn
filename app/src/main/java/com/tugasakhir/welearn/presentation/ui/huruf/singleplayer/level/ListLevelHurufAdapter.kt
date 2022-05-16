@@ -1,14 +1,14 @@
-package com.tugasakhir.welearn.presentation.ui.angka.level
+package com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.level
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.GridLevelAngkaBinding
+import com.tugasakhir.welearn.databinding.GridLevelHurufBinding
 import com.tugasakhir.welearn.domain.model.Level
 
-class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridViewHolder>() {
+class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridViewHolder>() {
 
     private var listData = ArrayList<Level>()
     var onItemClick: ((Level) -> Unit)? = null
@@ -21,11 +21,11 @@ class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridVie
     }
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = GridLevelAngkaBinding.bind(itemView)
+        private val binding = GridLevelHurufBinding.bind(itemView)
         fun bind(data: Level) {
             with(binding) {
-                idJenisAngka.text = data.id_level.toString()
-                jenisAngka.text = data.level_soal
+                idJenisGrid.text = data.id_level.toString()
+                jenisSoal.text = data.level_soal
             }
         }
 
@@ -39,7 +39,7 @@ class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridVie
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_level_angka, parent, false))
+    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_level_huruf, parent, false))
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         val data = listData[position]

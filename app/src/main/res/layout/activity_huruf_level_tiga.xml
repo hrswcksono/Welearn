@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    tools:context=".presentation.ui.huruf.canvas.HurufLevelTIgaActivity"
+    tools:context=".presentation.ui.huruf.canvas.HurufLevelTigaActivity"
     tools:ignore="Overdraw">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -77,11 +77,11 @@
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="@+id/view4"
             app:layout_constraintEnd_toEndOf="@+id/view4"
-            app:layout_constraintStart_toEndOf="@+id/imageView4"
+            app:layout_constraintStart_toEndOf="@+id/spk_tiga_huruf"
             app:layout_constraintTop_toTopOf="@+id/view4" />
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/spk_tiga_huruf"
             android:layout_width="29dp"
             android:layout_height="0dp"
             android:layout_marginStart="4dp"

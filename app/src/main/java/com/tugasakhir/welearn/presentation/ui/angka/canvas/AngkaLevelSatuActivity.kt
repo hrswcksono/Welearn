@@ -2,9 +2,15 @@ package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import darren.googlecloudtts.GoogleCloudTTSFactory
+import darren.googlecloudtts.parameter.AudioConfig
+import darren.googlecloudtts.parameter.AudioEncoding
+import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
 
 class AngkaLevelSatuActivity : AppCompatActivity() {
@@ -22,6 +28,9 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         binding.levelSatuAngkaBack.setOnClickListener {
             onBackPressed()
         }
@@ -31,12 +40,26 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         show(data)
 
         drawOne()
+
+        binding.spkSatuAngka.setOnClickListener {
+            speak(data.keterangan)
+        }
     }
 
     private fun show(data: Soal){
         binding.soalAngkaDipilih.setText(data.keterangan)
         binding.levelAngkaKe.setText("Level ke ${data.id_level}")
         binding.tvSoalAngkaSatu.setText(data.soal)
+    }
+
+    private fun speak(string: String) {
+        // Set the ApiKey and create GoogleCloudTTS.
+        val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
+        googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
+            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
+
+        // start speak
+        googleCloudTTS.start(string);
     }
 
     private fun drawOne(){

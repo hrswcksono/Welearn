@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.tugasakhir.welearn">
     <!-- permissions for INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- receiving broadcast from GCM server -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+
+    <uses-sdk tools:overrideLibrary="dev.abhishekkumar.canvasview"/>
 
     <application
         android:name=".MyApplication"
@@ -21,7 +24,7 @@
             android:name=".presentation.ui.angka.canvas.AngkaLevelEmpatActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.huruf.canvas.HurufLevelTIgaActivity"
+            android:name=".presentation.ui.huruf.canvas.HurufLevelTigaActivity"
             android:exported="false" />
         <activity
             android:name=".presentation.ui.huruf.canvas.HurufLevelSatuActivity"

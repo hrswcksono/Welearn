@@ -1,19 +1,19 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.level
+package com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.GridLevelHurufBinding
-import com.tugasakhir.welearn.domain.model.Level
+import com.tugasakhir.welearn.databinding.GridSoalAngkaBinding
+import com.tugasakhir.welearn.domain.model.Soal
 
-class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridViewHolder>() {
+class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<Level>()
-    var onItemClick: ((Level) -> Unit)? = null
+    private var listData = ArrayList<Soal>()
+    var onItemClick: ((Soal) -> Unit)? = null
 
-    fun setData(newListData: List<Level>?) {
+    fun setData(newListData: List<Soal>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -21,11 +21,13 @@ class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridVie
     }
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = GridLevelHurufBinding.bind(itemView)
-        fun bind(data: Level) {
+        private val binding = GridSoalAngkaBinding.bind(itemView)
+        var index: Int = 0
+        fun bind(data: Soal) {
             with(binding) {
-                idJenisGrid.text = data.id_level.toString()
-                jenisSoal.text = data.level_soal
+                idSoalAngka.text = (absoluteAdapterPosition+1).toString()
+                index = absoluteAdapterPosition +1
+                soalAngka.text = "Soal $index"
             }
         }
 
@@ -39,7 +41,7 @@ class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridVie
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_level_huruf, parent, false))
+    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_soal_angka, parent, false))
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         val data = listData[position]

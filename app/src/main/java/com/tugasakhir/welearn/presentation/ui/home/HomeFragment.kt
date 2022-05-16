@@ -5,15 +5,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
-import com.tugasakhir.welearn.presentation.ui.angka.soal.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
+import com.tugasakhir.welearn.presentation.ui.score.ScoreActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,6 +43,7 @@ class HomeFragment : Fragment() {
         binding.btnAngka.setOnClickListener {
             view.findNavController().navigate(HomeFragmentDirections.toModeAngka())
         }
+
         binding.btnHuruf.setOnClickListener {
             view.findNavController().navigate(HomeFragmentDirections.toModeHuruf())
         }
@@ -61,6 +61,10 @@ class HomeFragment : Fragment() {
                     "Batal"
                 ) { sDialog -> sDialog.dismissWithAnimation() }
                 .show()
+        }
+
+        binding.btnHighscore.setOnClickListener {
+            startActivity(Intent(activity, ScoreActivity::class.java))
         }
     }
 

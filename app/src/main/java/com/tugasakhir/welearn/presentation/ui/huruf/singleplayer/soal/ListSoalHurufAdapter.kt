@@ -1,15 +1,14 @@
-package com.tugasakhir.welearn.presentation.ui.angka.soal
+package com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.GridSoalAngkaBinding
-import com.tugasakhir.welearn.domain.model.Level
+import com.tugasakhir.welearn.databinding.GridSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Soal
 
-class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewHolder>() {
+class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewHolder>() {
 
     private var listData = ArrayList<Soal>()
     var onItemClick: ((Soal) -> Unit)? = null
@@ -22,13 +21,13 @@ class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewH
     }
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = GridSoalAngkaBinding.bind(itemView)
+        private val binding = GridSoalHurufBinding.bind(itemView)
         var index: Int = 0
         fun bind(data: Soal) {
             with(binding) {
-                idSoalAngka.text = (absoluteAdapterPosition+1).toString()
+                idSoalHuruf.text = (absoluteAdapterPosition+1).toString()
                 index = absoluteAdapterPosition +1
-                soalAngka.text = "Soal $index"
+                soalHuruf.text = "Soal $index"
             }
         }
 
@@ -42,7 +41,7 @@ class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewH
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_soal_angka, parent, false))
+    ) = GridViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.grid_soal_huruf, parent, false))
 
     override fun onBindViewHolder(holder: GridViewHolder, position: Int) {
         val data = listData[position]

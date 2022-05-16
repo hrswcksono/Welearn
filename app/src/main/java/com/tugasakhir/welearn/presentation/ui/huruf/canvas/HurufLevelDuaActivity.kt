@@ -1,11 +1,21 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.StrictMode
+import android.util.Base64
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import darren.googlecloudtts.GoogleCloudTTSFactory
+import darren.googlecloudtts.parameter.AudioConfig
+import darren.googlecloudtts.parameter.AudioEncoding
+import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.ext.android.bind
+import java.io.ByteArrayOutputStream
 
 class HurufLevelDuaActivity : AppCompatActivity() {
 
@@ -22,6 +32,9 @@ class HurufLevelDuaActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
+        StrictMode.setThreadPolicy(policy)
+
         binding.levelDuaHurufBack.setOnClickListener {
             onBackPressed()
         }
@@ -29,12 +42,12 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
 
         show(data)
+        draw()
 
-        drawOne()
-        drawTwo()
-        drawThree()
-        drawFour()
-        drawFive()
+        binding.spkDuaHuruf.setOnClickListener {
+            speak(data.keterangan)
+        }
+
     }
 
     private fun show(data: Soal){
@@ -42,38 +55,67 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         binding.levelHurufKe.setText("Level ke ${data.id_level}")
     }
 
-    private fun drawOne(){
+    private fun draw() {
+        drawOne()
+        drawTwo()
+        drawThree()
+        drawFour()
+        drawFive()
+    }
+
+    private fun speak(string: String) {
+        // Set the ApiKey and create GoogleCloudTTS.
+        val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
+        googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
+            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
+        // start speak
+        googleCloudTTS.start(string);
+    }
+
+    private fun encodeImage(bm: Bitmap): String? {
+        val imgBitmap = ByteArrayOutputStream()
+        bm.compress(Bitmap.CompressFormat.JPEG, 100, imgBitmap)
+        val b = imgBitmap.toByteArray()
+        return Base64.encodeToString(b, Base64.DEFAULT)
+    }
+
+    private fun drawOne(): String?{
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaHurufone)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+        return encodeImage(canvasView.getBitmap())
     }
 
-    private fun drawTwo(){
+    private fun drawTwo(): String?{
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaHuruftwo)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+        return encodeImage(canvasView.getBitmap())
     }
 
-    private fun drawThree(){
+    private fun drawThree(): String?{
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaHurufthree)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+        return encodeImage(canvasView.getBitmap())
     }
 
-    private fun drawFour(){
+    private fun drawFour(): String?{
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaHuruffour)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+        return encodeImage(canvasView.getBitmap())
     }
 
-    private fun drawFive(){
+    private fun drawFive(): String?{
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaHuruffive)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+        return encodeImage(canvasView.getBitmap())
     }
 }

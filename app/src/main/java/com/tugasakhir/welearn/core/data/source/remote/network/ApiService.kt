@@ -51,29 +51,29 @@ interface ApiService {
 
     // soal angka
     @GET("soalAngka")
-    suspend fun getSoalAngka(
-        @Path("id") id: String,
+    suspend fun getSoalAngkaRandom(
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
     @GET("soalHuruf")
-    suspend fun getSoalHuruf(
-        @Path("id") id: String,
+    suspend fun getSoalHurufRandom(
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal angka
     @GET("soalAngkabyID")
     suspend fun getSoalAngkabyID(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
     @GET("soalHurufbyID")
     suspend fun getSoalHurufbyID(
-        @Path("id") id: String,
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
@@ -96,4 +96,6 @@ interface ApiService {
         @Url url: String,
         @Body notification: PushNotification
     ): PushNotificationResponse
+
+
 }

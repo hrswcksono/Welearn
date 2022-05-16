@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.tugasakhir.welearn"
-        minSdk 21
+        minSdk 24
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -88,6 +88,8 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation 'com.google.firebase:firebase-messaging:23.0.3'
+
+    implementation 'com.github.changemyminds:Google-Cloud-TTS-Android:1.0.2'
 
     implementation 'com.github.f0ris.sweetalert:library:1.6.2'
 

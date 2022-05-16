@@ -16,6 +16,15 @@ object DataMapper {
         angka = it.angka.toString()
     )
 
+    fun mapperSoal(it: SMessage) = Soal(
+        id_soal = it.idSoal!!,
+        id_jenis_soal = it.idJenis!!,
+        id_level = it.idLevel!!,
+        soal = it.soal.toString(),
+        keterangan = it.keterangan.toString(),
+        jawaban = it.jawaban.toString()
+    )
+
     fun mapperRandomSoal(input: List<MessageItem>): List<Soal> {
         val soalList = ArrayList<Soal>()
         input.map {

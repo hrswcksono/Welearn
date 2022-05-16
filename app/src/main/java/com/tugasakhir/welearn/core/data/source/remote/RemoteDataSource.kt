@@ -68,6 +68,50 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
     }
 
+    fun soalAngkaMultiplayer(level: Int,token: String): Flow<SMessage> {
+        return flow {
+            try {
+                val response = apiService.getSoalAngkaRandom(level,token = "Bearer ${token}")
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+    }
+
+    fun soalHurufMultiplayer(level: Int, token: String): Flow<SMessage> {
+        return flow {
+            try {
+                val response = apiService.getSoalHurufRandom(level, token = "Bearer ${token}")
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+    }
+
+    fun soalAngkaByID(id: Int, token: String): Flow<SMessage> {
+        return flow {
+            try {
+                val response = apiService.getSoalAngkabyID(id, token)
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+    }
+
+    fun soalHurufByID(id: Int, token: String): Flow<SMessage> {
+        return flow {
+            try {
+                val response = apiService.getSoalHurufbyID(id, token)
+                emit(response.message)
+            } catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+    }
+
     fun randAngka(level: Int, token: String): Flow<List<MessageItem>> {
         return flow {
             try {
@@ -104,7 +148,7 @@ class RemoteDataSource (private val apiService: ApiService) {
     fun highScoreHuruf(token: String): Flow<List<HMessageItem>> {
         return flow {
             try {
-                val response = apiService.getHighScoreAngka(token = "Bearer ${token}")
+                val response = apiService.getHighScoreHuruf(token = "Bearer ${token}")
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

@@ -33,6 +33,18 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     override fun randHuruf(level: Int, token: String): Flow<List<Soal>> =
         remoteDataSource.randHuruf(level, token).map { DataMapper.mapperRandomSoal(it) }
 
+    override fun soalAngkaMultiplayer(level: Int, token: String): Flow<Soal> =
+        remoteDataSource.soalAngkaMultiplayer(level, token).map { DataMapper.mapperSoal(it) }
+
+    override fun soalHurufMultiplayer(level: Int, token: String): Flow<Soal> =
+        remoteDataSource.soalHurufMultiplayer(level, token).map { DataMapper.mapperSoal(it) }
+
+    override fun soalAngkaByID(id: Int, token: String): Flow<Soal> =
+        remoteDataSource.soalAngkaByID(id, token).map { DataMapper.mapperSoal(it) }
+
+    override fun soalHurufByID(id: Int, token: String): Flow<Soal> =
+        remoteDataSource.soalHurufByID(id, token).map { DataMapper.mapperSoal(it) }
+
     override fun scoreAngka(token: String): Flow<Score> {
         TODO("Not yet implemented")
     }
