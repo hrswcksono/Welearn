@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.domain.usecase
 
+import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
@@ -26,4 +27,6 @@ interface WelearnUseCase {
 //    fun hurufScore(token: String): Flow<Score>
     fun angkaHighScore(token: String): Flow<List<UserScore>>
     fun hurufHighScore(token: String): Flow<List<UserScore>>
+
+    fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
 }

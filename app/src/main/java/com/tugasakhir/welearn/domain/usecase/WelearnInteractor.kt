@@ -1,9 +1,7 @@
 package com.tugasakhir.welearn.domain.usecase
 
-import com.tugasakhir.welearn.domain.model.Login
-import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.domain.model.User
-import com.tugasakhir.welearn.domain.model.UserScore
+import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
+import com.tugasakhir.welearn.domain.model.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 import kotlinx.coroutines.flow.Flow
 
@@ -45,5 +43,8 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun hurufHighScore(token: String): Flow<List<UserScore>> =
         welearnRepository.highScoreHuruf(token)
+
+    override fun pushNotification(body: PushNotification): Flow<PushNotificationResponse> =
+        welearnRepository.pushNotification(body)
 
 }

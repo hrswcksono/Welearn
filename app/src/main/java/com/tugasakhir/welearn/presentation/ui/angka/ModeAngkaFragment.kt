@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.angka
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.FragmentModeAngkaBinding
+import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MatchAngkaActivity
 
 class ModeAngkaFragment : Fragment() {
 
@@ -27,6 +29,10 @@ class ModeAngkaFragment : Fragment() {
 
         binding.btnSingleAngka.setOnClickListener {
             view.findNavController().navigate(ModeAngkaFragmentDirections.toLevelAngka())
+        }
+
+        binding.btnMultiAngka.setOnClickListener {
+            startActivity(Intent(activity, MatchAngkaActivity::class.java))
         }
 
         binding.modeAngkaBack.setOnClickListener {

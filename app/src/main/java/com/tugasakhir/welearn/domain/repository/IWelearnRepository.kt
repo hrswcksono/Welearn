@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.domain.repository
 
+import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.domain.model.*
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +23,5 @@ interface IWelearnRepository {
     fun scoreHuruf(token: String): Flow<Score>
     fun highScoreAngka(token: String): Flow<List<UserScore>>
     fun highScoreHuruf(token: String): Flow<List<UserScore>>
+    fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
 }

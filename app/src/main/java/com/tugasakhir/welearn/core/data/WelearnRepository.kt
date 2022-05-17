@@ -1,6 +1,7 @@
 package com.tugasakhir.welearn.core.data
 
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
+import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.core.utils.DataMapper
 import com.tugasakhir.welearn.domain.model.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
@@ -58,5 +59,8 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
 
     override fun highScoreHuruf(token: String): Flow<List<UserScore>> =
         remoteDataSource.highScoreHuruf(token).map { DataMapper.mapperHighScore(it) }
+
+    override fun pushNotification(body: PushNotification) =
+        remoteDataSource.pushNotification(body)
 
 }

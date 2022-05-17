@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.core.data.source.remote.network
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
+import com.tugasakhir.welearn.domain.model.PushNotification
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -96,6 +97,4 @@ interface ApiService {
         @Url url: String,
         @Body notification: PushNotification
     ): PushNotificationResponse
-
-
 }
