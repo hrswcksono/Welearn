@@ -39,6 +39,8 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         binding.spkEmpatAngka.setOnClickListener {
             speak(data.keterangan)
         }
+
+        draw()
     }
 
     private fun show(data: Soal){
@@ -64,19 +66,26 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(): String?{
+    private fun draw() {
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelEmpatAngkaOne)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
+
+        val canvasView1 = findViewById<CanvasView>(R.id.cnvsLevelEmpatAngkaTwo)
+        canvasView1.setColorBackground(R.color.white)
+        canvasView1.setColorMarker(R.color.black)
+        canvasView1.setStrokeWidth(12f)
+
+        binding.submitEmpatAngka.setOnClickListener {
+
+        }
+
+        binding.refreshEmpatAngka.setOnClickListener {
+            canvasView.clearView()
+            canvasView1.clearView()
+        }
+
     }
 
-    private fun drawTwo(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelEmpatAngkaTwo)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
 }

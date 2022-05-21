@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.FirebaseService
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
@@ -33,17 +34,21 @@ class MatchAngkaActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         sessionManager = SharedPreference(this)
-        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        FirebaseService.token = "/topics/myTopics"
 
         binding.btnAngkaAcak.setOnClickListener {
             val inputLevel = binding.tfLevelAngka.text.toString()
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    viewModelRandom.randomSoalAngkaByLevel(
-                        inputLevel.toInt(),
-                        sessionManager.fetchAuthToken().toString()
-                    ).collectLatest {  }
+            if (inputLevel.isNotEmpty()) {
+                lifecycleScope.launch(Dispatchers.Default) {
+                    withContext(Dispatchers.Main) {
+                        viewModelRandom.randomSoalAngkaByLevel(
+                            inputLevel.toInt(),
+                            sessionManager.fetchAuthToken().toString()
+                        ).collectLatest {
+                            if (it.id_soal.toString().isNotEmpty()){
+                                dialogBox()
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -67,8 +72,12 @@ class MatchAngkaActivity : AppCompatActivity() {
         binding.btnStartAngka.setOnClickListener {
 
         }
-
     }
 
-
+    private fun dialogBox() {
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Berhasil")
+            .setContentText("Mendapatkan Soal Angka")
+            .show()
+    }
 }

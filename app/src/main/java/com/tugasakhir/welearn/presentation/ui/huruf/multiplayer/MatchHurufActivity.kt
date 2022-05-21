@@ -31,8 +31,7 @@ class MatchHurufActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sessionManager = SharedPreference(this)
-        FirebaseService.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
-        FirebaseService.token = TOPIC
+
 
         binding.btnFindHuruf.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.widget.Toast
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
@@ -42,11 +43,17 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        drawOne()
-
         binding.spkNolAngka.setOnClickListener {
             speak(data.keterangan)
         }
+
+        draw()
+    }
+
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        var eBitmap: Bitmap? = null
+        var extraBitmap: Bitmap? = null
     }
 
     private fun show(data: Soal){
@@ -72,12 +79,20 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(): String?{
+    private fun draw() {
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelNolAngka)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
+
+        binding.refreshNolAngka.setOnClickListener {
+            canvasView.clearView()
+        }
+
+        binding.submitNolAngka.setOnClickListener {
+            Toast.makeText(this, encodeImage(canvasView.getBitmap()), Toast.LENGTH_LONG).show()
+            print(encodeImage(canvasView.getBitmap()))
+        }
     }
 
 }

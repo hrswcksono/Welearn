@@ -42,7 +42,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
         show(data)
 
-        drawOne()
+        draw()
 
         binding.spkDuaAngka.setOnClickListener {
             speak(data.keterangan)
@@ -72,10 +72,14 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(){
+    private fun draw(){
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelDuaAngka)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
+
+        binding.refreshDuaAngka.setOnClickListener {
+            canvasView.clearView()
+        }
     }
 }

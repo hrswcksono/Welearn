@@ -21,17 +21,17 @@
         android:id="@+id/view4"
         android:layout_width="370dp"
         android:layout_height="45dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:background="@color/view_soal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/soal_huruf_ke" />
+        app:layout_constraintTop_toBottomOf="@+id/level_huruf_ke" />
 
     <TextView
         android:id="@+id/level_huruf_ke"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:fontFamily="@font/rubik_regular"
         android:text="Level Huruf"
         android:textAlignment="center"
@@ -39,23 +39,9 @@
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/soal_huruf_ke"
-        android:layout_width="190dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:fontFamily="@font/rubik_regular"
-        android:textColor="@color/black"
-        android:text="Soal"
-        android:textAlignment="center"
-        android:textSize="25dp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_huruf_ke" />
 
     <TextView
         android:id="@+id/soal_huruf_dipilih"
@@ -91,7 +77,7 @@
         android:layout_width="173dp"
         android:layout_height="160dp"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
@@ -99,8 +85,9 @@
         android:id="@+id/cnvsLevelSatuHuruftwo"
         android:layout_width="173dp"
         android:layout_height="160dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="84dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toEndOf="@+id/cnvsLevelSatuHurufone"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
@@ -112,5 +99,25 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cnvsLevelSatuHuruftwo" />
+
+    <ImageView
+        android:id="@+id/refresh_satu_huruf"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="21dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:srcCompat="@drawable/ic_baseline_reload" />
+
+    <ImageView
+        android:id="@+id/submit_satu_huruf"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:srcCompat="@drawable/ic_baseline_submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

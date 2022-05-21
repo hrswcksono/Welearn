@@ -51,14 +51,14 @@ interface ApiService {
     ): RandomResponse
 
     // soal angka
-    @GET("soalAngka")
+    @GET("soalAngka/{id}")
     suspend fun getSoalAngkaRandom(
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
-    @GET("soalHuruf")
+    @GET("soalHuruf/{id}")
     suspend fun getSoalHurufRandom(
         @Path("id") id: Int,
         @Header("Authorization") token: String

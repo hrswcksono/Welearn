@@ -38,4 +38,8 @@ class SharedPreference (context: Context) {
     fun fetchTokenFCM(): String? {
         return prefs.getString(SUBSCRIBE_NEW_FCM, null)
     }
+
+    fun deleteToken(){
+        prefs.edit().remove(USER_TOKEN).apply()
+    }
 }

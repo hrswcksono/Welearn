@@ -19,7 +19,12 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".presentation.ui.huruf.multiplayer.HurufReadyActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".presentation.ui.angka.multiplayer.AngkaReadyActivity"
             android:exported="false"

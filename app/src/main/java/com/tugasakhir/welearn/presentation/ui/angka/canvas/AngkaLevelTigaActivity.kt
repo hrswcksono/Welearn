@@ -41,8 +41,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
 
         show(data)
-
-        drawOne()
+        draw()
 
         binding.spkTigaAngka.setOnClickListener {
             speak(data.keterangan)
@@ -72,11 +71,14 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(): String?{
+    private fun draw(){
         val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaAngka)
         canvasView.setColorBackground(R.color.white)
         canvasView.setColorMarker(R.color.black)
         canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
+
+        binding.refreshTigaAngka.setOnClickListener {
+            canvasView.clearView()
+        }
     }
 }

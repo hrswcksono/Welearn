@@ -74,6 +74,7 @@ class HomeFragment : Fragment() {
                 viewModel.logoutUser(token).collectLatest {
                     if (it == "Successfully logged out"){
                         startActivity(Intent(activity, LoginActivity::class.java))
+                        sessionManager.deleteToken()
                     }
                 }
             }
