@@ -3,12 +3,14 @@ package com.tugasakhir.welearn.di
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.RandomLevelAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.SoalAngkaByIDViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterViewModel
 import com.tugasakhir.welearn.presentation.ui.home.LogoutViewModel
+import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.RandomLevelHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufViewModel
@@ -36,4 +38,8 @@ val viewModelModule = module {
     viewModel { SoalAngkaByIDViewModel(get()) }
     viewModel { RandomLevelHurufViewModel(get()) }
     viewModel { SoalHurufByIDViewModel(get()) }
+    viewModel {
+        PredictAngkaViewModel(get());
+        PredictHurufViewModel(get())
+    }
 }

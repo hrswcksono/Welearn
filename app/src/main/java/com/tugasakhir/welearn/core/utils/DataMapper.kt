@@ -25,6 +25,12 @@ object DataMapper {
         jawaban = it.jawaban.toString()
     )
 
+    fun mapperPredict(it: PredictResponse) = ResultPredict(
+        success = it.success.toString(),
+        message = it.message.toString(),
+        text = it.text.toString()
+    )
+
     fun mapperRandomSoal(input: List<MessageItem>): List<Soal> {
         val soalList = ArrayList<Soal>()
         input.map {

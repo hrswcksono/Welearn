@@ -29,4 +29,7 @@ interface WelearnUseCase {
     fun hurufHighScore(token: String): Flow<List<UserScore>>
 
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
+
+    fun angkaPredict(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
+    fun hurufPredict(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
 }
