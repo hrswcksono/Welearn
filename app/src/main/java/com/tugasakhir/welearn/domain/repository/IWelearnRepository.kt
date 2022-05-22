@@ -24,4 +24,5 @@ interface IWelearnRepository {
     fun highScoreAngka(token: String): Flow<List<UserScore>>
     fun highScoreHuruf(token: String): Flow<List<UserScore>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
+
 }

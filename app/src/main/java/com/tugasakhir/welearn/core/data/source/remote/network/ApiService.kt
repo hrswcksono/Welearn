@@ -97,4 +97,20 @@ interface ApiService {
         @Url url: String,
         @Body notification: PushNotification
     ): PushNotificationResponse
+
+    @FormUrlEncoded
+    @POST("predictangka")
+    suspend fun predictAngka(
+        @Field("id_soal") id_soal : String,
+        @Field("img[]") image : ArrayList<String>,
+        @Header("Authorization") token: String
+    ): PredictResponse
+
+    @FormUrlEncoded
+    @POST("predict")
+    suspend fun predictHuruf(
+        @Field("id_soal") id_soal : String,
+        @Field("img[]") image : ArrayList<String>,
+        @Header("Authorization") token: String
+    ): PredictResponse
 }
