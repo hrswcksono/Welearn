@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/main_bg"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.angka.canvas.AngkaLevelDuaActivity">
+    android:background="@color/main_bg"
+    tools:context=".presentation.ui.huruf.canvas.HurufLevelTigaNextActivity">
+
 
     <ImageView
-        android:id="@+id/levelDuaAngkaBack"
+        android:id="@+id/levelTigaNextHurufBack"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="16dp"
@@ -25,15 +26,15 @@
         android:background="@color/view_soal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/level_angka_ke" />
+        app:layout_constraintTop_toBottomOf="@+id/level_huruf_ke" />
 
     <TextView
-        android:id="@+id/level_angka_ke"
+        android:id="@+id/level_huruf_ke"
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:fontFamily="@font/rubik_regular"
-        android:text="Level Angka"
+        android:text="Level Huruf"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="30dp"
@@ -44,7 +45,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/soal_angka_dipilih"
+        android:id="@+id/soal_huruf_dipilih"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -57,11 +58,11 @@
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="@+id/view4"
         app:layout_constraintEnd_toEndOf="@+id/view4"
-        app:layout_constraintStart_toEndOf="@+id/spk_dua_angka"
+        app:layout_constraintStart_toEndOf="@+id/spk_tiga_next_huruf"
         app:layout_constraintTop_toTopOf="@+id/view4" />
 
     <ImageView
-        android:id="@+id/spk_dua_angka"
+        android:id="@+id/spk_tiga_next_huruf"
         android:layout_width="29dp"
         android:layout_height="0dp"
         android:layout_marginStart="4dp"
@@ -71,32 +72,8 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/voice" />
 
-    <View
-        android:id="@+id/view2"
-        android:layout_width="280dp"
-        android:layout_height="186dp"
-        android:layout_marginTop="76dp"
-        android:background="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-    <TextView
-        android:id="@+id/tv_soal_angka_dua"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Soal"
-        android:textSize="80sp"
-        android:fontFamily="@font/rubik_regular"
-        android:textColor="@color/black"
-        app:layout_constraintBottom_toBottomOf="@+id/view2"
-        app:layout_constraintEnd_toEndOf="@+id/view2"
-        app:layout_constraintStart_toStartOf="@+id/view2"
-        app:layout_constraintTop_toTopOf="@+id/view2" />
-
     <ImageView
-        android:id="@+id/refresh_dua_angka"
+        android:id="@+id/refresh_tiga_next_huruf"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:layout_marginStart="21dp"
@@ -106,7 +83,7 @@
         app:srcCompat="@drawable/ic_baseline_reload" />
 
     <ImageView
-        android:id="@+id/submit_dua_angka"
+        android:id="@+id/submit_tiga_next_huruf"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:layout_marginTop="12dp"
@@ -115,16 +92,36 @@
         app:layout_constraintTop_toBottomOf="@+id/view4"
         app:srcCompat="@drawable/ic_baseline_submit" />
 
+
     <com.divyanshu.draw.widget.DrawView
-        android:id="@+id/cnvsLevelDuaAngka"
-        android:layout_width="280dp"
-        android:layout_height="186dp"
+        android:id="@+id/cnvsLevelTigaHurufseven"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="72dp"
         android:background="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view2"
-        app:layout_constraintVertical_bias="0.24" />
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelTigaHurufeight"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="72dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.555"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHurufseven"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelTigaHurufnine"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="28dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufeight" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

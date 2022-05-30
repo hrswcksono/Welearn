@@ -28,6 +28,10 @@ class ScoreActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        binding.papanScoreBack.setOnClickListener {
+            onBackPressed()
+        }
+
         val sectionsPagerAdapter = SectionsPagerAdapter(this)
         val viewPager: ViewPager2 = findViewById(R.id.view_pager)
         viewPager.adapter = sectionsPagerAdapter

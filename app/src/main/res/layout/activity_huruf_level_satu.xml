@@ -72,34 +72,6 @@
         app:srcCompat="@drawable/voice" />
 
 
-    <dev.abhishekkumar.canvasview.CanvasView
-        android:id="@+id/cnvsLevelSatuHurufone"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-    <dev.abhishekkumar.canvasview.CanvasView
-        android:id="@+id/cnvsLevelSatuHuruftwo"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.512"
-        app:layout_constraintStart_toEndOf="@+id/cnvsLevelSatuHurufone"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
-    <dev.abhishekkumar.canvasview.CanvasView
-        android:id="@+id/cnvsLevelSatuHurufthree"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="36dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelSatuHuruftwo" />
-
     <ImageView
         android:id="@+id/refresh_satu_huruf"
         android:layout_width="51dp"
@@ -119,5 +91,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
         app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelSatuHurufone"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelSatuHuruftwo"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        android:background="@color/white"
+        app:layout_constraintStart_toEndOf="@+id/cnvsLevelSatuHurufone"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelSatuHurufthree"
+        android:layout_width="173dp"
+        android:layout_height="160dp"
+        android:layout_marginTop="36dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelSatuHuruftwo" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

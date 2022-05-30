@@ -44,6 +44,9 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
     override fun pushNotification(body: PushNotification) =
         welearnRepository.pushNotification(body)
 
+    override fun pushNotificationStart(body: PushNotificationStart) =
+        welearnRepository.pushStartNotification(body)
+
     override fun angkaPredict(
         id_soal: String,
         image: ArrayList<String>,

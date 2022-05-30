@@ -10,11 +10,13 @@ import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class AngkaLevelNolActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
+    private val viewModel: PredictAngkaViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,19 +82,31 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
+//    private fun draw() {
+//        val canvasView = findViewById<CanvasView>(R.id.cnstrlyt)
+//        canvasView.setColorBackground(R.color.white)
+//        canvasView.setColorMarker(R.color.black)
+//        canvasView.setStrokeWidth(12f)
+//
+//        binding.refreshNolAngka.setOnClickListener {
+//            canvasView.clearView()
+//        }
+//
+//        binding.submitNolAngka.setOnClickListener {
+//            Toast.makeText(this, encodeImage(canvasView.getBitmap()), Toast.LENGTH_LONG).show()
+//            print(encodeImage(canvasView.getBitmap()))
+//        }
+//    }
+
     private fun draw() {
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelNolAngka)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
 
         binding.refreshNolAngka.setOnClickListener {
-            canvasView.clearView()
+            binding.cnvsLevelNolAngka.clearCanvas()
         }
 
         binding.submitNolAngka.setOnClickListener {
-            Toast.makeText(this, encodeImage(canvasView.getBitmap()), Toast.LENGTH_LONG).show()
-            print(encodeImage(canvasView.getBitmap()))
+            Toast.makeText(this, encodeImage(binding.cnvsLevelNolAngka.getBitmap()), Toast.LENGTH_LONG).show()
+//            print(encodeImage(binding.cnvsLevelNolAngka.getBitmap()))
         }
     }
 

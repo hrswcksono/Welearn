@@ -5,6 +5,7 @@ import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
 import com.tugasakhir.welearn.domain.model.PushNotification
+import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -148,6 +149,16 @@ class RemoteDataSource (private val apiService: ApiService) {
         flow {
             try {
                 val response = apiService.postNotification(FCM_BASE_URL, body)
+                emit(response)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    fun pushNotificationStart(body: PushNotificationStart) =
+        flow {
+            try {
+                val response = apiService.postStartGame(FCM_BASE_URL, body)
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

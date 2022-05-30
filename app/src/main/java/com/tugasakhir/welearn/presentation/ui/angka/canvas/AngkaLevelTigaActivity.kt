@@ -5,15 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.widget.Toast
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class AngkaLevelTigaActivity : AppCompatActivity() {
@@ -23,6 +26,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelTigaBinding
+    private val viewModel: PredictAngkaViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,13 +76,12 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun draw(){
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaAngka)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-
         binding.refreshTigaAngka.setOnClickListener {
-            canvasView.clearView()
+            binding.cnvsLevelTigaAngka.clearCanvas()
+        }
+
+        binding.submitTigaAngka.setOnClickListener {
+            Toast.makeText(this, encodeImage(binding.cnvsLevelTigaAngka.getBitmap()), Toast.LENGTH_LONG).show()
         }
     }
 }

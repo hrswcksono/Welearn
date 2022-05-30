@@ -1,20 +1,22 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
 import android.graphics.Bitmap
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.view.View.OnTouchListener
+import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class HurufLevelTigaActivity : AppCompatActivity() {
@@ -24,6 +26,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelTigaBinding
+    private val viewModel: PredictHurufViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,24 +49,13 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 
         binding.spkTigaHuruf.setOnClickListener {
             speak(data.keterangan)
+//            binding.scrollTigaAngka.setOnTouchListener(OnTouchListener { v, event -> true })
         }
     }
 
-    private fun draw() {
-        drawOne()
-        drawTwo()
-        drawThree()
-        drawFour()
-        drawFive()
-        drawSix()
-        drawSeven()
-        drawEight()
-        drawNine()
-    }
-
     private fun show(data: Soal){
-        binding.soalHurufDipilih.setText(data.keterangan)
-        binding.levelHurufKe.setText("Level ke ${data.id_level}")
+        binding.soalHurufDipilih.text = data.keterangan
+        binding.levelHurufKe.text = "Level ke ${data.id_level}"
     }
 
     private fun speak(string: String) {
@@ -83,75 +75,15 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufone)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
+    private fun draw() {
 
-    private fun drawTwo(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHuruftwo)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawThree(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufthree)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawFour(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHuruffour)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawFive(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHuruffive)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawSix(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufsix)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawSeven(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufseven)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawEight(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufeight)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
-
-    private fun drawNine(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelTigaHurufnine)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
+        binding.refreshTigaHuruf.setOnClickListener {
+            binding.cnvsLevelTigaHurufone.clearCanvas()
+            binding.cnvsLevelTigaHuruftwo.clearCanvas()
+            binding.cnvsLevelTigaHurufthree.clearCanvas()
+            binding.cnvsLevelTigaHuruffour.clearCanvas()
+            binding.cnvsLevelTigaHuruffive.clearCanvas()
+            binding.cnvsLevelTigaHurufsix.clearCanvas()
+        }
     }
 }

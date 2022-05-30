@@ -9,11 +9,15 @@ import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.ext.android.bind
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class HurufLevelSatuActivity : AppCompatActivity() {
@@ -23,6 +27,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelSatuBinding
+    private val viewModel: PredictHurufViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,18 +47,14 @@ class HurufLevelSatuActivity : AppCompatActivity() {
 
         show(data)
 
-        drawOne()
-        drawTwo()
-        drawThree()
-
         binding.spkSatuHuruf.setOnClickListener {
             speak(data.keterangan)
         }
     }
 
     private fun show(data: Soal){
-        binding.soalHurufDipilih.setText(data.keterangan)
-        binding.levelHurufKe.setText("Level ke ${data.id_level}")
+        binding.soalHurufDipilih.text = data.keterangan
+        binding.levelHurufKe.text = "Level ke ${data.id_level}"
     }
 
     private fun encodeImage(bm: Bitmap): String? {
@@ -63,28 +64,18 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun drawOne(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelSatuHurufone)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
+    private fun draw(){
 
-    private fun drawTwo(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelSatuHuruftwo)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
-    }
+        binding.refreshSatuHuruf.setOnClickListener {
+            binding.cnvsLevelSatuHurufone.clearCanvas()
+            binding.cnvsLevelSatuHuruftwo.clearCanvas()
+            binding.cnvsLevelSatuHurufthree.clearCanvas()
+        }
 
-    private fun drawThree(): String?{
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelSatuHurufthree)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-        return encodeImage(canvasView.getBitmap())
+        binding.submitSatuHuruf.setOnClickListener {
+
+        }
+
     }
 
     private fun speak(string: String) {

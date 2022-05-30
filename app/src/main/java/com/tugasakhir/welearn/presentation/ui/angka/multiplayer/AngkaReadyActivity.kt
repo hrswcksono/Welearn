@@ -28,8 +28,12 @@ class AngkaReadyActivity : AppCompatActivity() {
 
         binding.btnAngkaReady.setOnClickListener {
             Handler(Looper.getMainLooper()).postDelayed({
-                FirebaseMessaging.getInstance().subscribeToTopic("/topics/myTopics")
+                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_ANGKA)
             }, 1000)
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

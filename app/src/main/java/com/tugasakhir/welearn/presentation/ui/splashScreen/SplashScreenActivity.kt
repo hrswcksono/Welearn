@@ -11,6 +11,7 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
 import com.tugasakhir.welearn.presentation.ui.TestActivity
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.score.ScoreActivity
 
 class SplashScreenActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             sessionManager.deleteToken()
-            startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))
+            startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
             finish()
         }, 3000)
     }

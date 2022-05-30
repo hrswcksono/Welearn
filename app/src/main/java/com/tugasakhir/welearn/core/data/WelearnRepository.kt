@@ -9,6 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelearnRepository{
+
     override fun loginUser(username: String, password: String) =
         remoteDataSource.loginUser(username, password).map { DataMapper.mapperLoginToken(it) }
 
@@ -62,6 +63,9 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
 
     override fun pushNotification(body: PushNotification) =
         remoteDataSource.pushNotification(body)
+
+    override fun pushStartNotification(body: PushNotificationStart) =
+        remoteDataSource.pushNotificationStart(body)
 
     override fun predictAngka(
         id_soal: String,

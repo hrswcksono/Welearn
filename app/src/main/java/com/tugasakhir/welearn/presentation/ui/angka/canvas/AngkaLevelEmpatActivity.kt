@@ -5,20 +5,24 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.widget.Toast
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import dev.abhishekkumar.canvasview.CanvasView
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
 class AngkaLevelEmpatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelEmpatBinding
+    private val viewModel: PredictAngkaViewModel by viewModel()
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
@@ -34,10 +38,15 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 
         val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
 
+        supportActionBar?.hide()
         show(data)
 
         binding.spkEmpatAngka.setOnClickListener {
             speak(data.keterangan)
+        }
+
+        binding.levelEmpatAngkaBack.setOnClickListener {
+            onBackPressed()
         }
 
         draw()
@@ -67,23 +76,14 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
     }
 
     private fun draw() {
-        val canvasView = findViewById<CanvasView>(R.id.cnvsLevelEmpatAngkaOne)
-        canvasView.setColorBackground(R.color.white)
-        canvasView.setColorMarker(R.color.black)
-        canvasView.setStrokeWidth(12f)
-
-        val canvasView1 = findViewById<CanvasView>(R.id.cnvsLevelEmpatAngkaTwo)
-        canvasView1.setColorBackground(R.color.white)
-        canvasView1.setColorMarker(R.color.black)
-        canvasView1.setStrokeWidth(12f)
 
         binding.submitEmpatAngka.setOnClickListener {
-
+            Toast.makeText(this, encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap()) + encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap()), Toast.LENGTH_LONG).show()
         }
 
         binding.refreshEmpatAngka.setOnClickListener {
-            canvasView.clearView()
-            canvasView1.clearView()
+            binding.cnvsLevelEmpatAngkaOne.clearCanvas()
+            binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
         }
 
     }

@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
+import com.tugasakhir.welearn.presentation.ui.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.RandomLevelAngkaViewModel
@@ -34,12 +35,13 @@ val viewModelModule = module {
     viewModel { ScoreAngkaViewModel(get()) }
     viewModel { ScoreHurufViewModel(get()) }
     viewModel { PushNotificationViewModel(get()) }
+    viewModel { PushNotificationStartViewModel(get()) }
     viewModel { RandomLevelAngkaViewModel(get()) }
     viewModel { SoalAngkaByIDViewModel(get()) }
     viewModel { RandomLevelHurufViewModel(get()) }
     viewModel { SoalHurufByIDViewModel(get()) }
     viewModel {
-        PredictAngkaViewModel(get());
+        PredictAngkaViewModel(get())
         PredictHurufViewModel(get())
     }
 }

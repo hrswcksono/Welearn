@@ -21,8 +21,15 @@ class HurufReadyActivity : AppCompatActivity() {
         binding = ActivityHurufReadyBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         binding.btnHurufReady.setOnClickListener {
 
         }
     }
+
+    override fun onBackPressed() {
+        return
+    }
+
 }

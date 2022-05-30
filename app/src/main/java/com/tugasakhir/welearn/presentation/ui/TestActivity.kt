@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.util.Base64.encodeToString
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.welearn.core.utils.Constants.Companion.GOOGLE_API_KEY
 import com.tugasakhir.welearn.databinding.ActivityTestBinding
@@ -12,6 +13,7 @@ import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
+import org.koin.android.ext.android.bind
 import java.io.ByteArrayOutputStream
 
 
@@ -28,6 +30,11 @@ class TestActivity : AppCompatActivity(){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
 
         StrictMode.setThreadPolicy(policy)
+
+//        binding.button3.setOnClickListener {
+////            binding.drawView.clearCanvas()
+//            Toast.makeText(this,encodeImage(binding.drawView.getBitmap()), Toast.LENGTH_SHORT).show()
+//        }
 
 //        val myCanvasView = MyCanvasView(this).apply {
 //            systemUiVisibility = SYSTEM_UI_FLAG_FULLSCREEN
@@ -49,9 +56,9 @@ class TestActivity : AppCompatActivity(){
 //        val canvasView = CanvasView(this)
 //        binding.parentView.addView(canvasView)
 
-        binding.btnTest.setOnClickListener {
-            speak("input audio")
-        }
+//        binding.btnTest.setOnClickListener {
+//            speak("input audio")
+//        }
 
     }
 

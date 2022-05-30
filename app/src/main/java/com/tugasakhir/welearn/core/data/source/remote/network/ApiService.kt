@@ -4,6 +4,7 @@ import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
 import com.tugasakhir.welearn.domain.model.PushNotification
+import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import okhttp3.ResponseBody
 import retrofit2.Response
 import retrofit2.http.*
@@ -96,6 +97,14 @@ interface ApiService {
     suspend fun postNotification(
         @Url url: String,
         @Body notification: PushNotification
+    ): PushNotificationResponse
+
+    @Headers("Authorization: key=$SERVER_KEY",
+        "Content-Type:$CONTENT_TYPE")
+    @POST
+    suspend fun postStartGame(
+        @Url url: String,
+        @Body notification: PushNotificationStart
     ): PushNotificationResponse
 
     @FormUrlEncoded

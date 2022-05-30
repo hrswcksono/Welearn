@@ -71,15 +71,6 @@
         app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/voice" />
 
-    <dev.abhishekkumar.canvasview.CanvasView
-        android:id="@+id/cnvsLevelNolHuruf"
-        android:layout_width="367dp"
-        android:layout_height="395dp"
-        android:layout_marginTop="76dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
-
     <ImageView
         android:id="@+id/refresh_nol_huruf"
         android:layout_width="51dp"
@@ -99,6 +90,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
         app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelNolHuruf"
+        android:layout_width="367dp"
+        android:layout_height="395dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="22dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/refresh_nol_huruf" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

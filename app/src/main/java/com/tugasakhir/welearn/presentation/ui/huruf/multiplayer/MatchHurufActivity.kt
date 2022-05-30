@@ -5,13 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.TOPIC
 import com.tugasakhir.welearn.core.utils.FirebaseService
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchHurufBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.TOPIC
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,6 +30,8 @@ class MatchHurufActivity : AppCompatActivity() {
         binding = ActivityMatchHurufBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        supportActionBar?.hide()
+
         sessionManager = SharedPreference(this)
 
 
@@ -41,6 +43,7 @@ class MatchHurufActivity : AppCompatActivity() {
                             NotificationData(
                                 "Pertandingan MultiPlayer Segera Dimuali!"
                                 ,"Siapa yang ingin ikut?"
+                                , "huruf"
                             ),
                             TOPIC
                         )

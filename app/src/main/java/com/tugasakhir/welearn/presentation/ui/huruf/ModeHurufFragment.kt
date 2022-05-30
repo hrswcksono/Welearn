@@ -1,13 +1,14 @@
 package com.tugasakhir.welearn.presentation.ui.huruf
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.FragmentModeHurufBinding
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufActivity
 
 class ModeHurufFragment : Fragment() {
 
@@ -28,6 +29,10 @@ class ModeHurufFragment : Fragment() {
 
         binding.btnSingleHuruf.setOnClickListener {
             view.findNavController().navigate(ModeHurufFragmentDirections.toLevelHuruf())
+        }
+
+        binding.btnMultiHuruf.setOnClickListener {
+            startActivity(Intent(activity, MatchHurufActivity::class.java))
         }
 
         binding.modeHurufBack.setOnClickListener {
