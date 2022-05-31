@@ -23,8 +23,8 @@ interface WelearnUseCase {
     fun getSoalAngkaByID(id: Int, token: String): Flow<Soal>
     fun getSoalHurufByID(id: Int, token: String): Flow<Soal>
 
-//    fun angkaScore(token: String): Flow<Score>
-//    fun hurufScore(token: String): Flow<Score>
+    fun userAngkaScore(token: String): Flow<Score>
+    fun userHurufScore(token: String): Flow<Score>
     fun angkaHighScore(token: String): Flow<List<UserScore>>
     fun hurufHighScore(token: String): Flow<List<UserScore>>
 
@@ -34,4 +34,6 @@ interface WelearnUseCase {
 
     fun angkaPredict(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
     fun hurufPredict(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
+
+    fun testPredict(input: String, token: String): Flow<ResultPredict>
 }

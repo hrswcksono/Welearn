@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
+package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.model.Soal
@@ -7,7 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 class SoalAngkaByIDViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun soalAngkaByID(id: Int, token: String): Flow<Soal> =
+    fun soalAngkaByID(id: Int, token: String) =
         useCase.getSoalAngkaByID(id, token)
-
 }

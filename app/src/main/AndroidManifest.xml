@@ -18,6 +18,12 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.score.ui.ScoreHurufUserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.ui.score.ui.ScoreAngkaUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.huruf.canvas.HurufLevelTigaNextActivity"
             android:exported="false" />
         <activity
@@ -47,7 +53,7 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.score.ScoreActivity"
+            android:name=".presentation.ui.score.ui.ScoreActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.core.utils
 
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.model.*
+import org.koin.ext.scope
 
 object DataMapper {
     fun mapperLoginToken(it: Message) = Login(
@@ -23,6 +24,10 @@ object DataMapper {
         soal = it.soal.toString(),
         keterangan = it.keterangan.toString(),
         jawaban = it.jawaban.toString()
+    )
+
+    fun mapScoreUser(it: ScoreMessage) = Score(
+        score = it.score!!
     )
 
     fun mapperPredict(it: PredictResponse) = ResultPredict(

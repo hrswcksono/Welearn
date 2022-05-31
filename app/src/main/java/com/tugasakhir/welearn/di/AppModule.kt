@@ -4,9 +4,10 @@ import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import com.tugasakhir.welearn.presentation.ui.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.RandomLevelAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.SoalAngkaByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.SoalAngkaByIDViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginViewModel
 import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterViewModel
@@ -16,8 +17,10 @@ import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.RandomLevelHuruf
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.profile.ProfileViewModel
-import com.tugasakhir.welearn.presentation.ui.score.ScoreAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.score.ScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreHurufViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -40,8 +43,9 @@ val viewModelModule = module {
     viewModel { SoalAngkaByIDViewModel(get()) }
     viewModel { RandomLevelHurufViewModel(get()) }
     viewModel { SoalHurufByIDViewModel(get()) }
-    viewModel {
-        PredictAngkaViewModel(get())
-        PredictHurufViewModel(get())
-    }
+    viewModel { PredictAngkaViewModel(get()) }
+    viewModel { PredictHurufViewModel(get()) }
+    viewModel { TestViewModel(get()) }
+    viewModel { UserScoreAngkaViewModel(get()) }
+    viewModel { UserScoreHurufViewModel(get()) }
 }

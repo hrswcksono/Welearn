@@ -50,6 +50,7 @@
             android:layout_height="wrap_content"
             android:background="@color/white"
             android:hint="@string/password"
+            android:inputType="textPassword"
             tools:ignore="TouchTargetSizeCheck" />
 
     </com.google.android.material.textfield.TextInputLayout>

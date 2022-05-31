@@ -19,12 +19,13 @@ interface IWelearnRepository {
     fun soalHurufMultiplayer(level: Int, token: String): Flow<Soal>
     fun soalAngkaByID(id:Int, token: String): Flow<Soal>
     fun soalHurufByID(id: Int, token: String): Flow<Soal>
-    fun scoreAngka(token: String): Flow<Score>
-    fun scoreHuruf(token: String): Flow<Score>
+    fun scoreAngkaUser(token: String): Flow<Score>
+    fun scoreHurufUser(token: String): Flow<Score>
     fun highScoreAngka(token: String): Flow<List<UserScore>>
     fun highScoreHuruf(token: String): Flow<List<UserScore>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun pushStartNotification(body: PushNotificationStart): Flow<PushNotificationResponse>
     fun predictAngka(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
     fun predictHuruf(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
+    fun predictTest(input: String, token: String): Flow<ResultPredict>
 }

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.score
+package com.tugasakhir.welearn.presentation.ui.score.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,6 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufBinding
+import com.tugasakhir.welearn.presentation.ui.score.ScoreHurufAdapter
+import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

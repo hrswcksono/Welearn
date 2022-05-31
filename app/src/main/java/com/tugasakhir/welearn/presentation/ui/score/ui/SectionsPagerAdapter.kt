@@ -1,8 +1,10 @@
-package com.tugasakhir.welearn.presentation.ui.score
+package com.tugasakhir.welearn.presentation.ui.score.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaFragment
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity) : FragmentStateAdapter(activity) {
 

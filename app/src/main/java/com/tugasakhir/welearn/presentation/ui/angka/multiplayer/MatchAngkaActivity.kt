@@ -5,7 +5,8 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.TOPIC
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
 import com.tugasakhir.welearn.domain.model.*
@@ -18,8 +19,6 @@ import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
-const val TOPIC_ANGKA = "/topics/angka"
-const val START_ANGKA = "/topics/start_angka"
 class MatchAngkaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchAngkaBinding
@@ -37,9 +36,12 @@ class MatchAngkaActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        soal = Soal()
+
         sessionManager = SharedPreference(this)
 
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
 
         binding.btnAngkaAcak.setOnClickListener {
             val inputLevel = binding.tfLevelAngka.text.toString()
@@ -70,7 +72,7 @@ class MatchAngkaActivity : AppCompatActivity() {
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka"
                             ),
-                            TOPIC
+                            TOPIC_GENERAL
                         )
                     ).collectLatest {  }
                 }
@@ -78,7 +80,7 @@ class MatchAngkaActivity : AppCompatActivity() {
         }
 
         binding.btnStartAngka.setOnClickListener{
-            if (soal.id_soal != null) {
+//            if (soal.id_soal != null) {
                 lifecycleScope.launch(Dispatchers.Default) {
                     withContext(Dispatchers.Main) {
                         viewModelStartGame.pushNotification(
@@ -92,12 +94,12 @@ class MatchAngkaActivity : AppCompatActivity() {
                                     soal.keterangan,
                                     soal.jawaban
                                 ),
-                                START_ANGKA
+                                TOPIC_JOIN_ANGKA
                             )
-                        )
+                        ).collectLatest {  }
                     }
                 }
-            }
+//            }
         }
     }
 

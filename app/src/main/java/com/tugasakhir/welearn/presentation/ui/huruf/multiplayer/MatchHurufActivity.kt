@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.TOPIC
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.FirebaseService
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchHurufBinding
@@ -34,6 +34,9 @@ class MatchHurufActivity : AppCompatActivity() {
 
         sessionManager = SharedPreference(this)
 
+        binding.imageView4.setOnClickListener {
+            onBackPressed()
+        }
 
         binding.btnFindHuruf.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
@@ -45,7 +48,7 @@ class MatchHurufActivity : AppCompatActivity() {
                                 ,"Siapa yang ingin ikut?"
                                 , "huruf"
                             ),
-                            TOPIC
+                            TOPIC_GENERAL
                         )
                     ).collectLatest {  }
                 }

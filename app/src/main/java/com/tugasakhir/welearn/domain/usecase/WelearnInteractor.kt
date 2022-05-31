@@ -9,7 +9,8 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
     override fun userLogin(username: String, password: String) =
         welearnRepository.loginUser(username, password)
 
-    override fun userDetail(token: String) = welearnRepository.detailUser(token)
+    override fun userDetail(token: String) =
+        welearnRepository.detailUser(token)
 
     override fun userRegister(
         username: String,
@@ -19,13 +20,18 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         jenis_kelamin: String
     ) = welearnRepository.registerUser(username, password, email, name, jenis_kelamin)
 
-    override fun userLogout(token: String) = welearnRepository.logoutUser(token)
+    override fun userLogout(token: String) =
+        welearnRepository.logoutUser(token)
 
-    override fun angkaRandom(level: Int, token: String) = welearnRepository.randAngka(level, token)
-    override fun hurufRandom(level: Int, token: String) = welearnRepository.randHuruf(level, token)
+    override fun angkaRandom(level: Int, token: String) =
+        welearnRepository.randAngka(level, token)
+
+    override fun hurufRandom(level: Int, token: String) =
+        welearnRepository.randHuruf(level, token)
 
     override fun soalMultiplayerAngka(level: Int, token: String) =
         welearnRepository.soalAngkaMultiplayer(level, token)
+
     override fun soalMultiplayerHuruf(level: Int, token: String) =
         welearnRepository.soalHurufMultiplayer(level, token)
 
@@ -34,6 +40,12 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun getSoalHurufByID(id: Int, token: String) =
         welearnRepository.soalHurufByID(id, token)
+
+    override fun userAngkaScore(token: String) =
+        welearnRepository.scoreAngkaUser(token)
+
+    override fun userHurufScore(token: String) =
+        welearnRepository.scoreHurufUser(token)
 
     override fun angkaHighScore(token: String) =
         welearnRepository.highScoreAngka(token)
@@ -58,5 +70,8 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         image: ArrayList<String>,
         token: String
     ) = welearnRepository.predictHuruf(id_soal, image, token)
+
+    override fun testPredict(input: String, token: String) =
+        welearnRepository.predictTest(input, token)
 
 }

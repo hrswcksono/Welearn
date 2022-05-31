@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.score
+package com.tugasakhir.welearn.presentation.ui.score.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.model.UserScore

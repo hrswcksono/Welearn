@@ -84,7 +84,7 @@
         app:srcCompat="@drawable/ic_baseline_reload" />
 
     <ImageView
-        android:id="@+id/submit_tiga_huruf"
+        android:id="@+id/next_tiga_huruf"
         android:layout_width="51dp"
         android:layout_height="51dp"
         android:layout_marginTop="12dp"

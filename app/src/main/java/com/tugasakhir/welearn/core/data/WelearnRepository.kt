@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.core.data
 
+import android.provider.ContactsContract
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.core.utils.DataMapper
@@ -47,13 +48,11 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     override fun soalHurufByID(id: Int, token: String) =
         remoteDataSource.soalHurufByID(id, token).map { DataMapper.mapperSoal(it) }
 
-    override fun scoreAngka(token: String): Flow<Score> {
-        TODO("Not yet implemented")
-    }
+    override fun scoreAngkaUser(token: String) =
+        remoteDataSource.scoreAngkaUser(token).map { DataMapper.mapScoreUser(it) }
 
-    override fun scoreHuruf(token: String): Flow<Score> {
-        TODO("Not yet implemented")
-    }
+    override fun scoreHurufUser(token: String) =
+        remoteDataSource.scoreHurufUser(token).map { DataMapper.mapScoreUser(it) }
 
     override fun highScoreAngka(token: String) =
         remoteDataSource.highScoreAngka(token).map { DataMapper.mapperHighScore(it) }
@@ -78,5 +77,8 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         image: ArrayList<String>,
         token: String
     ) = remoteDataSource.predictHuruf(id_soal, image, token).map { DataMapper.mapperPredict(it) }
+
+    override fun predictTest(input: String, token: String) =
+        remoteDataSource.testPredict(input, token).map { DataMapper.mapperPredict(it) }
 
 }

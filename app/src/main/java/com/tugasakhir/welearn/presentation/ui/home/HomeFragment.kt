@@ -9,10 +9,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
-import com.tugasakhir.welearn.presentation.ui.score.ScoreActivity
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -47,6 +50,9 @@ class HomeFragment : Fragment() {
         binding.btnHuruf.setOnClickListener {
             view.findNavController().navigate(HomeFragmentDirections.toModeHuruf())
         }
+
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_ANGKA)
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GENERAL)
 
         binding.btnLogout.setOnClickListener {
             SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)

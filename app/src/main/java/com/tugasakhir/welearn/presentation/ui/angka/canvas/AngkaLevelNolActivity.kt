@@ -1,21 +1,29 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.widget.Toast
-import com.tugasakhir.welearn.R
+import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
-import dev.abhishekkumar.canvasview.CanvasView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
@@ -27,6 +35,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
+    private val testViewModel: TestViewModel by viewModel()
+    private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,16 +49,21 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
-
-        show(data)
+        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        sessionManager = SharedPreference(this)
 
         binding.levelNolAngkaBack.setOnClickListener {
             onBackPressed()
         }
 
-        binding.spkNolAngka.setOnClickListener {
-            speak(data.keterangan)
+        Toast.makeText(this, sessionManager.fetchAuthToken().toString(), Toast.LENGTH_SHORT).show()
+
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
+                    show(it)
+                }
+            }
         }
 
         draw()
@@ -60,6 +76,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private fun show(data: Soal){
+        binding.spkNolAngka.setOnClickListener {
+            speak(data.keterangan)
+        }
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.id_level}"
         binding.tvSoal.text = data.soal
@@ -82,32 +101,40 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-//    private fun draw() {
-//        val canvasView = findViewById<CanvasView>(R.id.cnstrlyt)
-//        canvasView.setColorBackground(R.color.white)
-//        canvasView.setColorMarker(R.color.black)
-//        canvasView.setStrokeWidth(12f)
-//
-//        binding.refreshNolAngka.setOnClickListener {
-//            canvasView.clearView()
-//        }
-//
-//        binding.submitNolAngka.setOnClickListener {
-//            Toast.makeText(this, encodeImage(canvasView.getBitmap()), Toast.LENGTH_LONG).show()
-//            print(encodeImage(canvasView.getBitmap()))
-//        }
-//    }
-
     private fun draw() {
+        sessionManager = SharedPreference(this)
 
         binding.refreshNolAngka.setOnClickListener {
             binding.cnvsLevelNolAngka.clearCanvas()
         }
 
         binding.submitNolAngka.setOnClickListener {
-            Toast.makeText(this, encodeImage(binding.cnvsLevelNolAngka.getBitmap()), Toast.LENGTH_LONG).show()
+//            Toast.makeText(this, encodeImage(binding.cnvsLevelNolAngka.getBitmap()), Toast.LENGTH_LONG).show()
 //            print(encodeImage(binding.cnvsLevelNolAngka.getBitmap()))
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main){
+                    testViewModel.testPredict("1", sessionManager.fetchAuthToken().toString()).collectLatest {
+                        if (it.message == "WIN") {
+                            alert(it.message, it.text)
+                        } else {
+                            alert(it.message, it.text)
+                        }
+                    }
+                }
+            }
         }
+    }
+
+    private fun alert(string: String, body: String){
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText(string)
+            .setContentText(body)
+            .setConfirmText("Lihat Skor")
+            .setConfirmClickListener {
+                    sDialog -> sDialog.dismissWithAnimation()
+                startActivity(Intent(this, MainActivity::class.java))
+            }
+            .show()
     }
 
 }

@@ -77,22 +77,22 @@ class ListSoalHurufFragment : Fragment() {
         when(soal.id_level){
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, HurufLevelNolActivity::class.java)
-                moveToLevelNolActivity.putExtra(HurufLevelNolActivity.EXTRA_SOAL, soal)
+                moveToLevelNolActivity.putExtra(HurufLevelNolActivity.EXTRA_SOAL, soal.id_soal)
                 startActivity(moveToLevelNolActivity)
             }
             1 -> {
                 val moveToLevelSatuActivity = Intent(activity, HurufLevelSatuActivity::class.java)
-                moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.EXTRA_SOAL, soal)
+                moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.EXTRA_SOAL, soal.id_soal)
                 startActivity(moveToLevelSatuActivity)
             }
             2 -> {
                 val moveToLevelDuaActivity = Intent(activity, HurufLevelDuaActivity::class.java)
-                moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.EXTRA_SOAL, soal)
+                moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.EXTRA_SOAL, soal.id_soal)
                 startActivity(moveToLevelDuaActivity)
             }
             3 -> {
                 val moveToLevelTigaActivity = Intent(activity, HurufLevelTigaActivity::class.java)
-                moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.EXTRA_SOAL, soal)
+                moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.EXTRA_SOAL, soal.id_soal)
                 startActivity(moveToLevelTigaActivity)
             }
         }

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.score
+package com.tugasakhir.welearn.presentation.ui.score.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

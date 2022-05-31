@@ -5,8 +5,6 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.PushNotificationStart
-import okhttp3.ResponseBody
-import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
@@ -66,14 +64,14 @@ interface ApiService {
     ): SoalResponse
 
     // soal angka
-    @GET("soalAngkabyID")
+    @GET("soalAngkabyID/{id}")
     suspend fun getSoalAngkabyID(
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
     // soal huruf
-    @GET("soalHurufbyID")
+    @GET("soalHurufbyID/{id}")
     suspend fun getSoalHurufbyID(
         @Path("id") id: Int,
         @Header("Authorization") token: String
@@ -90,6 +88,16 @@ interface ApiService {
     suspend fun getHighScoreAngka(
         @Header("Authorization") token: String
     ) : HighScoreResponse
+
+    @GET("scoreHurufUser")
+    suspend fun scoreHurufUser(
+        @Header("Authorization") token: String
+    ) : ScoreResponse
+
+    @GET("scoreAngkaUser")
+    suspend fun scoreAngkaUser(
+        @Header("Authorization") token: String
+    ) : ScoreResponse
 
     @Headers("Authorization: key=$SERVER_KEY",
         "Content-Type:$CONTENT_TYPE")
@@ -120,6 +128,13 @@ interface ApiService {
     suspend fun predictHuruf(
         @Field("id_soal") id_soal : String,
         @Field("img[]") image : ArrayList<String>,
+        @Header("Authorization") token: String
+    ): PredictResponse
+
+    @FormUrlEncoded
+    @POST("test")
+    suspend fun test(
+        @Field("input") input : String,
         @Header("Authorization") token: String
     ): PredictResponse
 }

@@ -40,6 +40,8 @@ class FirebaseService : FirebaseMessagingService() {
 
         if (message.data["type"] == "angka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
+//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(intent1)
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
                 .addNextIntent(intent1)
@@ -53,6 +55,7 @@ class FirebaseService : FirebaseMessagingService() {
         } else if(message.data["type"] == "startangka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
             intent1.putExtra(AngkaReadyActivity.LEVEL_ANGKA, mapReadyToGame(message))
+//            startActivity(intent1)
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
                 .addNextIntent(intent1)
@@ -66,8 +69,7 @@ class FirebaseService : FirebaseMessagingService() {
                 .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
         }
 
-        if (message.data["type"] == "angka" || message.data["type"] == "huruf") {
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
                 .setContentTitle(message.data["title"])
                 .setContentText(message.data["message"])
@@ -76,8 +78,7 @@ class FirebaseService : FirebaseMessagingService() {
                 .setContentIntent(pendingIntent1)
                 .build()
 
-            notificationManager.notify(notificationID, notification)
-        }
+        notificationManager.notify(notificationID, notification)
     }
 
     private fun mapReadyToGame(message: RemoteMessage) = Soal(

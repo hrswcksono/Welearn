@@ -6,8 +6,10 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
@@ -15,7 +17,10 @@ import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
-import dev.abhishekkumar.canvasview.CanvasView
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
@@ -27,6 +32,8 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelTigaBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
+    private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,21 +45,29 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
+        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        sessionManager = SharedPreference(this)
+
         binding.levelTigaAngkaBack.setOnClickListener {
             onBackPressed()
         }
 
-        val data = intent.getParcelableExtra<Soal>(EXTRA_SOAL) as Soal
-
-        show(data)
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
+                    show(it)
+                }
+            }
+        }
         draw()
 
-        binding.spkTigaAngka.setOnClickListener {
-            speak(data.keterangan)
-        }
+
     }
 
     private fun show(data: Soal){
+        binding.spkTigaAngka.setOnClickListener {
+            speak(data.keterangan)
+        }
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.id_level}"
         binding.tvSoalAngkaTiga.text = data.soal

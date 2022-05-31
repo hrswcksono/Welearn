@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".presentation.ui.score.ScoreAngkaFragment" >
+    tools:context=".presentation.ui.score.ui.ScoreAngkaFragment" >
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_score_angka"
