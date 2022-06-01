@@ -16,6 +16,7 @@ import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -56,7 +57,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        Toast.makeText(this, sessionManager.fetchAuthToken().toString(), Toast.LENGTH_SHORT).show()
+//        Toast.makeText(this, sessionManager.fetchAuthToken().toString(), Toast.LENGTH_SHORT).show()
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
@@ -89,7 +90,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
         googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
             .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
-
         // start speak
         googleCloudTTS.start(string);
     }
@@ -132,7 +132,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             .setConfirmText("Lihat Skor")
             .setConfirmClickListener {
                     sDialog -> sDialog.dismissWithAnimation()
-                startActivity(Intent(this, MainActivity::class.java))
+                startActivity(Intent(this, ScoreAngkaUserActivity::class.java))
             }
             .show()
     }

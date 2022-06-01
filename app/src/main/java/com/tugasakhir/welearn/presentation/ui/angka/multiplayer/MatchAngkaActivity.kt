@@ -18,14 +18,12 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 
-
 class MatchAngkaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchAngkaBinding
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelRandom: RandomLevelAngkaViewModel by viewModel()
     private val viewModelStartGame: PushNotificationStartViewModel by viewModel()
-    private lateinit var soal: Soal
 
     private lateinit var sessionManager: SharedPreference
 
@@ -36,15 +34,13 @@ class MatchAngkaActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        soal = Soal()
-
         sessionManager = SharedPreference(this)
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
+        val inputLevel = binding.tfLevelAngka.text.toString()
 
         binding.btnAngkaAcak.setOnClickListener {
-            val inputLevel = binding.tfLevelAngka.text.toString()
             if (inputLevel.isNotEmpty()) {
                 lifecycleScope.launch(Dispatchers.Default) {
                     withContext(Dispatchers.Main) {
@@ -52,10 +48,8 @@ class MatchAngkaActivity : AppCompatActivity() {
                             inputLevel.toInt(),
                             sessionManager.fetchAuthToken().toString()
                         ).collectLatest {
-                            if (it.id_soal.toString().isNotEmpty()){
-                                dialogBox()
-                                soal = it
-                            }
+                            startMatch(it.id_soal, it.id_level)
+                            dialogBox()
                         }
                     }
                 }
@@ -78,28 +72,26 @@ class MatchAngkaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
 
+    private fun startMatch(idSoal: Int, idLevel: Int) {
         binding.btnStartAngka.setOnClickListener{
-//            if (soal.id_soal != null) {
                 lifecycleScope.launch(Dispatchers.Default) {
                     withContext(Dispatchers.Main) {
                         viewModelStartGame.pushNotification(
                             PushNotificationStart(
                                 StartGame(
+                                    "Pertandingan telah dimulai",
+                                    "Selamat mengerjakan !",
                                     "startangka",
-                                    soal.id_soal.toString(),
-                                    soal.id_jenis_soal.toString(),
-                                    soal.id_level.toString(),
-                                    soal.soal,
-                                    soal.keterangan,
-                                    soal.jawaban
+                                    idSoal,
+                                    idLevel
                                 ),
                                 TOPIC_JOIN_ANGKA
                             )
                         ).collectLatest {  }
                     }
                 }
-//            }
         }
     }
 

@@ -17,11 +17,9 @@ data class PushNotificationStart(
 )
 
 data class StartGame(
+    val title: String,
+    val message: String,
     val type: String,
-    val id_soal: String,
-    val id_jenis_soal: String,
-    val id_level: String,
-    val soal: String,
-    val keterangan: String,
-    val jawaban: String
+    val id_soal: Int,
+    val id_level: Int
 )

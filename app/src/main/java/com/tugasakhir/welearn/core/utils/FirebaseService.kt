@@ -15,6 +15,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.HurufReadyActivity
 import kotlin.random.Random
@@ -40,7 +41,7 @@ class FirebaseService : FirebaseMessagingService() {
 
         if (message.data["type"] == "angka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
-//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 //            startActivity(intent1)
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
@@ -53,16 +54,27 @@ class FirebaseService : FirebaseMessagingService() {
                 .addNextIntent(intent1)
                 .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
         } else if(message.data["type"] == "startangka") {
-            intent1 = Intent(this, AngkaReadyActivity::class.java)
-            intent1.putExtra(AngkaReadyActivity.LEVEL_ANGKA, mapReadyToGame(message))
-//            startActivity(intent1)
-            pendingIntent1 = TaskStackBuilder.create(this)
-                .addParentStack(AngkaReadyActivity::class.java)
-                .addNextIntent(intent1)
-                .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
+            if (message.data["id_level"] == "0") {
+                intent1 = Intent(this, AngkaLevelNolActivity::class.java)
+                intent1.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+            } else if (message.data["id_level"] == "1") {
+                intent1 = Intent(this, AngkaLevelSatuActivity::class.java)
+                intent1.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+            } else if (message.data["id_level"] == "2") {
+                intent1 = Intent(this, AngkaLevelDuaActivity::class.java)
+                intent1.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+            } else if (message.data["id_level"] == "3") {
+                intent1 = Intent(this, AngkaLevelTigaActivity::class.java)
+                intent1.putExtra(AngkaLevelTigaActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+            } else if (message.data["id_level"] == "4") {
+                intent1 = Intent(this, AngkaLevelEmpatActivity::class.java)
+                intent1.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+            }
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent1)
         } else if(message.data["type"] == "starthuruf") {
             intent1 = Intent(this, HurufReadyActivity::class.java)
-            intent1.putExtra(HurufReadyActivity.LEVEL_HURUF, mapReadyToGame(message))
+//            intent1.putExtra(HurufReadyActivity.LEVEL_HURUF, )
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(HurufReadyActivity::class.java)
                 .addNextIntent(intent1)
@@ -80,15 +92,6 @@ class FirebaseService : FirebaseMessagingService() {
 
         notificationManager.notify(notificationID, notification)
     }
-
-    private fun mapReadyToGame(message: RemoteMessage) = Soal(
-        id_soal = message.data["id_soal"]!!.toInt(),
-        id_jenis_soal = message.data["id_jenis_soal"]!!.toInt(),
-        id_level = message.data["id_level"]!!.toInt(),
-        soal = message.data["soal"].toString(),
-        keterangan = message.data["keterangan"].toString(),
-        jawaban = message.data["jawaban"].toString()
-    )
 
     @RequiresApi(Build.VERSION_CODES.O)
     private fun createNotificationChannel(notificationManager: NotificationManager) {

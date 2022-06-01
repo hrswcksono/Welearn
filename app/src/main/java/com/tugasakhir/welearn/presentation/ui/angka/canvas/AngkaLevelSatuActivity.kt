@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,12 +8,14 @@ import android.os.StrictMode
 import android.util.Base64
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -98,5 +101,17 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         binding.submitSatuAngka.setOnClickListener {
             Toast.makeText(this, encodeImage(binding.cnvsLevelSatuAngka.getBitmap()), Toast.LENGTH_LONG).show()
         }
+    }
+
+    private fun alert(string: String, body: String){
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText(string)
+            .setContentText(body)
+            .setConfirmText("Lihat Skor")
+            .setConfirmClickListener {
+                    sDialog -> sDialog.dismissWithAnimation()
+                startActivity(Intent(this, ScoreAngkaUserActivity::class.java))
+            }
+            .show()
     }
 }

@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.domain.model.Score
 import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -25,15 +25,21 @@ class ScoreHurufUserActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         sessionManager = SharedPreference(this)
+
+        show()
     }
 
     private fun show() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.userScoreHuruf(sessionManager.fetchAuthToken().toString()).collectLatest {
-
+                    showData(it)
                 }
             }
         }
+    }
+
+    private fun showData(data: Score) {
+        binding.tvScoreUserHuruf.text = data.score.toString()
     }
 }
