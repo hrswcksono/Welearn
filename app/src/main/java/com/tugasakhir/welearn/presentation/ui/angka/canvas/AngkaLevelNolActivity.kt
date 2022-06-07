@@ -6,14 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.MainActivity
+import com.google.android.material.snackbar.Snackbar
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
@@ -32,11 +34,14 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
     private val testViewModel: TestViewModel by viewModel()
+    private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
@@ -50,33 +55,49 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
+
         sessionManager = SharedPreference(this)
 
-        binding.levelNolAngkaBack.setOnClickListener {
-            onBackPressed()
+        handlingMode(mode.toString())
+        refreshCanvas()
+        back()
+    }
+
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitNolAngka.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitNolAngka.setOnClickListener{
+                submitDrawing(idSoal)
+            }
         }
+    }
 
-//        Toast.makeText(this, sessionManager.fetchAuthToken().toString(), Toast.LENGTH_SHORT).show()
-
+    private fun showScreen(id: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
+                soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
                 }
             }
         }
-
-        draw()
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
-        var eBitmap: Bitmap? = null
-        var extraBitmap: Bitmap? = null
-    }
-
-    private fun show(data: Soal){
+    private fun showData(data: Soal){
         binding.spkNolAngka.setOnClickListener {
             speak(data.keterangan)
         }
@@ -101,39 +122,52 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw() {
+    private fun submitDrawing(id: String) {
         sessionManager = SharedPreference(this)
-
-        binding.refreshNolAngka.setOnClickListener {
-            binding.cnvsLevelNolAngka.clearCanvas()
-        }
-
-        binding.submitNolAngka.setOnClickListener {
-//            Toast.makeText(this, encodeImage(binding.cnvsLevelNolAngka.getBitmap()), Toast.LENGTH_LONG).show()
-//            print(encodeImage(binding.cnvsLevelNolAngka.getBitmap()))
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main){
-                    testViewModel.testPredict("1", sessionManager.fetchAuthToken().toString()).collectLatest {
-                        if (it.message == "WIN") {
-                            alert(it.message, it.text)
-                        } else {
-                            alert(it.message, it.text)
-                        }
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main){
+                testViewModel.testPredict(id, sessionManager.fetchAuthToken().toString()).collectLatest {
+                    if (it.message == "WIN") {
+                        alert(it.message, it.text)
+//                        snackBar("Berhasil submit")
+                    } else {
+                        alert(it.message, it.text)
+//                        snackBar("Berhasil submit")
                     }
                 }
             }
         }
     }
 
+    private fun refreshCanvas(){
+        binding.refreshNolAngka.setOnClickListener {
+            binding.cnvsLevelNolAngka.clearCanvas()
+        }
+    }
+
+    private fun back(){
+        binding.levelNolAngkaBack.setOnClickListener {
+            onBackPressed()
+        }
+    }
+
+    private fun snackBar(title: String) {
+        val snack = Snackbar.make(View(this@AngkaLevelNolActivity),title,Snackbar.LENGTH_LONG)
+        snack.show()
+    }
+
     private fun alert(string: String, body: String){
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText(string)
             .setContentText(body)
-            .setConfirmText("Lihat Skor")
-            .setConfirmClickListener {
-                    sDialog -> sDialog.dismissWithAnimation()
-                startActivity(Intent(this, ScoreAngkaUserActivity::class.java))
-            }
+//            .setConfirmText("Lihat Skor")
+//            .setConfirmClickListener {
+//                    sDialog -> sDialog.dismissWithAnimation()
+//                val moveToScore = Intent(this, ScoreAngkaUserActivity::class.java)
+//                moveToScore.putExtra(ScoreAngkaUserActivity.LEVEL_SOAL, "2")
+//                startActivity(moveToScore)
+//            }
+
             .show()
     }
 

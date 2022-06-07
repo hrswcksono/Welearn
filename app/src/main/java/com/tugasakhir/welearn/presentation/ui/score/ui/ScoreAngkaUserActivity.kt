@@ -17,6 +17,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class ScoreAngkaUserActivity : AppCompatActivity() {
 
+    companion object{
+        const val LEVEL_SOAL = "level_soal"
+    }
+
     private lateinit var binding: ActivityScoreAngkaUserBinding
     private val viewModel: UserScoreAngkaViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
@@ -35,6 +39,13 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
             startActivity(Intent(this, MainActivity::class.java))
         }
 
+//        binding.backDaftarSoalAngka.setOnClickListener {
+////            startActivity(Intent(this, MainActivity::class.java))
+//            onBackPressed()
+//            onBackPressed()
+//            onBackPressed()
+//        }
+
     }
 
     private fun show() {
@@ -47,7 +58,7 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
         }
     }
 
-    override fun onBackPressed() {
-        return
-    }
+//    override fun onBackPressed() {
+//        return
+//    }
 }

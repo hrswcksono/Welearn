@@ -37,12 +37,17 @@ class FirebaseService : FirebaseMessagingService() {
             createNotificationChannel(notificationManager)
         }
 
+        var player = 0
+
+        if (message.data["action"] == "gabung") {
+            player++
+            print(player)
+        }
+
         pendingIntent1 = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_ONE_SHOT)
 
         if (message.data["type"] == "angka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
-//            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-//            startActivity(intent1)
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
                 .addNextIntent(intent1)
@@ -56,10 +61,12 @@ class FirebaseService : FirebaseMessagingService() {
         } else if(message.data["type"] == "startangka") {
             if (message.data["id_level"] == "0") {
                 intent1 = Intent(this, AngkaLevelNolActivity::class.java)
-                intent1.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+                intent1.putExtra(AngkaLevelNolActivity.LEVEL_SOAL, message.data["id_soal"])
+                intent1.putExtra(AngkaLevelNolActivity.GAME_MODE, "multi")
             } else if (message.data["id_level"] == "1") {
                 intent1 = Intent(this, AngkaLevelSatuActivity::class.java)
                 intent1.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
+//                intent1.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())
             } else if (message.data["id_level"] == "2") {
                 intent1 = Intent(this, AngkaLevelDuaActivity::class.java)
                 intent1.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, message.data["id_soal"]!!.toInt())

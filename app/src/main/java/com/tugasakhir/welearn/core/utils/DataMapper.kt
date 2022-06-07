@@ -2,11 +2,11 @@ package com.tugasakhir.welearn.core.utils
 
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.model.*
-import org.koin.ext.scope
 
 object DataMapper {
     fun mapperLoginToken(it: Message) = Login(
-        token = it.token.toString()
+        token = it.token.toString(),
+        name = it.name.toString()
     )
 
     fun mapperDetailUser(it: DMessage) = User(
@@ -64,15 +64,34 @@ object DataMapper {
         return highScoreList
     }
 
+    fun mapperScoreMulti(input: List<ScoreMultiItem>): List<ScoreMulti> {
+        val scoreMultiList = ArrayList<ScoreMulti>()
+        input.map {
+            val scoreMulti = ScoreMulti(
+                name = it.name.toString(),
+                score = it.score!!,
+                duration = it.duration!!
+            )
+            scoreMultiList.add(scoreMulti)
+        }
+        return scoreMultiList
+    }
+
     fun mapperRegister(input: RegisterResponse): String {
         var result: String = ""
         result = input.success.toString()
         return result
     }
 
-    fun mapperLogout(input: LogoutResponse): String {
-        var result: String = ""
+    fun mapperString(input: SimpleResponse): String {
+        var result = ""
         result = input.message.toString()
+        return result
+    }
+
+    fun mapperRoom(input: MakeRoomResponse): String {
+        var result = ""
+        result = input.message!!.id.toString()
         return result
     }
 

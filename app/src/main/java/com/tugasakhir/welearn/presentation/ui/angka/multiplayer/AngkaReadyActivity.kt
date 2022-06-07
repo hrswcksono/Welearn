@@ -1,16 +1,23 @@
 package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaReadyBinding
-import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.domain.model.PushNotificationStart
+import com.tugasakhir.welearn.domain.model.StartGame
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.SoalAngkaByIDViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -19,6 +26,8 @@ class AngkaReadyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAngkaReadyBinding
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelSoal: SoalAngkaByIDViewModel by viewModel()
+    private val viewModelGame: PushNotificationStartViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     companion object{
         const val LEVEL_ANGKA = "level_angka"
@@ -30,23 +39,47 @@ class AngkaReadyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+        sessionManager = SharedPreference(this)
 
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
+        ready()
+    }
 
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA).addOnSuccessListener {
-            Toast.makeText(
-                applicationContext,
-                "Success",
-                Toast.LENGTH_LONG
-            ).show()
-        }
-
+    private fun ready() {
         binding.btnAngkaReady.setOnClickListener {
-            Handler(Looper.getMainLooper()).postDelayed({
-
-            }, 1000)
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main) {
+                    viewModelGame.pushNotification(
+                        PushNotificationStart(
+                            StartGame(
+                                "Perhatian...!",
+                                "${sessionManager.fetchName()} telah bergabung!",
+                                "",
+                                "0",
+                                0,
+                                "gabung_angka"
+                            ),
+                            TOPIC_JOIN_ANGKA,
+                            "high"
+                        )
+                    ).collectLatest {
+                        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
+                        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
+                        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA).addOnSuccessListener {
+                            dialogBox()
+                        }
+                    }
+                }
+            }
+//            Handler(Looper.getMainLooper()).postDelayed({
+//            }, 1000)
         }
+    }
+
+    private fun dialogBox() {
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
+            .setTitleText("Berhasil begabung...!")
+            .setContentText("Harap menunggu pemain yang lain")
+            .show()
     }
 
     override fun onBackPressed() {

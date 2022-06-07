@@ -18,6 +18,9 @@
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".presentation.ui.score.ui.ScoreMultiplayerActivity"
+            android:exported="false" />
+        <activity
             android:name=".presentation.ui.score.ui.ScoreHurufUserActivity"
             android:exported="false" />
         <activity

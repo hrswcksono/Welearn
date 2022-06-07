@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.domain.model
 
 data class Login(
-    var token:String = ""
+    val token:String = "",
+    val name: String = ""
 )

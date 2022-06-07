@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.core.data
 import android.provider.ContactsContract
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
+import com.tugasakhir.welearn.core.data.source.remote.response.ScoreMultiItem
 import com.tugasakhir.welearn.core.utils.DataMapper
 import com.tugasakhir.welearn.domain.model.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
@@ -28,7 +29,7 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     }
 
     override fun logoutUser(token: String) =
-        remoteDataSource.logoutUser(token).map { DataMapper.mapperLogout(it) }
+        remoteDataSource.logoutUser(token).map { DataMapper.mapperString(it) }
 
     override fun randAngka(level: Int, token: String) =
         remoteDataSource.randAngka(level,token).map { DataMapper.mapperRandomSoal(it) }
@@ -37,7 +38,7 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         remoteDataSource.randHuruf(level, token).map { DataMapper.mapperRandomSoal(it) }
 
     override fun soalAngkaMultiplayer(level: Int, token: String) =
-        remoteDataSource.soalAngkaMultiplayer(level, token).map { DataMapper.mapperSoal(it) }
+        remoteDataSource.soalAngkaMultiplayer(level, token).map { DataMapper.mapperString(it) }
 
     override fun soalHurufMultiplayer(level: Int, token: String) =
         remoteDataSource.soalHurufMultiplayer(level, token).map { DataMapper.mapperSoal(it) }
@@ -80,5 +81,35 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
 
     override fun predictTest(input: String, token: String) =
         remoteDataSource.testPredict(input, token).map { DataMapper.mapperPredict(it) }
+
+    override fun makeRoomGame(token: String) =
+        remoteDataSource.makeRoomGame(token).map { DataMapper.mapperString(it) }
+
+    override fun joinGame(id_game: String, token: String) =
+        remoteDataSource.joinGame(id_game, token).map { DataMapper.mapperString(it) }
+
+    override fun endGame(id_game: String, token: String) =
+        remoteDataSource.endGame(id_game, token).map { DataMapper.mapperString(it) }
+
+    override fun scoreMulti(id_game: Int, token: String) =
+        remoteDataSource.scoreMulti(id_game, token).map { DataMapper.mapperScoreMulti(it as List<ScoreMultiItem>) }
+
+    override fun predictHurufMulti(
+        id_game: Int,
+        id_jenis: Int,
+        image: ArrayList<String>,
+        token: String
+    ) = remoteDataSource.predictHurufMulti(id_game, id_jenis, image, token).map {
+        DataMapper.mapperString(it)
+    }
+
+    override fun predictAngkaMulti(
+        id_game: Int,
+        id_jenis: Int,
+        image: ArrayList<String>,
+        token: String
+    ) = remoteDataSource.predictAngkaMulti(id_game, id_jenis, image, token).map {
+        DataMapper.mapperString(it)
+    }
 
 }

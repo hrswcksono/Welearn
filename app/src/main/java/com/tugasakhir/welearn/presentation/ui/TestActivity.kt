@@ -1,11 +1,14 @@
 package com.tugasakhir.welearn.presentation.ui
 
+import android.annotation.SuppressLint
 import android.graphics.Bitmap
+import android.os.Build
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.util.Base64.encodeToString
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import com.tugasakhir.welearn.core.utils.Constants.Companion.GOOGLE_API_KEY
 import com.tugasakhir.welearn.databinding.ActivityTestBinding
@@ -13,15 +16,17 @@ import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
-import org.koin.android.ext.android.bind
 import java.io.ByteArrayOutputStream
-
+import java.time.Duration
+import java.time.Instant
 
 class TestActivity : AppCompatActivity(){
 
     private lateinit var binding: ActivityTestBinding
 //    val myCanvasView = MyCanvasView(this)
 
+    @SuppressLint("NewApi")
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityTestBinding.inflate(layoutInflater)
@@ -30,6 +35,19 @@ class TestActivity : AppCompatActivity(){
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
 
         StrictMode.setThreadPolicy(policy)
+
+        var start = Instant.now()
+        var end = Instant.now()
+
+        binding.button3.setOnClickListener {
+            start = Instant.now()
+        }
+
+        binding.btnStop.setOnClickListener {
+            end = Instant.now()
+            val elapsed: Duration = Duration.between(start, end)
+            Toast.makeText(this,elapsed.toSeconds().toString(), Toast.LENGTH_SHORT).show()
+        }
 
 //        binding.button3.setOnClickListener {
 ////            binding.drawView.clearCanvas()

@@ -3,7 +3,7 @@ package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.tugasakhir.welearn.databinding.ActivityHurufReadyBinding
-import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HurufReadyActivity : AppCompatActivity() {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class RandomLevelAngkaViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun randomSoalAngkaByLevel(level: Int, token: String): Flow<Soal> =
+    fun randomSoalAngkaByLevel(level: Int, token: String) =
         useCase.soalMultiplayerAngka(level, token)
 
 }

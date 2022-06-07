@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
@@ -10,8 +11,8 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
 import com.tugasakhir.welearn.domain.model.*
-import com.tugasakhir.welearn.presentation.ui.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +24,7 @@ class MatchAngkaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMatchAngkaBinding
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelRandom: RandomLevelAngkaViewModel by viewModel()
-    private val viewModelStartGame: PushNotificationStartViewModel by viewModel()
+    private val viewModelGame: PushNotificationStartViewModel by viewModel()
 
     private lateinit var sessionManager: SharedPreference
 
@@ -38,35 +39,42 @@ class MatchAngkaActivity : AppCompatActivity() {
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
-        val inputLevel = binding.tfLevelAngka.text.toString()
 
         binding.btnAngkaAcak.setOnClickListener {
+            val inputLevel = binding.tfLevelAngka.text.toString()
             if (inputLevel.isNotEmpty()) {
+                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
                 lifecycleScope.launch(Dispatchers.Default) {
                     withContext(Dispatchers.Main) {
                         viewModelRandom.randomSoalAngkaByLevel(
                             inputLevel.toInt(),
                             sessionManager.fetchAuthToken().toString()
                         ).collectLatest {
-                            startMatch(it.id_soal, it.id_level)
-                            dialogBox()
+                            if (it.isNotEmpty()){
+                                startMatch(it, inputLevel.toInt())
+                                findPlayer(it)
+                                dialogBox()
+                            }
                         }
                     }
                 }
             }
         }
+    }
 
+    private fun findPlayer(level: String) {
         binding.btnFindAngka.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "Pertandingan MultiPlayer Segera Dimuali!"
+                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka"
                             ),
-                            TOPIC_GENERAL
+                            TOPIC_GENERAL,
+                            "high"
                         )
                     ).collectLatest {  }
                 }
@@ -74,20 +82,22 @@ class MatchAngkaActivity : AppCompatActivity() {
         }
     }
 
-    private fun startMatch(idSoal: Int, idLevel: Int) {
+    private fun startMatch(idSoal: String, idLevel: Int) {
         binding.btnStartAngka.setOnClickListener{
                 lifecycleScope.launch(Dispatchers.Default) {
                     withContext(Dispatchers.Main) {
-                        viewModelStartGame.pushNotification(
+                        viewModelGame.pushNotification(
                             PushNotificationStart(
                                 StartGame(
                                     "Pertandingan telah dimulai",
                                     "Selamat mengerjakan !",
                                     "startangka",
                                     idSoal,
-                                    idLevel
+                                    idLevel,
+                                    ""
                                 ),
-                                TOPIC_JOIN_ANGKA
+                                TOPIC_JOIN_ANGKA,
+                                "high"
                             )
                         ).collectLatest {  }
                     }

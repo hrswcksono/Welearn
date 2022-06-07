@@ -2,8 +2,8 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import com.tugasakhir.welearn.presentation.ui.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.RandomLevelAngkaViewModel

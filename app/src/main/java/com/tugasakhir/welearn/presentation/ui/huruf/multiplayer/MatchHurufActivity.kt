@@ -1,17 +1,14 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 
-import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
-import com.tugasakhir.welearn.core.utils.FirebaseService
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchHurufBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.presentation.ui.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,7 +45,8 @@ class MatchHurufActivity : AppCompatActivity() {
                                 ,"Siapa yang ingin ikut?"
                                 , "huruf"
                             ),
-                            TOPIC_GENERAL
+                            TOPIC_GENERAL,
+                            "high"
                         )
                     ).collectLatest {  }
                 }

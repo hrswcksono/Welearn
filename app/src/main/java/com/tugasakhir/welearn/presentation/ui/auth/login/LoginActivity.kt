@@ -31,8 +31,6 @@ class LoginActivity : AppCompatActivity() {
 
         sessionManager = SharedPreference(this)
 
-//        binding.
-
         binding.btnLogin.setOnClickListener {
             loginUser()
         }
@@ -57,7 +55,7 @@ class LoginActivity : AppCompatActivity() {
 
     private fun testLogin(login: Login) {
         sessionManager.saveAuthToken(login.token)
-//        Toast.makeText(this@LoginActivity, login.token, Toast.LENGTH_LONG).show()
+        sessionManager.saveName(login.name)
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }

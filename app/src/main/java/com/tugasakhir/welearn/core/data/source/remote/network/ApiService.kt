@@ -8,6 +8,7 @@ import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import retrofit2.http.*
 
 interface ApiService {
+
     // login
     @FormUrlEncoded
     @POST("login")
@@ -29,7 +30,7 @@ interface ApiService {
 
     // logout
     @GET("logout")
-    suspend fun logout(@Header("Authorization") token: String): LogoutResponse
+    suspend fun logout(@Header("Authorization") token: String): SimpleResponse
 
     // detail
     @GET("detail")
@@ -54,7 +55,7 @@ interface ApiService {
     suspend fun getSoalAngkaRandom(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): SoalResponse
+    ): SimpleResponse
 
     // soal huruf
     @GET("soalHuruf/{id}")
@@ -137,4 +138,44 @@ interface ApiService {
         @Field("input") input : String,
         @Header("Authorization") token: String
     ): PredictResponse
+
+    @GET("makeRoom")
+    suspend fun makeRoom(
+        @Header("Authorization") token: String
+    ): SimpleResponse
+
+    @POST("joinGame")
+    suspend fun joinGame(
+        @Field("id_game") id_game : String,
+        @Header("Authorization") token: String
+    ): SimpleResponse
+
+    @POST("endGame")
+    suspend fun endGame(
+        @Field("id") id : String,
+        @Header("Authorization") token: String
+    ): SimpleResponse
+
+    @GET("showScoreMulti/{id}")
+    suspend fun scoreMulti(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): ScoreMultiplayerResponse
+
+    @POST("predictAngkaMulti")
+    suspend fun predictAngkaMulti(
+        @Field("id_game") id_game : Int,
+        @Field("id_jenis") id_jenis : Int,
+        @Field("img[]") image : ArrayList<String>,
+        @Header("Authorization") token: String
+    ): SimpleResponse
+
+    @POST("predictHurufMulti")
+    suspend fun predictHurufMulti(
+        @Field("id_game") id_game : Int,
+        @Field("id_jenis") id_jenis : Int,
+        @Field("img[]") image : ArrayList<String>,
+        @Header("Authorization") token: String
+    ): SimpleResponse
+
 }

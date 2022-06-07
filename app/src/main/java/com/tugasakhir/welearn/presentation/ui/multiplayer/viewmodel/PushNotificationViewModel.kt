@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui
+package com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse

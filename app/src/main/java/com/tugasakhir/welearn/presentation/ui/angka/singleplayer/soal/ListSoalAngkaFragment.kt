@@ -78,6 +78,7 @@ class ListSoalAngkaFragment : Fragment() {
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, AngkaLevelNolActivity::class.java)
                 moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.GAME_MODE, "single")
                 startActivity(moveToLevelNolActivity)
             }
             1 -> {
