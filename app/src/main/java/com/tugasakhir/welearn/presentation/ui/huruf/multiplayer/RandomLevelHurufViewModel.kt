@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class RandomLevelHurufViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun randomSoalHurufByLevel(level: Int, token: String): Flow<Soal> =
-        useCase.getSoalHurufByID(level, token)
+    fun randomSoalHurufByLevel(level: Int, token: String) =
+        useCase.soalMultiplayerHuruf(level, token)
 
 }

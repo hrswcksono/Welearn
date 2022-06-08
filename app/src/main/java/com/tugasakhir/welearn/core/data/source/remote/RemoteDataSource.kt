@@ -79,11 +79,11 @@ class RemoteDataSource (private val apiService: ApiService) {
         flow {
             try {
                 val response = apiService.getSoalHurufRandom(level, token = "Bearer ${token}")
-                emit(response.message)
+                emit(response)
             } catch (e: Exception) {
                 Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+        }.flowOn(Dispatchers.IO)
 
     fun soalAngkaByID(id: Int, token: String) =
         flow {

@@ -36,6 +36,8 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,27 +48,55 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(AngkaLevelNolActivity.GAME_MODE)
         sessionManager = SharedPreference(this)
 
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
-                }
-            }
-        }
+        handlingMode(mode.toString())
 
         supportActionBar?.hide()
 
-        binding.levelEmpatAngkaBack.setOnClickListener {
-            onBackPressed()
-        }
-
-        draw()
+        refreshCanvas()
+        back()
     }
 
-    private fun show(data: Soal){
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitEmpatAngka.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitEmpatAngka.setOnClickListener{
+                submitDrawing(idSoal)
+            }
+        }
+    }
+
+    private fun submitDrawing(id: String) {
+
+    }
+
+    private fun showScreen(id: String) {
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
+                }
+            }
+        }
+    }
+
+    private fun showData(data: Soal){
         binding.spkEmpatAngka.setOnClickListener {
             speak(data.keterangan)
         }
@@ -100,6 +130,19 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         binding.refreshEmpatAngka.setOnClickListener {
             binding.cnvsLevelEmpatAngkaOne.clearCanvas()
             binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
+        }
+    }
+
+    private fun refreshCanvas(){
+        binding.refreshEmpatAngka.setOnClickListener {
+            binding.cnvsLevelEmpatAngkaOne.clearCanvas()
+            binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
+        }
+    }
+
+    private fun back(){
+        binding.levelEmpatAngkaBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

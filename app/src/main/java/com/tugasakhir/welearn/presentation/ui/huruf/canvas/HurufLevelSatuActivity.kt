@@ -31,6 +31,8 @@ class HurufLevelSatuActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityHurufLevelSatuBinding
@@ -48,25 +50,52 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
         sessionManager = SharedPreference(this)
 
-        binding.levelSatuHurufBack.setOnClickListener {
-            onBackPressed()
-        }
+        handlingMode(mode.toString())
+        refreshCanvas()
+        back()
+    }
 
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitSatuHuruf.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitSatuHuruf.setOnClickListener{
+                submitDrawing(idSoal)
+            }
+        }
+    }
+
+    private fun submitDrawing(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    private fun showScreen(id: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalHurufByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
+                soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
                 }
             }
         }
-
-        draw()
     }
 
-    private fun show(data: Soal){
+    private fun showData(data: Soal){
         binding.spkSatuHuruf.setOnClickListener {
             speak(data.keterangan)
         }
@@ -81,18 +110,18 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw(){
-
+    private fun refreshCanvas(){
         binding.refreshSatuHuruf.setOnClickListener {
             binding.cnvsLevelSatuHurufone.clearCanvas()
             binding.cnvsLevelSatuHuruftwo.clearCanvas()
             binding.cnvsLevelSatuHurufthree.clearCanvas()
         }
+    }
 
-        binding.submitSatuHuruf.setOnClickListener {
-
+    private fun back(){
+        binding.levelSatuHurufBack.setOnClickListener {
+            onBackPressed()
         }
-
     }
 
     private fun speak(string: String) {

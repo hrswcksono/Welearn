@@ -41,7 +41,7 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         remoteDataSource.soalAngkaMultiplayer(level, token).map { DataMapper.mapperString(it) }
 
     override fun soalHurufMultiplayer(level: Int, token: String) =
-        remoteDataSource.soalHurufMultiplayer(level, token).map { DataMapper.mapperSoal(it) }
+        remoteDataSource.soalHurufMultiplayer(level, token).map { DataMapper.mapperString(it) }
 
     override fun soalAngkaByID(id: Int, token: String) =
         remoteDataSource.soalAngkaByID(id, token).map { DataMapper.mapperSoal(it) }

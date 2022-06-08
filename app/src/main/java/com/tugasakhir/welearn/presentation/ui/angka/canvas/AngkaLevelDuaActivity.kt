@@ -14,6 +14,7 @@ import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
@@ -31,11 +32,14 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityAngkaLevelDuaBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
     private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private val testViewModel: TestViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,23 +53,54 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
 
         val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
         sessionManager = SharedPreference(this)
 
-        binding.levelDuaAngkaBack.setOnClickListener {
-            onBackPressed()
-        }
+        handlingMode(mode.toString())
 
+        refreshCanvas()
+        back()
+
+    }
+
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitDuaAngka.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitDuaAngka.setOnClickListener{
+                submitDrawing(idSoal)
+            }
+        }
+    }
+
+    private fun submitDrawing(idSoal: String) {
+
+    }
+
+    private fun showScreen(id: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
+                soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
                 }
             }
         }
-        draw()
     }
 
-    private fun show(data: Soal){
+    private fun showData(data: Soal){
         binding.spkDuaAngka.setOnClickListener {
             speak(data.keterangan)
         }
@@ -91,13 +126,19 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw(){
+    private fun refreshCanvas(){
         binding.refreshDuaAngka.setOnClickListener {
             binding.cnvsLevelDuaAngka.clearCanvas()
         }
+//
+//        binding.submitDuaAngka.setOnClickListener {
+//            Toast.makeText(this, encodeImage(binding.cnvsLevelDuaAngka.getBitmap()), Toast.LENGTH_LONG).show()
+//        }
+    }
 
-        binding.submitDuaAngka.setOnClickListener {
-            Toast.makeText(this, encodeImage(binding.cnvsLevelDuaAngka.getBitmap()), Toast.LENGTH_LONG).show()
+    private fun back() {
+        binding.levelDuaAngkaBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

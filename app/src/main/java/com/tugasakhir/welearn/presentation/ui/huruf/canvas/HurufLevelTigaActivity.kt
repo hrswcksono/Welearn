@@ -5,10 +5,8 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
-import android.view.View.OnTouchListener
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
@@ -33,6 +31,8 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityHurufLevelTigaBinding
@@ -50,23 +50,53 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
         sessionManager = SharedPreference(this)
 
         binding.levelTigaHurufBack.setOnClickListener {
             onBackPressed()
         }
-
         draw()
+        handlingMode(mode.toString())
+        refreshCanvas()
+        back()
+    }
 
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(HurufLevelNolActivity.LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.nextTigaHuruf.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.nextTigaHuruf.setOnClickListener{
+                submitDrawing(idSoal)
+            }
+        }
+    }
+
+    private fun submitDrawing(id: String) {
+        TODO("Not yet implemented")
+    }
+
+    private fun showScreen(id: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalHurufByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     show(it)
                 }
             }
         }
-
     }
 
     private fun show(data: Soal){
@@ -102,7 +132,9 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun draw() {
+    }
 
+    private fun refreshCanvas(){
         binding.refreshTigaHuruf.setOnClickListener {
             binding.cnvsLevelTigaHurufone.clearCanvas()
             binding.cnvsLevelTigaHuruftwo.clearCanvas()
@@ -110,6 +142,12 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             binding.cnvsLevelTigaHuruffour.clearCanvas()
             binding.cnvsLevelTigaHuruffive.clearCanvas()
             binding.cnvsLevelTigaHurufsix.clearCanvas()
+        }
+    }
+
+    private fun back(){
+        binding.levelTigaHurufBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

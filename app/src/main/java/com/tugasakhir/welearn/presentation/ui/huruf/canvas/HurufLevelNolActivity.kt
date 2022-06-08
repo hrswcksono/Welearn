@@ -32,6 +32,8 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityHurufLevelNolBinding
@@ -49,24 +51,50 @@ class HurufLevelNolActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
+
         sessionManager = SharedPreference(this)
 
-        binding.levelNolHurufBack.setOnClickListener {
-            onBackPressed()
+        handlingMode(mode.toString())
+        refreshCanvas()
+        back()
+    }
+
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitNolHuruf.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitNolHuruf.setOnClickListener{
+                submitDrawing(idSoal)
+            }
         }
+    }
 
-        draw()
+    private fun submitDrawing(id: String) {
+        TODO("Not yet implemented")
+    }
 
+    private fun showScreen(id: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalHurufByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
+                soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
                 }
             }
         }
-
-
     }
 
     private fun speak(string: String) {
@@ -79,7 +107,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
         googleCloudTTS.start(string);
     }
 
-    private fun show(data: Soal){
+    private fun showData(data: Soal){
         binding.spkNolHuruf.setOnClickListener {
             speak(data.keterangan)
         }
@@ -94,14 +122,16 @@ class HurufLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw(){
-
+    private fun refreshCanvas(){
         binding.refreshNolHuruf.setOnClickListener {
             binding.cnvsLevelNolHuruf.clearCanvas()
         }
+    }
 
-        binding.submitNolHuruf.setOnClickListener {
-
+    private fun back(){
+        binding.levelNolHurufBack.setOnClickListener {
+            onBackPressed()
         }
     }
+
 }

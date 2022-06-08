@@ -19,7 +19,7 @@ interface WelearnUseCase {
     fun hurufRandom(level: Int, token: String): Flow<List<Soal>>
 
     fun soalMultiplayerAngka(level: Int, token: String): Flow<String>
-    fun soalMultiplayerHuruf(level: Int, token: String): Flow<Soal>
+    fun soalMultiplayerHuruf(level: Int, token: String): Flow<String>
 
     fun getSoalAngkaByID(id: Int, token: String): Flow<Soal>
     fun getSoalHurufByID(id: Int, token: String): Flow<Soal>

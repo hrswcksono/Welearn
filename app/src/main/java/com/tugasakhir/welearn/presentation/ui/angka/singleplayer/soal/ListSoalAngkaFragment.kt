@@ -84,21 +84,25 @@ class ListSoalAngkaFragment : Fragment() {
             1 -> {
                 val moveToLevelSatuActivity = Intent(activity, AngkaLevelSatuActivity::class.java)
                 moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.GAME_MODE, "single")
                 startActivity(moveToLevelSatuActivity)
             }
             2 -> {
                 val moveToLevelDuaActivity = Intent(activity, AngkaLevelDuaActivity::class.java)
-                moveToLevelDuaActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelDuaActivity)
             }
             3 -> {
                 val moveToLevelTigaActivity = Intent(activity, AngkaLevelTigaActivity::class.java)
-                moveToLevelTigaActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelTigaActivity)
             }
             4 -> {
                 val moveToLevelEmpatActivity = Intent(activity, AngkaLevelEmpatActivity::class.java)
                 moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.GAME_MODE, "single")
                 startActivity(moveToLevelEmpatActivity)
             }
         }

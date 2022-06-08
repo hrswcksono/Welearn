@@ -31,6 +31,8 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
     }
 
     private lateinit var binding: ActivityAngkaLevelTigaBinding
@@ -48,26 +50,59 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
 
-        val idSoal = intent.getIntExtra(EXTRA_SOAL, 0)
+        val mode = intent.getStringExtra(GAME_MODE)
         sessionManager = SharedPreference(this)
 
         binding.levelTigaAngkaBack.setOnClickListener {
             onBackPressed()
         }
 
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(idSoal, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    show(it)
-                }
-            }
-        }
-        draw()
+        handlingMode(mode.toString())
 
+        draw()
+        refreshCanvas()
+        back()
 
     }
 
-    private fun show(data: Soal){
+    private fun handlingMode(mode: String) {
+        if (mode == "multi") {
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
+            val arrayID = soalID.toString().split("|")
+            var index = 0
+//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var idSoal = arrayID[index]
+            showScreen(idSoal)
+            binding.submitTigaAngka.setOnClickListener {
+                index++
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+                submitDrawing(idSoal)
+            }
+        }else if (mode == "single") {
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
+            binding.submitTigaAngka.setOnClickListener{
+                submitDrawing(idSoal)
+            }
+        }
+    }
+
+    private fun submitDrawing(idSoal: String) {
+
+    }
+
+    private fun showScreen(idSoal: String) {
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                soalViewModel.soalAngkaByID(idSoal.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                    showData(it)
+                }
+            }
+        }
+    }
+
+    private fun showData(data: Soal){
         binding.spkTigaAngka.setOnClickListener {
             speak(data.keterangan)
         }
@@ -100,6 +135,18 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
 
         binding.submitTigaAngka.setOnClickListener {
             Toast.makeText(this, encodeImage(binding.cnvsLevelTigaAngka.getBitmap()), Toast.LENGTH_LONG).show()
+        }
+    }
+
+    private fun refreshCanvas(){
+        binding.refreshTigaAngka.setOnClickListener {
+            binding.cnvsLevelTigaAngka.clearCanvas()
+        }
+    }
+
+    private fun back(){
+        binding.levelTigaAngkaBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

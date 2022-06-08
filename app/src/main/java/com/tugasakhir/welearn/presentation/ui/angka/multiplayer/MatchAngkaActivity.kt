@@ -1,8 +1,8 @@
 package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
@@ -18,6 +18,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class MatchAngkaActivity : AppCompatActivity() {
 
@@ -111,4 +112,6 @@ class MatchAngkaActivity : AppCompatActivity() {
             .setContentText("Mendapatkan Soal Angka")
             .show()
     }
+
+
 }

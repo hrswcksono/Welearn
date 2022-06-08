@@ -62,7 +62,7 @@ interface ApiService {
     suspend fun getSoalHurufRandom(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): SoalResponse
+    ): SimpleResponse
 
     // soal angka
     @GET("soalAngkabyID/{id}")

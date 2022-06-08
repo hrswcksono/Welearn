@@ -123,7 +123,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private fun submitDrawing(id: String) {
-        sessionManager = SharedPreference(this)
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main){
                 testViewModel.testPredict(id, sessionManager.fetchAuthToken().toString()).collectLatest {
