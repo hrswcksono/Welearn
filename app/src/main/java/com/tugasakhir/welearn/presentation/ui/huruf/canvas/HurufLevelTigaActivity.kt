@@ -13,8 +13,6 @@ import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaNextActivity.Companion.DATA_DRAWING
-import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaNextActivity.Companion.EXTRA_DATA_SOAL
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
@@ -70,7 +68,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 //            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
             showScreen(idSoal)
-            binding.nextTigaHuruf.setOnClickListener {
+            binding.submitTigaHuruf.setOnClickListener {
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
@@ -79,7 +77,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
-            binding.nextTigaHuruf.setOnClickListener{
+            binding.submitTigaHuruf.setOnClickListener{
                 submitDrawing(idSoal)
             }
         }
@@ -105,13 +103,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.id_level}"
-
-        binding.nextTigaHuruf.setOnClickListener {
-            val moveNextActivity =  Intent(this@HurufLevelTigaActivity, HurufLevelTigaNextActivity::class.java)
-            moveNextActivity.putStringArrayListExtra(DATA_DRAWING, passDataDraw())
-            moveNextActivity.putExtra(EXTRA_DATA_SOAL, data)
-            startActivity(moveNextActivity)
-        }
     }
 
     private fun speak(string: String) {
@@ -142,6 +133,9 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             binding.cnvsLevelTigaHuruffour.clearCanvas()
             binding.cnvsLevelTigaHuruffive.clearCanvas()
             binding.cnvsLevelTigaHurufsix.clearCanvas()
+            binding.cnvsLevelTigaHurufseven.clearCanvas()
+            binding.cnvsLevelTigaHurufeight.clearCanvas()
+            binding.cnvsLevelTigaHurufnine.clearCanvas()
         }
     }
 
@@ -149,16 +143,5 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         binding.levelTigaHurufBack.setOnClickListener {
             onBackPressed()
         }
-    }
-
-    private fun passDataDraw() : ArrayList<String> {
-        val drawList = ArrayList<String>()
-        drawList.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-        drawList.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-        drawList.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-        drawList.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-        drawList.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-        drawList.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-        return drawList
     }
 }

@@ -27,9 +27,6 @@
             android:name=".presentation.ui.score.ui.ScoreAngkaUserActivity"
             android:exported="false" />
         <activity
-            android:name=".presentation.ui.huruf.canvas.HurufLevelTigaNextActivity"
-            android:exported="false" />
-        <activity
             android:name=".presentation.ui.huruf.multiplayer.HurufReadyActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity"

@@ -6,13 +6,10 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
@@ -23,7 +20,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 

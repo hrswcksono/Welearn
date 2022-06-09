@@ -19,6 +19,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/submit_tiga_huruf"
+        android:layout_width="51dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
     <View
         android:id="@+id/view4"
         android:layout_width="370dp"
@@ -83,21 +93,11 @@
         app:layout_constraintTop_toBottomOf="@+id/view4"
         app:srcCompat="@drawable/ic_baseline_reload" />
 
-    <ImageView
-        android:id="@+id/next_tiga_huruf"
-        android:layout_width="51dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:srcCompat="@drawable/ic_next" />
-
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHurufone"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="24dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="72dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,55 +105,82 @@
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHuruftwo"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
         android:layout_marginTop="72dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.555"
         android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/cnvsLevelTigaHurufthree"
         app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHurufone"
         app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHurufthree"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="72dp"
+        android:layout_marginEnd="5dp"
         android:background="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHuruftwo" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view4" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHuruffour"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="5dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHurufthree"
-        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHuruftwo" />
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufthree" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHuruffive"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="13dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufthree" />
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufone" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelTigaHurufsix"
-        android:layout_width="173dp"
-        android:layout_height="160dp"
-        android:layout_marginTop="12dp"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/cnvsLevelTigaHuruffour"
+        app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHuruffive"
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHuruftwo" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelTigaHurufseven"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHuruffive" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelTigaHurufeight"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="13dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toStartOf="@+id/cnvsLevelTigaHurufnine"
+        app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHurufseven"
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufsix" />
+
+    <com.divyanshu.draw.widget.DrawView
+        android:id="@+id/cnvsLevelTigaHurufnine"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="4dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.609"
-        app:layout_constraintStart_toEndOf="@+id/cnvsLevelTigaHuruffive"
-        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHurufthree" />
+        app:layout_constraintTop_toBottomOf="@+id/cnvsLevelTigaHuruffour" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
