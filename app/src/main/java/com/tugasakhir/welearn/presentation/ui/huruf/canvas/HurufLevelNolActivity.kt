@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
@@ -56,7 +57,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
         sessionManager = SharedPreference(this)
 
         handlingMode(mode.toString())
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -65,10 +66,12 @@ class HurufLevelNolActivity : AppCompatActivity() {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             var index = 0
-//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
+//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener {
+                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
@@ -84,7 +87,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     }
 
     private fun submitDrawing(id: String) {
-        TODO("Not yet implemented")
+
     }
 
     private fun showScreen(id: String) {
@@ -92,6 +95,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -122,10 +126,14 @@ class HurufLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshNolHuruf.setOnClickListener {
-            binding.cnvsLevelNolHuruf.clearCanvas()
+            refreshCanvas()
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelNolHuruf.clearCanvas()
     }
 
     private fun back(){

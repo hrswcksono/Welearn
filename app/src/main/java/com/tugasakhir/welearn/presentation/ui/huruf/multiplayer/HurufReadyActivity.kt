@@ -1,9 +1,11 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
@@ -38,6 +40,10 @@ class HurufReadyActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         sessionManager = SharedPreference(this)
+
+        binding.backToHome.setOnClickListener {
+            startActivity(Intent(this@HurufReadyActivity, MainActivity::class.java))
+        }
 
         ready()
     }

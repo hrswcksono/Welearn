@@ -55,7 +55,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -91,6 +91,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -122,22 +123,15 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw() {
-        binding.submitEmpatAngka.setOnClickListener {
-            Toast.makeText(this, encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap()) + encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap()), Toast.LENGTH_LONG).show()
-        }
-
+    private fun refreshCanvasOnClick(){
         binding.refreshEmpatAngka.setOnClickListener {
-            binding.cnvsLevelEmpatAngkaOne.clearCanvas()
-            binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
+            refreshCanvas()
         }
     }
 
     private fun refreshCanvas(){
-        binding.refreshEmpatAngka.setOnClickListener {
-            binding.cnvsLevelEmpatAngkaOne.clearCanvas()
-            binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
-        }
+        binding.cnvsLevelEmpatAngkaOne.clearCanvas()
+        binding.cnvsLevelEmpatAngkaTwo.clearCanvas()
     }
 
     private fun back(){

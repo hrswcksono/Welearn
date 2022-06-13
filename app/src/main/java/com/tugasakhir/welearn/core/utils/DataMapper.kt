@@ -6,7 +6,8 @@ import com.tugasakhir.welearn.domain.model.*
 object DataMapper {
     fun mapperLoginToken(it: Message) = Login(
         token = it.token.toString(),
-        name = it.name.toString()
+        name = it.name.toString(),
+        id = it.id!!
     )
 
     fun mapperDetailUser(it: DMessage) = User(

@@ -54,7 +54,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         sessionManager = SharedPreference(this)
 
         handlingMode(mode.toString())
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -82,7 +82,6 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     }
 
     private fun submitDrawing(id: String) {
-        TODO("Not yet implemented")
     }
 
     private fun showScreen(id: String) {
@@ -90,6 +89,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -110,12 +110,16 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshSatuHuruf.setOnClickListener {
-            binding.cnvsLevelSatuHurufone.clearCanvas()
-            binding.cnvsLevelSatuHuruftwo.clearCanvas()
-            binding.cnvsLevelSatuHurufthree.clearCanvas()
+            refreshCanvas()
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelSatuHurufone.clearCanvas()
+        binding.cnvsLevelSatuHuruftwo.clearCanvas()
+        binding.cnvsLevelSatuHurufthree.clearCanvas()
     }
 
     private fun back(){

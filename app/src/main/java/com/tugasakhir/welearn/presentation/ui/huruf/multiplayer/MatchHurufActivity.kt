@@ -13,6 +13,7 @@ import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import com.tugasakhir.welearn.domain.model.StartGame
+import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.MakeRoomViewModel
 import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
@@ -27,6 +28,7 @@ class MatchHurufActivity : AppCompatActivity() {
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelRandom: RandomLevelHurufViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
+    private val makeRoomViewModel: MakeRoomViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,24 +47,6 @@ class MatchHurufActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_HURUF)
 
-        binding.btnFindHuruf.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    viewModel.pushNotification(
-                        PushNotification(
-                            NotificationData(
-                                "Pertandingan MultiPlayer Segera Dimuali!"
-                                ,"Siapa yang ingin ikut?"
-                                , "huruf"
-                            ),
-                            TOPIC_GENERAL,
-                            "high"
-                        )
-                    ).collectLatest {  }
-                }
-            }
-        }
-
         binding.btnHurufAcak.setOnClickListener {
             val inputLevel = binding.tfLevelHuruf.text.toString()
             lifecycleScope.launch(Dispatchers.Default) {
@@ -78,10 +62,6 @@ class MatchHurufActivity : AppCompatActivity() {
                     }
                 }
             }
-        }
-
-        binding.btnStartHuruf.setOnClickListener {
-
         }
     }
 
@@ -119,10 +99,20 @@ class MatchHurufActivity : AppCompatActivity() {
                                 idLevel,
                                 ""
                             ),
-                            Constants.TOPIC_JOIN_ANGKA,
+                            TOPIC_JOIN_HURUF,
                             "high"
                         )
                     ).collectLatest {  }
+                }
+            }
+        }
+    }
+
+    private fun makeRoom(token: String) {
+        lifecycleScope.launch(Dispatchers.IO) {
+            withContext(Dispatchers.Default) {
+                makeRoomViewModel.makeRoom(sessionManager.fetchAuthToken().toString()).collectLatest {
+
                 }
             }
         }

@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
@@ -47,15 +49,22 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
-                    testLogin(it)
+                    CustomDialogBox.onlyTitle(
+                        this@LoginActivity,
+                        SweetAlertDialog.SUCCESS_TYPE,
+                        "Berhasil login"
+                    ) {
+                        login(it)
+                    }
                 }
             }
         }
     }
 
-    private fun testLogin(login: Login) {
+    private fun login(login: Login) {
         sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)
+        sessionManager.saveUserID(login.id)
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }

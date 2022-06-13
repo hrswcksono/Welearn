@@ -54,7 +54,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         }
 
         handlingMode(mode.toString())
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
 
     }
@@ -83,7 +83,6 @@ class HurufLevelDuaActivity : AppCompatActivity() {
     }
 
     private fun submitDrawing(id: String) {
-        TODO("Not yet implemented")
     }
 
     private fun showScreen(id: String) {
@@ -91,6 +90,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -104,14 +104,18 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         binding.levelHurufKe.text = "Level ke ${data.id_level}"
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshDuaHuruf.setOnClickListener {
-            binding.cnvsLevelDuaHurufone.clearCanvas()
-            binding.cnvsLevelDuaHuruftwo.clearCanvas()
-            binding.cnvsLevelDuaHurufthree.clearCanvas()
-            binding.cnvsLevelDuaHuruffour.clearCanvas()
-            binding.cnvsLevelDuaHuruffive.clearCanvas()
+            refreshCanvas()
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelDuaHurufone.clearCanvas()
+        binding.cnvsLevelDuaHuruftwo.clearCanvas()
+        binding.cnvsLevelDuaHurufthree.clearCanvas()
+        binding.cnvsLevelDuaHuruffour.clearCanvas()
+        binding.cnvsLevelDuaHuruffive.clearCanvas()
     }
 
     private fun back(){

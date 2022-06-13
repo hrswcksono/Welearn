@@ -56,7 +56,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
         draw()
         handlingMode(mode.toString())
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -84,7 +84,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun submitDrawing(id: String) {
-        TODO("Not yet implemented")
     }
 
     private fun showScreen(id: String) {
@@ -92,6 +91,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     show(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -125,18 +125,22 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     private fun draw() {
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshTigaHuruf.setOnClickListener {
-            binding.cnvsLevelTigaHurufone.clearCanvas()
-            binding.cnvsLevelTigaHuruftwo.clearCanvas()
-            binding.cnvsLevelTigaHurufthree.clearCanvas()
-            binding.cnvsLevelTigaHuruffour.clearCanvas()
-            binding.cnvsLevelTigaHuruffive.clearCanvas()
-            binding.cnvsLevelTigaHurufsix.clearCanvas()
-            binding.cnvsLevelTigaHurufseven.clearCanvas()
-            binding.cnvsLevelTigaHurufeight.clearCanvas()
-            binding.cnvsLevelTigaHurufnine.clearCanvas()
+
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelTigaHurufone.clearCanvas()
+        binding.cnvsLevelTigaHuruftwo.clearCanvas()
+        binding.cnvsLevelTigaHurufthree.clearCanvas()
+        binding.cnvsLevelTigaHuruffour.clearCanvas()
+        binding.cnvsLevelTigaHuruffive.clearCanvas()
+        binding.cnvsLevelTigaHurufsix.clearCanvas()
+        binding.cnvsLevelTigaHurufseven.clearCanvas()
+        binding.cnvsLevelTigaHurufeight.clearCanvas()
+        binding.cnvsLevelTigaHurufnine.clearCanvas()
     }
 
     private fun back(){

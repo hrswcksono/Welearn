@@ -10,6 +10,7 @@ class SharedPreference (context: Context) {
     companion object {
         const val USER_TOKEN = "user_token"
         const val USER_NAME = "user_name"
+        const val USER_ID = "user_id"
     }
 
     /**
@@ -28,6 +29,21 @@ class SharedPreference (context: Context) {
         return prefs.getString(USER_TOKEN, null)
     }
 
+    fun deleteToken(){
+        prefs.edit().remove(USER_TOKEN).apply()
+    }
+
+    fun saveUserID(userId: Int){
+        val editor = prefs.edit()
+        editor.putInt(USER_ID, userId)
+        editor.apply()
+    }
+
+    fun fetchUserId(): Int? {
+        return prefs.getInt(USER_ID, 0)
+    }
+
+
     fun saveName(string: String){
         val token = prefs.edit()
         token.putString(USER_NAME, string)
@@ -36,9 +52,5 @@ class SharedPreference (context: Context) {
 
     fun fetchName(): String? {
         return prefs.getString(USER_NAME, null)
-    }
-
-    fun deleteToken(){
-        prefs.edit().remove(USER_TOKEN).apply()
     }
 }

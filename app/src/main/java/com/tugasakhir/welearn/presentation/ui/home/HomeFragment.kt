@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -12,6 +13,7 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
@@ -29,6 +31,14 @@ class HomeFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel: LogoutViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
+
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(this) {
+        }
+        callback.isEnabled
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,23 +65,13 @@ class HomeFragment : Fragment() {
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GENERAL)
 
         binding.btnLogout.setOnClickListener {
-            SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-                .setTitleText("Apakah yakin?")
-                .setContentText("Keluar aplikasi ini!")
-                .setConfirmText("Logout!")
-                .setConfirmClickListener {
-                        sDialog -> sDialog.dismissWithAnimation()
-                        logout(sessionManager.fetchAuthToken().toString())
-                }
-                .setCancelButton(
-                    "Batal"
-                ) { sDialog -> sDialog.dismissWithAnimation() }
-                .show()
+            dialogLoOut()
         }
 
         binding.btnHighscore.setOnClickListener {
             startActivity(Intent(activity, ScoreActivity::class.java))
         }
+
     }
 
     private fun logout(token: String){
@@ -79,8 +79,7 @@ class HomeFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.logoutUser(token).collectLatest {
                     if (it == "Successfully logged out"){
-                        startActivity(Intent(activity, LoginActivity::class.java))
-                        sessionManager.deleteToken()
+                        logoutSuccess()
                     }
                 }
             }
@@ -90,5 +89,31 @@ class HomeFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun dialogLoOut(){
+        SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("Apakah yakin?")
+            .setContentText("Keluar aplikasi ini!")
+            .setConfirmText("Logout!")
+            .setConfirmClickListener {
+                    sDialog -> sDialog.dismissWithAnimation()
+                logout(sessionManager.fetchAuthToken().toString())
+            }
+            .setCancelButton(
+                "Batal"
+            ) { sDialog -> sDialog.dismissWithAnimation() }
+            .show()
+    }
+
+    private fun logoutSuccess(){
+        CustomDialogBox.onlyTitle(
+            requireContext(),
+            SweetAlertDialog.SUCCESS_TYPE,
+            "Berhasil keluar"
+        ) {
+            startActivity(Intent(activity, LoginActivity::class.java))
+            sessionManager.deleteToken()
+        }
     }
 }

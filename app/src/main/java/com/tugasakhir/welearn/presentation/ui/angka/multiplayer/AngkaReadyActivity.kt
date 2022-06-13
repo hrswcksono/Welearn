@@ -1,10 +1,12 @@
 package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
@@ -40,6 +42,10 @@ class AngkaReadyActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         sessionManager = SharedPreference(this)
+
+        binding.backToHome.setOnClickListener {
+            startActivity(Intent(this@AngkaReadyActivity, MainActivity::class.java))
+        }
 
         ready()
     }

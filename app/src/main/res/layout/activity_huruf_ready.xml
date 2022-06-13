@@ -10,7 +10,7 @@
         android:id="@+id/textView67"
         android:layout_width="276dp"
         android:layout_height="59dp"
-        android:layout_marginTop="76dp"
+        android:layout_marginTop="130dp"
         android:fontFamily="@font/rubik_regular"
         android:text="Halaman menunggu player huruf multiplayer"
         android:textAlignment="center"
@@ -32,5 +32,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+    <ImageView
+        android:id="@+id/backToHome"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="#3F51B5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_baseline_home" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

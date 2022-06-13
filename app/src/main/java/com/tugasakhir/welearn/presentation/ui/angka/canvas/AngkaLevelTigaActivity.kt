@@ -59,8 +59,8 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
 
         handlingMode(mode.toString())
 
-        draw()
-        refreshCanvas()
+
+        refreshCanvasOnClick()
         back()
 
     }
@@ -97,6 +97,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalAngkaByID(idSoal.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -138,10 +139,14 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshTigaAngka.setOnClickListener {
-            binding.cnvsLevelTigaAngka.clearCanvas()
+            refreshCanvas()
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelTigaAngka.clearCanvas()
     }
 
     private fun back(){

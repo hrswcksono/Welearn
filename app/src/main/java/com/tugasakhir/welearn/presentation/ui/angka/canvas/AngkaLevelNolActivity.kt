@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.material.snackbar.Snackbar
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
@@ -60,7 +61,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         sessionManager = SharedPreference(this)
 
         handlingMode(mode.toString())
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -92,6 +93,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -127,10 +129,22 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             withContext(Dispatchers.Main){
                 testViewModel.testPredict(id, sessionManager.fetchAuthToken().toString()).collectLatest {
                     if (it.message == "WIN") {
-                        alert(it.message, it.text)
+//                        alert(it.message, it.text)
+                        CustomDialogBox.withoutConfirm(
+                            this@AngkaLevelNolActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            it.message,
+                            it.text
+                        )
 //                        snackBar("Berhasil submit")
                     } else {
-                        alert(it.message, it.text)
+                        CustomDialogBox.withoutConfirm(
+                            this@AngkaLevelNolActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            it.message,
+                            it.text
+                        )
+//                        alert(it.message, it.text)
 //                        snackBar("Berhasil submit")
                     }
                 }
@@ -138,10 +152,14 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshNolAngka.setOnClickListener {
-            binding.cnvsLevelNolAngka.clearCanvas()
+            refreshCanvas()
         }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelNolAngka.clearCanvas()
     }
 
     private fun back(){

@@ -58,7 +58,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
         handlingMode(mode.toString())
 
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
 
     }
@@ -95,6 +95,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -126,14 +127,14 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun refreshCanvas(){
+    private fun refreshCanvasOnClick(){
         binding.refreshDuaAngka.setOnClickListener {
-            binding.cnvsLevelDuaAngka.clearCanvas()
+            refreshCanvas()
         }
-//
-//        binding.submitDuaAngka.setOnClickListener {
-//            Toast.makeText(this, encodeImage(binding.cnvsLevelDuaAngka.getBitmap()), Toast.LENGTH_LONG).show()
-//        }
+    }
+
+    private fun refreshCanvas(){
+        binding.cnvsLevelDuaAngka.clearCanvas()
     }
 
     private fun back() {

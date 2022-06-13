@@ -61,8 +61,8 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         }
 
         handlingMode(mode.toString())
-
-        draw()
+        refreshCanvasOnClick()
+        back()
     }
 
     private fun handlingMode(mode: String) {
@@ -73,13 +73,14 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
             var idSoal = arrayID[index]
             showScreen(idSoal)
             binding.submitSatuAngka.setOnClickListener {
-                submitDrawing(idSoal)
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
+                submitDrawing(idSoal)
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
+            showScreen(idSoal)
             binding.submitSatuAngka.setOnClickListener{
                 submitDrawing(idSoal)
             }
@@ -91,6 +92,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    refreshCanvas()
                 }
             }
         }
@@ -123,14 +125,19 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun draw(){
-
+    private fun refreshCanvasOnClick(){
         binding.refreshSatuAngka.setOnClickListener {
-            binding.cnvsLevelSatuAngka.clearCanvas()
+            refreshCanvas()
         }
+    }
 
-        binding.submitSatuAngka.setOnClickListener {
-            Toast.makeText(this, encodeImage(binding.cnvsLevelSatuAngka.getBitmap()), Toast.LENGTH_LONG).show()
+    private fun refreshCanvas(){
+        binding.cnvsLevelSatuAngka.clearCanvas()
+    }
+
+    private fun back(){
+        binding.levelSatuAngkaBack.setOnClickListener {
+            onBackPressed()
         }
     }
 

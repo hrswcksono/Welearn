@@ -20,5 +20,8 @@ data class Message(
 	val token: String? = null,
 
 	@field:SerializedName("name")
-	val name: String? = null
+	val name: String? = null,
+
+	@field:SerializedName("id")
+	val id: Int? = null
 )
