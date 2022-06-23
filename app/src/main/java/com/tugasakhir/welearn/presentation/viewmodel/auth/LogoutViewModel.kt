@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.home
+package com.tugasakhir.welearn.presentation.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase

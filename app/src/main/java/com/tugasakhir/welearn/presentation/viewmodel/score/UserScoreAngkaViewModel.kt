@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.score.viewmodel
+package com.tugasakhir.welearn.presentation.viewmodel.score
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase

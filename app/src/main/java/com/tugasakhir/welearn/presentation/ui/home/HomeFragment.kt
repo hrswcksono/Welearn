@@ -13,11 +13,13 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
+import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
-import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
+import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
+import com.tugasakhir.welearn.presentation.viewmodel.auth.LogoutViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -61,8 +63,7 @@ class HomeFragment : Fragment() {
             view.findNavController().navigate(HomeFragmentDirections.toModeHuruf())
         }
 
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_ANGKA)
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GENERAL)
+        subscribeFCM()
 
         binding.btnLogout.setOnClickListener {
             dialogLoOut()
@@ -92,18 +93,34 @@ class HomeFragment : Fragment() {
     }
 
     private fun dialogLoOut(){
-        SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-            .setTitleText("Apakah yakin?")
-            .setContentText("Keluar aplikasi ini!")
-            .setConfirmText("Logout!")
-            .setConfirmClickListener {
-                    sDialog -> sDialog.dismissWithAnimation()
-                logout(sessionManager.fetchAuthToken().toString())
-            }
-            .setCancelButton(
-                "Batal"
-            ) { sDialog -> sDialog.dismissWithAnimation() }
-            .show()
+        CustomDialogBox.withCancel(
+            requireContext(),
+            SweetAlertDialog.WARNING_TYPE,
+            "Apakah yakin?",
+            "Keluar aplikasi ini!",
+            "Logout!",
+        ) {
+            logout(sessionManager.fetchAuthToken().toString())
+        }
+
+//        SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
+//            .setTitleText("Apakah yakin?")
+//            .setContentText("Keluar aplikasi ini!")
+//            .setConfirmText("Logout!")
+//            .setConfirmClickListener {
+//                    sDialog -> sDialog.dismissWithAnimation()
+//                logout(sessionManager.fetchAuthToken().toString())
+//            }
+//            .setCancelButton(
+//                "Batal"
+//            ) { sDialog -> sDialog.dismissWithAnimation() }
+//            .show()
+    }
+
+    private fun subscribeFCM(){
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_ANGKA)
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_HURUF)
+        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GENERAL)
     }
 
     private fun logoutSuccess(){

@@ -7,6 +7,6 @@ import kotlinx.coroutines.flow.Flow
 
 class SoalAngkaByIDViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun soalAngkaByID(id: Int, token: String) =
-        useCase.getSoalAngkaByID(id, token)
+//    fun soalAngkaByID(id: Int, token: String) =
+//        useCase.getSoalAngkaByID(id, token)
 }

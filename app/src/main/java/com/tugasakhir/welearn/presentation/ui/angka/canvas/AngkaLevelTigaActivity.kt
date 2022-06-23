@@ -6,16 +6,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -37,7 +38,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelTigaBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
-    private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private val soalViewModel: SoalByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -93,10 +94,12 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun showScreen(idSoal: String) {
+        binding.progressBarA3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(idSoal.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(idSoal.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    binding.progressBarA3.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
             }

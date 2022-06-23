@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufBinding
 import com.tugasakhir.welearn.presentation.ui.score.ScoreHurufAdapter
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,12 +43,14 @@ class ScoreHurufFragment : Fragment() {
     }
 
     private fun showScore() {
+        binding.progressBarSHuruf.visibility = View.VISIBLE
         val scoreHurufAdapter = ScoreHurufAdapter()
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.highScoreHuruf(sessionManager.fetchAuthToken().toString()).collectLatest {
                     scoreHurufAdapter.setData(it)
+                    binding.progressBarSHuruf.visibility = View.INVISIBLE
                 }
             }
         }

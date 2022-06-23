@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 class SoalHurufByIDViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun soalHurufByID(id: Int, token: String): Flow<Soal> =
-        useCase.getSoalHurufByID(id, token)
+//    fun soalHurufByID(id: Int, token: String): Flow<Soal> =
+//        useCase.getSoalHurufByID(id, token)
 
 }

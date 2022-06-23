@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.profile
+package com.tugasakhir.welearn.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.model.User

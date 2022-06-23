@@ -5,20 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
-import darren.googlecloudtts.GoogleCloudTTS
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
-import darren.googlecloudtts.model.VoicesList
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
@@ -39,7 +36,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHurufLevelNolBinding
     private val viewModel: PredictHurufViewModel by viewModel()
-    private val soalViewModel: SoalHurufByIDViewModel by viewModel()
+    private val soalViewModel: SoalByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,10 +88,12 @@ class HurufLevelNolActivity : AppCompatActivity() {
     }
 
     private fun showScreen(id: String) {
+        binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    binding.progressBarH0.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
             }

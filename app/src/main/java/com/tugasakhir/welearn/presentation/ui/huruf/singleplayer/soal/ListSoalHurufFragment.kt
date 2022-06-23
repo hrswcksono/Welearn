@@ -16,6 +16,7 @@ import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaActivity
+import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -50,6 +51,7 @@ class ListSoalHurufFragment : Fragment() {
     }
 
     private fun showGridSoalHuruf() {
+        binding.progressBar3.visibility = View.VISIBLE
         val soalHurufAdapter = ListSoalHurufAdapter()
 
         val levelHuruf = ListSoalHurufFragmentArgs.fromBundle(arguments as Bundle).idLevel
@@ -58,6 +60,7 @@ class ListSoalHurufFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.randomHuruf(levelHuruf, sessionManager.fetchAuthToken().toString()).collectLatest {
                     soalHurufAdapter.setData(it)
+                    binding.progressBar3.visibility = View.INVISIBLE
                 }
             }
         }

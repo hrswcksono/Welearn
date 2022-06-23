@@ -52,12 +52,14 @@ class FirebaseService : FirebaseMessagingService() {
 
         if (message.data["type"] == "angka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
+            intent1.putExtra(AngkaReadyActivity.ID_GAME, message.data["action"])
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
                 .addNextIntent(intent1)
                 .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
         } else if(message.data["type"] == "huruf") {
             intent1 = Intent(this, HurufReadyActivity::class.java)
+            intent1.putExtra(HurufReadyActivity.ID_GAME, message.data["action"])
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(HurufReadyActivity::class.java)
                 .addNextIntent(intent1)

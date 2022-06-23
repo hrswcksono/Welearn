@@ -85,23 +85,33 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun soalAngkaByID(id: Int, token: String) =
-        flow {
-            try {
-                val response = apiService.getSoalAngkabyID(id, token = "Bearer ${token}")
-                emit(response.message)
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+//    fun soalAngkaByID(id: Int, token: String) =
+//        flow {
+//            try {
+//                val response = apiService.getSoalAngkabyID(id, token = "Bearer ${token}")
+//                emit(response.message)
+//            } catch (e: Exception) {
+//                Log.e("error", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+//
+//    fun soalHurufByID(id: Int, token: String) =
+//        flow {
+//            try {
+//                val response = apiService.getSoalHurufbyID(id, token = "Bearer ${token}")
+//                emit(response.message)
+//            } catch (e: Exception) {
+//                Log.e("error", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
-    fun soalHurufByID(id: Int, token: String) =
+    fun soalByID(id: Int, token: String) =
         flow {
             try {
-                val response = apiService.getSoalHurufbyID(id, token = "Bearer ${token}")
-                emit(response.message)
+            val response = apiService.getSoalByID(id, token = "Bearer ${token}")
+            emit(response.message)
             } catch (e: Exception) {
-                Log.e("error", e.toString())
+            Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
@@ -229,7 +239,7 @@ class RemoteDataSource (private val apiService: ApiService) {
     fun joinGame(id_game: String, token: String) =
         flow{
             try {
-                val response = apiService.joinGame(id_game, token = "Bearer ${token}")
+                val response = apiService.joinGame(id_game.toInt(), token = "Bearer ${token}")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

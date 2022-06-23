@@ -14,6 +14,7 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
+import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,12 +45,14 @@ class ListSoalAngkaFragment : Fragment() {
             view.findNavController().navigate(ListSoalAngkaFragmentDirections.backLevelAngka())
         }
 
+
         sessionManager = SharedPreference(requireContext())
 
         showGridSoalAngka()
     }
 
     private fun showGridSoalAngka() {
+        binding.progressBar.visibility = View.VISIBLE
         val soal_angka_adapter = ListSoalAngkaAdapter()
 
         val levelAngka = ListSoalAngkaFragmentArgs.fromBundle(arguments as Bundle).idLevel
@@ -58,6 +61,7 @@ class ListSoalAngkaFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.randomAngka(levelAngka, sessionManager.fetchAuthToken().toString()).collectLatest {
                     soal_angka_adapter.setData(it)
+                    binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }

@@ -1,13 +1,14 @@
-package com.tugasakhir.welearn.presentation.ui.auth.register
+package com.tugasakhir.welearn.presentation.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
-import com.tugasakhir.welearn.presentation.ui.auth.login.LoginActivity
+import com.tugasakhir.welearn.presentation.viewmodel.auth.RegisterViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +27,10 @@ class RegisterActivity : AppCompatActivity() {
         setContentView(binding.root)
         supportActionBar?.hide()
 
+        binding.progressbarRegister.visibility = View.INVISIBLE
+
         binding.btnRegister.setOnClickListener {
+            binding.progressbarRegister.visibility = View.VISIBLE
             register()
         }
     }
@@ -53,6 +57,7 @@ class RegisterActivity : AppCompatActivity() {
                         jenis_kelamin.toString()).collectLatest {
                             if (it == "Successful: Created") {
                                 loginSuccess()
+
                             }
                     }
                 }

@@ -21,7 +21,17 @@ object CustomDialogBox {
             .show()
     }
 
-    fun withCancel(){
-
+    fun withCancel(context: Context, type: Int, title: String, body: String, confirm: String, function: ()->Unit){
+        SweetAlertDialog(context, type)
+            .setTitleText(title)
+            .setContentText(body)
+            .setConfirmText(confirm)
+            .setConfirmClickListener {
+                function()
+            }
+            .setCancelButton(
+                "Batal"
+            ) { sDialog -> sDialog.dismissWithAnimation() }
+            .show()
     }
 }

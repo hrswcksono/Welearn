@@ -2,25 +2,26 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.RandomLevelAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.SoalAngkaByIDViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.auth.login.LoginViewModel
-import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterViewModel
-import com.tugasakhir.welearn.presentation.ui.home.LogoutViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.auth.LoginViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.auth.RegisterViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.auth.LogoutViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.RandomLevelHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.profile.ProfileViewModel
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.JoinGameViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.MakeRoomViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.ProfileViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -40,12 +41,13 @@ val viewModelModule = module {
     viewModel { PushNotificationViewModel(get()) }
     viewModel { PushNotificationStartViewModel(get()) }
     viewModel { RandomLevelAngkaViewModel(get()) }
-    viewModel { SoalAngkaByIDViewModel(get()) }
     viewModel { RandomLevelHurufViewModel(get()) }
-    viewModel { SoalHurufByIDViewModel(get()) }
     viewModel { PredictAngkaViewModel(get()) }
     viewModel { PredictHurufViewModel(get()) }
     viewModel { TestViewModel(get()) }
     viewModel { UserScoreAngkaViewModel(get()) }
     viewModel { UserScoreHurufViewModel(get()) }
+    viewModel { MakeRoomViewModel(get()) }
+    viewModel { JoinGameViewModel(get()) }
+    viewModel { SoalByIDViewModel(get()) }
 }

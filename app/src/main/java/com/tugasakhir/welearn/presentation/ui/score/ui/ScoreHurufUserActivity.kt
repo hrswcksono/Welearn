@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.model.Score
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

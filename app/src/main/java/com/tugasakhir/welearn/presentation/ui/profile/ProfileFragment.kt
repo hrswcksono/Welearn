@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
 import com.tugasakhir.welearn.domain.model.User
+import com.tugasakhir.welearn.presentation.viewmodel.ProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,10 +36,12 @@ class ProfileFragment : Fragment() {
 
         sessionManager = SharedPreference(requireContext())
 
+        binding.progressBar2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.detailUser(sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    binding.progressBar2.visibility = View.INVISIBLE
                 }
             }
         }

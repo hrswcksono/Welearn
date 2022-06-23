@@ -35,11 +35,16 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
     override fun soalMultiplayerHuruf(level: Int, token: String) =
         welearnRepository.soalHurufMultiplayer(level, token)
 
-    override fun getSoalAngkaByID(id: Int, token: String) =
-        welearnRepository.soalAngkaByID(id, token)
+    override fun getSoalByID(id: Int, token: String) =
+        welearnRepository.soalByID(id, token)
 
-    override fun getSoalHurufByID(id: Int, token: String) =
-        welearnRepository.soalHurufByID(id, token)
+//    override fun getSoalAngkaByID(id: Int, token: String) =
+//        welearnRepository.soalAngkaByID(id, token)
+//
+//    override fun getSoalHurufByID(id: Int, token: String) =
+//        welearnRepository.soalHurufByID(id, token)
+
+
 
     override fun userAngkaScore(token: String) =
         welearnRepository.scoreAngkaUser(token)

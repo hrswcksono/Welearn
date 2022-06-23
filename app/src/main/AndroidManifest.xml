@@ -113,11 +113,11 @@
             android:exported="true"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.auth.register.RegisterActivity"
+            android:name=".presentation.ui.auth.RegisterActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".presentation.ui.auth.login.LoginActivity"
+            android:name=".presentation.ui.auth.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

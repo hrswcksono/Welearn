@@ -1,10 +1,10 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
-import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.Constants
@@ -13,7 +13,7 @@ import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.SoalHurufByIDViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -35,7 +35,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHurufLevelTigaBinding
     private val viewModel: PredictHurufViewModel by viewModel()
-    private val soalViewModel: SoalHurufByIDViewModel by viewModel()
+    private val soalViewModel: SoalByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -87,10 +87,12 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun showScreen(id: String) {
+        binding.progressBarH3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalHurufByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     show(it)
+                    binding.progressBarH3.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
             }
@@ -127,7 +129,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 
     private fun refreshCanvasOnClick(){
         binding.refreshTigaHuruf.setOnClickListener {
-
+            refreshCanvas()
         }
     }
 

@@ -6,15 +6,14 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufReadyBinding
 import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,7 +29,7 @@ class HurufReadyActivity : AppCompatActivity() {
     private lateinit var sessionManager: SharedPreference
 
     companion object{
-        const val LEVEL_HURUF = "level_huruf"
+        const val ID_GAME = "id_game"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

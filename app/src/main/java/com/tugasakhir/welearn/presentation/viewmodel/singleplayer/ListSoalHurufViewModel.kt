@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal
+package com.tugasakhir.welearn.presentation.viewmodel.singleplayer
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.model.Soal

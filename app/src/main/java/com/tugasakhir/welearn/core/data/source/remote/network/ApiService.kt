@@ -68,19 +68,25 @@ interface ApiService {
         @Header("Authorization") token: String
     ): SimpleResponse
 
-    // soal angka
-    @GET("soalAngkabyID/{id}")
-    suspend fun getSoalAngkabyID(
+//    // soal angka
+//    @GET("soalAngkabyID/{id}")
+//    suspend fun getSoalAngkabyID(
+//        @Path("id") id: Int,
+//        @Header("Authorization") token: String
+//    ): SoalResponse
+
+    @GET("soalbyID/{id}")
+    suspend fun getSoalByID(
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): SoalResponse
 
-    // soal huruf
-    @GET("soalHurufbyID/{id}")
-    suspend fun getSoalHurufbyID(
-        @Path("id") id: Int,
-        @Header("Authorization") token: String
-    ): SoalResponse
+//    // soal huruf
+//    @GET("soalHurufbyID/{id}")
+//    suspend fun getSoalHurufbyID(
+//        @Path("id") id: Int,
+//        @Header("Authorization") token: String
+//    ): SoalResponse
 
     // highscore huruf
     @GET("scoreTHuruf")
@@ -148,12 +154,14 @@ interface ApiService {
         @Header("Authorization") token: String
     ): SimpleResponse
 
+    @FormUrlEncoded
     @POST("joinGame")
     suspend fun joinGame(
-        @Field("id_game") id_game : String,
+        @Field("id_game") id_game : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
+    @FormUrlEncoded
     @POST("endGame")
     suspend fun endGame(
         @Field("id") id : String,
@@ -166,6 +174,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): ScoreMultiplayerResponse
 
+    @FormUrlEncoded
     @POST("predictAngkaMulti")
     suspend fun predictAngkaMulti(
         @Field("id_game") id_game : Int,
@@ -174,6 +183,7 @@ interface ApiService {
         @Header("Authorization") token: String
     ): SimpleResponse
 
+    @FormUrlEncoded
     @POST("predictHurufMulti")
     suspend fun predictHurufMulti(
         @Field("id_game") id_game : Int,

@@ -1,17 +1,15 @@
-package com.tugasakhir.welearn.presentation.ui.auth.login
+package com.tugasakhir.welearn.presentation.ui.auth
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
-import com.tugasakhir.welearn.presentation.ui.auth.register.RegisterActivity
+import com.tugasakhir.welearn.presentation.viewmodel.auth.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -31,6 +29,9 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+//        binding.progressBar2.progressBackgroundTintBlendMode
+        binding.progressLogin.visibility = View.INVISIBLE
+
         sessionManager = SharedPreference(this)
 
         binding.btnLogin.setOnClickListener {
@@ -46,16 +47,22 @@ class LoginActivity : AppCompatActivity() {
         val username = binding.usernameLogin.editableText
         val password = binding.passwordLogin.editableText
 
+//        binding.progressBar2.visibility = View.VISIBLE
+        binding.progressLogin.visibility = View.VISIBLE
+
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
-                    CustomDialogBox.onlyTitle(
-                        this@LoginActivity,
-                        SweetAlertDialog.SUCCESS_TYPE,
-                        "Berhasil login"
-                    ) {
-                        login(it)
-                    }
+//                    CustomDialogBox.onlyTitle(
+//                        this@LoginActivity,
+//                        SweetAlertDialog.SUCCESS_TYPE,
+//                        "Berhasil login"
+//                    ) {
+////                        onBackPressed()
+//                        login(it)
+//                    }
+//                    binding.progressBar2.visibility = View.INVISIBLE
+                    login(it)
                 }
             }
         }

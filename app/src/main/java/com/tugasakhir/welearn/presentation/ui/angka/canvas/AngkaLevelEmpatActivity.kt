@@ -6,16 +6,16 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -31,7 +31,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelEmpatBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
-    private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private val soalViewModel: SoalByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     companion object {
@@ -87,10 +87,12 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
     }
 
     private fun showScreen(id: String) {
+        binding.progressBarA4.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    binding.progressBarA4.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
             }

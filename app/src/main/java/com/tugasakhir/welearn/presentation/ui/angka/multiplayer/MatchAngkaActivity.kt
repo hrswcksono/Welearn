@@ -11,8 +11,10 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
 import com.tugasakhir.welearn.domain.model.*
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.MakeRoomViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,6 +28,7 @@ class MatchAngkaActivity : AppCompatActivity() {
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelRandom: RandomLevelAngkaViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
+    private val makeRoomViewModel: MakeRoomViewModel by viewModel()
 
     private lateinit var sessionManager: SharedPreference
 
@@ -41,29 +44,16 @@ class MatchAngkaActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
 
+        binding.btnBackMatchAngka.setOnClickListener {
+            onBackPressed()
+        }
+
         binding.btnAngkaAcak.setOnClickListener {
-            val inputLevel = binding.tfLevelAngka.text.toString()
-            if (inputLevel.isNotEmpty()) {
-                Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
-                lifecycleScope.launch(Dispatchers.Default) {
-                    withContext(Dispatchers.Main) {
-                        viewModelRandom.randomSoalAngkaByLevel(
-                            inputLevel.toInt(),
-                            sessionManager.fetchAuthToken().toString()
-                        ).collectLatest {
-                            if (it.isNotEmpty()){
-                                startMatch(it, inputLevel.toInt())
-                                findPlayer(it)
-                                dialogBox()
-                            }
-                        }
-                    }
-                }
-            }
+            makeRoom()
         }
     }
 
-    private fun findPlayer(level: String) {
+    private fun findPlayer(level: String, id_game : String) {
         binding.btnFindAngka.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
@@ -72,12 +62,34 @@ class MatchAngkaActivity : AppCompatActivity() {
                             NotificationData(
                                 "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
                                 ,"Siapa yang ingin ikut?"
-                                ,"angka"
+                                ,"angka",
+                                id_game
                             ),
                             TOPIC_GENERAL,
                             "high"
                         )
                     ).collectLatest {  }
+                }
+            }
+        }
+    }
+
+    private fun randomSoal(id_game: String){
+        val inputLevel = binding.tfLevelAngka.text.toString()
+        if (inputLevel.isNotEmpty()) {
+            Toast.makeText(this, "Test", Toast.LENGTH_SHORT).show()
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main) {
+                    viewModelRandom.randomSoalAngkaByLevel(
+                        inputLevel.toInt(),
+                        sessionManager.fetchAuthToken().toString()
+                    ).collectLatest {
+                        if (it.isNotEmpty()){
+                            startMatch(it, inputLevel.toInt())
+                            findPlayer(it, id_game)
+                            dialogBox()
+                        }
+                    }
                 }
             }
         }
@@ -103,6 +115,20 @@ class MatchAngkaActivity : AppCompatActivity() {
                         ).collectLatest {  }
                     }
                 }
+        }
+    }
+
+    private fun makeRoom(){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                makeRoomViewModel.makeRoom(sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        Toast.makeText(this@MatchAngkaActivity, it, Toast.LENGTH_SHORT).show()
+                        if(it != "Gagal buat room"){
+                            randomSoal(it)
+                        }
+                    }
+            }
         }
     }
 

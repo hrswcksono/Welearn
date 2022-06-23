@@ -1,13 +1,11 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
-import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.material.snackbar.Snackbar
@@ -16,10 +14,10 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.multiplayer.viewmodel.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
+import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -43,7 +41,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private val viewModel: PredictAngkaViewModel by viewModel()
     private val testViewModel: TestViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
-    private val soalViewModel: SoalAngkaByIDViewModel by viewModel()
+    private val soalViewModel: SoalByIDViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,10 +87,12 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private fun showScreen(id: String) {
+        binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.soalAngkaByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
                     showData(it)
+                    binding.progressBarA0.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
             }

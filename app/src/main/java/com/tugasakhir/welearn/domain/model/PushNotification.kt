@@ -9,7 +9,8 @@ data class PushNotification(
 data class NotificationData(
     val title: String,
     val message: String,
-    val type: String
+    val type: String,
+    val action: String
 )
 
 data class PushNotificationStart(

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.auth.login
+package com.tugasakhir.welearn.presentation.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.model.Login

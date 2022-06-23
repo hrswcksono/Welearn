@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreAngkaBinding
 import com.tugasakhir.welearn.presentation.ui.score.ScoreAngkaAdapter
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -44,12 +44,14 @@ class ScoreAngkaFragment : Fragment() {
     }
 
     private fun showScore(){
+        binding.progressBarSAngka.visibility = View.VISIBLE
         val scoreAngkaAdapter = ScoreAngkaAdapter()
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.highScoreAngka(sessionManager.fetchAuthToken().toString()).collectLatest {
                     scoreAngkaAdapter.setData(it)
+                    binding.progressBarSAngka.visibility = View.INVISIBLE
                 }
             }
         }

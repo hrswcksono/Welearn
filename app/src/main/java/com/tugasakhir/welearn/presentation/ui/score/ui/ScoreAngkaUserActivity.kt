@@ -7,8 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreAngkaUserBinding
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.ScoreHurufViewModel
-import com.tugasakhir.welearn.presentation.ui.score.viewmodel.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

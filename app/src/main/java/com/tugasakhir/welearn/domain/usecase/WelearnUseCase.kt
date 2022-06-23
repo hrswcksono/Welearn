@@ -21,8 +21,9 @@ interface WelearnUseCase {
     fun soalMultiplayerAngka(level: Int, token: String): Flow<String>
     fun soalMultiplayerHuruf(level: Int, token: String): Flow<String>
 
-    fun getSoalAngkaByID(id: Int, token: String): Flow<Soal>
-    fun getSoalHurufByID(id: Int, token: String): Flow<Soal>
+//    fun getSoalAngkaByID(id: Int, token: String): Flow<Soal>
+//    fun getSoalHurufByID(id: Int, token: String): Flow<Soal>
+    fun getSoalByID(id: Int, token: String): Flow<Soal>
 
     fun userAngkaScore(token: String): Flow<Score>
     fun userHurufScore(token: String): Flow<Score>
