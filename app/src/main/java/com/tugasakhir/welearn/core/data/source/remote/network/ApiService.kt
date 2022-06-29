@@ -187,9 +187,20 @@ interface ApiService {
     @POST("predictHurufMulti")
     suspend fun predictHurufMulti(
         @Field("id_game") id_game : Int,
-        @Field("id_jenis") id_jenis : Int,
-        @Field("img[]") image : ArrayList<String>,
+        @Field("id_soal") id_jenis : Int,
+//        @Field("img[]") image : ArrayList<String>,
+        @Field("duartion") duration : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
+    @GET("joinedGame")
+    suspend fun joinedUser(
+        @Header("Authorization") token: String
+    ): JoinedGameResponse
+
+    @GET("level/{id}")
+    suspend fun getLevel(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): LevelResponse
 }

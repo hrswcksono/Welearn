@@ -2,8 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tugasakhir.welearn">
-
-    <uses-sdk tools:overrideLibrary="dev.abhishekkumar.canvasview" />
+    <!-- <uses-sdk tools:overrideLibrary="dev.abhishekkumar.canvasview" /> -->
     <!-- permissions for INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- receiving broadcast from GCM server -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
@@ -11,12 +10,15 @@
     <application
         android:name=".MyApplication"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/icon_welearn"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/icon_welearn"
         android:supportsRtl="true"
         android:theme="@style/Theme.Welearn"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.ui.score.ui.JoinedGameActivity"
+            android:exported="false" />
         <activity
             android:name=".presentation.ui.score.ui.ScoreMultiplayerActivity"
             android:exported="false" />

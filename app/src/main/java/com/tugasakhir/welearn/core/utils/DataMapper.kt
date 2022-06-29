@@ -65,6 +65,30 @@ object DataMapper {
         return highScoreList
     }
 
+    fun mapperLevel(input: List<MessageLevel>): List<Level> {
+        val levelList = ArrayList<Level>()
+        input.map {
+            val level = Level(
+                id_level = it.idLevel!!,
+                level_soal = it.levelSoal.toString()
+            )
+            levelList.add(level)
+        }
+        return levelList
+    }
+
+    fun mapperJoinedGame(input: List<JGameResponse>): List<UserJoin> {
+        val joinGameList = ArrayList<UserJoin>()
+        input.map{
+            val joinGame = UserJoin(
+                id = it.idGame.toString(),
+                username = it.username.toString()
+            )
+            joinGameList.add(joinGame)
+        }
+        return joinGameList
+    }
+
     fun mapperScoreMulti(input: List<ScoreMultiItem>): List<ScoreMulti> {
         val scoreMultiList = ArrayList<ScoreMulti>()
         input.map {

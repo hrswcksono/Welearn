@@ -5,11 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import com.example.awesomedialog.*
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
-import com.tugasakhir.welearn.presentation.viewmodel.auth.LoginViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LoginViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -62,6 +64,7 @@ class LoginActivity : AppCompatActivity() {
 //                        login(it)
 //                    }
 //                    binding.progressBar2.visibility = View.INVISIBLE
+                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil Login")
                     login(it)
                 }
             }
@@ -69,11 +72,19 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(login: Login) {
+
         sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)
         sessionManager.saveUserID(login.id)
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }
+    }
+
+    private fun dialog() {
+        AwesomeDialog.build(this)
+            .title("Sukses")
+            .body("Berhasil Daftar")
+            .icon(R.drawable.ic_congrts)
     }
 }

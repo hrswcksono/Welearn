@@ -101,5 +101,9 @@ dependencies {
 
 //    implementation 'com.mikhaellopez:circularprogressbar:3.1.0'
 //    implementation 'com.github.Adilhusen:circle-progress-ad-android-:1.0'
+
     implementation "com.github.guilhe:circular-progress-view:2.0.0"
+
+    implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
+    implementation 'com.github.mejdi14:Flat-Dialog-Android:1.0.5'
 }

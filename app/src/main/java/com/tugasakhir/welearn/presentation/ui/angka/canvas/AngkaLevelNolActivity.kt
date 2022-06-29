@@ -14,10 +14,10 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -100,8 +100,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private fun showData(data: Soal){
+        speak(data.keterangan + " " + data.soal)
         binding.spkNolAngka.setOnClickListener {
-            speak(data.keterangan)
+            speak(data.keterangan + " " + data.soal)
         }
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.id_level}"

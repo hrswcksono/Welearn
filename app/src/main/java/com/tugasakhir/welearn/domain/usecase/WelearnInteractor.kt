@@ -93,10 +93,10 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun predictHurufMulti(
         id_game: Int,
-        id_jenis: Int,
-        image: ArrayList<String>,
+        id_soal: Int,
+        duration: Int,
         token: String
-    ) = welearnRepository.predictHurufMulti(id_game, id_jenis, image, token)
+    ) = welearnRepository.predictHurufMulti(id_game, id_soal, duration, token)
 
     override fun predictAngkaMulti(
         id_game: Int,
@@ -104,5 +104,11 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         image: ArrayList<String>,
         token: String
     ) = welearnRepository.predictAngkaMulti(id_game, id_jenis, image, token)
+
+    override fun getJoinedGame(token: String) =
+        welearnRepository.getJoinedGame(token)
+
+    override fun getLevel(id_level: Int, token: String) =
+        welearnRepository.getLevel(id_level, token)
 
 }

@@ -7,8 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.awesomedialog.*
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
-import com.tugasakhir.welearn.presentation.viewmodel.auth.RegisterViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.RegisterViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -76,4 +77,6 @@ class RegisterActivity : AppCompatActivity() {
             }
             .show()
     }
+
+
 }

@@ -6,7 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.model.Score
-import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.UserScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -41,5 +41,9 @@ class ScoreHurufUserActivity : AppCompatActivity() {
 
     private fun showData(data: Score) {
         binding.tvScoreUserHuruf.text = data.score.toString()
+    }
+
+    override fun onBackPressed() {
+        return
     }
 }

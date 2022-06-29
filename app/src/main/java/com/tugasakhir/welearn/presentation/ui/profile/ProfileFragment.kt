@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
 import com.tugasakhir.welearn.domain.model.User
-import com.tugasakhir.welearn.presentation.viewmodel.ProfileViewModel
+import com.tugasakhir.welearn.presentation.presenter.ProfileViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

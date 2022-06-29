@@ -15,7 +15,7 @@ import com.tugasakhir.welearn.databinding.ActivityAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -100,8 +100,9 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
     }
 
     private fun showData(data: Soal){
+        speak(data.keterangan + " " + data.soal)
         binding.spkEmpatAngka.setOnClickListener {
-            speak(data.keterangan)
+            speak(data.keterangan + " " + data.soal)
         }
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.id_level}"

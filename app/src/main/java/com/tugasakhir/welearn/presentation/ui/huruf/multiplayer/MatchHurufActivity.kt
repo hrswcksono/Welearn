@@ -12,10 +12,10 @@ import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.MakeRoomViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomLevelHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -12,7 +12,7 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -95,8 +95,9 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     }
 
     private fun showData(data: Soal){
+        speak(data.keterangan + " " + data.soal)
         binding.spkSatuHuruf.setOnClickListener {
-            speak(data.keterangan)
+            speak(data.keterangan + " " + data.soal)
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.id_level}"

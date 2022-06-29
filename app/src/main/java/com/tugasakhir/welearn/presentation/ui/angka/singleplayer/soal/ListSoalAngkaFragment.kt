@@ -14,7 +14,7 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
-import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

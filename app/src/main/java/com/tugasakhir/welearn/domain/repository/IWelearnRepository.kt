@@ -29,6 +29,8 @@ interface IWelearnRepository {
     fun joinGame(id_game: String,token: String): Flow<String>
     fun endGame(id_game: String,token: String): Flow<String>
     fun scoreMulti(id_game: Int,token: String): Flow<List<ScoreMulti>>
-    fun predictHurufMulti(id_game: Int, id_jenis: Int, image: ArrayList<String> ,token: String): Flow<String>
-    fun predictAngkaMulti(id_game: Int, id_jenis: Int, image: ArrayList<String> ,token: String): Flow<String>
+    fun predictHurufMulti(id_game: Int,id_soal: Int, duration: Int ,token: String): Flow<String>
+    fun predictAngkaMulti(id_game: Int,  id_jenis: Int, image: ArrayList<String> ,token: String): Flow<String>
+    fun getJoinedGame(token: String): Flow<List<UserJoin>>
+    fun getLevel(id_level: Int, token: String): Flow<List<Level>>
 }

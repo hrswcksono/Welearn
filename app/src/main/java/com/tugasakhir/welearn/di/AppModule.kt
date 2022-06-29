@@ -2,26 +2,18 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.auth.LoginViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.auth.RegisterViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.auth.LogoutViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LoginViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.RegisterViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LogoutViewModel
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.JoinGameViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.MakeRoomViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.ProfileViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreAngkaViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.ProfileViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
+import com.tugasakhir.welearn.presentation.presenter.score.*
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -50,4 +42,8 @@ val viewModelModule = module {
     viewModel { MakeRoomViewModel(get()) }
     viewModel { JoinGameViewModel(get()) }
     viewModel { SoalByIDViewModel(get()) }
+    viewModel { JoinedUserViewModel(get()) }
+    viewModel { ScoreMultiViewModel(get()) }
+    viewModel { LevelSoalViewModel(get()) }
+    viewModel { PredictHurufMultiViewModel(get()) }
 }

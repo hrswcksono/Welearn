@@ -16,7 +16,7 @@ import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaActivity
-import com.tugasakhir.welearn.presentation.viewmodel.singleplayer.ListSoalHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

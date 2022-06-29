@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import java.lang.Exception
+import kotlin.Exception
 
 class RemoteDataSource (private val apiService: ApiService) {
 
@@ -176,6 +176,16 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
+    fun levelSoal(id_level: Int, token: String) =
+        flow {
+            try {
+                val response = apiService.getLevel(id_level,token = "Bearer ${token}")
+                emit(response.message)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
     fun pushNotification(body: PushNotification) =
         flow {
             try {
@@ -276,11 +286,21 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHurufMulti(id_game: Int, id_jenis: Int, image: ArrayList<String> ,token: String) =
+    fun predictHurufMulti(id_game: Int, id_soal: Int, duration: Int,token: String) =
         flow{
             try {
-                val response = apiService.predictHurufMulti(id_game, id_jenis, image, token = "Bearer ${token}")
+                val response = apiService.predictHurufMulti(id_game, id_soal, duration, token = "Bearer ${token}")
                 emit(response)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    fun getJoinedGame(token: String) =
+        flow{
+            try {
+                val response = apiService.joinedUser(token = "Bearer ${token}")
+                emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }

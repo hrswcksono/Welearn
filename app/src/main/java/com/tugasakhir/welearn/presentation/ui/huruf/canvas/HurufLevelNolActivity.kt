@@ -8,13 +8,16 @@ import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -37,6 +40,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHurufLevelNolBinding
     private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
+    private val predictHurufMultiViewModel: PredictHurufMultiViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,6 +67,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             var index = 0
+            val begin = System.currentTimeMillis()
             Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
@@ -70,9 +75,13 @@ class HurufLevelNolActivity : AppCompatActivity() {
             binding.submitNolHuruf.setOnClickListener {
                 Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 index++
-                idSoal = arrayID[index]
-                showScreen(idSoal)
-                submitDrawing(idSoal)
+                if (index < 3) {
+                    idSoal = arrayID[index]
+                    showScreen(idSoal)
+                    submitDrawing(idSoal)
+                } else {
+                    submitMulti(begin)
+                }
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
@@ -85,6 +94,24 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
     private fun submitDrawing(id: String) {
 
+    }
+
+    private fun submitMulti(duration: Long){
+        val end = System.currentTimeMillis()
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictHurufMultiViewModel.predictHurufMulti(1, 1, (end-duration).toInt(), sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+//                        CustomDialogBox.onlyTitle(
+//                            this@HurufLevelNolActivity,
+//                            SweetAlertDialog.SUCCESS_TYPE,
+//                            "Berhasil Submit"
+//                        ) {
+//
+//                        }
+                    }
+            }
+        }
     }
 
     private fun showScreen(id: String) {
@@ -111,8 +138,9 @@ class HurufLevelNolActivity : AppCompatActivity() {
     }
 
     private fun showData(data: Soal){
+        speak(data.keterangan + " " + data.soal)
         binding.spkNolHuruf.setOnClickListener {
-            speak(data.keterangan)
+            speak(data.keterangan + " " + data.soal)
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.id_level}"

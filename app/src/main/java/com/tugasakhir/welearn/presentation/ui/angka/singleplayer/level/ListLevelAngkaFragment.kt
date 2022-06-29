@@ -5,15 +5,25 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.LevelData
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListLevelAngkaFragment : Fragment() {
 
     private var _binding: FragmentListLevelAngkaBinding? = null
     private val binding get() = _binding!!
+    private val viewModel: LevelSoalViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,23 +41,36 @@ class ListLevelAngkaFragment : Fragment() {
             view.findNavController().navigate(ListLevelAngkaFragmentDirections.backModeAngka())
         }
 
+        sessionManager = SharedPreference(requireContext())
+
         showGridAngka()
     }
 
     private fun showGridAngka() {
-        val angka_adapter = ListLevelAngkaAdapter()
+        val angkaAdapter = ListLevelAngkaAdapter()
+        binding.progressLevelAngka.visibility = View.VISIBLE
 
-        angka_adapter.onItemClick = {
+        angkaAdapter.onItemClick = {
             val toSoalAngka = ListLevelAngkaFragmentDirections.toSoalAngka()
             toSoalAngka.idLevel = it.id_level
             view?.findNavController()?.navigate(toSoalAngka)
         }
 
-        angka_adapter.setData(LevelData.listLevel)
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                viewModel.getLevelSoal(2, sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        angkaAdapter.setData(it)
+                        binding.progressLevelAngka.visibility = View.INVISIBLE
+                    }
+            }
+        }
+
+//        angka_adapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
             layoutManager = GridLayoutManager(context, 2)
             setHasFixedSize(false)
-            adapter = angka_adapter
+            adapter = angkaAdapter
         }
     }
 

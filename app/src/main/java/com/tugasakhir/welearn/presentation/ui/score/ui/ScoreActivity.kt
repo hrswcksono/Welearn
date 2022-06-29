@@ -8,6 +8,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityScoreBinding
+import com.tugasakhir.welearn.presentation.ui.score.adapter.SectionsPagerAdapter
 
 class ScoreActivity : AppCompatActivity() {
 

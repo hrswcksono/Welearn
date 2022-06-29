@@ -1,6 +1,8 @@
 package com.tugasakhir.welearn.presentation.ui.home
 
 import android.content.Intent
+import android.graphics.Color
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.example.flatdialoglibrary.dialog.FlatDialog
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
@@ -19,11 +23,13 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
-import com.tugasakhir.welearn.presentation.viewmodel.auth.LogoutViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LogoutViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.JoinedGameActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
@@ -55,6 +61,8 @@ class HomeFragment : Fragment() {
 
         sessionManager = SharedPreference(requireContext())
 
+        binding.progressbarHome.visibility = View.INVISIBLE
+
         binding.btnAngka.setOnClickListener {
             view.findNavController().navigate(HomeFragmentDirections.toModeAngka())
         }
@@ -70,7 +78,7 @@ class HomeFragment : Fragment() {
         }
 
         binding.btnHighscore.setOnClickListener {
-            startActivity(Intent(activity, ScoreActivity::class.java))
+            dialogScore()
         }
 
     }
@@ -80,6 +88,7 @@ class HomeFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.logoutUser(token).collectLatest {
                     if (it == "Successfully logged out"){
+                        binding.progressbarHome.visibility = View.INVISIBLE
                         logoutSuccess()
                     }
                 }
@@ -100,21 +109,9 @@ class HomeFragment : Fragment() {
             "Keluar aplikasi ini!",
             "Logout!",
         ) {
+            binding.progressbarHome.visibility = View.VISIBLE
             logout(sessionManager.fetchAuthToken().toString())
         }
-
-//        SweetAlertDialog(context, SweetAlertDialog.WARNING_TYPE)
-//            .setTitleText("Apakah yakin?")
-//            .setContentText("Keluar aplikasi ini!")
-//            .setConfirmText("Logout!")
-//            .setConfirmClickListener {
-//                    sDialog -> sDialog.dismissWithAnimation()
-//                logout(sessionManager.fetchAuthToken().toString())
-//            }
-//            .setCancelButton(
-//                "Batal"
-//            ) { sDialog -> sDialog.dismissWithAnimation() }
-//            .show()
     }
 
     private fun subscribeFCM(){
@@ -124,13 +121,34 @@ class HomeFragment : Fragment() {
     }
 
     private fun logoutSuccess(){
-        CustomDialogBox.onlyTitle(
-            requireContext(),
-            SweetAlertDialog.SUCCESS_TYPE,
-            "Berhasil keluar"
-        ) {
-            startActivity(Intent(activity, LoginActivity::class.java))
-            sessionManager.deleteToken()
-        }
+        CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
+        startActivity(Intent(activity, LoginActivity::class.java))
+        sessionManager.deleteToken()
+    }
+
+    private fun dialogScore(){
+        val flatDialog = FlatDialog(requireContext())
+        flatDialog
+            .setTitle("Lihat Score")
+            .setTitleColor(Color.BLACK)
+//            .setSubtitle("write your profile info here")
+            .setFirstButtonText("Single Player")
+            .setFirstButtonColor(Color.parseColor("#a6e474"))
+            .setFirstButtonTextColor(Color.parseColor("#667763"))
+            .setSecondButtonText("Multi Player")
+            .setSecondButtonColor(Color.parseColor("#e0f84a"))
+            .setSecondButtonTextColor(Color.parseColor("#667763"))
+            .setBackgroundColor(Color.parseColor("#e3ffdf"))
+            .isCancelable(true)
+            .withFirstButtonListner {
+                // do something ...
+                flatDialog.dismiss()
+                startActivity(Intent(activity, ScoreActivity::class.java))
+            }
+            .withSecondButtonListner {
+                flatDialog.dismiss()
+                startActivity(Intent(activity, JoinedGameActivity::class.java))
+            }
+            .show()
     }
 }

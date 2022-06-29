@@ -13,7 +13,7 @@ import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -100,8 +100,9 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private fun show(data: Soal){
+        speak(data.keterangan + " " + data.soal)
         binding.spkTigaHuruf.setOnClickListener {
-            speak(data.keterangan)
+            speak(data.keterangan + " " + data.soal)
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.id_level}"

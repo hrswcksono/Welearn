@@ -14,10 +14,10 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaReadyBinding
 import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.SoalAngkaByIDViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.JoinGameViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGameViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

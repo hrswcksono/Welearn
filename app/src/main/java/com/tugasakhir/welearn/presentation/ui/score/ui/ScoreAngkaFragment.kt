@@ -9,8 +9,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreAngkaBinding
-import com.tugasakhir.welearn.presentation.ui.score.ScoreAngkaAdapter
-import com.tugasakhir.welearn.presentation.viewmodel.score.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreAngkaAdapter
+import com.tugasakhir.welearn.presentation.presenter.score.ScoreAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

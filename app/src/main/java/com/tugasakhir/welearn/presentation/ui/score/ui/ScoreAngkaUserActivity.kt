@@ -7,7 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreAngkaUserBinding
-import com.tugasakhir.welearn.presentation.viewmodel.score.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.UserScoreAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -57,7 +57,7 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
         }
     }
 
-//    override fun onBackPressed() {
-//        return
-//    }
+    override fun onBackPressed() {
+        return
+    }
 }

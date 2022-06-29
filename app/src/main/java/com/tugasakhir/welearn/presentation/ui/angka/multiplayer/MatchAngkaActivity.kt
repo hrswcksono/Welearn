@@ -11,10 +11,10 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
 import com.tugasakhir.welearn.domain.model.*
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.MakeRoomViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.viewmodel.multiplayer.RandomLevelAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomLevelAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -5,17 +5,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.LevelData
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ListLevelHurufFragment : Fragment() {
 
     private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
-//    private val viewModel: ListSoalAngkaViewModel by viewModel()
+    private val viewModel: LevelSoalViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
@@ -40,19 +46,30 @@ class ListLevelHurufFragment : Fragment() {
     }
 
     private fun showGridHuruf(){
-        val huruf_adapter = ListLevelHurufAdapter()
+        val hurufAdapter = ListLevelHurufAdapter()
+        binding.progressLevelHuruf.visibility = View.VISIBLE
 
-        huruf_adapter.onItemClick = {
+        hurufAdapter.onItemClick = {
             val toSoalHuruf = ListLevelHurufFragmentDirections.toSoalHuruf()
             toSoalHuruf.idLevel = it.id_level
             view?.findNavController()?.navigate(toSoalHuruf)
         }
 
-        huruf_adapter.setData(LevelData.listLevelHuruf)
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                viewModel.getLevelSoal(1, sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        hurufAdapter.setData(it)
+                        binding.progressLevelHuruf.visibility = View.INVISIBLE
+                    }
+            }
+        }
+
+//        huruf_adapter.setData(LevelData.listLevelHuruf)
         with(binding.rvLevelHuruf) {
             layoutManager = GridLayoutManager(context, 2)
             setHasFixedSize(false)
-            adapter = huruf_adapter
+            adapter = hurufAdapter
         }
     }
 
