@@ -206,7 +206,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngka(id_soal: String, image: ArrayList<String>, token: String) =
+    fun predictAngka(id_soal: Int, image: ArrayList<String>, token: String) =
         flow{
             try {
                 val response = apiService.predictAngka(id_soal, image, token = "Bearer ${token}")
@@ -216,7 +216,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHuruf(id_soal: String, image: ArrayList<String>, token: String) =
+    fun predictHuruf(id_soal: Int, image: ArrayList<String>, token: String) =
         flow{
             try {
                 val response = apiService.predictHuruf(id_soal, image, token = "Bearer ${token}")

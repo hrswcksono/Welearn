@@ -3,12 +3,12 @@ package com.tugasakhir.welearn.di
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginViewModel
 import com.tugasakhir.welearn.presentation.presenter.auth.RegisterViewModel
 import com.tugasakhir.welearn.presentation.presenter.auth.LogoutViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalHurufViewModel
 import com.tugasakhir.welearn.presentation.presenter.ProfileViewModel
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*

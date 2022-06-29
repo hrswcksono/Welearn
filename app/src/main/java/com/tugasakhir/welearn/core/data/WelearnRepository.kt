@@ -65,13 +65,13 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         remoteDataSource.pushNotificationStart(body)
 
     override fun predictAngka(
-        id_soal: String,
+        id_soal: Int,
         image: ArrayList<String>,
         token: String
     ) = remoteDataSource.predictAngka(id_soal, image, token).map { DataMapper.mapperPredict(it) }
 
     override fun predictHuruf(
-        id_soal: String,
+        id_soal: Int,
         image: ArrayList<String>,
         token: String
     ) = remoteDataSource.predictHuruf(id_soal, image, token).map { DataMapper.mapperPredict(it) }

@@ -129,15 +129,15 @@ interface ApiService {
     @FormUrlEncoded
     @POST("predictangka")
     suspend fun predictAngka(
-        @Field("id_soal") id_soal : String,
+        @Field("id_soal") id_soal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Header("Authorization") token: String
     ): PredictResponse
 
     @FormUrlEncoded
-    @POST("predict")
+    @POST("predicthuruf")
     suspend fun predictHuruf(
-        @Field("id_soal") id_soal : String,
+        @Field("id_soal") id_soal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Header("Authorization") token: String
     ): PredictResponse

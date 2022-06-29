@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,12 +8,15 @@ import android.os.StrictMode
 import android.util.Base64
 import android.view.View
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -35,6 +39,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHurufLevelDuaBinding
     private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
+    private val predictHurufViewModel: PredictHurufViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,18 +77,46 @@ class HurufLevelDuaActivity : AppCompatActivity() {
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
-                submitDrawing(idSoal)
+//                submitDrawing(idSoal)
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitDuaHuruf.setOnClickListener{
-                submitDrawing(idSoal)
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap())!!)
+                submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun submitDrawing(id: String) {
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarH2.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictHurufViewModel.predictHuruf(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        binding.progressBarH2.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
+                            this@HurufLevelDuaActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+                            startActivity(
+                                Intent(
+                                    this@HurufLevelDuaActivity,
+                                    ScoreHurufUserActivity::class.java
+                                )
+                            )
+                        }
+                    }
+            }
+        }
     }
 
     private fun showScreen(id: String) {

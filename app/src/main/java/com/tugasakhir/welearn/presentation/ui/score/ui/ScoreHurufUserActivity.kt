@@ -26,6 +26,8 @@ class ScoreHurufUserActivity : AppCompatActivity() {
 
         sessionManager = SharedPreference(this)
 
+        supportActionBar?.hide()
+
         show()
     }
 
@@ -43,7 +45,7 @@ class ScoreHurufUserActivity : AppCompatActivity() {
         binding.tvScoreUserHuruf.text = data.score.toString()
     }
 
-    override fun onBackPressed() {
-        return
-    }
+//    override fun onBackPressed() {
+//        return
+//    }
 }

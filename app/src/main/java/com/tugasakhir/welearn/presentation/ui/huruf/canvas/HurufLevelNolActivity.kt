@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,8 +17,9 @@ import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiViewModel
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -26,6 +28,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 
@@ -41,6 +44,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictHurufMultiViewModel: PredictHurufMultiViewModel by viewModel()
+    private val predictHurufViewModel: PredictHurufViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,7 +82,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                 if (index < 3) {
                     idSoal = arrayID[index]
                     showScreen(idSoal)
-                    submitDrawing(idSoal)
+//                    submitDrawing(idSoal)
                 } else {
                     submitMulti(begin)
                 }
@@ -87,13 +91,36 @@ class HurufLevelNolActivity : AppCompatActivity() {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener{
-                submitDrawing(idSoal)
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap())!!)
+                submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun submitDrawing(id: String) {
-
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarH0.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictHurufViewModel.predictHuruf(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        binding.progressBarH0.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
+                            this@HurufLevelNolActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+                            startActivity(
+                                Intent(
+                                    this@HurufLevelNolActivity,
+                                    ScoreHurufUserActivity::class.java
+                                )
+                            )
+                        }
+                    }
+            }
+        }
     }
 
     private fun submitMulti(duration: Long){

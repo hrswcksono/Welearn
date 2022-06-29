@@ -11,12 +11,14 @@ import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -39,6 +41,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAngkaLevelTigaBinding
     private val viewModel: PredictAngkaViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
+    private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -78,19 +81,42 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
-                submitDrawing(idSoal)
+//                submitDrawing(idSoal)
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitTigaAngka.setOnClickListener{
-                submitDrawing(idSoal)
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelTigaAngka.getBitmap())!!)
+                submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun submitDrawing(idSoal: String) {
-
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarA3.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictAngkaViewModel.predictAngka(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        binding.progressBarA3.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
+                            this@AngkaLevelTigaActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+                            startActivity(
+                                Intent(
+                                    this@AngkaLevelTigaActivity,
+                                    ScoreHurufUserActivity::class.java
+                                )
+                            )
+                        }
+                    }
+            }
+        }
     }
 
     private fun showScreen(idSoal: String) {
@@ -157,17 +183,5 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         binding.levelTigaAngkaBack.setOnClickListener {
             onBackPressed()
         }
-    }
-
-    private fun alert(string: String, body: String){
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText(string)
-            .setContentText(body)
-            .setConfirmText("Lihat Skor")
-            .setConfirmClickListener {
-                    sDialog -> sDialog.dismissWithAnimation()
-                startActivity(Intent(this, ScoreAngkaUserActivity::class.java))
-            }
-            .show()
     }
 }

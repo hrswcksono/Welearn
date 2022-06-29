@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -16,8 +17,9 @@ import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.PredictAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -42,6 +44,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private val testViewModel: TestViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
+    private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -75,13 +78,15 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
-                submitDrawing(idSoal)
+//                submitDrawing(idSoal)
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitNolAngka.setOnClickListener{
-                submitDrawing(idSoal)
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelNolAngka.getBitmap())!!)
+                submitDrawing(idSoal, image)
             }
         }
     }
@@ -125,30 +130,27 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
-    private fun submitDrawing(id: String) {
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main){
-                testViewModel.testPredict(id, sessionManager.fetchAuthToken().toString()).collectLatest {
-                    if (it.message == "WIN") {
-//                        alert(it.message, it.text)
-                        CustomDialogBox.withoutConfirm(
+            withContext(Dispatchers.Main) {
+                predictAngkaViewModel.predictAngka(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        binding.progressBarA0.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
                             this@AngkaLevelNolActivity,
                             SweetAlertDialog.SUCCESS_TYPE,
-                            it.message,
-                            it.text
-                        )
-//                        snackBar("Berhasil submit")
-                    } else {
-                        CustomDialogBox.withoutConfirm(
-                            this@AngkaLevelNolActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            it.message,
-                            it.text
-                        )
-//                        alert(it.message, it.text)
-//                        snackBar("Berhasil submit")
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+                            startActivity(
+                                Intent(
+                                    this@AngkaLevelNolActivity,
+                                    ScoreHurufUserActivity::class.java
+                                )
+                            )
+                        }
                     }
-                }
             }
         }
     }
@@ -172,21 +174,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun snackBar(title: String) {
         val snack = Snackbar.make(View(this@AngkaLevelNolActivity),title,Snackbar.LENGTH_LONG)
         snack.show()
-    }
-
-    private fun alert(string: String, body: String){
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText(string)
-            .setContentText(body)
-//            .setConfirmText("Lihat Skor")
-//            .setConfirmClickListener {
-//                    sDialog -> sDialog.dismissWithAnimation()
-//                val moveToScore = Intent(this, ScoreAngkaUserActivity::class.java)
-//                moveToScore.putExtra(ScoreAngkaUserActivity.LEVEL_SOAL, "2")
-//                startActivity(moveToScore)
-//            }
-
-            .show()
     }
 
 }

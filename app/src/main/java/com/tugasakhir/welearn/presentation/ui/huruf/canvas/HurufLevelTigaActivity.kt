@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.os.StrictMode
@@ -7,13 +8,16 @@ import android.util.Base64
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.PredictHurufViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -36,6 +40,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHurufLevelTigaBinding
     private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
+    private val predictHurufViewModel: PredictHurufViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -72,18 +77,50 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                 index++
                 idSoal = arrayID[index]
                 showScreen(idSoal)
-                submitDrawing(idSoal)
+//                submitDrawing(idSoal)
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener{
-                submitDrawing(idSoal)
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap())!!)
+                submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun submitDrawing(id: String) {
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarH3.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictHurufViewModel.predictHuruf(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                    .collectLatest {
+                        binding.progressBarH3.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
+                            this@HurufLevelTigaActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+                            startActivity(
+                                Intent(
+                                    this@HurufLevelTigaActivity,
+                                    ScoreHurufUserActivity::class.java
+                                )
+                            )
+                        }
+                    }
+            }
+        }
     }
 
     private fun showScreen(id: String) {

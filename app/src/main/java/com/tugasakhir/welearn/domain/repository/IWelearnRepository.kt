@@ -22,8 +22,8 @@ interface IWelearnRepository {
     fun highScoreHuruf(token: String): Flow<List<UserScore>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun pushStartNotification(body: PushNotificationStart): Flow<PushNotificationResponse>
-    fun predictAngka(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
-    fun predictHuruf(id_soal: String, image: ArrayList<String>, token: String): Flow<ResultPredict>
+    fun predictAngka(id_soal: Int, image: ArrayList<String>, token: String): Flow<ResultPredict>
+    fun predictHuruf(id_soal: Int, image: ArrayList<String>, token: String): Flow<ResultPredict>
     fun predictTest(input: String, token: String): Flow<ResultPredict>
     fun makeRoomGame(token: String): Flow<String>
     fun joinGame(id_game: String,token: String): Flow<String>
