@@ -18,7 +18,6 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScoreMultiplayerBinding
     private val viewModel: ScoreMultiViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     companion object{
         const val ID_GAME = "id_game"
@@ -28,7 +27,6 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityScoreMultiplayerBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        sessionManager = SharedPreference(this)
 
         supportActionBar?.hide()
 
@@ -41,13 +39,13 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
     private fun showList() {
 
-        val idGame = intent.getIntExtra(ID_GAME, 0)
+        val idGame = intent.getStringExtra(ID_GAME)
 
         val scoreMultiAdapter = ScoreMultiAdapter()
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.scoreMulti(idGame, sessionManager.fetchAuthToken().toString())
+                viewModel.scoreMulti(idGame!!.toInt())
                     .collectLatest {
                         scoreMultiAdapter.setData(it)
                     }

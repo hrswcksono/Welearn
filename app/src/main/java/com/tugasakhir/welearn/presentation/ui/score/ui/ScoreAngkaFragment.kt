@@ -24,7 +24,6 @@ class ScoreAngkaFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel: ScoreAngkaViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +37,6 @@ class ScoreAngkaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionManager = SharedPreference(requireContext())
-
         showScore()
     }
 
@@ -49,7 +46,7 @@ class ScoreAngkaFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.highScoreAngka(sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.highScoreAngka().collectLatest {
                     scoreAngkaAdapter.setData(it)
                     binding.progressBarSAngka.visibility = View.INVISIBLE
                 }

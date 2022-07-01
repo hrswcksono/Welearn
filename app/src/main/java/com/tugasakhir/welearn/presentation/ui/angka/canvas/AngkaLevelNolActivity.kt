@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.os.StrictMode
 import android.util.Base64
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.material.snackbar.Snackbar
@@ -14,11 +15,14 @@ import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
+import com.tugasakhir.welearn.domain.model.NotificationData
+import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
@@ -30,6 +34,8 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
+import java.util.*
+import kotlin.collections.ArrayList
 
 class AngkaLevelNolActivity : AppCompatActivity() {
 
@@ -37,6 +43,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         const val EXTRA_SOAL = "extra_soal"
         const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
+        const val ID_GAME = "id_game"
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
@@ -45,7 +52,10 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
+    private val predictAngkaMultiViewModel: PredictAngkaMultiViewModel by viewModel()
+    private val joinGameViewModel: JoinGameViewModel by viewModel()
+    private val endGameViewModel: EndGameViewModel by viewModel()
+    private val pushNotification: PushNotificationViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +69,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
         val mode = intent.getStringExtra(GAME_MODE)
 
-        sessionManager = SharedPreference(this)
-
         handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
@@ -70,15 +78,30 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         if (mode == "multi") {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
+            val idGame = intent.getStringExtra(ID_GAME)
+            joinGame(idGame!!.toInt())
             var index = 0
-//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
+            var total = 0L
+            val begin = Date().time
+//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
+//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitNolAngka.setOnClickListener {
+                var image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelNolAngka.getBitmap())!!)
+//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
+                val end = Date().time
+                total = (end - begin)/1000
+                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
-                idSoal = arrayID[index]
-                showScreen(idSoal)
-//                submitDrawing(idSoal)
+                if (index < 3) {
+                    idSoal = arrayID[index]
+                    showScreen(idSoal)
+//                    submitDrawing(idSoal)
+                }
+
             }
         }else if (mode == "single") {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
@@ -95,11 +118,22 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken().toString()).collectLatest {
+                soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
                     binding.progressBarA0.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
+            }
+        }
+    }
+
+    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                predictAngkaMultiViewModel.predictAngkaMulti(idGame, idSoal, image,  duration)
+                    .collectLatest {
+                        endGame(idGame)
+                    }
             }
         }
     }
@@ -134,7 +168,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaViewModel.predictAngka(id.toInt(), image ,sessionManager.fetchAuthToken().toString())
+                predictAngkaViewModel.predictAngka(id.toInt(), image)
                     .collectLatest {
                         binding.progressBarA0.visibility = View.INVISIBLE
                         CustomDialogBox.withConfirm(
@@ -174,6 +208,48 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun snackBar(title: String) {
         val snack = Snackbar.make(View(this@AngkaLevelNolActivity),title,Snackbar.LENGTH_LONG)
         snack.show()
+    }
+
+    private fun joinGame(idGame: Int){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Default) {
+                joinGameViewModel.joinGame(idGame.toString())
+                    .collectLatest {  }
+            }
+        }
+    }
+
+    private fun endGame(idGame: Int){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                endGameViewModel.endGame(idGame.toString())
+                    .collectLatest {
+                        if (it == "Berhasil End Game"){
+//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
+                            showScoreMulti(idGame.toString())
+                        }
+                    }
+            }
+        }
+    }
+
+    private fun showScoreMulti(idGame: String) {
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                pushNotification.pushNotification(
+                    PushNotification(
+                    NotificationData(
+                        "Selesai"
+                        ,"Pertandingan telah selesai"
+                        ,"score",
+                        idGame
+                    ),
+                    Constants.TOPIC_JOIN_HURUF,
+                    "high"
+                )
+                ).collectLatest {  }
+            }
+        }
     }
 
 }

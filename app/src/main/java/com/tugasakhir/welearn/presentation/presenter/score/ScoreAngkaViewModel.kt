@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 class ScoreAngkaViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun highScoreAngka(token: String): Flow<List<UserScore>> =
-        useCase.angkaHighScore(token)
+    fun highScoreAngka() = useCase.angkaHighScore()
 }

@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 class LevelSoalViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun getLevelSoal(id_level: Int, token: String) = useCase.getLevel(id_level, token)
+    fun getLevelSoal(id_level: Int) = useCase.getLevel(id_level)
 }

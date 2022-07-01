@@ -22,7 +22,6 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScoreAngkaUserBinding
     private val viewModel: UserScoreAngkaViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +29,6 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-        sessionManager = SharedPreference(this)
 
         show()
 
@@ -50,7 +48,7 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
     private fun show() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.userScoreAngka(sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.userScoreAngka().collectLatest {
                     binding.tvScoreUserAngka.text = it.score.toString()
                 }
             }

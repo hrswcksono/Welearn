@@ -26,7 +26,6 @@ class ListSoalAngkaFragment : Fragment() {
     private val binding get() = _binding!!
 //    private val args : FragmentList by navArgs()
     private val viewModel: ListSoalAngkaViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,9 +44,6 @@ class ListSoalAngkaFragment : Fragment() {
             view.findNavController().navigate(ListSoalAngkaFragmentDirections.backLevelAngka())
         }
 
-
-        sessionManager = SharedPreference(requireContext())
-
         showGridSoalAngka()
     }
 
@@ -59,7 +55,8 @@ class ListSoalAngkaFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomAngka(levelAngka, sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.randomAngka(levelAngka)
+                    .collectLatest {
                     soal_angka_adapter.setData(it)
                     binding.progressBar.visibility = View.INVISIBLE
                 }

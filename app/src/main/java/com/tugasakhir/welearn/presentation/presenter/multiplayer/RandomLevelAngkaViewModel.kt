@@ -5,7 +5,7 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class RandomLevelAngkaViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun randomSoalAngkaByLevel(level: Int, token: String) =
-        useCase.soalMultiplayerAngka(level, token)
+    fun randomSoalAngkaByLevel(level: Int) =
+        useCase.soalMultiplayerAngka(level)
 
 }

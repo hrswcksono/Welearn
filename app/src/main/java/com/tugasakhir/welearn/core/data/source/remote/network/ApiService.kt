@@ -149,8 +149,10 @@ interface ApiService {
         @Header("Authorization") token: String
     ): PredictResponse
 
-    @GET("makeRoom")
+    @FormUrlEncoded
+    @POST("makeRoom")
     suspend fun makeRoom(
+        @Field("id_jenis") input : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
@@ -178,8 +180,9 @@ interface ApiService {
     @POST("predictAngkaMulti")
     suspend fun predictAngkaMulti(
         @Field("id_game") id_game : Int,
-        @Field("id_jenis") id_jenis : Int,
+        @Field("id_soal") id_jenis : Int,
         @Field("img[]") image : ArrayList<String>,
+        @Field("duration") duration : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
@@ -188,8 +191,8 @@ interface ApiService {
     suspend fun predictHurufMulti(
         @Field("id_game") id_game : Int,
         @Field("id_soal") id_jenis : Int,
-//        @Field("img[]") image : ArrayList<String>,
-        @Field("duartion") duration : Int,
+        @Field("img[]") image : ArrayList<String>,
+        @Field("duration") duration : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 

@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
@@ -29,7 +30,6 @@ class MatchHurufActivity : AppCompatActivity() {
     private val viewModelRandom: RandomLevelHurufViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val makeRoomViewModel: MakeRoomViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,8 +37,6 @@ class MatchHurufActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-        sessionManager = SharedPreference(this)
 
         binding.imageView4.setOnClickListener {
             onBackPressed()
@@ -52,8 +50,7 @@ class MatchHurufActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModelRandom.randomSoalHurufByLevel(
-                        inputLevel.toInt(),
-                        sessionManager.fetchAuthToken().toString()
+                        inputLevel.toInt()
                     ).collectLatest {
                         if (it.isNotEmpty()){
                             startMatch(it, inputLevel.toInt())
@@ -72,7 +69,7 @@ class MatchHurufActivity : AppCompatActivity() {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
+                                "sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"huruf",
                                 ""
@@ -88,32 +85,32 @@ class MatchHurufActivity : AppCompatActivity() {
 
     private fun startMatch(idSoal: String, idLevel: Int) {
         binding.btnStartHuruf.setOnClickListener{
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    viewModelGame.pushNotification(
-                        PushNotificationStart(
-                            StartGame(
-                                "Pertandingan telah dimulai",
-                                "Selamat mengerjakan !",
-                                "starthuruf",
-                                idSoal,
-                                idLevel,
-                                ""
-                            ),
-                            TOPIC_JOIN_HURUF,
-                            "high"
-                        )
-                    ).collectLatest {  }
-                }
-            }
+            makeRoom(idSoal, idLevel)
         }
     }
 
-    private fun makeRoom(token: String) {
+    private fun makeRoom(idSoal: String, idLevel: Int){
         lifecycleScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Default) {
-                makeRoomViewModel.makeRoom(sessionManager.fetchAuthToken().toString()).collectLatest {
-
+                makeRoomViewModel.makeRoom(1).collectLatest {
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        withContext(Dispatchers.Main) {
+                            viewModelGame.pushNotification(
+                                PushNotificationStart(
+                                    StartGame(
+                                        "Pertandingan telah dimulai",
+                                        "Selamat mengerjakan !",
+                                        "starthuruf",
+                                        idSoal,
+                                        idLevel,
+                                        it
+                                    ),
+                                    TOPIC_JOIN_HURUF,
+                                    "high"
+                                )
+                            ).collectLatest {  }
+                        }
+                    }
                 }
             }
         }

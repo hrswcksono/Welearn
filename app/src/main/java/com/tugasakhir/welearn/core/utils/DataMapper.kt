@@ -4,7 +4,7 @@ import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.model.*
 
 object DataMapper {
-    fun mapperLoginToken(it: Message) = Login(
+    fun mapperLogin(it: Message) = Login(
         token = it.token.toString(),
         name = it.name.toString(),
         id = it.id!!

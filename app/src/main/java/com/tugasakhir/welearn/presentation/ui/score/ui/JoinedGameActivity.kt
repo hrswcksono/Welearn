@@ -19,7 +19,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class JoinedGameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJoinedGameBinding
-    private lateinit var sessionManager: SharedPreference
     private val viewModel: JoinedUserViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,10 +29,7 @@ class JoinedGameActivity : AppCompatActivity() {
         binding.btnBackJoinedGame.setOnClickListener {
             onBackPressed()
         }
-
         supportActionBar?.hide()
-
-        sessionManager = SharedPreference(this)
 
         showList()
     }
@@ -43,7 +39,7 @@ class JoinedGameActivity : AppCompatActivity() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.getJoinedGame(sessionManager.fetchAuthToken().toString())
+                viewModel.getJoinedGame()
                     .collectLatest {
                         joinedGameAdapter.setData(it)
                     }

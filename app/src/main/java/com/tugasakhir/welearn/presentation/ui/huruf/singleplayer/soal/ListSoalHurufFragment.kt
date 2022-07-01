@@ -28,7 +28,6 @@ class ListSoalHurufFragment : Fragment() {
     private var _binding: FragmentListSoalHurufBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ListSoalHurufViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,8 +44,6 @@ class ListSoalHurufFragment : Fragment() {
             view.findNavController().navigate(ListSoalHurufFragmentDirections.backLevelHuruf())
         }
 
-        sessionManager = SharedPreference(requireContext())
-
         showGridSoalHuruf()
     }
 
@@ -58,7 +55,7 @@ class ListSoalHurufFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomHuruf(levelHuruf, sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.randomHuruf(levelHuruf).collectLatest {
                     soalHurufAdapter.setData(it)
                     binding.progressBar3.visibility = View.INVISIBLE
                 }

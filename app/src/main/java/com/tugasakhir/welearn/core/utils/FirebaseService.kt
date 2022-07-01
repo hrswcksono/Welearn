@@ -22,6 +22,7 @@ import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.HurufReadyActivity
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlin.random.Random
 
 private const val CHANNEL_ID = "my_channel"
@@ -64,6 +65,11 @@ class FirebaseService : FirebaseMessagingService() {
                 .addParentStack(HurufReadyActivity::class.java)
                 .addNextIntent(intent1)
                 .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
+        } else if (message.data["type"] == "score"){
+            intent1 = Intent(this, ScoreMultiplayerActivity::class.java)
+            intent1.putExtra(ScoreMultiplayerActivity.ID_GAME, message.data["action"])
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent1)
         } else if(message.data["type"] == "startangka") {
             when(message.data["id_level"]){
                 "0" -> {
@@ -100,21 +106,25 @@ class FirebaseService : FirebaseMessagingService() {
                     intent1 = Intent(this, HurufLevelNolActivity::class.java)
                     intent1.putExtra(HurufLevelNolActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(HurufLevelNolActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelNolActivity.ID_GAME, message.data["action"])
                 }
                 "1" -> {
                     intent1 = Intent(this, HurufLevelSatuActivity::class.java)
                     intent1.putExtra(HurufLevelSatuActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(HurufLevelSatuActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelSatuActivity.ID_GAME, message.data["action"])
                 }
                 "2" -> {
                     intent1 = Intent(this, HurufLevelDuaActivity::class.java)
                     intent1.putExtra(HurufLevelDuaActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(HurufLevelDuaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelDuaActivity.ID_GAME, message.data["action"])
                 }
                 "3" -> {
                     intent1 = Intent(this, HurufLevelTigaActivity::class.java)
                     intent1.putExtra(HurufLevelTigaActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(HurufLevelTigaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelTigaActivity.ID_GAME, message.data["action"])
                 }
             }
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

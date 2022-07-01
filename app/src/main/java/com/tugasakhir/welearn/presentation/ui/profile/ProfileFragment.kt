@@ -21,7 +21,6 @@ class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ProfileViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,12 +33,10 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionManager = SharedPreference(requireContext())
-
         binding.progressBar2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.detailUser(sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.detailUser().collectLatest {
                     showData(it)
                     binding.progressBar2.visibility = View.INVISIBLE
                 }

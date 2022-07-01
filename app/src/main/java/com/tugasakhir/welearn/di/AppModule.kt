@@ -46,4 +46,6 @@ val viewModelModule = module {
     viewModel { ScoreMultiViewModel(get()) }
     viewModel { LevelSoalViewModel(get()) }
     viewModel { PredictHurufMultiViewModel(get()) }
+    viewModel { PredictAngkaMultiViewModel(get()) }
+    viewModel { EndGameViewModel(get()) }
 }

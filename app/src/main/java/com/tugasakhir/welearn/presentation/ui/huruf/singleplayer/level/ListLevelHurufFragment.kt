@@ -22,7 +22,6 @@ class ListLevelHurufFragment : Fragment() {
     private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LevelSoalViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,8 +39,6 @@ class ListLevelHurufFragment : Fragment() {
             view.findNavController().navigate(ListLevelHurufFragmentDirections.backModeHuruf())
         }
 
-        sessionManager = SharedPreference(requireContext())
-
         showGridHuruf()
     }
 
@@ -57,7 +54,7 @@ class ListLevelHurufFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.getLevelSoal(1, sessionManager.fetchAuthToken().toString())
+                viewModel.getLevelSoal(1)
                     .collectLatest {
                         hurufAdapter.setData(it)
                         binding.progressLevelHuruf.visibility = View.INVISIBLE

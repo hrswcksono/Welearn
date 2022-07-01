@@ -7,6 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 class ScoreHurufViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun highScoreHuruf(token: String): Flow<List<UserScore>> =
-        useCase.hurufHighScore(token)
+    fun highScoreHuruf() = useCase.hurufHighScore()
 }

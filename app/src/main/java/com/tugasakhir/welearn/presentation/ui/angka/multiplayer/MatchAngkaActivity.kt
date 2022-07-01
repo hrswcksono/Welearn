@@ -30,7 +30,6 @@ class MatchAngkaActivity : AppCompatActivity() {
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val makeRoomViewModel: MakeRoomViewModel by viewModel()
 
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +37,6 @@ class MatchAngkaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-        sessionManager = SharedPreference(this)
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
@@ -60,7 +57,7 @@ class MatchAngkaActivity : AppCompatActivity() {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
+                                "sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka",
                                 id_game
@@ -81,8 +78,7 @@ class MatchAngkaActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModelRandom.randomSoalAngkaByLevel(
-                        inputLevel.toInt(),
-                        sessionManager.fetchAuthToken().toString()
+                        inputLevel.toInt()
                     ).collectLatest {
                         if (it.isNotEmpty()){
                             startMatch(it, inputLevel.toInt())
@@ -121,7 +117,7 @@ class MatchAngkaActivity : AppCompatActivity() {
     private fun makeRoom(){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                makeRoomViewModel.makeRoom(sessionManager.fetchAuthToken().toString())
+                makeRoomViewModel.makeRoom(2)
                     .collectLatest {
                         Toast.makeText(this@MatchAngkaActivity, it, Toast.LENGTH_SHORT).show()
                         if(it != "Gagal buat room"){

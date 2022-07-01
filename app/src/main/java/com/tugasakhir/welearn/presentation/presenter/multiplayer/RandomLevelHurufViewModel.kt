@@ -5,7 +5,7 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class RandomLevelHurufViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun randomSoalHurufByLevel(level: Int, token: String) =
-        useCase.soalMultiplayerHuruf(level, token)
+    fun randomSoalHurufByLevel(level: Int) =
+        useCase.soalMultiplayerHuruf(level)
 
 }

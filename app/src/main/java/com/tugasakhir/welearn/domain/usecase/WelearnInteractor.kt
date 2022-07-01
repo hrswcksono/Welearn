@@ -6,7 +6,7 @@ import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 class WelearnInteractor(private val welearnRepository: IWelearnRepository): WelearnUseCase {
     override fun userLogin(username: String, password: String) = welearnRepository.loginUser(username, password)
 
-    override fun userDetail(token: String) = welearnRepository.detailUser(token)
+    override fun userDetail() = welearnRepository.detailUser()
 
     override fun userRegister(
         username: String,
@@ -16,25 +16,25 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         jenis_kelamin: String
     ) = welearnRepository.registerUser(username, password, email, name, jenis_kelamin)
 
-    override fun userLogout(token: String) = welearnRepository.logoutUser(token)
+    override fun userLogout() = welearnRepository.logoutUser()
 
-    override fun angkaRandom(level: Int, token: String) = welearnRepository.randAngka(level, token)
+    override fun angkaRandom(level: Int) = welearnRepository.randAngka(level)
 
-    override fun hurufRandom(level: Int, token: String) = welearnRepository.randHuruf(level, token)
+    override fun hurufRandom(level: Int) = welearnRepository.randHuruf(level)
 
-    override fun soalMultiplayerAngka(level: Int, token: String) = welearnRepository.soalAngkaMultiplayer(level, token)
+    override fun soalMultiplayerAngka(level: Int) = welearnRepository.soalAngkaMultiplayer(level)
 
-    override fun soalMultiplayerHuruf(level: Int, token: String) = welearnRepository.soalHurufMultiplayer(level, token)
+    override fun soalMultiplayerHuruf(level: Int) = welearnRepository.soalHurufMultiplayer(level)
 
-    override fun getSoalByID(id: Int, token: String) = welearnRepository.soalByID(id, token)
+    override fun getSoalByID(id: Int) = welearnRepository.soalByID(id)
 
-    override fun userAngkaScore(token: String) = welearnRepository.scoreAngkaUser(token)
+    override fun userAngkaScore() = welearnRepository.scoreAngkaUser()
 
-    override fun userHurufScore(token: String) = welearnRepository.scoreHurufUser(token)
+    override fun userHurufScore() = welearnRepository.scoreHurufUser()
 
-    override fun angkaHighScore(token: String) = welearnRepository.highScoreAngka(token)
+    override fun angkaHighScore() = welearnRepository.highScoreAngka()
 
-    override fun hurufHighScore(token: String) = welearnRepository.highScoreHuruf(token)
+    override fun hurufHighScore() = welearnRepository.highScoreHuruf()
 
     override fun pushNotification(body: PushNotification) = welearnRepository.pushNotification(body)
 
@@ -42,41 +42,37 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun angkaPredict(
         id_soal: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = welearnRepository.predictAngka(id_soal, image, token)
+        image: ArrayList<String>
+    ) = welearnRepository.predictAngka(id_soal, image)
 
     override fun hurufPredict(
         id_soal: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = welearnRepository.predictHuruf(id_soal, image, token)
+        image: ArrayList<String>
+    ) = welearnRepository.predictHuruf(id_soal, image)
 
-    override fun testPredict(input: String, token: String) = welearnRepository.predictTest(input, token)
+    override fun testPredict(input: String) = welearnRepository.predictTest(input)
 
-    override fun makeRoomGame(token: String) = welearnRepository.makeRoomGame(token)
+    override fun makeRoomGame(id_jenis: Int) = welearnRepository.makeRoomGame(id_jenis,)
 
-    override fun joinGame(id_game: String, token: String) = welearnRepository.joinGame(id_game, token)
+    override fun joinGame(id_game: String, ) = welearnRepository.joinGame(id_game)
 
-    override fun endGame(id_game: String, token: String) = welearnRepository.endGame(id_game, token)
+    override fun endGame(id_game: String, ) = welearnRepository.endGame(id_game)
 
-    override fun scoreMulti(id_game: Int, token: String) = welearnRepository.scoreMulti(id_game, token)
+    override fun scoreMulti(id_game: Int, ) = welearnRepository.scoreMulti(id_game)
 
     override fun predictHurufMulti(
         id_game: Int,
         id_soal: Int,
+        image: ArrayList<String>,
         duration: Int,
-        token: String
-    ) = welearnRepository.predictHurufMulti(id_game, id_soal, duration, token)
+
+    ) = welearnRepository.predictHurufMulti(id_game, id_soal, image , duration)
 
     override fun predictAngkaMulti(
-        id_game: Int,
-        id_jenis: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = welearnRepository.predictAngkaMulti(id_game, id_jenis, image, token)
+        id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int,
+    ) = welearnRepository.predictAngkaMulti(id_game, id_soal, image, duration)
 
-    override fun getJoinedGame(token: String) = welearnRepository.getJoinedGame(token)
+    override fun getJoinedGame() = welearnRepository.getJoinedGame()
 
-    override fun getLevel(id_level: Int, token: String) = welearnRepository.getLevel(id_level, token)
+    override fun getLevel(id_level: Int, ) = welearnRepository.getLevel(id_level)
 }

@@ -6,5 +6,5 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import kotlinx.coroutines.flow.Flow
 
 class ProfileViewModel(private val useCase: WelearnUseCase): ViewModel() {
-    fun detailUser(token: String): Flow<User> = useCase.userDetail(token)
+    fun detailUser(): Flow<User> = useCase.userDetail()
 }

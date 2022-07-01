@@ -7,5 +7,5 @@ import kotlinx.coroutines.flow.Flow
 
 class ListSoalAngkaViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun randomAngka(level:Int, token:String) : Flow<List<Soal>> = useCase.angkaRandom(level, token)
+    fun randomAngka(level:Int) : Flow<List<Soal>> = useCase.angkaRandom(level)
 }

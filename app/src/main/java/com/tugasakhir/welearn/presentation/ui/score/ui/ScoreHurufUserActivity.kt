@@ -17,14 +17,11 @@ class ScoreHurufUserActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScoreHurufUserBinding
     private val viewModel: UserScoreHurufViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityScoreHurufUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        sessionManager = SharedPreference(this)
 
         supportActionBar?.hide()
 
@@ -34,7 +31,7 @@ class ScoreHurufUserActivity : AppCompatActivity() {
     private fun show() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.userScoreHuruf(sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.userScoreHuruf().collectLatest {
                     showData(it)
                 }
             }

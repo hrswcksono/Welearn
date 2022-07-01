@@ -6,5 +6,5 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import kotlinx.coroutines.flow.Flow
 
 class ListSoalHurufViewModel(private val useCase: WelearnUseCase): ViewModel() {
-    fun randomHuruf(level: Int, token: String) : Flow<List<Soal>> = useCase.hurufRandom(level, token)
+    fun randomHuruf(level: Int) : Flow<List<Soal>> = useCase.hurufRandom(level)
 }

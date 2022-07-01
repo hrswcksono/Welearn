@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class LogoutViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun logoutUser(token: String): Flow<String> = useCase.userLogout(token)
+    fun logoutUser(): Flow<String> = useCase.userLogout()
 
 }

@@ -23,7 +23,6 @@ class ScoreHurufFragment : Fragment() {
     private var _binding: FragmentScoreHurufBinding? = null
     private val binding get() = _binding!!
     private val viewModel: ScoreHurufViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,8 +36,6 @@ class ScoreHurufFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        sessionManager = SharedPreference(requireContext())
-
         showScore()
     }
 
@@ -48,7 +45,7 @@ class ScoreHurufFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.highScoreHuruf(sessionManager.fetchAuthToken().toString()).collectLatest {
+                viewModel.highScoreHuruf().collectLatest {
                     scoreHurufAdapter.setData(it)
                     binding.progressBarSHuruf.visibility = View.INVISIBLE
                 }

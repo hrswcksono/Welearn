@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.auth
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,6 +8,7 @@ import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.example.awesomedialog.*
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
@@ -30,6 +32,8 @@ class LoginActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        RemoteDataSource.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
 //        binding.progressBar2.progressBackgroundTintBlendMode
         binding.progressLogin.visibility = View.INVISIBLE
@@ -76,6 +80,7 @@ class LoginActivity : AppCompatActivity() {
         sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)
         sessionManager.saveUserID(login.id)
+        RemoteDataSource.tokenUser = login.token
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }

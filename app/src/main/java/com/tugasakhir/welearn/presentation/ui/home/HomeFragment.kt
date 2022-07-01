@@ -38,7 +38,6 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LogoutViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,8 +57,6 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        sessionManager = SharedPreference(requireContext())
 
         binding.progressbarHome.visibility = View.INVISIBLE
 
@@ -83,10 +80,10 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun logout(token: String){
+    private fun logout(){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.logoutUser(token).collectLatest {
+                viewModel.logoutUser().collectLatest {
                     if (it == "Successfully logged out"){
                         binding.progressbarHome.visibility = View.INVISIBLE
                         logoutSuccess()
@@ -110,7 +107,7 @@ class HomeFragment : Fragment() {
             "Logout!",
         ) {
             binding.progressbarHome.visibility = View.VISIBLE
-            logout(sessionManager.fetchAuthToken().toString())
+            logout()
         }
     }
 
@@ -123,7 +120,7 @@ class HomeFragment : Fragment() {
     private fun logoutSuccess(){
         CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
         startActivity(Intent(activity, LoginActivity::class.java))
-        sessionManager.deleteToken()
+//        sessionManager.deleteToken()
     }
 
     private fun dialogScore(){

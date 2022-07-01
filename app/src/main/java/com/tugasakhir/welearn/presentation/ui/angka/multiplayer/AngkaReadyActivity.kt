@@ -32,7 +32,6 @@ class AngkaReadyActivity : AppCompatActivity() {
     private val viewModelSoal: SoalAngkaByIDViewModel by viewModel()
     private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val joinGameViewModel: JoinGameViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
 
     companion object{
         const val ID_GAME = "id_game"
@@ -44,7 +43,6 @@ class AngkaReadyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-        sessionManager = SharedPreference(this)
 
         binding.backToHome.setOnClickListener {
             startActivity(Intent(this@AngkaReadyActivity, MainActivity::class.java))
@@ -67,7 +65,7 @@ class AngkaReadyActivity : AppCompatActivity() {
                     PushNotificationStart(
                         StartGame(
                             "Perhatian...!",
-                            "${sessionManager.fetchName()} telah bergabung!",
+                            "sessionManager.fetchName()} telah bergabung!",
                             "",
                             "0",
                             0,
@@ -91,7 +89,7 @@ class AngkaReadyActivity : AppCompatActivity() {
 //        Toast.makeText(this@AngkaReadyActivity, "hfjafjkshdfs", Toast.LENGTH_SHORT).show()
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                joinGameViewModel.joinGame(id_game, sessionManager.fetchAuthToken().toString())
+                joinGameViewModel.joinGame(id_game)
                     .collectLatest {
 //                        Toast.makeText()
                         Toast.makeText(this@AngkaReadyActivity, it, Toast.LENGTH_SHORT).show()

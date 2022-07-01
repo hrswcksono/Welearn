@@ -11,12 +11,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelearnRepository{
-
     override fun loginUser(username: String, password: String) =
-        remoteDataSource.loginUser(username, password).map { DataMapper.mapperLoginToken(it) }
+        remoteDataSource.loginUser(username, password).map { DataMapper.mapperLogin(it) }
 
-    override fun detailUser(token: String) =
-        remoteDataSource.detailUser(token).map { DataMapper.mapperDetailUser(it) }
+    override fun detailUser() =
+        remoteDataSource.detailUser().map { DataMapper.mapperDetailUser(it) }
 
     override fun registerUser(
         username: String,
@@ -28,35 +27,35 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         DataMapper.mapperRegister(it)
     }
 
-    override fun logoutUser(token: String) =
-        remoteDataSource.logoutUser(token).map { DataMapper.mapperString(it) }
+    override fun logoutUser() =
+        remoteDataSource.logoutUser().map { DataMapper.mapperString(it) }
 
-    override fun randAngka(level: Int, token: String) =
-        remoteDataSource.randAngka(level,token).map { DataMapper.mapperRandomSoal(it) }
+    override fun randAngka(level: Int) =
+        remoteDataSource.randAngka(level).map { DataMapper.mapperRandomSoal(it) }
 
-    override fun randHuruf(level: Int, token: String) =
-        remoteDataSource.randHuruf(level, token).map { DataMapper.mapperRandomSoal(it) }
+    override fun randHuruf(level: Int) =
+        remoteDataSource.randHuruf(level).map { DataMapper.mapperRandomSoal(it) }
 
-    override fun soalAngkaMultiplayer(level: Int, token: String) =
-        remoteDataSource.soalAngkaMultiplayer(level, token).map { DataMapper.mapperString(it) }
+    override fun soalAngkaMultiplayer(level: Int) =
+        remoteDataSource.soalAngkaMultiplayer(level).map { DataMapper.mapperString(it) }
 
-    override fun soalHurufMultiplayer(level: Int, token: String) =
-        remoteDataSource.soalHurufMultiplayer(level, token).map { DataMapper.mapperString(it) }
+    override fun soalHurufMultiplayer(level: Int) =
+        remoteDataSource.soalHurufMultiplayer(level).map { DataMapper.mapperString(it) }
 
-    override fun soalByID(id: Int, token: String) =
-        remoteDataSource.soalByID(id, token).map { DataMapper.mapperSoal(it) }
+    override fun soalByID(id: Int) =
+        remoteDataSource.soalByID(id).map { DataMapper.mapperSoal(it) }
 
-    override fun scoreAngkaUser(token: String) =
-        remoteDataSource.scoreAngkaUser(token).map { DataMapper.mapScoreUser(it) }
+    override fun scoreAngkaUser() =
+        remoteDataSource.scoreAngkaUser().map { DataMapper.mapScoreUser(it) }
 
-    override fun scoreHurufUser(token: String) =
-        remoteDataSource.scoreHurufUser(token).map { DataMapper.mapScoreUser(it) }
+    override fun scoreHurufUser() =
+        remoteDataSource.scoreHurufUser().map { DataMapper.mapScoreUser(it) }
 
-    override fun highScoreAngka(token: String) =
-        remoteDataSource.highScoreAngka(token).map { DataMapper.mapperHighScore(it) }
+    override fun highScoreAngka() =
+        remoteDataSource.highScoreAngka().map { DataMapper.mapperHighScore(it) }
 
-    override fun highScoreHuruf(token: String) =
-        remoteDataSource.highScoreHuruf(token).map { DataMapper.mapperHighScore(it) }
+    override fun highScoreHuruf() =
+        remoteDataSource.highScoreHuruf().map { DataMapper.mapperHighScore(it) }
 
     override fun pushNotification(body: PushNotification) =
         remoteDataSource.pushNotification(body)
@@ -66,56 +65,51 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
 
     override fun predictAngka(
         id_soal: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = remoteDataSource.predictAngka(id_soal, image, token).map { DataMapper.mapperPredict(it) }
+        image: ArrayList<String>
+    ) = remoteDataSource.predictAngka(id_soal, image).map { DataMapper.mapperPredict(it) }
 
     override fun predictHuruf(
         id_soal: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = remoteDataSource.predictHuruf(id_soal, image, token).map { DataMapper.mapperPredict(it) }
+        image: ArrayList<String>
+    ) = remoteDataSource.predictHuruf(id_soal, image).map { DataMapper.mapperPredict(it) }
 
-    override fun predictTest(input: String, token: String) =
-        remoteDataSource.testPredict(input, token).map { DataMapper.mapperPredict(it) }
+    override fun predictTest(input: String) =
+        remoteDataSource.testPredict(input).map { DataMapper.mapperPredict(it) }
 
-    override fun makeRoomGame(token: String) =
-        remoteDataSource.makeRoomGame(token).map { DataMapper.mapperString(it) }
+    override fun makeRoomGame(id_jenis: Int) =
+        remoteDataSource.makeRoomGame(id_jenis).map { DataMapper.mapperString(it) }
 
-    override fun joinGame(id_game: String, token: String) =
-        remoteDataSource.joinGame(id_game, token).map { DataMapper.mapperString(it) }
+    override fun joinGame(id_game: String) =
+        remoteDataSource.joinGame(id_game).map { DataMapper.mapperString(it) }
 
-    override fun endGame(id_game: String, token: String) =
-        remoteDataSource.endGame(id_game, token).map { DataMapper.mapperString(it) }
+    override fun endGame(id_game: String) =
+        remoteDataSource.endGame(id_game).map { DataMapper.mapperString(it) }
 
-    override fun scoreMulti(id_game: Int, token: String) =
-        remoteDataSource.scoreMulti(id_game, token).map { DataMapper.mapperScoreMulti(it as List<ScoreMultiItem>) }
+    override fun scoreMulti(id_game: Int) =
+        remoteDataSource.scoreMulti(id_game).map { DataMapper.mapperScoreMulti(it as List<ScoreMultiItem>) }
 
     override fun predictHurufMulti(
         id_game: Int,
         id_soal: Int,
-        duration: Int,
-        token: String
-    ) = remoteDataSource.predictHurufMulti(id_game, id_soal, duration, token).map {
+        image: ArrayList<String>,
+        duration: Int
+    ) = remoteDataSource.predictHurufMulti(id_game, id_soal,image, duration).map {
         DataMapper.mapperString(it)
     }
 
     override fun predictAngkaMulti(
-        id_game: Int,
-        id_jenis: Int,
-        image: ArrayList<String>,
-        token: String
-    ) = remoteDataSource.predictAngkaMulti(id_game, id_jenis, image, token).map {
+        id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int
+    ) = remoteDataSource.predictAngkaMulti(id_game, id_soal, image, duration).map {
         DataMapper.mapperString(it)
     }
 
-    override fun getJoinedGame(token: String) =
-        remoteDataSource.getJoinedGame(token).map {
+    override fun getJoinedGame() =
+        remoteDataSource.getJoinedGame().map {
             DataMapper.mapperJoinedGame(it)
         }
 
-    override fun getLevel(id_level: Int, token: String) =
-        remoteDataSource.levelSoal(id_level, token).map {
+    override fun getLevel(id_level: Int) =
+        remoteDataSource.levelSoal(id_level).map {
             DataMapper.mapperLevel(it)
         }
 

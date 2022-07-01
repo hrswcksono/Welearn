@@ -6,31 +6,29 @@ import kotlinx.coroutines.flow.Flow
 
 interface IWelearnRepository {
     fun loginUser(username: String, password: String): Flow<Login>
-    fun detailUser(token: String): Flow<User>
+    fun detailUser(): Flow<User>
     fun registerUser(username: String, password: String, email: String, name: String, jenis_kelamin: String): Flow<String>
-    fun logoutUser(token: String) : Flow<String>
-    fun randAngka(level: Int, token: String): Flow<List<Soal>>
-    fun randHuruf(level: Int, token: String): Flow<List<Soal>>
-    fun soalAngkaMultiplayer(level: Int, token: String): Flow<String>
-    fun soalHurufMultiplayer(level: Int, token: String): Flow<String>
-//    fun soalAngkaByID(id:Int, token: String): Flow<Soal>
-//    fun soalHurufByID(id: Int, token: String): Flow<Soal>
-    fun soalByID(id: Int, token: String): Flow<Soal>
-    fun scoreAngkaUser(token: String): Flow<Score>
-    fun scoreHurufUser(token: String): Flow<Score>
-    fun highScoreAngka(token: String): Flow<List<UserScore>>
-    fun highScoreHuruf(token: String): Flow<List<UserScore>>
+    fun logoutUser() : Flow<String>
+    fun randAngka(level: Int): Flow<List<Soal>>
+    fun randHuruf(level: Int): Flow<List<Soal>>
+    fun soalAngkaMultiplayer(level: Int): Flow<String>
+    fun soalHurufMultiplayer(level: Int): Flow<String>
+    fun soalByID(id: Int): Flow<Soal>
+    fun scoreAngkaUser(): Flow<Score>
+    fun scoreHurufUser(): Flow<Score>
+    fun highScoreAngka(): Flow<List<UserScore>>
+    fun highScoreHuruf(): Flow<List<UserScore>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun pushStartNotification(body: PushNotificationStart): Flow<PushNotificationResponse>
-    fun predictAngka(id_soal: Int, image: ArrayList<String>, token: String): Flow<ResultPredict>
-    fun predictHuruf(id_soal: Int, image: ArrayList<String>, token: String): Flow<ResultPredict>
-    fun predictTest(input: String, token: String): Flow<ResultPredict>
-    fun makeRoomGame(token: String): Flow<String>
-    fun joinGame(id_game: String,token: String): Flow<String>
-    fun endGame(id_game: String,token: String): Flow<String>
-    fun scoreMulti(id_game: Int,token: String): Flow<List<ScoreMulti>>
-    fun predictHurufMulti(id_game: Int,id_soal: Int, duration: Int ,token: String): Flow<String>
-    fun predictAngkaMulti(id_game: Int,  id_jenis: Int, image: ArrayList<String> ,token: String): Flow<String>
-    fun getJoinedGame(token: String): Flow<List<UserJoin>>
-    fun getLevel(id_level: Int, token: String): Flow<List<Level>>
+    fun predictAngka(id_soal: Int, image: ArrayList<String>): Flow<ResultPredict>
+    fun predictHuruf(id_soal: Int, image: ArrayList<String>): Flow<ResultPredict>
+    fun predictTest(input: String): Flow<ResultPredict>
+    fun makeRoomGame(id_jenis: Int,): Flow<String>
+    fun joinGame(id_game: String,): Flow<String>
+    fun endGame(id_game: String,): Flow<String>
+    fun scoreMulti(id_game: Int,): Flow<List<ScoreMulti>>
+    fun predictHurufMulti(id_game: Int,id_soal: Int, image: ArrayList<String>, duration: Int ,): Flow<String>
+    fun predictAngkaMulti(id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int,): Flow<String>
+    fun getJoinedGame(): Flow<List<UserJoin>>
+    fun getLevel(id_level: Int): Flow<List<Level>>
 }

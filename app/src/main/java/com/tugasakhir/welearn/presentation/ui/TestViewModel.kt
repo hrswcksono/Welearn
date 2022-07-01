@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class TestViewModel(private val useCase: WelearnUseCase): ViewModel()  {
-    fun testPredict(input: String, token: String) = useCase.testPredict(input, token)
+    fun testPredict(input: String) = useCase.testPredict(input)
 }
