@@ -24,7 +24,7 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginViewModel by viewModel()
-    private lateinit var sessionManager: SharedPreference
+//    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class LoginActivity : AppCompatActivity() {
 //        binding.progressBar2.progressBackgroundTintBlendMode
         binding.progressLogin.visibility = View.INVISIBLE
 
-        sessionManager = SharedPreference(this)
+//        sessionManager = SharedPreference(this)
 
         binding.btnLogin.setOnClickListener {
             loginUser()
@@ -77,9 +77,9 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(login: Login) {
 
-        sessionManager.saveAuthToken(login.token)
-        sessionManager.saveName(login.name)
-        sessionManager.saveUserID(login.id)
+//        sessionManager.saveAuthToken(login.token)
+//        sessionManager.saveName(login.name)
+//        sessionManager.saveUserID(login.id)
         RemoteDataSource.tokenUser = login.token
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))

@@ -2,21 +2,15 @@ package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Toast
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityMatchHurufBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.PushNotificationStart
-import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomLevelHurufViewModel
+import com.tugasakhir.welearn.domain.model.*
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -45,15 +39,54 @@ class MatchHurufActivity : AppCompatActivity() {
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_HURUF)
 
+        choseeLevel()
+    }
+
+    private fun choseeLevel(){
+        eraseCheckLevel()
+
+        binding.pgCariPlayerHuruf.visibility = View.INVISIBLE
+        binding.pgHurufAcak.visibility = View.INVISIBLE
+        binding.cekAcakHuruf.visibility = View.INVISIBLE
+        binding.cekCariPlayerHuruf.visibility = View.INVISIBLE
+
+        var inputLevel = 0
+        binding.baLevel0.setOnClickListener {
+            eraseCheckLevel()
+            binding.hlevel0.visibility = View.VISIBLE
+            inputLevel = 0
+        }
+        binding.baLevel1.setOnClickListener {
+            eraseCheckLevel()
+            binding.hlevel1.visibility = View.VISIBLE
+            inputLevel = 1
+        }
+        binding.baLevel2.setOnClickListener {
+            eraseCheckLevel()
+            binding.hlevel2.visibility = View.VISIBLE
+            inputLevel = 2
+        }
+        binding.baLevel3.setOnClickListener {
+            eraseCheckLevel()
+            binding.hlevel3.visibility = View.VISIBLE
+            inputLevel = 3
+        }
+        randomSoal(inputLevel)
+    }
+
+    private fun randomSoal(inputLevel: Int) {
         binding.btnHurufAcak.setOnClickListener {
-            val inputLevel = binding.tfLevelHuruf.text.toString()
+            binding.pgHurufAcak.visibility = View.VISIBLE
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModelRandom.randomSoalHurufByLevel(
-                        inputLevel.toInt()
+                        inputLevel
                     ).collectLatest {
                         if (it.isNotEmpty()){
-                            startMatch(it, inputLevel.toInt())
+                            binding.pgHurufAcak.visibility = View.INVISIBLE
+                            binding.cekAcakHuruf.visibility = View.VISIBLE
+                            CustomDialogBox.notifOnly(this@MatchHurufActivity, "Berhasil Mendapatkan Soal")
+                            startMatch(it, inputLevel)
                             findPlayer(it)
                         }
                     }
@@ -62,8 +95,16 @@ class MatchHurufActivity : AppCompatActivity() {
         }
     }
 
+    private fun eraseCheckLevel(){
+        binding.hlevel0.visibility = View.INVISIBLE
+        binding.hlevel1.visibility = View.INVISIBLE
+        binding.hlevel2.visibility = View.INVISIBLE
+        binding.hlevel3.visibility = View.INVISIBLE
+    }
+
     private fun findPlayer(level: String) {
         binding.btnFindHuruf.setOnClickListener {
+            binding.pgCariPlayerHuruf.visibility = View.VISIBLE
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModel.pushNotification(
@@ -77,7 +118,10 @@ class MatchHurufActivity : AppCompatActivity() {
                             TOPIC_GENERAL,
                             "high"
                         )
-                    ).collectLatest {  }
+                    ).collectLatest {
+                        binding.pgCariPlayerHuruf.visibility = View.INVISIBLE
+                        binding.cekCariPlayerHuruf.visibility = View.VISIBLE
+                    }
                 }
             }
         }

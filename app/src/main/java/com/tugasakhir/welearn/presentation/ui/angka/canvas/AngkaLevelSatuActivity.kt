@@ -45,6 +45,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         const val EXTRA_SOAL = "extra_soal"
         const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
+        const val ID_GAME = "id_game"
     }
 
     private lateinit var binding: ActivityAngkaLevelSatuBinding
@@ -84,7 +85,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         if (mode == "multi") {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(AngkaLevelNolActivity.ID_GAME)
+            val idGame = intent.getStringExtra(ID_GAME)
             joinGame(idGame!!.toInt())
             var index = 0
             var total = 0L

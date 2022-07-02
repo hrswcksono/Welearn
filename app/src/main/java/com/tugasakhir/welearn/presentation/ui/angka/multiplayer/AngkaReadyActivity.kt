@@ -51,9 +51,8 @@ class AngkaReadyActivity : AppCompatActivity() {
         val idGame = intent.getStringExtra(ID_GAME)
 
         binding.btnAngkaReady.setOnClickListener {
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
             joinGame(idGame.toString())
-//            ready()
+            ready()
         }
 
     }
@@ -86,7 +85,6 @@ class AngkaReadyActivity : AppCompatActivity() {
     }
 
     private fun joinGame(id_game: String) {
-//        Toast.makeText(this@AngkaReadyActivity, "hfjafjkshdfs", Toast.LENGTH_SHORT).show()
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 joinGameViewModel.joinGame(id_game)

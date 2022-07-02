@@ -76,26 +76,31 @@ class FirebaseService : FirebaseMessagingService() {
                     intent1 = Intent(this, AngkaLevelNolActivity::class.java)
                     intent1.putExtra(AngkaLevelNolActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(AngkaLevelNolActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelNolActivity.ID_GAME, message.data["action"])
                 }
                 "1" -> {
                     intent1 = Intent(this, AngkaLevelSatuActivity::class.java)
                     intent1.putExtra(AngkaLevelSatuActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(AngkaLevelSatuActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelSatuActivity.ID_GAME, message.data["action"])
                 }
                 "2" -> {
                     intent1 = Intent(this, AngkaLevelDuaActivity::class.java)
                     intent1.putExtra(AngkaLevelDuaActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(AngkaLevelDuaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelDuaActivity.ID_GAME, message.data["action"])
                 }
                 "3" -> {
                     intent1 = Intent(this, AngkaLevelTigaActivity::class.java)
                     intent1.putExtra(AngkaLevelTigaActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(AngkaLevelTigaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelTigaActivity.ID_GAME, message.data["action"])
                 }
                 "4" -> {
                     intent1 = Intent(this, AngkaLevelEmpatActivity::class.java)
                     intent1.putExtra(AngkaLevelEmpatActivity.LEVEL_SOAL, message.data["id_soal"])
                     intent1.putExtra(AngkaLevelEmpatActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelEmpatActivity.ID_GAME, message.data["action"])
                 }
             }
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)

@@ -139,9 +139,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private fun showData(data: Soal){
-        speak(data.keterangan + " " + data.soal)
+        speak(data.keterangan)
         binding.spkNolAngka.setOnClickListener {
-            speak(data.keterangan + " " + data.soal)
+            speak(data.keterangan)
         }
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.id_level}"

@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Context
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.awesomedialog.*
-import kotlinx.coroutines.CoroutineScope
 
 object CustomDialogBox {
 
@@ -38,6 +37,5 @@ object CustomDialogBox {
             ) { sDialog -> sDialog.dismissWithAnimation() }
             .show()
     }
-
 
 }

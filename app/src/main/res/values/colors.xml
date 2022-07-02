@@ -23,5 +23,9 @@
 
     <color name="view_soal">#c1feb7</color>
 
-    <color name="btn_logout">#0efc16</color>
+    <color name="green">#0efc16</color>
+
+    <color name="custom_yellow">#dff848</color>
+
+    <color name="button">#fab907</color>
 </resources>

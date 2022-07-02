@@ -78,7 +78,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         if (mode == "multi") {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(AngkaLevelNolActivity.ID_GAME)
+            val idGame = intent.getStringExtra(ID_GAME)
             joinGame(idGame!!.toInt())
             var index = 0
             var total = 0L
