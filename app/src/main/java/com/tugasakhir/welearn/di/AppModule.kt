@@ -2,7 +2,6 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.WelearnInteractor
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginViewModel
@@ -31,12 +30,10 @@ val viewModelModule = module {
     viewModel { ScoreAngkaViewModel(get()) }
     viewModel { ScoreHurufViewModel(get()) }
     viewModel { PushNotificationViewModel(get()) }
-    viewModel { PushNotificationStartViewModel(get()) }
     viewModel { RandomLevelAngkaViewModel(get()) }
     viewModel { RandomLevelHurufViewModel(get()) }
     viewModel { PredictAngkaViewModel(get()) }
     viewModel { PredictHurufViewModel(get()) }
-    viewModel { TestViewModel(get()) }
     viewModel { UserScoreAngkaViewModel(get()) }
     viewModel { UserScoreHurufViewModel(get()) }
     viewModel { MakeRoomViewModel(get()) }

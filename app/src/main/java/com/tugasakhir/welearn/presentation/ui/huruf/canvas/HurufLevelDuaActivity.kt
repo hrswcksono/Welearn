@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
@@ -47,7 +46,6 @@ class HurufLevelDuaActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelDuaBinding
-    private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictHurufMultiViewModel: PredictHurufMultiViewModel by viewModel()
     private val predictHurufViewModel: PredictHurufViewModel by viewModel()
@@ -100,7 +98,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
                 val end = Date().time
                 total = (end - begin)/1000
                 Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
@@ -179,7 +177,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
             speak(data.keterangan)
         }
         binding.soalHurufDipilih.text = data.keterangan
-        binding.levelHurufKe.text = "Level ke ${data.id_level}"
+        binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 
     private fun refreshCanvasOnClick(){
@@ -250,6 +248,8 @@ class HurufLevelDuaActivity : AppCompatActivity() {
                         "Selesai"
                         ,"Pertandingan telah selesai"
                         ,"score",
+                        "",
+                        0,
                         idGame
                     ),
                     Constants.TOPIC_JOIN_HURUF,

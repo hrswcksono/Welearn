@@ -7,7 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.example.awesomedialog.*
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
 import com.tugasakhir.welearn.presentation.presenter.auth.RegisterViewModel
 import kotlinx.coroutines.Dispatchers
@@ -40,13 +39,13 @@ class RegisterActivity : AppCompatActivity() {
         val name = binding.nameRegister.editableText
         val username = binding.usernameRegister.editableText
         val email = binding.emailRegister.editableText
-        val jenis_kelamin = binding.jenisKelaminRegister.editableText
+        val jenisKelamin = binding.jenisKelaminRegister.editableText
         val password = binding.passwordRegister.editableText
-        val retype_password = binding.retypePasswordRegister.editableText
+        val retypePassword = binding.retypePasswordRegister.editableText
 
 //        print(name.toString())
 
-        if (password.toString() == retype_password.toString()){
+        if (password.toString() == retypePassword.toString()){
 //            Toast.makeText(this, "dsadasdas", Toast.LENGTH_SHORT).show()
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
@@ -55,7 +54,7 @@ class RegisterActivity : AppCompatActivity() {
                         password.toString(),
                         email.toString() ,
                         name.toString(),
-                        jenis_kelamin.toString()).collectLatest {
+                        jenisKelamin.toString()).collectLatest {
                             if (it == "Successful: Created") {
                                 loginSuccess()
 

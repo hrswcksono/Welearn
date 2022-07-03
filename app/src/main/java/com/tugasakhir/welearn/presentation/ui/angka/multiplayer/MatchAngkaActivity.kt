@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
@@ -23,7 +22,6 @@ class MatchAngkaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMatchAngkaBinding
     private val viewModel: PushNotificationViewModel by viewModel()
     private val viewModelRandom: RandomLevelAngkaViewModel by viewModel()
-    private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val makeRoomViewModel: MakeRoomViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -90,6 +88,8 @@ class MatchAngkaActivity : AppCompatActivity() {
                                 "sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka",
+                                "",
+                                0,
                                 id_game
                             ),
                             TOPIC_GENERAL,
@@ -146,9 +146,9 @@ class MatchAngkaActivity : AppCompatActivity() {
                     .collectLatest {
                         lifecycleScope.launch(Dispatchers.Default) {
                             withContext(Dispatchers.Main) {
-                                viewModelGame.pushNotification(
-                                    PushNotificationStart(
-                                        StartGame(
+                                viewModel.pushNotification(
+                                    PushNotification(
+                                        NotificationData(
                                             "Pertandingan telah dimulai",
                                             "Selamat mengerjakan !",
                                             "startangka",
@@ -165,13 +165,6 @@ class MatchAngkaActivity : AppCompatActivity() {
                     }
             }
         }
-    }
-
-    private fun dialogBox() {
-        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Berhasil")
-            .setContentText("Mendapatkan Soal Angka")
-            .show()
     }
 
 

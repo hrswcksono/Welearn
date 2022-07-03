@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
@@ -47,7 +46,6 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelSatuBinding
-    private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictHurufViewModel: PredictHurufViewModel by viewModel()
     private val joinGameViewModel: JoinGameViewModel by viewModel()
@@ -93,7 +91,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                 val end = Date().time
                 total = (end - begin)/1000
                 Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
@@ -169,7 +167,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             speak(data.keterangan)
         }
         binding.soalHurufDipilih.text = data.keterangan
-        binding.levelHurufKe.text = "Level ke ${data.id_level}"
+        binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 
     private fun encodeImage(bm: Bitmap): String? {
@@ -201,10 +199,10 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         // Set the ApiKey and create GoogleCloudTTS.
         val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
         googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
+            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
 
         // start speak
-        googleCloudTTS.start(string);
+        googleCloudTTS.start(string)
     }
 
     private fun joinGame(idGame: Int){
@@ -239,6 +237,8 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                         "Selesai"
                         ,"Pertandingan telah selesai"
                         ,"score",
+                        "",
+                        0,
                         idGame
                     ),
                     Constants.TOPIC_JOIN_HURUF,

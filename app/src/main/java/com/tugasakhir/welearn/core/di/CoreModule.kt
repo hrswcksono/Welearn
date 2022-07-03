@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.di
+package com.tugasakhir.welearn.core.di
 
 import com.tugasakhir.welearn.core.data.WelearnRepository
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
@@ -24,7 +24,7 @@ val networkModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("$BASE_URL_API")
+            .baseUrl(BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()

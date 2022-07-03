@@ -3,7 +3,6 @@ package com.tugasakhir.welearn.presentation.ui.score.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.model.Score
 import com.tugasakhir.welearn.presentation.presenter.score.UserScoreHurufViewModel

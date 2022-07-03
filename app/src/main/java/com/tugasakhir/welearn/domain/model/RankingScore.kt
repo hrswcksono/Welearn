@@ -1,7 +1,6 @@
 package com.tugasakhir.welearn.domain.model
 
-data class Login(
-    val token:String,
+data class RankingScore(
     val name: String,
-    val id: Int,
+    val total: String
 )

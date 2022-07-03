@@ -5,10 +5,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityJoinedGameBinding
 import com.tugasakhir.welearn.presentation.presenter.score.JoinedUserViewModel
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreAngkaViewModel
 import com.tugasakhir.welearn.presentation.ui.score.adapter.JoinedGameAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

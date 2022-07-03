@@ -12,12 +12,10 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaReadyBinding
-import com.tugasakhir.welearn.domain.model.PushNotificationStart
-import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.ui.angka.canvas.SoalAngkaByIDViewModel
+import com.tugasakhir.welearn.domain.model.NotificationData
+import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGameViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,10 +26,10 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AngkaReadyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaReadyBinding
-    private val viewModel: PushNotificationViewModel by viewModel()
-    private val viewModelSoal: SoalAngkaByIDViewModel by viewModel()
-    private val viewModelGame: PushNotificationStartViewModel by viewModel()
+//    private val viewModelGame: PushNotificationStartViewModel by viewModel()
+    private val viewModelGame: PushNotificationViewModel by viewModel()
     private val joinGameViewModel: JoinGameViewModel by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     companion object{
         const val ID_GAME = "id_game"
@@ -48,6 +46,8 @@ class AngkaReadyActivity : AppCompatActivity() {
             startActivity(Intent(this@AngkaReadyActivity, MainActivity::class.java))
         }
 
+        sessionManager = SharedPreference(this)
+
         val idGame = intent.getStringExtra(ID_GAME)
 
         binding.btnAngkaReady.setOnClickListener {
@@ -60,17 +60,36 @@ class AngkaReadyActivity : AppCompatActivity() {
     private fun ready() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
+//                viewModelGame.pushNotification(
+//                    PushNotificationStart(
+//                        StartGame(
+//                            "Perhatian...!",
+//                            "${sessionManager.fetchName()} telah bergabung!",
+//                            "",
+//                            "0",
+//                            0,
+//                            "gabung_angka"
+//                        ),
+//                        TOPIC_JOIN_ANGKA,
+//                        "high"
+//                    )
+//                ).collectLatest {
+//                    FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
+//                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
+//                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA).addOnSuccessListener {
+//                    dialogBox()
+//                }
+//                }
                 viewModelGame.pushNotification(
-                    PushNotificationStart(
-                        StartGame(
+                    PushNotification(
+                        NotificationData(
                             "Perhatian...!",
-                            "sessionManager.fetchName()} telah bergabung!",
+                            "${sessionManager.fetchName()} telah bergabung!",
                             "",
-                            "0",
+                            "",
                             0,
                             "gabung_angka"
-                        ),
-                        TOPIC_JOIN_ANGKA,
+                        ), TOPIC_JOIN_ANGKA,
                         "high"
                     )
                 ).collectLatest {

@@ -4,7 +4,7 @@ import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
 import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.PushNotificationStart
+//import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import retrofit2.http.*
 
 interface ApiService {
@@ -25,7 +25,7 @@ interface ApiService {
         @Field("password") password: String,
         @Field("email") email: String,
         @Field("name") name: String,
-        @Field("jenis_kelamin") jenis_kelamin: String,
+        @Field("jenis_kelamin") jenisKelamin: String,
     ): RegisterResponse
 
     // logout
@@ -118,18 +118,18 @@ interface ApiService {
         @Body notification: PushNotification
     ): PushNotificationResponse
 
-    @Headers("Authorization: key=$SERVER_KEY",
-        "Content-Type:$CONTENT_TYPE")
-    @POST
-    suspend fun postStartGame(
-        @Url url: String,
-        @Body notification: PushNotificationStart
-    ): PushNotificationResponse
+//    @Headers("Authorization: key=$SERVER_KEY",
+//        "Content-Type:$CONTENT_TYPE")
+//    @POST
+//    suspend fun postStartGame(
+//        @Url url: String,
+//        @Body notification: PushNotificationStart
+//    ): PushNotificationResponse
 
     @FormUrlEncoded
     @POST("predictangka")
     suspend fun predictAngka(
-        @Field("id_soal") id_soal : Int,
+        @Field("id_soal") idSoal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Header("Authorization") token: String
     ): PredictResponse
@@ -137,7 +137,7 @@ interface ApiService {
     @FormUrlEncoded
     @POST("predicthuruf")
     suspend fun predictHuruf(
-        @Field("id_soal") id_soal : Int,
+        @Field("id_soal") idSoal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Header("Authorization") token: String
     ): PredictResponse
@@ -152,14 +152,14 @@ interface ApiService {
     @FormUrlEncoded
     @POST("makeRoom")
     suspend fun makeRoom(
-        @Field("id_jenis") input : Int,
+        @Field("id_jenis") idJenis : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
     @FormUrlEncoded
     @POST("joinGame")
     suspend fun joinGame(
-        @Field("id_game") id_game : Int,
+        @Field("id_game") idGame : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 
@@ -179,8 +179,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("predictAngkaMulti")
     suspend fun predictAngkaMulti(
-        @Field("id_game") id_game : Int,
-        @Field("id_soal") id_jenis : Int,
+        @Field("id_game") idGame : Int,
+        @Field("id_soal") idSoal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String
@@ -189,8 +189,8 @@ interface ApiService {
     @FormUrlEncoded
     @POST("predictHurufMulti")
     suspend fun predictHurufMulti(
-        @Field("id_game") id_game : Int,
-        @Field("id_soal") id_jenis : Int,
+        @Field("id_game") idGame : Int,
+        @Field("id_soal") idSoal : Int,
         @Field("img[]") image : ArrayList<String>,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String

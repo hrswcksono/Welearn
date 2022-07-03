@@ -13,15 +13,15 @@ object DataMapper {
     fun mapperDetailUser(it: DMessage) = User(
         username = it.username.toString(),
         email = it.email.toString(),
-        jenis_kelamin = it.jenisKelamin.toString(),
+        jenisKelamin = it.jenisKelamin.toString(),
         score = it.score.toString(),
         angka = it.angka.toString()
     )
 
     fun mapperSoal(it: SMessage) = Soal(
-        id_soal = it.idSoal!!,
-        id_jenis_soal = it.idJenis!!,
-        id_level = it.idLevel!!,
+        idSoal = it.idSoal!!,
+        idJenisSoal = it.idJenis!!,
+        idLevel = it.idLevel!!,
         soal = it.soal.toString(),
         keterangan = it.keterangan.toString(),
         jawaban = it.jawaban.toString()
@@ -41,9 +41,9 @@ object DataMapper {
         val soalList = ArrayList<Soal>()
         input.map {
             val soal = Soal(
-                id_soal = it.idSoal,
-                id_jenis_soal = it.idJenis,
-                id_level = it.idLevel,
+                idSoal = it.idSoal,
+                idJenisSoal = it.idJenis,
+                idLevel = it.idLevel,
                 soal = it.soal,
                 keterangan = it.keterangan,
                 jawaban = it.jawaban
@@ -53,10 +53,10 @@ object DataMapper {
         return soalList
     }
 
-    fun mapperHighScore(input: List<HMessageItem>): List<UserScore> {
-        val highScoreList = ArrayList<UserScore>()
+    fun mapperHighScore(input: List<HMessageItem>): List<RankingScore> {
+        val highScoreList = ArrayList<RankingScore>()
         input.map {
-            val highScore = UserScore(
+            val highScore = RankingScore(
                 name = it.name,
                 total = it.total
             )
@@ -69,8 +69,8 @@ object DataMapper {
         val levelList = ArrayList<Level>()
         input.map {
             val level = Level(
-                id_level = it.idLevel!!,
-                level_soal = it.levelSoal.toString()
+                idLevel = it.idLevel!!,
+                levelSoal = it.levelSoal.toString()
             )
             levelList.add(level)
         }
@@ -82,7 +82,8 @@ object DataMapper {
         input.map{
             val joinGame = UserJoin(
                 id = it.idGame.toString(),
-                username = it.username.toString()
+                username = it.username.toString(),
+                jenisSoal = it.jenis_soal.toString()
             )
             joinGameList.add(joinGame)
         }
@@ -103,7 +104,7 @@ object DataMapper {
     }
 
     fun mapperRegister(input: RegisterResponse): String {
-        var result: String = ""
+        var result = ""
         result = input.success.toString()
         return result
     }
@@ -111,12 +112,6 @@ object DataMapper {
     fun mapperString(input: SimpleResponse): String {
         var result = ""
         result = input.message.toString()
-        return result
-    }
-
-    fun mapperRoom(input: MakeRoomResponse): String {
-        var result = ""
-        result = input.message!!.id.toString()
         return result
     }
 

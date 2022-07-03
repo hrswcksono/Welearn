@@ -24,8 +24,8 @@ class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridVie
         private val binding = GridLevelAngkaBinding.bind(itemView)
         fun bind(data: Level) {
             with(binding) {
-                idJenisAngka.text = data.id_level.toString()
-                jenisAngka.text = data.level_soal
+                idJenisAngka.text = data.idLevel.toString()
+                jenisAngka.text = data.levelSoal
             }
         }
 

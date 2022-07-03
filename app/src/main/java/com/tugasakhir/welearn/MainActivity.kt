@@ -6,9 +6,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.messaging.Constants
-import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {

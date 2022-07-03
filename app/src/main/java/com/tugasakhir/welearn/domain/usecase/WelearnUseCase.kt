@@ -11,7 +11,7 @@ interface WelearnUseCase {
                      password: String,
                      email: String,
                      name: String,
-                     jenis_kelamin: String): Flow<String>
+                     jenisKelamin: String): Flow<String>
     fun userLogout(): Flow<String>
     fun angkaRandom(level: Int): Flow<List<Soal>>
     fun hurufRandom(level: Int): Flow<List<Soal>>
@@ -20,19 +20,19 @@ interface WelearnUseCase {
     fun getSoalByID(id: Int): Flow<Soal>
     fun userAngkaScore(): Flow<Score>
     fun userHurufScore(): Flow<Score>
-    fun angkaHighScore(): Flow<List<UserScore>>
-    fun hurufHighScore(): Flow<List<UserScore>>
+    fun angkaHighScore(): Flow<List<RankingScore>>
+    fun hurufHighScore(): Flow<List<RankingScore>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
-    fun pushNotificationStart(body: PushNotificationStart): Flow<PushNotificationResponse>
-    fun angkaPredict(id_soal: Int, image: ArrayList<String>): Flow<ResultPredict>
-    fun hurufPredict(id_soal: Int, image: ArrayList<String>): Flow<ResultPredict>
+//    fun pushNotificationStart(body: PushNotificationStart): Flow<PushNotificationResponse>
+    fun angkaPredict(idSoal: Int, image: ArrayList<String>): Flow<ResultPredict>
+    fun hurufPredict(idSoal: Int, image: ArrayList<String>): Flow<ResultPredict>
     fun testPredict(input: String): Flow<ResultPredict>
-    fun makeRoomGame(id_jenis: Int): Flow<String>
-    fun joinGame(id_game: String): Flow<String>
-    fun endGame(id_game: String): Flow<String>
-    fun scoreMulti(id_game: Int): Flow<List<ScoreMulti>>
-    fun predictHurufMulti(id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int): Flow<String>
-    fun predictAngkaMulti(id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int): Flow<String>
-    fun getJoinedGame(): Flow<List<UserJoin>>
-    fun getLevel(id_level: Int): Flow<List<Level>>
+    fun makeRoomGame(idJenis: Int): Flow<String>
+    fun joinGame(idGame: String): Flow<String>
+    fun endGame(idGame: String): Flow<String>
+    fun scoreMulti(idGame: Int): Flow<List<ScoreMulti>>
+    fun predictHurufMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
+    fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
+    fun userJoinedGame(): Flow<List<UserJoin>>
+    fun getLevel(idLevel: Int): Flow<List<Level>>
 }

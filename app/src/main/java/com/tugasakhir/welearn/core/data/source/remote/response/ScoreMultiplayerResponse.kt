@@ -8,7 +8,7 @@ data class ScoreMultiplayerResponse(
 	val success: String? = null,
 
 	@field:SerializedName("message")
-	val message: List<ScoreMultiItem?>? = null
+	val message: List<ScoreMultiItem>
 )
 
 data class ScoreMultiItem(

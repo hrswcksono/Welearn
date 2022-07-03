@@ -8,10 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -49,7 +47,7 @@ class ListLevelAngkaFragment : Fragment() {
 
         angkaAdapter.onItemClick = {
             val toSoalAngka = ListLevelAngkaFragmentDirections.toSoalAngka()
-            toSoalAngka.idLevel = it.id_level
+            toSoalAngka.idLevel = it.idLevel
             view?.findNavController()?.navigate(toSoalAngka)
         }
 

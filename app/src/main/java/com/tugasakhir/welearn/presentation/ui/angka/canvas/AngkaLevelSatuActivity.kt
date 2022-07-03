@@ -21,9 +21,7 @@ import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGameViewMode
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGameViewModel
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictAngkaMultiViewModel
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
@@ -49,7 +47,6 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelSatuBinding
-    private val viewModel: PredictAngkaViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
     private val predictAngkaMultiViewModel: PredictAngkaMultiViewModel by viewModel()
@@ -101,7 +98,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
                 val end = Date().time
                 total = (end - begin)/1000
                 Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
@@ -152,7 +149,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
         }
 
         binding.soalAngkaDipilih.text = data.keterangan
-        binding.levelAngkaKe.text = "Level ke ${data.id_level}"
+        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
         binding.tvSoalAngkaSatu.text = data.soal
     }
 
@@ -246,6 +243,8 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
                             "Selesai"
                             ,"Pertandingan telah selesai"
                             ,"score",
+                            "",
+                            0,
                             idGame
                         ),
                         Constants.TOPIC_JOIN_HURUF,

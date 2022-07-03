@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class MakeRoomViewModel(private val useCase: WelearnUseCase): ViewModel() {
-    fun makeRoom(id_jenis: Int) = useCase.makeRoomGame(id_jenis)
+    fun makeRoom(idJenis: Int) = useCase.makeRoomGame(idJenis)
 }

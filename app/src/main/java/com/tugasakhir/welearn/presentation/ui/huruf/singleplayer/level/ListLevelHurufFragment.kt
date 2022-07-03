@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
 import kotlinx.coroutines.Dispatchers
@@ -48,7 +47,7 @@ class ListLevelHurufFragment : Fragment() {
 
         hurufAdapter.onItemClick = {
             val toSoalHuruf = ListLevelHurufFragmentDirections.toSoalHuruf()
-            toSoalHuruf.idLevel = it.id_level
+            toSoalHuruf.idLevel = it.idLevel
             view?.findNavController()?.navigate(toSoalHuruf)
         }
 

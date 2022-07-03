@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
 import com.tugasakhir.welearn.domain.model.User
 import com.tugasakhir.welearn.presentation.presenter.ProfileViewModel
@@ -47,7 +46,7 @@ class ProfileFragment : Fragment() {
     private fun showData(user: User) {
         binding.tvEmail.text = user.email
         binding.tvNama.text = user.username
-        binding.tvGender.text = user.jenis_kelamin
+        binding.tvGender.text = user.jenisKelamin
         binding.tvScoreHuruf.text = user.score
         binding.tvScoreAngka.text = user.angka
     }

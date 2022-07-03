@@ -10,9 +10,8 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufReadyBinding
-import com.tugasakhir.welearn.domain.model.PushNotificationStart
-import com.tugasakhir.welearn.domain.model.StartGame
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationStartViewModel
+import com.tugasakhir.welearn.domain.model.NotificationData
+import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -23,9 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class HurufReadyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHurufReadyBinding
-    private val viewModel: PushNotificationViewModel by viewModel()
-    private val viewModelSoal: SoalHurufByIDViewModel by viewModel()
-    private val viewModelGame: PushNotificationStartViewModel by viewModel()
+    private val viewModelGame: PushNotificationViewModel by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     companion object{
@@ -52,18 +49,18 @@ class HurufReadyActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModelGame.pushNotification(
-                        PushNotificationStart(
-                            StartGame(
-                                "Perhatian...!",
+                    PushNotification(
+                        NotificationData(
+                            "Perhatian...!",
                                 "${sessionManager.fetchName()} telah bergabung!",
                                 "",
                                 "0",
                                 0,
                                 "gabung_huruf"
-                            ),
-                            TOPIC_JOIN_HURUF,
+                        ),
+                        TOPIC_JOIN_HURUF,
                             "high"
-                        )
+                    )
                     ).collectLatest {
                         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
                         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_HURUF)

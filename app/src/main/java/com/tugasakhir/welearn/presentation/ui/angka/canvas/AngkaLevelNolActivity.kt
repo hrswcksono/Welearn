@@ -10,19 +10,15 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.google.android.material.snackbar.Snackbar
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.ui.TestViewModel
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
-import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
@@ -47,9 +43,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
-    private val viewModel: PredictAngkaViewModel by viewModel()
-    private val testViewModel: TestViewModel by viewModel()
-    private val viewModelGame: PushNotificationStartViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
     private val predictAngkaMultiViewModel: PredictAngkaMultiViewModel by viewModel()
@@ -94,7 +87,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                 val end = Date().time
                 total = (end - begin)/1000
                 Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
@@ -144,7 +137,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             speak(data.keterangan)
         }
         binding.soalAngkaDipilih.text = data.keterangan
-        binding.levelAngkaKe.text = "Level ke ${data.id_level}"
+        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
         binding.tvSoal.text = data.soal
     }
 
@@ -152,9 +145,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         // Set the ApiKey and create GoogleCloudTTS.
         val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
         googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
+            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
         // start speak
-        googleCloudTTS.start(string);
+        googleCloudTTS.start(string)
     }
 
     private fun encodeImage(bm: Bitmap): String? {
@@ -205,11 +198,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun snackBar(title: String) {
-        val snack = Snackbar.make(View(this@AngkaLevelNolActivity),title,Snackbar.LENGTH_LONG)
-        snack.show()
-    }
-
     private fun joinGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
@@ -242,6 +230,8 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                         "Selesai"
                         ,"Pertandingan telah selesai"
                         ,"score",
+                        "",
+                        0,
                         idGame
                     ),
                     Constants.TOPIC_JOIN_HURUF,

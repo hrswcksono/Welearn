@@ -43,7 +43,6 @@ class SharedPreference (context: Context) {
         return prefs.getInt(USER_ID, 0)
     }
 
-
     fun saveName(string: String){
         val token = prefs.edit()
         token.putString(USER_NAME, string)

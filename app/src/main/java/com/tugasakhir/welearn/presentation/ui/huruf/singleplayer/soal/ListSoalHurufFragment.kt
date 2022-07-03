@@ -9,7 +9,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
@@ -74,28 +73,28 @@ class ListSoalHurufFragment : Fragment() {
     }
 
     private fun moveDrawingActivity(soal: Soal) {
-        when(soal.id_level){
+        when(soal.idLevel){
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, HurufLevelNolActivity::class.java)
-                moveToLevelNolActivity.putExtra(HurufLevelNolActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelNolActivity.putExtra(HurufLevelNolActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelNolActivity.putExtra(HurufLevelNolActivity.GAME_MODE, "single")
                 startActivity(moveToLevelNolActivity)
             }
             1 -> {
                 val moveToLevelSatuActivity = Intent(activity, HurufLevelSatuActivity::class.java)
-                moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelSatuActivity.putExtra(HurufLevelSatuActivity.GAME_MODE, "single")
                 startActivity(moveToLevelSatuActivity)
             }
             2 -> {
                 val moveToLevelDuaActivity = Intent(activity, HurufLevelDuaActivity::class.java)
-                moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelDuaActivity.putExtra(HurufLevelDuaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelDuaActivity)
             }
             3 -> {
                 val moveToLevelTigaActivity = Intent(activity, HurufLevelTigaActivity::class.java)
-                moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelTigaActivity.putExtra(HurufLevelTigaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelTigaActivity)
             }

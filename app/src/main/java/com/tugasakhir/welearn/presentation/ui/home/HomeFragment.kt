@@ -2,7 +2,6 @@ package com.tugasakhir.welearn.presentation.ui.home
 
 import android.content.Intent
 import android.graphics.Color
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,12 +13,10 @@ import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.flatdialoglibrary.dialog.FlatDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
@@ -29,7 +26,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.bind
 import org.koin.android.viewmodel.ext.android.viewModel
 
 

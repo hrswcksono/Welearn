@@ -24,8 +24,8 @@ class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridVie
         private val binding = GridLevelHurufBinding.bind(itemView)
         fun bind(data: Level) {
             with(binding) {
-                idJenisGrid.text = data.id_level.toString()
-                jenisSoal.text = data.level_soal
+                idJenisGrid.text = data.idLevel.toString()
+                jenisSoal.text = data.levelSoal
             }
         }
 

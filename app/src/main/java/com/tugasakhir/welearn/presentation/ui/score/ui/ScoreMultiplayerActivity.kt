@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiViewModel
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreMultiAdapter

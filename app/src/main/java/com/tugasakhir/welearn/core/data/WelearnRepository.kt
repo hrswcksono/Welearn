@@ -1,13 +1,9 @@
 package com.tugasakhir.welearn.core.data
 
-import android.provider.ContactsContract
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
-import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
-import com.tugasakhir.welearn.core.data.source.remote.response.ScoreMultiItem
 import com.tugasakhir.welearn.core.utils.DataMapper
 import com.tugasakhir.welearn.domain.model.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelearnRepository{
@@ -22,8 +18,8 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
         password: String,
         email: String,
         name: String,
-        jenis_kelamin: String
-    ) = remoteDataSource.registerUser(username, password, email, name, jenis_kelamin).map {
+        jenisKelamin: String
+    ) = remoteDataSource.registerUser(username, password, email, name, jenisKelamin).map {
         DataMapper.mapperRegister(it)
     }
 
@@ -60,18 +56,18 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     override fun pushNotification(body: PushNotification) =
         remoteDataSource.pushNotification(body)
 
-    override fun pushStartNotification(body: PushNotificationStart) =
-        remoteDataSource.pushNotificationStart(body)
+//    override fun pushStartNotification(body: PushNotificationStart) =
+//        remoteDataSource.pushNotificationStart(body)
 
     override fun predictAngka(
-        id_soal: Int,
+        idSoal: Int,
         image: ArrayList<String>
-    ) = remoteDataSource.predictAngka(id_soal, image).map { DataMapper.mapperPredict(it) }
+    ) = remoteDataSource.predictAngka(idSoal, image).map { DataMapper.mapperPredict(it) }
 
     override fun predictHuruf(
-        id_soal: Int,
+        idSoal: Int,
         image: ArrayList<String>
-    ) = remoteDataSource.predictHuruf(id_soal, image).map { DataMapper.mapperPredict(it) }
+    ) = remoteDataSource.predictHuruf(idSoal, image).map { DataMapper.mapperPredict(it) }
 
     override fun predictTest(input: String) =
         remoteDataSource.testPredict(input).map { DataMapper.mapperPredict(it) }
@@ -79,27 +75,27 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     override fun makeRoomGame(id_jenis: Int) =
         remoteDataSource.makeRoomGame(id_jenis).map { DataMapper.mapperString(it) }
 
-    override fun joinGame(id_game: String) =
-        remoteDataSource.joinGame(id_game).map { DataMapper.mapperString(it) }
+    override fun joinGame(idGame: String) =
+        remoteDataSource.joinGame(idGame).map { DataMapper.mapperString(it) }
 
-    override fun endGame(id_game: String) =
-        remoteDataSource.endGame(id_game).map { DataMapper.mapperString(it) }
+    override fun endGame(idGame: String) =
+        remoteDataSource.endGame(idGame).map { DataMapper.mapperString(it) }
 
-    override fun scoreMulti(id_game: Int) =
-        remoteDataSource.scoreMulti(id_game).map { DataMapper.mapperScoreMulti(it as List<ScoreMultiItem>) }
+    override fun scoreMulti(idGame: Int) =
+        remoteDataSource.scoreMulti(idGame).map { DataMapper.mapperScoreMulti(it) }
 
     override fun predictHurufMulti(
-        id_game: Int,
-        id_soal: Int,
+        idGame: Int,
+        idSoal: Int,
         image: ArrayList<String>,
         duration: Int
-    ) = remoteDataSource.predictHurufMulti(id_game, id_soal,image, duration).map {
+    ) = remoteDataSource.predictHurufMulti(idGame, idSoal,image, duration).map {
         DataMapper.mapperString(it)
     }
 
     override fun predictAngkaMulti(
-        id_game: Int,id_soal: Int,image: ArrayList<String> , duration: Int
-    ) = remoteDataSource.predictAngkaMulti(id_game, id_soal, image, duration).map {
+        idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int
+    ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, image, duration).map {
         DataMapper.mapperString(it)
     }
 
@@ -108,9 +104,8 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
             DataMapper.mapperJoinedGame(it)
         }
 
-    override fun getLevel(id_level: Int) =
-        remoteDataSource.levelSoal(id_level).map {
+    override fun getLevel(idLevel: Int) =
+        remoteDataSource.levelSoal(idLevel).map {
             DataMapper.mapperLevel(it)
         }
-
 }

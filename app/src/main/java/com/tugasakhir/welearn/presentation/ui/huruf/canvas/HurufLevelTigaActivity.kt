@@ -12,7 +12,6 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
@@ -48,7 +47,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelTigaBinding
-    private val viewModel: PredictHurufViewModel by viewModel()
     private val soalViewModel: SoalByIDViewModel by viewModel()
     private val predictHurufMultiViewModel: PredictHurufMultiViewModel by viewModel()
     private val predictHurufViewModel: PredictHurufViewModel by viewModel()
@@ -92,20 +90,20 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener {
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
                 Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
@@ -119,15 +117,15 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener{
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap())!!)
+                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
+                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
                 submitDrawing(idSoal, image)
             }
         }
@@ -188,17 +186,17 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             speak(data.keterangan)
         }
         binding.soalHurufDipilih.text = data.keterangan
-        binding.levelHurufKe.text = "Level ke ${data.id_level}"
+        binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 
     private fun speak(string: String) {
         // Set the ApiKey and create GoogleCloudTTS.
         val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
         googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f));
+            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
 
         // start speak
-        googleCloudTTS.start(string);
+        googleCloudTTS.start(string)
     }
 
     private fun encodeImage(bm: Bitmap): String {
@@ -267,6 +265,8 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                         "Selesai"
                         ,"Pertandingan telah selesai"
                         ,"score",
+                        "",
+                        0,
                         idGame
                     ),
                     Constants.TOPIC_JOIN_HURUF,

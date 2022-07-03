@@ -6,7 +6,7 @@ import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
 import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.PushNotificationStart
+//import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -33,8 +33,6 @@ class RemoteDataSource (private val apiService: ApiService) {
                 val response = apiService.login(username, password)
                 if (response.success != null) {
                     emit(response.message)
-                } else if (response.error != null) {
-
                 }
             } catch (e: Exception){
                 Log.e("error", e.toString())
@@ -58,10 +56,10 @@ class RemoteDataSource (private val apiService: ApiService) {
         password: String,
         email: String,
         name: String,
-        jenis_kelamin: String
+        jenisKelamin: String
     ) = flow {
             try {
-                val response = apiService.register(username, password, email, name, jenis_kelamin)
+                val response = apiService.register(username, password, email, name, jenisKelamin)
                 emit(response)
             } catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -189,10 +187,10 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun levelSoal(id_level: Int) =
+    fun levelSoal(level: Int) =
         flow {
             try {
-                val response = apiService.getLevel(id_level,token = "Bearer $tokenUser")
+                val response = apiService.getLevel(level,token = "Bearer $tokenUser")
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -209,30 +207,30 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun pushNotificationStart(body: PushNotificationStart) =
-        flow {
+//    fun pushNotificationStart(body: PushNotificationStart) =
+//        flow {
+//            try {
+//                val response = apiService.postStartGame(FCM_BASE_URL, body)
+//                emit(response)
+//            }catch (e: Exception) {
+//                Log.e("error", e.toString())
+//            }
+//        }.flowOn(Dispatchers.IO)
+
+    fun predictAngka(idSoal: Int, image: ArrayList<String>) =
+        flow{
             try {
-                val response = apiService.postStartGame(FCM_BASE_URL, body)
+                val response = apiService.predictAngka(idSoal, image, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngka(id_soal: Int, image: ArrayList<String>) =
+    fun predictHuruf(idSoal: Int, image: ArrayList<String>) =
         flow{
             try {
-                val response = apiService.predictAngka(id_soal, image, token = "Bearer $tokenUser")
-                emit(response)
-            }catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun predictHuruf(id_soal: Int, image: ArrayList<String>) =
-        flow{
-            try {
-                val response = apiService.predictHuruf(id_soal, image, token = "Bearer $tokenUser")
+                val response = apiService.predictHuruf(idSoal, image, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -259,20 +257,20 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun joinGame(id_game: String) =
+    fun joinGame(idGame: String) =
         flow{
             try {
-                val response = apiService.joinGame(id_game.toInt(), token = "Bearer $tokenUser")
+                val response = apiService.joinGame(idGame.toInt(), token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
-    fun endGame(id_game: String) =
+    fun endGame(idGame: String) =
         flow{
             try {
-                val response = apiService.endGame(id_game, token = "Bearer $tokenUser")
+                val response = apiService.endGame(idGame, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -289,20 +287,20 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngkaMulti(id_game: Int, id_soal: Int,image: ArrayList<String> , duration: Int) =
+    fun predictAngkaMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int) =
         flow{
             try {
-                val response = apiService.predictAngkaMulti(id_game, id_soal,image, duration, token = "Bearer $tokenUser")
+                val response = apiService.predictAngkaMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHurufMulti(id_game: Int, id_soal: Int,image: ArrayList<String> , duration: Int) =
+    fun predictHurufMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int) =
         flow{
             try {
-                val response = apiService.predictHurufMulti(id_game, id_soal,image, duration, token = "Bearer $tokenUser")
+                val response = apiService.predictHurufMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -318,6 +316,4 @@ class RemoteDataSource (private val apiService: ApiService) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
-
-
 }

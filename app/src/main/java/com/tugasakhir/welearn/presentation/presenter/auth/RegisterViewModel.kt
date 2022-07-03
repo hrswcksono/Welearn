@@ -6,6 +6,6 @@ import kotlinx.coroutines.flow.Flow
 
 class RegisterViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun registerUser(username: String, password: String, email: String, name: String, jenis_kelamin: String): Flow<String> =
-        useCase.userRegister(username, password, email, name, jenis_kelamin)
+    fun registerUser(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String> =
+        useCase.userRegister(username, password, email, name, jenisKelamin)
 }

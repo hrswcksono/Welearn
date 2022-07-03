@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreAngkaUserBinding
 import com.tugasakhir.welearn.presentation.presenter.score.UserScoreAngkaViewModel
 import kotlinx.coroutines.Dispatchers

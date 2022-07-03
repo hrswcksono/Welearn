@@ -10,7 +10,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import org.koin.android.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
@@ -49,7 +48,7 @@ class ListSoalAngkaFragment : Fragment() {
 
     private fun showGridSoalAngka() {
         binding.progressBar.visibility = View.VISIBLE
-        val soal_angka_adapter = ListSoalAngkaAdapter()
+        val soalAngkaAdapter = ListSoalAngkaAdapter()
 
         val levelAngka = ListSoalAngkaFragmentArgs.fromBundle(arguments as Bundle).idLevel
 
@@ -57,52 +56,52 @@ class ListSoalAngkaFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.randomAngka(levelAngka)
                     .collectLatest {
-                    soal_angka_adapter.setData(it)
+                    soalAngkaAdapter.setData(it)
                     binding.progressBar.visibility = View.INVISIBLE
                 }
             }
         }
 
-        soal_angka_adapter.onItemClick = {
+        soalAngkaAdapter.onItemClick = {
             moveDrawingActivity(it)
         }
 
         with(binding.rvSoalAngka) {
             layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
-            adapter = soal_angka_adapter
+            adapter = soalAngkaAdapter
         }
     }
 
     private fun moveDrawingActivity(soal: Soal) {
-        when(soal.id_level){
+        when(soal.idLevel){
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, AngkaLevelNolActivity::class.java)
-                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.GAME_MODE, "single")
                 startActivity(moveToLevelNolActivity)
             }
             1 -> {
                 val moveToLevelSatuActivity = Intent(activity, AngkaLevelSatuActivity::class.java)
-                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.GAME_MODE, "single")
                 startActivity(moveToLevelSatuActivity)
             }
             2 -> {
                 val moveToLevelDuaActivity = Intent(activity, AngkaLevelDuaActivity::class.java)
-                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelDuaActivity)
             }
             3 -> {
                 val moveToLevelTigaActivity = Intent(activity, AngkaLevelTigaActivity::class.java)
-                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.GAME_MODE, "single")
                 startActivity(moveToLevelTigaActivity)
             }
             4 -> {
                 val moveToLevelEmpatActivity = Intent(activity, AngkaLevelEmpatActivity::class.java)
-                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, soal.id_soal)
+                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, soal.idSoal)
                 moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.GAME_MODE, "single")
                 startActivity(moveToLevelEmpatActivity)
             }

@@ -7,7 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufBinding
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreHurufAdapter
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreHurufViewModel

@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.FragmentModeAngkaBinding
 import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MatchAngkaActivity
 

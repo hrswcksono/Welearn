@@ -5,6 +5,6 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class JoinedUserViewModel(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun getJoinedGame() = useCase.getJoinedGame()
+    fun getJoinedGame() = useCase.userJoinedGame()
 
 }
