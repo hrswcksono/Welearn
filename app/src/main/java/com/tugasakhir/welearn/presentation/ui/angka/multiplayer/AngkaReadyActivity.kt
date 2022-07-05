@@ -14,8 +14,8 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityAngkaReadyBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGameViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,9 +26,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class AngkaReadyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaReadyBinding
-//    private val viewModelGame: PushNotificationStartViewModel by viewModel()
-    private val viewModelGame: PushNotificationViewModel by viewModel()
-    private val joinGameViewModel: JoinGameViewModel by viewModel()
+    private val viewModelGame: PushNotificationPresenter by viewModel()
+    private val joinGamePresenter: JoinGamePresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     companion object{
@@ -60,26 +59,6 @@ class AngkaReadyActivity : AppCompatActivity() {
     private fun ready() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-//                viewModelGame.pushNotification(
-//                    PushNotificationStart(
-//                        StartGame(
-//                            "Perhatian...!",
-//                            "${sessionManager.fetchName()} telah bergabung!",
-//                            "",
-//                            "0",
-//                            0,
-//                            "gabung_angka"
-//                        ),
-//                        TOPIC_JOIN_ANGKA,
-//                        "high"
-//                    )
-//                ).collectLatest {
-//                    FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
-//                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
-//                FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA).addOnSuccessListener {
-//                    dialogBox()
-//                }
-//                }
                 viewModelGame.pushNotification(
                     PushNotification(
                         NotificationData(
@@ -106,7 +85,7 @@ class AngkaReadyActivity : AppCompatActivity() {
     private fun joinGame(id_game: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                joinGameViewModel.joinGame(id_game)
+                joinGamePresenter.joinGame(id_game)
                     .collectLatest {
 //                        Toast.makeText()
                         Toast.makeText(this@AngkaReadyActivity, it, Toast.LENGTH_SHORT).show()

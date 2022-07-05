@@ -12,7 +12,7 @@ import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityHurufReadyBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class HurufReadyActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHurufReadyBinding
-    private val viewModelGame: PushNotificationViewModel by viewModel()
+    private val viewModelGame: PushNotificationPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     companion object{

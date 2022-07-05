@@ -76,45 +76,15 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun soalAngkaMultiplayer(level: Int) =
+    fun soalMultiplayer(jenis: Int ,level: Int) =
         flow {
             try {
-                val response = apiService.getSoalAngkaRandom(level,token = "Bearer $tokenUser")
+                val response = apiService.getIDSoalMulti(jenis ,level,token = "Bearer $tokenUser")
                 emit(response)
             } catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
-
-    fun soalHurufMultiplayer(level: Int) =
-        flow {
-            try {
-                val response = apiService.getSoalHurufRandom(level, token = "Bearer $tokenUser")
-                emit(response)
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-//    fun soalAngkaByID(id: Int, token: String) =
-//        flow {
-//            try {
-//                val response = apiService.getSoalAngkabyID(id, token = "Bearer ${token}")
-//                emit(response.message)
-//            } catch (e: Exception) {
-//                Log.e("error", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO) as Flow<SMessage>
-//
-//    fun soalHurufByID(id: Int, token: String) =
-//        flow {
-//            try {
-//                val response = apiService.getSoalHurufbyID(id, token = "Bearer ${token}")
-//                emit(response.message)
-//            } catch (e: Exception) {
-//                Log.e("error", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
     fun soalByID(id: Int) =
         flow {
@@ -126,20 +96,10 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
-    fun randAngka(level: Int) =
+    fun randSoalSingle(jenis : Int,level: Int) =
         flow {
             try {
-                val response = apiService.getRandomAngka(level, token = "Bearer $tokenUser")
-                emit(response.message)
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun randHuruf(level: Int) =
-        flow {
-            try {
-                val response = apiService.getRandomHuruf(level, token = "Bearer $tokenUser")
+                val response = apiService.getRandomSoal(jenis, level, token = "Bearer $tokenUser")
                 emit(response.message)
             } catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -147,40 +107,20 @@ class RemoteDataSource (private val apiService: ApiService) {
         }.flowOn(Dispatchers.IO)
 
 
-    fun scoreAngkaUser() =
+    fun scoreUser(id: Int) =
         flow {
             try {
-                val response = apiService.scoreAngkaUser(token = "Bearer $tokenUser")
+                val response = apiService.scoreUser(id, token = "Bearer $tokenUser")
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO) as Flow<ScoreMessage>
 
-    fun scoreHurufUser() =
+    fun highScore(id: Int) =
         flow {
             try {
-                val response = apiService.scoreHurufUser(token = "Bearer $tokenUser")
-                emit(response.message)
-            }catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO) as Flow<ScoreMessage>
-
-    fun highScoreAngka() =
-        flow {
-            try {
-                val response = apiService.getHighScoreAngka(token = "Bearer $tokenUser")
-                emit(response.message)
-            }catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun highScoreHuruf() =
-        flow {
-            try {
-                val response = apiService.getHighScoreHuruf(token = "Bearer $tokenUser")
+                val response = apiService.getHighScore(id ,token = "Bearer $tokenUser")
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -207,16 +147,6 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-//    fun pushNotificationStart(body: PushNotificationStart) =
-//        flow {
-//            try {
-//                val response = apiService.postStartGame(FCM_BASE_URL, body)
-//                emit(response)
-//            }catch (e: Exception) {
-//                Log.e("error", e.toString())
-//            }
-//        }.flowOn(Dispatchers.IO)
-
     fun predictAngka(idSoal: Int, image: ArrayList<String>) =
         flow{
             try {
@@ -231,16 +161,6 @@ class RemoteDataSource (private val apiService: ApiService) {
         flow{
             try {
                 val response = apiService.predictHuruf(idSoal, image, token = "Bearer $tokenUser")
-                emit(response)
-            }catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun testPredict(input: String) =
-        flow{
-            try {
-                val response = apiService.test(input, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

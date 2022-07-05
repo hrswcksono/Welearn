@@ -3,7 +3,8 @@ package com.tugasakhir.welearn.presentation.presenter.score
 import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
-class ScoreAngkaViewModel(private val useCase: WelearnUseCase): ViewModel() {
+class ScoreUserPresenter(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun highScoreAngka() = useCase.angkaHighScore()
+    fun userScore(id: Int) = useCase.userScore(id)
+
 }

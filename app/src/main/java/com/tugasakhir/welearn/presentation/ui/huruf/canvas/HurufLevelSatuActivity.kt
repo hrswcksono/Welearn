@@ -16,12 +16,12 @@ import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGameViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGameViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiViewModel
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationViewModel
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufViewModel
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
@@ -46,12 +46,12 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityHurufLevelSatuBinding
-    private val soalViewModel: SoalByIDViewModel by viewModel()
-    private val predictHurufViewModel: PredictHurufViewModel by viewModel()
-    private val joinGameViewModel: JoinGameViewModel by viewModel()
-    private val endGameViewModel: EndGameViewModel by viewModel()
-    private val pushNotification: PushNotificationViewModel by viewModel()
-    private val predictHurufMultiViewModel: PredictHurufMultiViewModel by viewModel()
+    private val soalViewModel: SoalByIDPresenter by viewModel()
+    private val predictHurufPresenter: PredictHurufPresenter by viewModel()
+    private val joinGamePresenter: JoinGamePresenter by viewModel()
+    private val endGamePresenter: EndGamePresenter by viewModel()
+    private val pushNotification: PushNotificationPresenter by viewModel()
+    private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -115,7 +115,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufMultiViewModel.predictHurufMulti(idGame, idSoal, image,  duration)
+                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
                     .collectLatest {
                         endGame(idGame)
                     }
@@ -127,7 +127,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         binding.progressBarH1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufViewModel.predictHuruf(id.toInt(), image)
+                predictHurufPresenter.predictHuruf(id.toInt(), image)
                     .collectLatest {
                         binding.progressBarH1.visibility = View.INVISIBLE
                         CustomDialogBox.withConfirm(
@@ -208,7 +208,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     private fun joinGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
-                joinGameViewModel.joinGame(idGame.toString())
+                joinGamePresenter.joinGame(idGame.toString())
                     .collectLatest {  }
             }
         }
@@ -217,7 +217,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     private fun endGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                endGameViewModel.endGame(idGame.toString())
+                endGamePresenter.endGame(idGame.toString())
                     .collectLatest {
                         if (it == "Berhasil End Game"){
 //                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()

@@ -40,40 +40,21 @@ interface ApiService {
         @Header("Authorization") token: String
     ): DetailResponse
 
-    // random angka
-    @GET("randAngka/{id}")
-    suspend fun getRandomAngka(
-        @Path("id") id: Int,
-        @Header("Authorization") token: String
-    ): RandomResponse
-
-    // random huruf
-    @GET("randHuruf/{id}")
-    suspend fun getRandomHuruf(
-        @Path("id") id: Int,
+    // random soal
+    @GET("randListSoal/{jenis}/{level}")
+    suspend fun getRandomSoal(
+        @Path("jenis") jenis: Int,
+        @Path("level") level: Int,
         @Header("Authorization") token: String
     ): RandomResponse
 
     // soal angka
-    @GET("soalAngka/{id}")
-    suspend fun getSoalAngkaRandom(
-        @Path("id") id: Int,
+    @GET("getIDSoalMulti/{jenis}/{level}")
+    suspend fun getIDSoalMulti(
+        @Path("jenis") jenis: Int,
+        @Path("level") level: Int,
         @Header("Authorization") token: String
     ): SimpleResponse
-
-    // soal huruf
-    @GET("soalHuruf/{id}")
-    suspend fun getSoalHurufRandom(
-        @Path("id") id: Int,
-        @Header("Authorization") token: String
-    ): SimpleResponse
-
-//    // soal angka
-//    @GET("soalAngkabyID/{id}")
-//    suspend fun getSoalAngkabyID(
-//        @Path("id") id: Int,
-//        @Header("Authorization") token: String
-//    ): SoalResponse
 
     @GET("soalbyID/{id}")
     suspend fun getSoalByID(
@@ -81,32 +62,16 @@ interface ApiService {
         @Header("Authorization") token: String
     ): SoalResponse
 
-//    // soal huruf
-//    @GET("soalHurufbyID/{id}")
-//    suspend fun getSoalHurufbyID(
-//        @Path("id") id: Int,
-//        @Header("Authorization") token: String
-//    ): SoalResponse
-
-    // highscore huruf
-    @GET("scoreTHuruf")
-    suspend fun getHighScoreHuruf(
+    // highscore
+    @GET("highscore/{id}")
+    suspend fun getHighScore(
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ) : HighScoreResponse
 
-    // highscore angka
-    @GET("scoreTAngka")
-    suspend fun getHighScoreAngka(
-        @Header("Authorization") token: String
-    ) : HighScoreResponse
-
-    @GET("scoreHurufUser")
-    suspend fun scoreHurufUser(
-        @Header("Authorization") token: String
-    ) : ScoreResponse
-
-    @GET("scoreAngkaUser")
-    suspend fun scoreAngkaUser(
+    @GET("scoreUser/{id}")
+    suspend fun scoreUser(
+        @Path("id") id: Int,
         @Header("Authorization") token: String
     ) : ScoreResponse
 
@@ -117,14 +82,6 @@ interface ApiService {
         @Url url: String,
         @Body notification: PushNotification
     ): PushNotificationResponse
-
-//    @Headers("Authorization: key=$SERVER_KEY",
-//        "Content-Type:$CONTENT_TYPE")
-//    @POST
-//    suspend fun postStartGame(
-//        @Url url: String,
-//        @Body notification: PushNotificationStart
-//    ): PushNotificationResponse
 
     @FormUrlEncoded
     @POST("predictangka")
@@ -139,13 +96,6 @@ interface ApiService {
     suspend fun predictHuruf(
         @Field("id_soal") idSoal : Int,
         @Field("img[]") image : ArrayList<String>,
-        @Header("Authorization") token: String
-    ): PredictResponse
-
-    @FormUrlEncoded
-    @POST("test")
-    suspend fun test(
-        @Field("input") input : String,
         @Header("Authorization") token: String
     ): PredictResponse
 

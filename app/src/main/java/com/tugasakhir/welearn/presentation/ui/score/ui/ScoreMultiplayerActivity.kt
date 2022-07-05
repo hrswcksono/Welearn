@@ -5,7 +5,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreMultiAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -16,7 +16,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class ScoreMultiplayerActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityScoreMultiplayerBinding
-    private val viewModel: ScoreMultiViewModel by viewModel()
+    private val viewModel: ScoreMultiPresenter by viewModel()
 
     companion object{
         const val ID_GAME = "id_game"

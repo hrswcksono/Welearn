@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufBinding
+import com.tugasakhir.welearn.presentation.presenter.score.HighScorePresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreHurufAdapter
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -21,7 +21,7 @@ class ScoreHurufFragment : Fragment() {
 
     private var _binding: FragmentScoreHurufBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ScoreHurufViewModel by viewModel()
+    private val viewModel: HighScorePresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,7 +44,7 @@ class ScoreHurufFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.highScoreHuruf().collectLatest {
+                viewModel.highScore(1).collectLatest {
                     scoreHurufAdapter.setData(it)
                     binding.progressBarSHuruf.visibility = View.INVISIBLE
                 }

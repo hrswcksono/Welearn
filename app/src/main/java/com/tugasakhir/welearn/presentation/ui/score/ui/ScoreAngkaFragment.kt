@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentScoreAngkaBinding
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreAngkaAdapter
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.HighScorePresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ class ScoreAngkaFragment : Fragment() {
     private var _binding: FragmentScoreAngkaBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: ScoreAngkaViewModel by viewModel()
+    private val viewModel: HighScorePresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,7 +45,7 @@ class ScoreAngkaFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.highScoreAngka().collectLatest {
+                viewModel.highScore(2).collectLatest {
                     scoreAngkaAdapter.setData(it)
                     binding.progressBarSAngka.visibility = View.INVISIBLE
                 }

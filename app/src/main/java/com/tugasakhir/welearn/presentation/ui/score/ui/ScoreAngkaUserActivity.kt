@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.databinding.ActivityScoreAngkaUserBinding
-import com.tugasakhir.welearn.presentation.presenter.score.UserScoreAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.ScoreUserPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityScoreAngkaUserBinding
-    private val viewModel: UserScoreAngkaViewModel by viewModel()
+    private val viewModel: ScoreUserPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class ScoreAngkaUserActivity : AppCompatActivity() {
     private fun show() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.userScoreAngka().collectLatest {
+                viewModel.userScore(2).collectLatest {
                     binding.tvScoreUserAngka.text = it.score.toString()
                 }
             }

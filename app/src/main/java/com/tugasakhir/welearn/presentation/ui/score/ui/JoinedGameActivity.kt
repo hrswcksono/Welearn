@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.databinding.ActivityJoinedGameBinding
-import com.tugasakhir.welearn.presentation.presenter.score.JoinedUserViewModel
+import com.tugasakhir.welearn.presentation.presenter.score.JoinedUserPresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.JoinedGameAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -17,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class JoinedGameActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityJoinedGameBinding
-    private val viewModel: JoinedUserViewModel by viewModel()
+    private val viewModel: JoinedUserPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

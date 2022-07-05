@@ -106,4 +106,9 @@ dependencies {
 
     implementation 'com.github.chnouman:AwesomeDialog:1.0.5'
     implementation 'com.github.mejdi14:Flat-Dialog-Android:1.0.5'
+
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    testImplementation "org.mockito:mockito-inline:$mockitoVersion"
+    testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
 }

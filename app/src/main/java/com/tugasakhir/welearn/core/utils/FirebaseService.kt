@@ -70,7 +70,7 @@ class FirebaseService : FirebaseMessagingService() {
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent1)
         } else if(message.data["type"] == "startangka") {
-            when(message.data["id_level"]){
+            when(message.data["idLevel"]){
                 "0" -> {
                     intent1 = Intent(this, AngkaLevelNolActivity::class.java)
                     intent1.putExtra(AngkaLevelNolActivity.LEVEL_SOAL, message.data["idSoal"])
@@ -105,7 +105,7 @@ class FirebaseService : FirebaseMessagingService() {
             intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             startActivity(intent1)
         } else if(message.data["type"] == "starthuruf") {
-            when(message.data["id_level"]){
+            when(message.data["idLevel"]){
                 "0" -> {
                     intent1 = Intent(this, HurufLevelNolActivity::class.java)
                     intent1.putExtra(HurufLevelNolActivity.LEVEL_SOAL, message.data["idSoal"])

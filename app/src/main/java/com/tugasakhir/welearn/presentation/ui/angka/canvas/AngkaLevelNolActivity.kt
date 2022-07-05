@@ -17,8 +17,8 @@ import com.tugasakhir.welearn.domain.model.NotificationData
 import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaViewModel
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
+import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
@@ -43,12 +43,12 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
-    private val soalViewModel: SoalByIDViewModel by viewModel()
-    private val predictAngkaViewModel: PredictAngkaViewModel by viewModel()
-    private val predictAngkaMultiViewModel: PredictAngkaMultiViewModel by viewModel()
-    private val joinGameViewModel: JoinGameViewModel by viewModel()
-    private val endGameViewModel: EndGameViewModel by viewModel()
-    private val pushNotification: PushNotificationViewModel by viewModel()
+    private val soalViewModel: SoalByIDPresenter by viewModel()
+    private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
+    private val predictAngkaMultiPresenter: PredictAngkaMultiPresenter by viewModel()
+    private val joinGamePresenter: JoinGamePresenter by viewModel()
+    private val endGamePresenter: EndGamePresenter by viewModel()
+    private val pushNotification: PushNotificationPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -123,7 +123,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaMultiViewModel.predictAngkaMulti(idGame, idSoal, image,  duration)
+                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, image,  duration)
                     .collectLatest {
                         endGame(idGame)
                     }
@@ -161,7 +161,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaViewModel.predictAngka(id.toInt(), image)
+                predictAngkaPresenter.predictAngka(id.toInt(), image)
                     .collectLatest {
                         binding.progressBarA0.visibility = View.INVISIBLE
                         CustomDialogBox.withConfirm(
@@ -201,7 +201,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun joinGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
-                joinGameViewModel.joinGame(idGame.toString())
+                joinGamePresenter.joinGame(idGame.toString())
                     .collectLatest {  }
             }
         }
@@ -210,7 +210,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun endGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                endGameViewModel.endGame(idGame.toString())
+                endGamePresenter.endGame(idGame.toString())
                     .collectLatest {
                         if (it == "Berhasil End Game"){
 //                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()

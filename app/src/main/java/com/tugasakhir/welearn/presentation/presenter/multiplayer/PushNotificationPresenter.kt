@@ -6,7 +6,7 @@ import com.tugasakhir.welearn.domain.model.PushNotification
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import kotlinx.coroutines.flow.Flow
 
-class PushNotificationViewModel(private val useCase: WelearnUseCase): ViewModel() {
+class PushNotificationPresenter(private val useCase: WelearnUseCase): ViewModel() {
 
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse> =
         useCase.pushNotification(body)

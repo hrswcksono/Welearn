@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -20,7 +20,7 @@ class ListLevelHurufFragment : Fragment() {
 
     private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LevelSoalViewModel by viewModel()
+    private val viewModel: LevelSoalPresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

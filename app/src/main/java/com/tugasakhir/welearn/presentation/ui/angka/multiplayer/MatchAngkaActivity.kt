@@ -20,9 +20,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MatchAngkaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchAngkaBinding
-    private val viewModel: PushNotificationViewModel by viewModel()
-    private val viewModelRandom: RandomLevelAngkaViewModel by viewModel()
-    private val makeRoomViewModel: MakeRoomViewModel by viewModel()
+    private val viewModel: PushNotificationPresenter by viewModel()
+    private val viewModelRandom: RandomIDSoalMultiPresenter by viewModel()
+    private val makeRoomPresenter: MakeRoomPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -116,7 +116,7 @@ class MatchAngkaActivity : AppCompatActivity() {
         binding.btnAngkaAcak.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    viewModelRandom.randomSoalAngkaByLevel(
+                    viewModelRandom.randomIDSoalMultiByLevel(2,
                         inputLevel
                     ).collectLatest {
                         if (it.isNotEmpty()){
@@ -142,7 +142,7 @@ class MatchAngkaActivity : AppCompatActivity() {
     private fun makeRoom(idSoal: String, idLevel: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                makeRoomViewModel.makeRoom(2)
+                makeRoomPresenter.makeRoom(2)
                     .collectLatest {
                         lifecycleScope.launch(Dispatchers.Default) {
                             withContext(Dispatchers.Main) {

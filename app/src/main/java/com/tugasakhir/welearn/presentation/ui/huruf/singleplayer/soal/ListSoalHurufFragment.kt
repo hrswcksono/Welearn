@@ -11,11 +11,11 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalPresenter
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaActivity
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalHurufViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -26,7 +26,7 @@ class ListSoalHurufFragment : Fragment() {
 
     private var _binding: FragmentListSoalHurufBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ListSoalHurufViewModel by viewModel()
+    private val viewModel: ListSoalPresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +54,7 @@ class ListSoalHurufFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomHuruf(levelHuruf).collectLatest {
+                viewModel.randomSoalSingle(1,levelHuruf).collectLatest {
                     soalHurufAdapter.setData(it)
                     binding.progressBar3.visibility = View.INVISIBLE
                 }

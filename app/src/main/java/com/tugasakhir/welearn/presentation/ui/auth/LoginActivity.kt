@@ -12,7 +12,7 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.model.Login
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,7 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private val viewModel: LoginViewModel by viewModel()
+    private val viewModel: LoginPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {

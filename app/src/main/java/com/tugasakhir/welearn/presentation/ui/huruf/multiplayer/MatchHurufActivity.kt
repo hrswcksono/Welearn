@@ -21,9 +21,9 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class MatchHurufActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMatchHurufBinding
-    private val viewModel: PushNotificationViewModel by viewModel()
-    private val viewModelRandom: RandomLevelHurufViewModel by viewModel()
-    private val makeRoomViewModel: MakeRoomViewModel by viewModel()
+    private val viewModel: PushNotificationPresenter by viewModel()
+    private val viewModelRandom: RandomIDSoalMultiPresenter by viewModel()
+    private val makeRoomPresenter: MakeRoomPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -82,7 +82,7 @@ class MatchHurufActivity : AppCompatActivity() {
             binding.pgHurufAcak.visibility = View.VISIBLE
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    viewModelRandom.randomSoalHurufByLevel(
+                    viewModelRandom.randomIDSoalMultiByLevel(1,
                         inputLevel
                     ).collectLatest {
                         if (it.isNotEmpty()){
@@ -141,7 +141,7 @@ class MatchHurufActivity : AppCompatActivity() {
     private fun makeRoom(idSoal: String, idLevel: Int){
         lifecycleScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Default) {
-                makeRoomViewModel.makeRoom(1).collectLatest {
+                makeRoomPresenter.makeRoom(1).collectLatest {
                     lifecycleScope.launch(Dispatchers.Default) {
                         withContext(Dispatchers.Main) {
                             viewModel.pushNotification(

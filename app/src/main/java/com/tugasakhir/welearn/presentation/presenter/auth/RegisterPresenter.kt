@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 import kotlinx.coroutines.flow.Flow
 
-class RegisterViewModel(private val useCase: WelearnUseCase): ViewModel() {
+class RegisterPresenter(private val useCase: WelearnUseCase): ViewModel() {
 
     fun registerUser(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String> =
         useCase.userRegister(username, password, email, name, jenisKelamin)

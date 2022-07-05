@@ -20,7 +20,7 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
-import com.tugasakhir.welearn.presentation.presenter.auth.LogoutViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.LogoutPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.JoinedGameActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -33,8 +33,7 @@ class HomeFragment : Fragment() {
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: LogoutViewModel by viewModel()
-
+    private val viewModel: LogoutPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

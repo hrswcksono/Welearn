@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.model.Soal
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalAngkaViewModel
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,8 +23,7 @@ class ListSoalAngkaFragment : Fragment() {
 
     private var _binding: FragmentListSoalAngkaBinding? = null
     private val binding get() = _binding!!
-//    private val args : FragmentList by navArgs()
-    private val viewModel: ListSoalAngkaViewModel by viewModel()
+    private val viewModel: ListSoalPresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +53,7 @@ class ListSoalAngkaFragment : Fragment() {
 
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                viewModel.randomAngka(levelAngka)
+                viewModel.randomSoalSingle(2 ,levelAngka)
                     .collectLatest {
                     soalAngkaAdapter.setData(it)
                     binding.progressBar.visibility = View.INVISIBLE

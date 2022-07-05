@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
 import com.tugasakhir.welearn.domain.model.User
-import com.tugasakhir.welearn.presentation.presenter.ProfileViewModel
+import com.tugasakhir.welearn.presentation.presenter.ProfilePresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ class ProfileFragment : Fragment() {
 
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ProfileViewModel by viewModel()
+    private val viewModel: ProfilePresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

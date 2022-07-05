@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
-import com.tugasakhir.welearn.presentation.presenter.auth.RegisterViewModel
+import com.tugasakhir.welearn.presentation.presenter.auth.RegisterPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -19,7 +19,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
-    private val viewModel: RegisterViewModel by viewModel()
+    private val viewModel: RegisterPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

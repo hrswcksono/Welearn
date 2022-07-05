@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.domain.usecase
 
 import com.tugasakhir.welearn.domain.model.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
+import kotlinx.coroutines.flow.Flow
 
 class WelearnInteractor(private val welearnRepository: IWelearnRepository): WelearnUseCase {
     override fun userLogin(username: String, password: String) = welearnRepository.loginUser(username, password)
@@ -18,27 +19,19 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun userLogout() = welearnRepository.logoutUser()
 
-    override fun angkaRandom(level: Int) = welearnRepository.randAngka(level)
+    override fun getSoalRandomSinglePlayer(jenis: Int, level: Int) =
+        welearnRepository.getRandSoalSingle(jenis, level)
 
-    override fun hurufRandom(level: Int) = welearnRepository.randHuruf(level)
-
-    override fun soalMultiplayerAngka(level: Int) = welearnRepository.soalAngkaMultiplayer(level)
-
-    override fun soalMultiplayerHuruf(level: Int) = welearnRepository.soalHurufMultiplayer(level)
+    override fun getIDSoalMultiplayer(jenis: Int, level: Int) =
+        welearnRepository.getIDSoalMultiplayer(jenis, level)
 
     override fun getSoalByID(id: Int) = welearnRepository.soalByID(id)
 
-    override fun userAngkaScore() = welearnRepository.scoreAngkaUser()
+    override fun userScore(id: Int) = welearnRepository.scoreUser(id)
 
-    override fun userHurufScore() = welearnRepository.scoreHurufUser()
-
-    override fun angkaHighScore() = welearnRepository.highScoreAngka()
-
-    override fun hurufHighScore() = welearnRepository.highScoreHuruf()
+    override fun getHighScore(id: Int) = welearnRepository.highScore(id)
 
     override fun pushNotification(body: PushNotification) = welearnRepository.pushNotification(body)
-
-//    override fun pushNotificationStart(body: PushNotificationStart) = welearnRepository.pushStartNotification(body)
 
     override fun angkaPredict(
         idSoal: Int,
@@ -49,8 +42,6 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         idSoal: Int,
         image: ArrayList<String>
     ) = welearnRepository.predictHuruf(idSoal, image)
-
-    override fun testPredict(input: String) = welearnRepository.predictTest(input)
 
     override fun makeRoomGame(idJenis: Int) = welearnRepository.makeRoomGame(idJenis)
 
