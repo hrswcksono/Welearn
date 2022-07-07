@@ -13,9 +13,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
@@ -31,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -84,9 +84,11 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitSatuHuruf.setOnClickListener {
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap())!!)
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap())!!)
+                }
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
@@ -104,9 +106,11 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitSatuHuruf.setOnClickListener{
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap())!!)
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap())!!)
+                }
                 submitDrawing(idSoal, image)
             }
         }
@@ -161,7 +165,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(data: Soal){
+    private fun showData(data: SoalEntity){
         speak(data.keterangan)
         binding.spkSatuHuruf.setOnClickListener {
             speak(data.keterangan)

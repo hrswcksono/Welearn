@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ItemScoreHurufBinding
-import com.tugasakhir.welearn.domain.model.RankingScore
+import com.tugasakhir.welearn.domain.entity.RankingScoreEntity
 
 class ScoreHurufAdapter: RecyclerView.Adapter<ScoreHurufAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<RankingScore>()
-    var onItemClick: ((RankingScore) -> Unit)? = null
+    private var listData = ArrayList<RankingScoreEntity>()
+    var onItemClick: ((RankingScoreEntity) -> Unit)? = null
 
-    fun setData(newListData: List<RankingScore>?) {
+    fun setData(newListData: List<RankingScoreEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class ScoreHurufAdapter: RecyclerView.Adapter<ScoreHurufAdapter.ListViewHolder>(
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = ItemScoreHurufBinding.bind(itemView)
-        fun bind(data: RankingScore) {
+        fun bind(data: RankingScoreEntity) {
             with(binding) {
                 tvNoHuruf.text = (absoluteAdapterPosition+1).toString()
                 tvNamaSkor.text = data.name

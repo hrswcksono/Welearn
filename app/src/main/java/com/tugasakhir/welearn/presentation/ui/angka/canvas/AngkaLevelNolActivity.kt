@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
@@ -13,13 +14,13 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -28,7 +29,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -61,6 +62,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         StrictMode.setThreadPolicy(policy)
 
         val mode = intent.getStringExtra(GAME_MODE)
+
+        binding.cnvsLevelNolAngka.setBackgroundColor(Color.BLACK)
+        binding.cnvsLevelNolAngka.setColor(Color.WHITE)
 
         handlingMode(mode.toString())
         refreshCanvasOnClick()
@@ -131,7 +135,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(data: Soal){
+    private fun showData(data: SoalEntity){
         speak(data.keterangan)
         binding.spkNolAngka.setOnClickListener {
             speak(data.keterangan)
@@ -173,7 +177,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                             startActivity(
                                 Intent(
                                     this@AngkaLevelNolActivity,
-                                    ScoreHurufUserActivity::class.java
+                                    ScoreAngkaUserActivity::class.java
                                 )
                             )
                         }
@@ -213,7 +217,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                 endGamePresenter.endGame(idGame.toString())
                     .collectLatest {
                         if (it == "Berhasil End Game"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
                             showScoreMulti(idGame.toString())
                         }
                     }
@@ -234,7 +237,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                         0,
                         idGame
                     ),
-                    Constants.TOPIC_JOIN_HURUF,
+                    Constants.TOPIC_JOIN_ANGKA,
                     "high"
                 )
                 ).collectLatest {  }

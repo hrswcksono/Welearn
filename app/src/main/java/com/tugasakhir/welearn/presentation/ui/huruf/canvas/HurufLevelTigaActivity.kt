@@ -13,9 +13,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
@@ -32,7 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -90,15 +90,17 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener {
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                }
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
@@ -117,15 +119,17 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener{
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
-                image.add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                }
                 submitDrawing(idSoal, image)
             }
         }
@@ -180,7 +184,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
     }
 
-    private fun show(data: Soal){
+    private fun show(data: SoalEntity){
         speak(data.keterangan)
         binding.spkTigaHuruf.setOnClickListener {
             speak(data.keterangan)

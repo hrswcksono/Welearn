@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/main_bg"
     tools:context=".presentation.ui.angka.multiplayer.AngkaReadyActivity">
 
     <ImageView
@@ -12,15 +13,15 @@
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:background="#3F51B5"
+        android:background="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_baseline_home" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_angka_ready"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="150dp"
+        android:layout_height="75dp"
         android:layout_marginTop="125dp"
         android:background="@drawable/rounded_button"
         android:text="Ready"
@@ -38,7 +39,7 @@
         android:fontFamily="@font/rubik_regular"
         android:text="Halaman menunggu player angka multiplayer"
         android:textAlignment="center"
-        android:textColor="#3F51B5"
+        android:textColor="@color/black"
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"

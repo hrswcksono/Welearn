@@ -4,13 +4,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
-import com.tugasakhir.welearn.domain.model.Score
+import com.tugasakhir.welearn.domain.entity.ScoreEntity
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreUserPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ScoreHurufUserActivity : AppCompatActivity() {
 
@@ -37,7 +37,7 @@ class ScoreHurufUserActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(data: Score) {
+    private fun showData(data: ScoreEntity) {
         binding.tvScoreUserHuruf.text = data.score.toString()
     }
 

@@ -11,13 +11,13 @@ import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
-import com.tugasakhir.welearn.domain.model.Login
+import com.tugasakhir.welearn.domain.entity.LoginEntity
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginActivity : AppCompatActivity() {
 
@@ -32,7 +32,7 @@ class LoginActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        RemoteDataSource.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
+//        RemoteDataSource.sharedPref = getSharedPreferences("sharedPref", Context.MODE_PRIVATE)
 
 //        binding.progressBar2.progressBackgroundTintBlendMode
         binding.progressLogin.visibility = View.INVISIBLE
@@ -67,19 +67,19 @@ class LoginActivity : AppCompatActivity() {
 //                        login(it)
 //                    }
 //                    binding.progressBar2.visibility = View.INVISIBLE
-                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil Login")
+                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil LoginEntity")
                     login(it)
                 }
             }
         }
     }
 
-    private fun login(login: Login) {
+    private fun login(login: LoginEntity) {
 
 //        sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)
         sessionManager.saveUserID(login.id)
-        RemoteDataSource.tokenUser = login.token
+//        RemoteDataSource.tokenUser = login.token
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }

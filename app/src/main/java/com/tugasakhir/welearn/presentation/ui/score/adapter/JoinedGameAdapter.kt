@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ItemUserJoinBinding
-import com.tugasakhir.welearn.domain.model.UserJoin
+import com.tugasakhir.welearn.domain.entity.UserJoinEntity
 
 class JoinedGameAdapter : RecyclerView.Adapter<JoinedGameAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<UserJoin>()
-    var onItemClick: ((UserJoin) -> Unit)? = null
+    private var listData = ArrayList<UserJoinEntity>()
+    var onItemClick: ((UserJoinEntity) -> Unit)? = null
 
-    fun setData(newListData: List<UserJoin>?) {
+    fun setData(newListData: List<UserJoinEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class JoinedGameAdapter : RecyclerView.Adapter<JoinedGameAdapter.ListViewHolder>
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = ItemUserJoinBinding.bind(itemView)
-        fun bind(data: UserJoin) {
+        fun bind(data: UserJoinEntity) {
             with(binding) {
                 idJoin.text = data.id
                 usernameTextView.text = data.username

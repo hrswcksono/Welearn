@@ -10,13 +10,13 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchHurufBinding
-import com.tugasakhir.welearn.domain.model.*
+import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MatchHurufActivity : AppCompatActivity() {
 
@@ -88,7 +88,7 @@ class MatchHurufActivity : AppCompatActivity() {
                         if (it.isNotEmpty()){
                             binding.pgHurufAcak.visibility = View.INVISIBLE
                             binding.cekAcakHuruf.visibility = View.VISIBLE
-                            CustomDialogBox.notifOnly(this@MatchHurufActivity, "Berhasil Mendapatkan Soal")
+                            CustomDialogBox.notifOnly(this@MatchHurufActivity, "Berhasil Mendapatkan SoalEntity")
                             startMatch(it, inputLevel)
                             findPlayer(it)
                         }

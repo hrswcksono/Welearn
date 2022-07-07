@@ -4,6 +4,7 @@ plugins {
     id 'com.google.gms.google-services'
     id 'androidx.navigation.safeargs'
     id 'kotlin-parcelize'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -45,6 +46,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'androidx.databinding:baseLibrary:3.2.0-alpha11'
+    implementation 'androidx.test:core-ktx:1.4.0'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
@@ -76,9 +78,16 @@ dependencies {
 //    // Koin Test features
 //    testImplementation "io.insert-koin:koin-test:$koin_version"
 //    implementation "org.koin:koin-android-viewmodel:$koin_version"
-    implementation "org.koin:koin-core:$koin_version"
-    implementation "org.koin:koin-android:$koin_version"
-    implementation "org.koin:koin-android-viewmodel:$koin_version"
+//    implementation "org.koin:koin-core:$koin_version"
+//    implementation "org.koin:koin-android:$koin_version"
+//    implementation "org.koin:koin-android-viewmodel:$koin_version"
+
+    // Koin for Kotlin apps
+    implementation "io.insert-koin:koin-android:$koin_version"
+//    implementation "io.insert-koin:koin-core:$koin_version"
+    // Testing
+    testImplementation "io.insert-koin:koin-test:$koin_version"
+    testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
 
 //    implementation 'com.github.ajithvgiri:Canvas-Library:v1.1.1'
 
@@ -111,4 +120,8 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
+
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
+
+    androidTestImplementation "org.koin:koin-test:2.1.6"
 }

@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.GridLevelAngkaBinding
-import com.tugasakhir.welearn.domain.model.Level
+import com.tugasakhir.welearn.domain.entity.LevelEntity
 
 class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<Level>()
-    var onItemClick: ((Level) -> Unit)? = null
+    private var listData = ArrayList<LevelEntity>()
+    var onItemClick: ((LevelEntity) -> Unit)? = null
 
-    fun setData(newListData: List<Level>?) {
+    fun setData(newListData: List<LevelEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridVie
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridLevelAngkaBinding.bind(itemView)
-        fun bind(data: Level) {
+        fun bind(data: LevelEntity) {
             with(binding) {
                 idJenisAngka.text = data.idLevel.toString()
                 jenisAngka.text = data.levelSoal

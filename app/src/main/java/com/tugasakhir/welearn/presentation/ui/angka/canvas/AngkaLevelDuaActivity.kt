@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
@@ -13,16 +14,16 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictAngkaMultiPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
@@ -31,7 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -67,6 +68,9 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         val mode = intent.getStringExtra(GAME_MODE)
 
         handlingMode(mode.toString())
+
+        binding.cnvsLevelDuaAngka.setBackgroundColor(Color.BLACK)
+        binding.cnvsLevelDuaAngka.setColor(Color.WHITE)
 
         refreshCanvasOnClick()
         back()
@@ -140,7 +144,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
                             startActivity(
                                 Intent(
                                     this@AngkaLevelDuaActivity,
-                                    ScoreHurufUserActivity::class.java
+                                    ScoreAngkaUserActivity::class.java
                                 )
                             )
                         }
@@ -162,7 +166,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(data: Soal){
+    private fun showData(data: SoalEntity){
         speak(data.keterangan + " " + data.soal)
         binding.spkDuaAngka.setOnClickListener {
             speak(data.keterangan + " " + data.soal)
@@ -241,7 +245,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
                             0,
                             idGame,
                         ),
-                        Constants.TOPIC_JOIN_HURUF,
+                        Constants.TOPIC_JOIN_ANGKA,
                         "high"
                     )
                 ).collectLatest {  }

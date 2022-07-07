@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.GridSoalHurufBinding
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 
 class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<Soal>()
-    var onItemClick: ((Soal) -> Unit)? = null
+    private var listData = ArrayList<SoalEntity>()
+    var onItemClick: ((SoalEntity) -> Unit)? = null
 
-    fun setData(newListData: List<Soal>?) {
+    fun setData(newListData: List<SoalEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -23,7 +23,7 @@ class ListSoalHurufAdapter : RecyclerView.Adapter<ListSoalHurufAdapter.GridViewH
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridSoalHurufBinding.bind(itemView)
         var index: Int = 0
-        fun bind(data: Soal) {
+        fun bind(data: SoalEntity) {
             with(binding) {
                 idSoalHuruf.text = (absoluteAdapterPosition+1).toString()
                 index = absoluteAdapterPosition +1

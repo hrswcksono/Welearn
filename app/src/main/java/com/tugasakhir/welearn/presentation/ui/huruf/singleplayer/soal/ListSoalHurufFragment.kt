@@ -10,8 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
-import com.tugasakhir.welearn.domain.model.Soal
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalPresenter
+import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolActivity
 import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuActivity
@@ -20,13 +20,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class ListSoalHurufFragment : Fragment() {
 
     private var _binding: FragmentListSoalHurufBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ListSoalPresenter by viewModel()
+    private val viewModel: ListSoalRandomPresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +72,7 @@ class ListSoalHurufFragment : Fragment() {
         }
     }
 
-    private fun moveDrawingActivity(soal: Soal) {
+    private fun moveDrawingActivity(soal: SoalEntity) {
         when(soal.idLevel){
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, HurufLevelNolActivity::class.java)

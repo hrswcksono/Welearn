@@ -1,19 +1,20 @@
-package com.tugasakhir.welearn.core.data.source.remote
+package com.tugasakhir.welearn.data
 
 import android.content.SharedPreferences
 import android.util.Log
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
-import com.tugasakhir.welearn.core.data.source.remote.response.*
-import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
+import com.tugasakhir.welearn.core.data.source.remote.response.DMessage
+import com.tugasakhir.welearn.core.data.source.remote.response.Message
+import com.tugasakhir.welearn.core.data.source.remote.response.SMessage
+import com.tugasakhir.welearn.core.data.source.remote.response.ScoreMessage
+import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.domain.entity.PushNotification
-//import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import kotlin.Exception
 
-class RemoteDataSource (private val apiService: ApiService) {
+class FakeRemoteDataSource(private val apiService: ApiService) {
 
     companion object {
         var sharedPref: SharedPreferences? = null
@@ -26,18 +27,12 @@ class RemoteDataSource (private val apiService: ApiService) {
                 sharedPref?.edit()?.putString("token", value)?.apply()
             }
     }
-//
-//    val tokenTest = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWQwY2I1YzljYzYxZjAwMzg1ZGRlYTY1NDQxMDBkMGU3YjRmYjA3OTZiZjEzOGEwMDg4MzQ5MzdiMDY1MDAyMmFjZTYxNjU1YzgwZTE5MTIiLCJpYXQiOjE2NTcxMTkzOTAuNDU5NTc2LCJuYmYiOjE2NTcxMTkzOTAuNDU5NTc5LCJleHAiOjE2ODg2NTUzOTAuNDUyMDQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.EuZLp6RT8Plpz_m-0p-UJEHN7TN6BBYwmxKOuoE2-fyaYInZmQS5iTvHlZiJWI02iC0HfRG8RMF0Gl0XXV6bbYV9NLzu8NpqKVGw6N970nPOOvLE7FC8RmOLXrxHwNmFSgLmMclvpJS9p9HbJ9zq4DC0Om2o1HJ9JWzRckSx1Fnb7yJGgMrXZNZJwVcRly9pFamDWJuclg9AtiVOw01U8-J9MKHOtBm3xWk1ZiZtsDpXWsH1R0JVnarWD_JKhZCWBMzcLp1m06qPBzufthNFQhHpfw7_IyBU6kGR7Is04O9pSXdCIrdXJn9kwquOzsLeFNLr1JuzgiS3oRkyN79A_K0DuGlKhGm88z6cW73k04AUXy8BEijQSHcUcGUlc9VL_hN8S7aGK0M8pDMrg1XDAezC-kuEKqsJOaZ_sDl6LP669CR9iuauVdFDpLw0_FWAsHlq9DxHOXTBaH6A7bwNka1tUqaLH5Cm2HKAa1uZ3_6bwpkXgFUMss5549N-LwyCSg5VrXCsy-vXLwio2HH6zO2hDqr7P8_GjkVjgykpFuY62BYTsUf--ewe-srkrwMlRZfQU0no_jRrQ60Jw7BLvaWaW1evyHOUKvYeCOKTHGMW8EmBwas5uF-l0QEnzSvpSHH9Z4z-abCnG7AhcwIZBnf1E6UxzRMuoGMsTTidmzU"
-
-//    var tokenUser = ""
 
     fun loginUser(username: String, password: String) =
         flow {
             try {
                 val response = apiService.login(username, password)
                 if (response.success != null) {
-                    tokenUser = response.message?.token.toString()
-//                    testing = response.message?.token.toString()
                     emit(response.message)
                 }
             } catch (e: Exception){
@@ -64,13 +59,13 @@ class RemoteDataSource (private val apiService: ApiService) {
         name: String,
         jenisKelamin: String
     ) = flow {
-            try {
-                val response = apiService.register(username, password, email, name, jenisKelamin)
-                emit(response)
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
+        try {
+            val response = apiService.register(username, password, email, name, jenisKelamin)
+            emit(response)
+        } catch (e: Exception) {
+            Log.e("error", e.toString())
+        }
+    }.flowOn(Dispatchers.IO)
 
     fun logoutUser() =
         flow {
@@ -95,10 +90,10 @@ class RemoteDataSource (private val apiService: ApiService) {
     fun soalByID(id: Int) =
         flow {
             try {
-            val response = apiService.getSoalByID(id, token = "Bearer $tokenUser")
-            emit(response.message)
+                val response = apiService.getSoalByID(id, token = "Bearer $tokenUser")
+                emit(response.message)
             } catch (e: Exception) {
-            Log.e("error", e.toString())
+                Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
@@ -145,7 +140,7 @@ class RemoteDataSource (private val apiService: ApiService) {
     fun pushNotification(body: PushNotification) =
         flow {
             try {
-                val response = apiService.postNotification(FCM_BASE_URL, body)
+                val response = apiService.postNotification(Constants.FCM_BASE_URL, body)
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

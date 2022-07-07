@@ -26,7 +26,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 class HomeFragment : Fragment() {
@@ -121,7 +121,7 @@ class HomeFragment : Fragment() {
     private fun dialogScore(){
         val flatDialog = FlatDialog(requireContext())
         flatDialog
-            .setTitle("Lihat Score")
+            .setTitle("Lihat ScoreEntity")
             .setTitleColor(Color.BLACK)
 //            .setSubtitle("write your profile info here")
             .setFirstButtonText("Single Player")

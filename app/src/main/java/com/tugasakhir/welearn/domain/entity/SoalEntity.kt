@@ -1,6 +1,6 @@
-package com.tugasakhir.welearn.domain.model
+package com.tugasakhir.welearn.domain.entity
 
-data class Soal(
+data class SoalEntity(
     val idSoal: Int,
     val idJenisSoal: Int,
     val idLevel: Int,

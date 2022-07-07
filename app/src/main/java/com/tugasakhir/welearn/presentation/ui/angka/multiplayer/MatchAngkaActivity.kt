@@ -9,13 +9,13 @@ import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
-import com.tugasakhir.welearn.domain.model.*
+import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MatchAngkaActivity : AppCompatActivity() {
 
@@ -122,7 +122,7 @@ class MatchAngkaActivity : AppCompatActivity() {
                         if (it.isNotEmpty()){
                             binding.pgAngkaAcak.visibility = View.INVISIBLE
                             binding.cekAcakAngka.visibility = View.VISIBLE
-                            CustomDialogBox.notifOnly(this@MatchAngkaActivity, "Berhasil Mendapatkan Soal")
+                            CustomDialogBox.notifOnly(this@MatchAngkaActivity, "Berhasil Mendapatkan SoalEntity")
                             startMatch(it, inputLevel)
                             findPlayer(it, inputLevel.toString())
 //                            dialogBox()
@@ -166,6 +166,4 @@ class MatchAngkaActivity : AppCompatActivity() {
             }
         }
     }
-
-
 }

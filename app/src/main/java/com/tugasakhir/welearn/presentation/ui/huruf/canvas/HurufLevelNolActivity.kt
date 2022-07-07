@@ -13,9 +13,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
@@ -32,7 +32,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -170,7 +170,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
         googleCloudTTS.start(string)
     }
 
-    private fun showData(data: Soal){
+    private fun showData(data: SoalEntity){
         speak(data.keterangan)
         binding.spkNolHuruf.setOnClickListener {
             speak(data.keterangan)

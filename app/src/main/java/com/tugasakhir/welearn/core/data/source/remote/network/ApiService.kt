@@ -3,7 +3,7 @@ package com.tugasakhir.welearn.core.data.source.remote.network
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.CONTENT_TYPE
 import com.tugasakhir.welearn.core.utils.Constants.Companion.SERVER_KEY
-import com.tugasakhir.welearn.domain.model.PushNotification
+import com.tugasakhir.welearn.domain.entity.PushNotification
 //import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import retrofit2.http.*
 

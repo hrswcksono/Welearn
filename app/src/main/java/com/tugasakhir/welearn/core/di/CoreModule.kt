@@ -34,6 +34,6 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
-    factory { AppExecutors() }
+//    factory { AppExecutors() }
     single<IWelearnRepository> { WelearnRepository(get())}
 }

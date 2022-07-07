@@ -1,11 +1,9 @@
 package com.tugasakhir.welearn.core.data
 
-import android.provider.ContactsContract
 import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.utils.DataMapper
-import com.tugasakhir.welearn.domain.model.*
+import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelearnRepository{
@@ -78,18 +76,17 @@ class WelearnRepository (private val remoteDataSource: RemoteDataSource): IWelea
     }
 
     override fun predictAngkaMulti(
-        idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int
+        idGame: Int,
+        idSoal: Int,
+        image: ArrayList<String>,
+        duration: Int
     ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, image, duration).map {
         DataMapper.mapperString(it)
     }
 
     override fun getJoinedGame() =
-        remoteDataSource.getJoinedGame().map {
-            DataMapper.mapperJoinedGame(it)
-        }
+        remoteDataSource.getJoinedGame().map { DataMapper.mapperJoinedGame(it) }
 
     override fun getLevel(idLevel: Int) =
-        remoteDataSource.levelSoal(idLevel).map {
-            DataMapper.mapperLevel(it)
-        }
+        remoteDataSource.levelSoal(idLevel).map {DataMapper.mapperLevel(it)}
 }

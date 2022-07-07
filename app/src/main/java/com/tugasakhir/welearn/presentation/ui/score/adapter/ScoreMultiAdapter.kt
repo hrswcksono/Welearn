@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ItemScoreMultiplayerBinding
-import com.tugasakhir.welearn.domain.model.ScoreMulti
+import com.tugasakhir.welearn.domain.entity.ScoreMultiEntity
 
 class ScoreMultiAdapter: RecyclerView.Adapter<ScoreMultiAdapter.ListViewHolder>() {
 
-    private var listData = ArrayList<ScoreMulti>()
-    var onItemClick: ((ScoreMulti) -> Unit)? = null
+    private var listData = ArrayList<ScoreMultiEntity>()
+    var onItemClick: ((ScoreMultiEntity) -> Unit)? = null
 
-    fun setData(newListData: List<ScoreMulti>?) {
+    fun setData(newListData: List<ScoreMultiEntity>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class ScoreMultiAdapter: RecyclerView.Adapter<ScoreMultiAdapter.ListViewHolder>(
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = ItemScoreMultiplayerBinding.bind(itemView)
-        fun bind(data: ScoreMulti) {
+        fun bind(data: ScoreMultiEntity) {
             with(binding) {
                 tvNoAngka.text = (absoluteAdapterPosition+1).toString()
                 tvNamaSkorMulti.text = data.name

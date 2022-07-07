@@ -8,12 +8,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalPresenter
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -23,7 +23,7 @@ class ListSoalAngkaFragment : Fragment() {
 
     private var _binding: FragmentListSoalAngkaBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: ListSoalPresenter by viewModel()
+    private val viewModel: ListSoalRandomPresenter by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -72,7 +72,7 @@ class ListSoalAngkaFragment : Fragment() {
         }
     }
 
-    private fun moveDrawingActivity(soal: Soal) {
+    private fun moveDrawingActivity(soal: SoalEntity) {
         when(soal.idLevel){
             0 -> {
                 val moveToLevelNolActivity = Intent(activity, AngkaLevelNolActivity::class.java)

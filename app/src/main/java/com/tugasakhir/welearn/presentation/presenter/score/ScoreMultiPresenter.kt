@@ -5,6 +5,5 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class ScoreMultiPresenter(private val useCase: WelearnUseCase): ViewModel()  {
 
-    fun scoreMulti(idGame: Int) =
-        useCase.scoreMulti(idGame)
+    fun scoreMulti(idGame: Int) = useCase.scoreMulti(idGame)
 }

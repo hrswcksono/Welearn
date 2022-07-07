@@ -13,9 +13,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
-import com.tugasakhir.welearn.domain.model.NotificationData
-import com.tugasakhir.welearn.domain.model.PushNotification
-import com.tugasakhir.welearn.domain.model.Soal
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
+import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
@@ -31,7 +31,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
@@ -89,11 +89,13 @@ class HurufLevelDuaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitDuaHuruf.setOnClickListener {
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap())!!)
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap())!!)
+                }
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
@@ -112,11 +114,13 @@ class HurufLevelDuaActivity : AppCompatActivity() {
             showScreen(idSoal)
             binding.submitDuaHuruf.setOnClickListener{
                 var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap())!!)
-                image.add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap())!!)
+                image.apply {
+                    add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap())!!)
+                    add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap())!!)
+                }
                 submitDrawing(idSoal, image)
             }
         }
@@ -171,7 +175,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         }
     }
 
-    private fun showData(data: Soal){
+    private fun showData(data: SoalEntity){
         speak(data.keterangan)
         binding.spkDuaHuruf.setOnClickListener {
             speak(data.keterangan)
