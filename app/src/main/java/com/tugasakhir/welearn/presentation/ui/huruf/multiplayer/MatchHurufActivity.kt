@@ -88,7 +88,7 @@ class MatchHurufActivity : AppCompatActivity() {
                         if (it.isNotEmpty()){
                             binding.pgHurufAcak.visibility = View.INVISIBLE
                             binding.cekAcakHuruf.visibility = View.VISIBLE
-                            CustomDialogBox.notifOnly(this@MatchHurufActivity, "Berhasil Mendapatkan SoalEntity")
+                            CustomDialogBox.notifOnly(this@MatchHurufActivity, "Berhasil Mendapatkan Soal")
                             startMatch(it, inputLevel)
                             findPlayer(it)
                         }

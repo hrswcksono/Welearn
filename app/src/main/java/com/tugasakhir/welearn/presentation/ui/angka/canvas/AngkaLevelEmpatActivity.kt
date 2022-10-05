@@ -5,7 +5,6 @@ import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
@@ -13,6 +12,8 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -24,10 +25,6 @@ import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificatio
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
-import darren.googlecloudtts.GoogleCloudTTSFactory
-import darren.googlecloudtts.parameter.AudioConfig
-import darren.googlecloudtts.parameter.AudioEncoding
-import darren.googlecloudtts.parameter.VoiceSelectionParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -59,9 +56,6 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAngkaLevelEmpatBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
 
         val mode = intent.getStringExtra(AngkaLevelNolActivity.GAME_MODE)
 
@@ -95,7 +89,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitEmpatAngka.setOnClickListener {
-                var image = ArrayList<String>()
+                val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap())!!)
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap())!!)
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
@@ -115,7 +109,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitEmpatAngka.setOnClickListener{
-                var image = ArrayList<String>()
+                val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap())!!)
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap())!!)
                 submitDrawing(idSoal, image)
@@ -180,23 +174,6 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         binding.soalAngkaDipilih.text = data.keterangan
         binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
         binding.tvSoalAngkaEmpat.text = data.soal
-    }
-
-    private fun speak(string: String) {
-        // Set the ApiKey and create GoogleCloudTTS.
-        val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
-        googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
-
-        // start speak
-        googleCloudTTS.start(string)
-    }
-
-    private fun encodeImage(bm: Bitmap): String? {
-        val imgBitmap = ByteArrayOutputStream()
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, imgBitmap)
-        val b = imgBitmap.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
     private fun refreshCanvasOnClick(){

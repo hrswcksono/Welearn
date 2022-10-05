@@ -46,7 +46,7 @@ interface ApiService {
         @Path("jenis") jenis: Int,
         @Path("level") level: Int,
         @Header("Authorization") token: String
-    ): RandomResponse
+    ): ListSoalRandomResponse
 
     // soal angka
     @GET("getIDSoalMulti/{jenis}/{level}")
@@ -67,13 +67,13 @@ interface ApiService {
     suspend fun getHighScore(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ) : HighScoreResponse
+    ) : ListHighScoreResponse
 
     @GET("scoreUser/{id}")
     suspend fun scoreUser(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ) : ScoreResponse
+    ) : ListScoreResponse
 
     @Headers("Authorization: key=$SERVER_KEY",
         "Content-Type:$CONTENT_TYPE")
@@ -124,7 +124,7 @@ interface ApiService {
     suspend fun scoreMulti(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): ScoreMultiplayerResponse
+    ): ListScoreMultiplayerResponse
 
     @FormUrlEncoded
     @POST("predictAngkaMulti")
@@ -149,11 +149,17 @@ interface ApiService {
     @GET("joinedGame")
     suspend fun joinedUser(
         @Header("Authorization") token: String
-    ): JoinedGameResponse
+    ): ListJoinedGameResponse
 
     @GET("level/{id}")
     suspend fun getLevel(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): LevelResponse
+    ): ListLevelResponse
+
+    @GET("listJoin/{id}")
+    suspend fun getUserParticipant(
+        @Path("id") id: Int,
+        @Header("Authorization") token: String
+    ): ListUserParticipatedResponse
 }

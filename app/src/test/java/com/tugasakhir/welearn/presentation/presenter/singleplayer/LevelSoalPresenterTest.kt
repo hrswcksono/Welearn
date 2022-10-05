@@ -4,7 +4,6 @@ import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.ProfilePresenter
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -12,7 +11,6 @@ import kotlinx.coroutines.runBlocking
 import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
-
 import org.junit.Rule
 import org.junit.Test
 import org.koin.core.context.stopKoin
@@ -23,9 +21,8 @@ import org.koin.test.inject
 @ExperimentalCoroutinesApi
 class LevelSoalPresenterTest : KoinTest {
 
-    val service by inject<LevelSoalPresenter>()
+    val level by inject<LevelSoalPresenter>()
     val login by inject<LoginPresenter>()
-    val detail by inject<ProfilePresenter>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -49,9 +46,18 @@ class LevelSoalPresenterTest : KoinTest {
     }
 
     @Test
-    fun `test`() = runBlocking{
-        detail.detailUser().collectLatest {
+    fun `test_level_huruf`() = runBlocking{
+        level.getLevelSoal(1).collectLatest {
             assertNotNull(it)
+            assertEquals(4, it.size)
+        }
+    }
+
+    @Test
+    fun `test_level_angka`() = runBlocking{
+        level.getLevelSoal(2).collectLatest {
+            assertNotNull(it)
+            assertEquals(5, it.size)
         }
     }
 }

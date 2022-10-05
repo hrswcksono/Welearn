@@ -1,33 +1,31 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.core.data.Resource
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.Template.listUser
+import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictHurufMultiPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.ui.UserParticipantAdapter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
-import darren.googlecloudtts.GoogleCloudTTSFactory
-import darren.googlecloudtts.parameter.AudioConfig
-import darren.googlecloudtts.parameter.AudioEncoding
-import darren.googlecloudtts.parameter.VoiceSelectionParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -53,6 +51,9 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
+    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private lateinit var dialogBox: Dialog
+    private lateinit var userParticipantAdapter: UserParticipantAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,14 +62,12 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
         val mode = intent.getStringExtra(GAME_MODE)
 
         handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
+        listDialog()
     }
 
     private fun handlingMode(mode: String) {
@@ -85,8 +84,8 @@ class HurufLevelNolActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener {
-                var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap())!!)
+                val image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap()))
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
@@ -104,8 +103,8 @@ class HurufLevelNolActivity : AppCompatActivity() {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener{
-                var image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap())!!)
+                val image = ArrayList<String>()
+                image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap()))
                 submitDrawing(idSoal, image)
             }
         }
@@ -137,6 +136,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+        binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
@@ -160,16 +160,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun speak(string: String) {
-        // Set the ApiKey and create GoogleCloudTTS.
-        val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
-        googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
-
-        // start speak
-        googleCloudTTS.start(string)
-    }
-
     private fun showData(data: SoalEntity){
         speak(data.keterangan)
         binding.spkNolHuruf.setOnClickListener {
@@ -177,13 +167,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
-    }
-
-    private fun encodeImage(bm: Bitmap): String? {
-        val imgBitmap = ByteArrayOutputStream()
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, imgBitmap)
-        val b = imgBitmap.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
     private fun refreshCanvasOnClick(){
@@ -240,6 +223,24 @@ class HurufLevelNolActivity : AppCompatActivity() {
                     Constants.TOPIC_JOIN_HURUF,
                     "high"
                 )).collectLatest {  }
+            }
+        }
+    }
+
+    private fun listDialog() {
+        binding.btnUserParticipated.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main) {
+                    listUserParticipantPresenter.getListUserParticipant(2).collectLatest {
+                        when(it) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                listUser(it.data!!, this@HurufLevelNolActivity)
+                            }
+                            is Resource.Error -> {}
+                        }
+                    }
+                }
             }
         }
     }

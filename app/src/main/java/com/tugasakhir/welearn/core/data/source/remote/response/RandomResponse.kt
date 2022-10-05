@@ -2,7 +2,7 @@ package com.tugasakhir.welearn.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class RandomResponse(
+data class ListSoalRandomResponse(
 
 	@field:SerializedName("success")
 	val success: String,
@@ -11,10 +11,10 @@ data class RandomResponse(
 	val responseTime: Double,
 
 	@field:SerializedName("message")
-	val message: List<MessageItem>
+	val message: List<RandomSoalResponse>
 )
 
-data class MessageItem(
+data class RandomSoalResponse(
 
 	@field:SerializedName("soal")
 	val soal: String,

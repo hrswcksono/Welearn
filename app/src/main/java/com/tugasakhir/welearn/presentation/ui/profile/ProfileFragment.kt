@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
-import com.tugasakhir.welearn.domain.entity.UserEntity
+import com.tugasakhir.welearn.domain.entity.ProfileEntity
 import com.tugasakhir.welearn.presentation.presenter.ProfilePresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -43,7 +43,7 @@ class ProfileFragment : Fragment() {
         }
     }
 
-    private fun showData(user: UserEntity) {
+    private fun showData(user: ProfileEntity) {
         binding.tvEmail.text = user.email
         binding.tvNama.text = user.username
         binding.tvGender.text = user.jenisKelamin

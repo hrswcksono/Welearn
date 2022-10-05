@@ -2,16 +2,16 @@ package com.tugasakhir.welearn.core.data.source.remote.response
 
 import com.google.gson.annotations.SerializedName
 
-data class JoinedGameResponse(
+data class ListJoinedGameResponse(
 
 	@field:SerializedName("success")
 	val success: String? = null,
 
 	@field:SerializedName("message")
-	val message: List<JGameResponse>
+	val message: List<JoinedGameResponse>
 )
 
-data class JGameResponse(
+data class JoinedGameResponse(
 
 	@field:SerializedName("id_game")
 	val idGame: Int? = null,

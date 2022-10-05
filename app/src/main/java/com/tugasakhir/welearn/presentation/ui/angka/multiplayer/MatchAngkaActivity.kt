@@ -122,7 +122,7 @@ class MatchAngkaActivity : AppCompatActivity() {
                         if (it.isNotEmpty()){
                             binding.pgAngkaAcak.visibility = View.INVISIBLE
                             binding.cekAcakAngka.visibility = View.VISIBLE
-                            CustomDialogBox.notifOnly(this@MatchAngkaActivity, "Berhasil Mendapatkan SoalEntity")
+                            CustomDialogBox.notifOnly(this@MatchAngkaActivity, "Berhasil Mendapatkan Soal")
                             startMatch(it, inputLevel)
                             findPlayer(it, inputLevel.toString())
 //                            dialogBox()

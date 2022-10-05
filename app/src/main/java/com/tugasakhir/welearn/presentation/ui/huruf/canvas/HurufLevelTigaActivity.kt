@@ -3,7 +3,6 @@ package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.StrictMode
 import android.util.Base64
 import android.view.View
 import android.widget.Toast
@@ -12,6 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -24,10 +25,6 @@ import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
-import darren.googlecloudtts.GoogleCloudTTSFactory
-import darren.googlecloudtts.parameter.AudioConfig
-import darren.googlecloudtts.parameter.AudioEncoding
-import darren.googlecloudtts.parameter.VoiceSelectionParams
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -61,9 +58,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
-        StrictMode.setThreadPolicy(policy)
-
         val mode = intent.getStringExtra(GAME_MODE)
 
         binding.levelTigaHurufBack.setOnClickListener {
@@ -89,7 +83,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener {
-                var image = ArrayList<String>()
+                val image = ArrayList<String>()
                 image.apply {
                     add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
                     add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
@@ -118,7 +112,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener{
-                var image = ArrayList<String>()
+                val image = ArrayList<String>()
                 image.apply {
                     add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
                     add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
@@ -191,23 +185,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
-    }
-
-    private fun speak(string: String) {
-        // Set the ApiKey and create GoogleCloudTTS.
-        val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
-        googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
-            .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
-
-        // start speak
-        googleCloudTTS.start(string)
-    }
-
-    private fun encodeImage(bm: Bitmap): String {
-        val imgBitmap = ByteArrayOutputStream()
-        bm.compress(Bitmap.CompressFormat.JPEG, 100, imgBitmap)
-        val b = imgBitmap.toByteArray()
-        return Base64.encodeToString(b, Base64.DEFAULT)
     }
 
     private fun draw() {

@@ -40,4 +40,5 @@ val viewModelModule = module {
     viewModel { PredictHurufMultiPresenter(get()) }
     viewModel { PredictAngkaMultiPresenter(get()) }
     viewModel { EndGamePresenter(get()) }
+    viewModel { UserParticipantPresenter(get()) }
 }

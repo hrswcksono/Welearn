@@ -15,4 +15,5 @@ class RegisterPresenter(private val useCase: WelearnUseCase): ViewModel() {
     = useCase.userRegister(
         username, password, email, name, jenisKelamin
     )
+
 }

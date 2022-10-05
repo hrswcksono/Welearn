@@ -1,15 +1,15 @@
 package com.tugasakhir.welearn.domain.usecase
 
+import com.tugasakhir.welearn.core.data.Resource
 import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
 interface WelearnUseCase {
     fun userLogin(username: String, password: String) : Flow<LoginEntity>
-    fun userDetail() : Flow<UserEntity>
+    fun userDetail() : Flow<ProfileEntity>
     fun userRegister(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String>
     fun userLogout(): Flow<String>
-    fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<List<SoalEntity>>
     fun getIDSoalMultiplayer(jenis: Int,level: Int): Flow<String>
     fun getSoalByID(id: Int): Flow<SoalEntity>
     fun userScore(id: Int): Flow<ScoreEntity>
@@ -24,5 +24,8 @@ interface WelearnUseCase {
     fun predictHurufMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
     fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
     fun userJoinedGame(): Flow<List<UserJoinEntity>>
-    fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
+
+    fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<Resource<List<SoalEntity>>>
+    fun getLevel(idLevel: Int): Flow<Resource<List<LevelEntity>>>
+    fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>>
 }

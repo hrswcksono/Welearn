@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.domain.entity
 
-data class UserEntity(
+data class ProfileEntity(
     val username: String,
     val email: String,
     val jenisKelamin: String,

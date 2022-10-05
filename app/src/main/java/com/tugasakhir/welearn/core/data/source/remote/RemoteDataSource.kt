@@ -1,12 +1,11 @@
 package com.tugasakhir.welearn.core.data.source.remote
 
-import android.content.SharedPreferences
 import android.util.Log
+import com.tugasakhir.welearn.core.data.source.remote.network.ApiResponse
 import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.data.source.remote.response.*
 import com.tugasakhir.welearn.core.utils.Constants.Companion.FCM_BASE_URL
 import com.tugasakhir.welearn.domain.entity.PushNotification
-//import com.tugasakhir.welearn.domain.model.PushNotificationStart
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -15,29 +14,11 @@ import kotlin.Exception
 
 class RemoteDataSource (private val apiService: ApiService) {
 
-    companion object {
-        var sharedPref: SharedPreferences? = null
-
-        var tokenUser: String?
-            get() {
-                return sharedPref?.getString("token", "")
-            }
-            set(value) {
-                sharedPref?.edit()?.putString("token", value)?.apply()
-            }
-    }
-//
-//    val tokenTest = "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJhdWQiOiIxIiwianRpIjoiMWQwY2I1YzljYzYxZjAwMzg1ZGRlYTY1NDQxMDBkMGU3YjRmYjA3OTZiZjEzOGEwMDg4MzQ5MzdiMDY1MDAyMmFjZTYxNjU1YzgwZTE5MTIiLCJpYXQiOjE2NTcxMTkzOTAuNDU5NTc2LCJuYmYiOjE2NTcxMTkzOTAuNDU5NTc5LCJleHAiOjE2ODg2NTUzOTAuNDUyMDQsInN1YiI6IjEiLCJzY29wZXMiOltdfQ.EuZLp6RT8Plpz_m-0p-UJEHN7TN6BBYwmxKOuoE2-fyaYInZmQS5iTvHlZiJWI02iC0HfRG8RMF0Gl0XXV6bbYV9NLzu8NpqKVGw6N970nPOOvLE7FC8RmOLXrxHwNmFSgLmMclvpJS9p9HbJ9zq4DC0Om2o1HJ9JWzRckSx1Fnb7yJGgMrXZNZJwVcRly9pFamDWJuclg9AtiVOw01U8-J9MKHOtBm3xWk1ZiZtsDpXWsH1R0JVnarWD_JKhZCWBMzcLp1m06qPBzufthNFQhHpfw7_IyBU6kGR7Is04O9pSXdCIrdXJn9kwquOzsLeFNLr1JuzgiS3oRkyN79A_K0DuGlKhGm88z6cW73k04AUXy8BEijQSHcUcGUlc9VL_hN8S7aGK0M8pDMrg1XDAezC-kuEKqsJOaZ_sDl6LP669CR9iuauVdFDpLw0_FWAsHlq9DxHOXTBaH6A7bwNka1tUqaLH5Cm2HKAa1uZ3_6bwpkXgFUMss5549N-LwyCSg5VrXCsy-vXLwio2HH6zO2hDqr7P8_GjkVjgykpFuY62BYTsUf--ewe-srkrwMlRZfQU0no_jRrQ60Jw7BLvaWaW1evyHOUKvYeCOKTHGMW8EmBwas5uF-l0QEnzSvpSHH9Z4z-abCnG7AhcwIZBnf1E6UxzRMuoGMsTTidmzU"
-
-//    var tokenUser = ""
-
     fun loginUser(username: String, password: String) =
         flow {
             try {
                 val response = apiService.login(username, password)
                 if (response.success != null) {
-                    tokenUser = response.message?.token.toString()
-//                    testing = response.message?.token.toString()
                     emit(response.message)
                 }
             } catch (e: Exception){
@@ -45,7 +26,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO) as Flow<Message>
 
-    fun detailUser() =
+    fun detailUser(tokenUser: String) =
         flow {
             try {
                 val response = apiService.detail(token = "Bearer $tokenUser")
@@ -72,7 +53,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun logoutUser() =
+    fun logoutUser(tokenUser: String) =
         flow {
             try {
                 val response = apiService.logout(token = "Bearer $tokenUser")
@@ -82,7 +63,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun soalMultiplayer(jenis: Int ,level: Int) =
+    fun soalMultiplayer(jenis: Int ,level: Int, tokenUser: String) =
         flow {
             try {
                 val response = apiService.getIDSoalMulti(jenis ,level,token = "Bearer $tokenUser")
@@ -92,7 +73,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun soalByID(id: Int) =
+    fun soalByID(id: Int, tokenUser: String) =
         flow {
             try {
             val response = apiService.getSoalByID(id, token = "Bearer $tokenUser")
@@ -102,17 +83,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO) as Flow<SMessage>
 
-    fun randSoalSingle(jenis : Int,level: Int) =
-        flow {
-            try {
-                val response = apiService.getRandomSoal(jenis, level, token = "Bearer $tokenUser")
-                emit(response.message)
-            } catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun scoreUser(id: Int) =
+    fun scoreUser(id: Int, tokenUser: String) =
         flow {
             try {
                 val response = apiService.scoreUser(id, token = "Bearer $tokenUser")
@@ -120,22 +91,12 @@ class RemoteDataSource (private val apiService: ApiService) {
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO) as Flow<ScoreMessage>
+        }.flowOn(Dispatchers.IO) as Flow<ScoreResponse>
 
-    fun highScore(id: Int) =
+    fun highScore(id: Int, tokenUser: String) =
         flow {
             try {
                 val response = apiService.getHighScore(id ,token = "Bearer $tokenUser")
-                emit(response.message)
-            }catch (e: Exception) {
-                Log.e("error", e.toString())
-            }
-        }.flowOn(Dispatchers.IO)
-
-    fun levelSoal(level: Int) =
-        flow {
-            try {
-                val response = apiService.getLevel(level,token = "Bearer $tokenUser")
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -152,7 +113,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngka(idSoal: Int, image: ArrayList<String>) =
+    fun predictAngka(idSoal: Int, image: ArrayList<String>, tokenUser: String) =
         flow{
             try {
                 val response = apiService.predictAngka(idSoal, image, token = "Bearer $tokenUser")
@@ -162,7 +123,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHuruf(idSoal: Int, image: ArrayList<String>) =
+    fun predictHuruf(idSoal: Int, image: ArrayList<String>, tokenUser: String) =
         flow{
             try {
                 val response = apiService.predictHuruf(idSoal, image, token = "Bearer $tokenUser")
@@ -172,7 +133,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun makeRoomGame(id_jenis: Int) =
+    fun makeRoomGame(id_jenis: Int, tokenUser: String) =
         flow{
             try {
                 val response = apiService.makeRoom(id_jenis,token = "Bearer $tokenUser")
@@ -182,7 +143,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun joinGame(idGame: String) =
+    fun joinGame(idGame: String, tokenUser: String) =
         flow{
             try {
                 val response = apiService.joinGame(idGame.toInt(), token = "Bearer $tokenUser")
@@ -192,7 +153,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun endGame(idGame: String) =
+    fun endGame(idGame: String, tokenUser: String) =
         flow{
             try {
                 val response = apiService.endGame(idGame, token = "Bearer $tokenUser")
@@ -202,7 +163,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun scoreMulti(id: Int) =
+    fun scoreMulti(id: Int, tokenUser: String) =
         flow{
             try {
                 val response = apiService.scoreMulti(id, token = "Bearer $tokenUser")
@@ -212,7 +173,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngkaMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int) =
+    fun predictAngkaMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int, tokenUser: String) =
         flow{
             try {
                 val response = apiService.predictAngkaMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
@@ -222,7 +183,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHurufMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int) =
+    fun predictHurufMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int, tokenUser: String) =
         flow{
             try {
                 val response = apiService.predictHurufMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
@@ -232,13 +193,69 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun getJoinedGame() =
+    fun getJoinedGame(tokenUser: String) =
         flow{
             try {
                 val response = apiService.joinedUser(token = "Bearer $tokenUser")
+//                val data = response.message
+//                if (data.isNotEmpty()){
+//                    emit(ApiResponse.Success(response.message))
+//                }else{
+//                    emit(ApiResponse.Empty)
+//                }
                 emit(response.message)
             }catch (e: Exception) {
-                Log.e("error", e.toString())
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    fun levelSoal(level: Int, tokenUser: String) =
+        flow {
+            try {
+                val response = apiService.getLevel(level,token = "Bearer $tokenUser")
+                val data = response.message
+                if (data.isNotEmpty()){
+                    emit(ApiResponse.Success(response.message))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    fun randSoalSingle(jenis : Int,level: Int, tokenUser: String) =
+        flow {
+            try {
+                val response = apiService.getRandomSoal(jenis, level, token = "Bearer $tokenUser")
+                val data = response.message
+                if (data.isNotEmpty()){
+                    emit(ApiResponse.Success(response.message))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
+            } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    fun userParticipant(id: Int, tokenUser: String) =
+        flow {
+            try {
+                val response = apiService.getUserParticipant(id,token = "Bearer $tokenUser")
+                val data = response.message
+                if (data != null) {
+                    if (data.isNotEmpty()){
+                        emit(ApiResponse.Success(response.message))
+                    }else{
+                        emit(ApiResponse.Empty)
+                    }
+                }
+            }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
+                Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 }

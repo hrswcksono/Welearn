@@ -1,7 +1,7 @@
 package com.tugasakhir.welearn.domain.entity
 
 data class LoginEntity(
-    var token:String,
-    var name: String,
-    var id: Int,
+    val token:String,
+    val name: String,
+    val id: Int,
 )

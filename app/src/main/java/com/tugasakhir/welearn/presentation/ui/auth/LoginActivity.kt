@@ -58,15 +58,6 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
-//                    CustomDialogBox.onlyTitle(
-//                        this@LoginActivity,
-//                        SweetAlertDialog.SUCCESS_TYPE,
-//                        "Berhasil login"
-//                    ) {
-////                        onBackPressed()
-//                        login(it)
-//                    }
-//                    binding.progressBar2.visibility = View.INVISIBLE
                     CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil LoginEntity")
                     login(it)
                 }
