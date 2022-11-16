@@ -11,8 +11,6 @@ import com.tugasakhir.welearn.domain.entity.ScoreMultiEntity
 class ScoreMultiAdapter: RecyclerView.Adapter<ScoreMultiAdapter.ListViewHolder>() {
 
     private var listData = ArrayList<ScoreMultiEntity>()
-    var onItemClick: ((ScoreMultiEntity) -> Unit)? = null
-
     fun setData(newListData: List<ScoreMultiEntity>?) {
         if (newListData == null) return
         listData.clear()

@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.data.Resource
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
@@ -49,6 +49,7 @@ class ListSoalHurufFragment : Fragment() {
 
     private fun showGridSoalHuruf() {
         val soalHurufAdapter = ListSoalHurufAdapter()
+        binding.progressBar3.visibility = View.VISIBLE
         soalHurufAdapter.onItemClick = {
             moveDrawingActivity(it)
         }
@@ -58,16 +59,8 @@ class ListSoalHurufFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.randomSoalSingle(1,levelHuruf).collectLatest {
-                    when(it) {
-                        is Resource.Loading -> binding.progressBar3.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding.progressBar3.visibility = View.GONE
-                            soalHurufAdapter.setData(it.data)
-                        }
-                        is Resource.Error -> {
-                            binding.progressBar3.visibility = View.GONE
-                        }
-                    }
+                    soalHurufAdapter.setData(it)
+                    binding.progressBar3.visibility = View.GONE
                 }
             }
         }

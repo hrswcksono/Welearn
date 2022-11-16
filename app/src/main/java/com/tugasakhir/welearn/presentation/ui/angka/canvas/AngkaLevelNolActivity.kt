@@ -1,19 +1,19 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
-import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -27,7 +27,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -47,6 +46,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
+    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,9 +56,6 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         val mode = intent.getStringExtra(GAME_MODE)
-
-        binding.cnvsLevelNolAngka.setBackgroundColor(Color.BLACK)
-        binding.cnvsLevelNolAngka.setColor(Color.WHITE)
 
         handlingMode(mode.toString())
         refreshCanvasOnClick()
@@ -70,6 +67,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
+            listDialog(idGame!!.toInt())
             joinGame(idGame!!.toInt())
             var index = 0
             var total = 0L
@@ -95,6 +93,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
             }
         }else if (mode == "single") {
+            binding.btnUserParticipantA0.visibility = View.INVISIBLE
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitNolAngka.setOnClickListener{
@@ -223,4 +222,21 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         }
     }
 
+    private fun listDialog(idGame: Int) {
+        binding.btnUserParticipantA0.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main) {
+                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
+                        when(it) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                Template.listUser(it.data!!, this@AngkaLevelNolActivity)
+                            }
+                            is Resource.Error -> {}
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

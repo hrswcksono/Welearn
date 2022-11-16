@@ -79,27 +79,37 @@
         android:layout_width="173dp"
         android:layout_height="160dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="5dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
+        app:layout_constraintTop_toBottomOf="@+id/refresh_dua_huruf" />
+
+    <ImageView
+        android:id="@+id/btn_user_participant_h2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/team_btn" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelDuaHuruftwo"
         android:layout_width="173dp"
         android:layout_height="160dp"
-        android:layout_marginTop="64dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view4" />
+        app:layout_constraintTop_toBottomOf="@+id/submit_dua_huruf" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelDuaHurufthree"
         android:layout_width="173dp"
         android:layout_height="160dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cnvsLevelDuaHuruftwo" />
@@ -108,7 +118,7 @@
         android:id="@+id/cnvsLevelDuaHuruffour"
         android:layout_width="173dp"
         android:layout_height="160dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
@@ -118,10 +128,10 @@
         android:id="@+id/cnvsLevelDuaHuruffive"
         android:layout_width="173dp"
         android:layout_height="160dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        android:background="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/cnvsLevelDuaHurufthree" />
 
     <ImageView
@@ -132,7 +142,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:srcCompat="@drawable/ic_baseline_reload" />
+        app:srcCompat="@drawable/reset_btn" />
 
     <ImageView
         android:id="@+id/submit_dua_huruf"
@@ -142,7 +152,7 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:srcCompat="@drawable/ic_baseline_submit" />
+        app:srcCompat="@drawable/submit_btn" />
 
     <ProgressBar
         android:id="@+id/progressBarH2"

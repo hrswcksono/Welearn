@@ -1,20 +1,15 @@
 package com.tugasakhir.welearn.core.di
 
-import android.content.Context
-import android.content.SharedPreferences
 import androidx.room.Room
-import com.tugasakhir.welearn.core.data.WelearnRepository
-import com.tugasakhir.welearn.core.data.source.local.LocalDataSource
-import com.tugasakhir.welearn.core.data.source.local.room.WelearnDatabase
-import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
-import com.tugasakhir.welearn.core.data.source.remote.network.ApiService
-import com.tugasakhir.welearn.core.utils.AppExecutors
+import com.tugasakhir.welearn.data.WelearnRepository
+import com.tugasakhir.welearn.data.source.local.LocalDataSource
+import com.tugasakhir.welearn.data.source.local.room.WelearnDatabase
+import com.tugasakhir.welearn.data.source.remote.RemoteDataSource
+import com.tugasakhir.welearn.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidApplication
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit

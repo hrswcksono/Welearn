@@ -16,7 +16,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ScoreAngkaFragment : Fragment() {
 
     private var _binding: FragmentScoreAngkaBinding? = null
@@ -35,7 +34,6 @@ class ScoreAngkaFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         showScore()
     }
 

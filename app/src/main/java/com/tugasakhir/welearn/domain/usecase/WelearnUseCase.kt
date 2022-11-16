@@ -1,7 +1,7 @@
 package com.tugasakhir.welearn.domain.usecase
 
-import com.tugasakhir.welearn.core.data.Resource
-import com.tugasakhir.welearn.core.data.source.remote.response.PushNotificationResponse
+import com.tugasakhir.welearn.data.Resource
+import com.tugasakhir.welearn.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
@@ -25,7 +25,7 @@ interface WelearnUseCase {
     fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
     fun userJoinedGame(): Flow<List<UserJoinEntity>>
 
-    fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<Resource<List<SoalEntity>>>
-    fun getLevel(idLevel: Int): Flow<Resource<List<LevelEntity>>>
+    fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<List<SoalEntity>>
+    fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
     fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>>
 }

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.tugasakhir.welearn">
-    <!-- <uses-sdk tools:overrideLibrary="dev.abhishekkumar.canvasview" /> -->
     <!-- permissions for INTERNET -->
     <uses-permission android:name="android.permission.INTERNET" /> <!-- receiving broadcast from GCM server -->
     <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />

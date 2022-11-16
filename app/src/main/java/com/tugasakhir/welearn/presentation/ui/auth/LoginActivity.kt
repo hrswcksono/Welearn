@@ -1,13 +1,13 @@
 package com.tugasakhir.welearn.presentation.ui.auth
 
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.method.HideReturnsTransformationMethod
+import android.text.method.PasswordTransformationMethod
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
@@ -45,6 +45,14 @@ class LoginActivity : AppCompatActivity() {
 
         binding.tvReg.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        binding.cbPwd.setOnClickListener {
+            if(binding.cbPwd.isChecked) {
+                binding.passwordLogin.transformationMethod = HideReturnsTransformationMethod.getInstance()
+            }else{
+                binding.passwordLogin.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
         }
     }
 

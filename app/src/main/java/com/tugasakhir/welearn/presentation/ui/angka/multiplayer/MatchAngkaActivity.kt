@@ -8,6 +8,7 @@ import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityMatchAngkaBinding
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
@@ -23,6 +24,7 @@ class MatchAngkaActivity : AppCompatActivity() {
     private val viewModel: PushNotificationPresenter by viewModel()
     private val viewModelRandom: RandomIDSoalMultiPresenter by viewModel()
     private val makeRoomPresenter: MakeRoomPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +32,8 @@ class MatchAngkaActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
+
+        sessionManager = SharedPreference(this)
 
         FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_JOIN_ANGKA)
@@ -85,7 +89,7 @@ class MatchAngkaActivity : AppCompatActivity() {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
+                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka",
                                 "",

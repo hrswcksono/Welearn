@@ -103,7 +103,7 @@
         android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:srcCompat="@drawable/ic_baseline_reload" />
+        app:srcCompat="@drawable/reset_btn" />
 
     <ImageView
         android:id="@+id/submit_nol_angka"
@@ -113,7 +113,17 @@
         android:layout_marginEnd="20dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view4"
-        app:srcCompat="@drawable/ic_baseline_submit" />
+        app:srcCompat="@drawable/submit_btn" />
+
+    <ImageView
+        android:id="@+id/btn_user_participant_a0"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/team_btn" />
 
     <com.divyanshu.draw.widget.DrawView
         android:id="@+id/cnvsLevelNolAngka"

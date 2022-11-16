@@ -113,7 +113,7 @@ class MatchHurufActivity : AppCompatActivity() {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level!"
+                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka!"
                                 ,"Siapa yang ingin ikut?"
                                 ,"huruf",
                                 "",

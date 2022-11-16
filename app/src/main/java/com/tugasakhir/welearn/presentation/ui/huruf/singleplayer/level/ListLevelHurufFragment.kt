@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.data.Resource
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
 import kotlinx.coroutines.Dispatchers
@@ -44,6 +44,7 @@ class ListLevelHurufFragment : Fragment() {
 
     private fun showGridHuruf(){
         val hurufAdapter = ListLevelHurufAdapter()
+        binding.progressLevelHuruf.visibility = View.VISIBLE
 
         hurufAdapter.onItemClick = {
             val toSoalHuruf = ListLevelHurufFragmentDirections.toSoalHuruf()
@@ -54,17 +55,9 @@ class ListLevelHurufFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.getLevelSoal(1)
-                    .collectLatest { level ->
-                        when(level) {
-                            is Resource.Loading -> binding.progressLevelHuruf.visibility = View.VISIBLE
-                            is Resource.Success -> {
-                                binding.progressLevelHuruf.visibility = View.GONE
-                                hurufAdapter.setData(level.data)
-                            }
-                            is Resource.Error -> {
-                                binding.progressLevelHuruf.visibility = View.GONE
-                            }
-                        }
+                    .collectLatest {
+                        hurufAdapter.setData(it)
+                        binding.progressLevelHuruf.visibility = View.GONE
                     }
             }
         }

@@ -1,21 +1,18 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.canvas
 
-import android.app.Dialog
 import android.content.Intent
-import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.data.Resource
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.listUser
-import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -24,14 +21,12 @@ import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolActivity
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
-import com.tugasakhir.welearn.presentation.ui.UserParticipantAdapter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -52,8 +47,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
-    private lateinit var dialogBox: Dialog
-    private lateinit var userParticipantAdapter: UserParticipantAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -67,7 +60,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
         handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
-        listDialog()
+
     }
 
     private fun handlingMode(mode: String) {
@@ -75,6 +68,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
+            listDialog(idGame!!.toInt())
             joinGame(idGame!!.toInt())
             var index = 0
             var total = 0L
@@ -100,6 +94,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
             }
         }else if (mode == "single") {
+            binding.btnUserParticipantH0.visibility = View.INVISIBLE
             val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener{
@@ -227,11 +222,11 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun listDialog() {
-        binding.btnUserParticipated.setOnClickListener {
+    private fun listDialog(idGame: Int) {
+        binding.btnUserParticipantH0.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    listUserParticipantPresenter.getListUserParticipant(2).collectLatest {
+                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
                         when(it) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {

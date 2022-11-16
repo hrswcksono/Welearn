@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.data.Resource
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.ui.angka.canvas.*
@@ -59,16 +59,8 @@ class ListSoalAngkaFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 viewModel.randomSoalSingle(2 ,levelAngka)
                     .collectLatest {
-                        when(it) {
-                            is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                            is Resource.Success -> {
-                                binding.progressBar.visibility = View.GONE
-                                soalAngkaAdapter.setData(it.data)
-                            }
-                            is Resource.Error -> {
-                                binding.progressBar.visibility = View.GONE
-                            }
-                        }
+                        soalAngkaAdapter.setData(it)
+                        binding.progressBar.visibility = View.GONE
                 }
             }
         }

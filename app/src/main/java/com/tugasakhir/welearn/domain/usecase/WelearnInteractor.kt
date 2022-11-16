@@ -1,9 +1,7 @@
 package com.tugasakhir.welearn.domain.usecase
 
-import com.tugasakhir.welearn.core.data.Resource
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import kotlinx.coroutines.flow.Flow
 
 class WelearnInteractor(private val welearnRepository: IWelearnRepository): WelearnUseCase {
     override fun userLogin(username: String, password: String) = welearnRepository.loginUser(username, password)

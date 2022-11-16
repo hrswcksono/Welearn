@@ -1,9 +1,7 @@
 package com.tugasakhir.welearn.core.utils
 
-import com.tugasakhir.welearn.core.data.source.local.entity.Level
-import com.tugasakhir.welearn.core.data.source.local.entity.Soal
-import com.tugasakhir.welearn.core.data.source.local.entity.UserParticipant
-import com.tugasakhir.welearn.core.data.source.remote.response.*
+import com.tugasakhir.welearn.data.source.local.entity.UserParticipant
+import com.tugasakhir.welearn.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.entity.*
 
 object DataMapper {
@@ -52,11 +50,11 @@ object DataMapper {
         return highScoreList
     }
 
-    // mapping level
-    fun mapResponseToEntitiesLevel(input: List<LevelResponse>): List<Level> {
-        val levelList = ArrayList<Level>()
+    fun mapperLevel(input: List<LevelResponse>): List<LevelEntity> {
+        val levelList = ArrayList<LevelEntity>()
         input.map {
-            val level = Level(
+            val level = LevelEntity(
+                id = it.id!!,
                 idLevel = it.idLevel!!,
                 levelSoal = it.levelSoal.toString(),
                 idJenis = it.idJenis!!
@@ -66,28 +64,12 @@ object DataMapper {
         return levelList
     }
 
-    fun mapEntitiesToDomainLevel(input: List<Level>): List<LevelEntity> =
-        input.map {
-            LevelEntity(
-                it.idLevel,
-                it.levelSoal,
-                it.idJenis
-            )
-        }
-
-    fun mapDomainToEntityLevel(input: LevelEntity) =
-        Level(
-            input.idLevel,
-            input.levelSoal,
-            input.idJenis
-        )
-
     // soal
 
-    fun mapResponseToEntitiesSoal(input: List<RandomSoalResponse>): List<Soal> {
-        val soalList = ArrayList<Soal>()
+    fun mapperRandomSoal(input: List<RandomSoalResponse>): List<SoalEntity> {
+        val soalList = ArrayList<SoalEntity>()
         input.map {
-            val soal = Soal(
+            val soal = SoalEntity(
                 idSoal = it.idSoal,
                 idJenis = it.idJenis,
                 idLevel = it.idLevel,
@@ -99,18 +81,6 @@ object DataMapper {
         }
         return soalList
     }
-
-    fun mapEntitiesToDomainSoal(input: List<Soal>): List<SoalEntity> =
-        input.map {
-            SoalEntity(
-                it.idSoal,
-                it.idJenis,
-                it.idLevel,
-                it.soal,
-                it.keterangan,
-                it.jawaban
-            )
-        }
 
 
     // user participant
@@ -164,16 +134,11 @@ object DataMapper {
     }
 
     fun mapperRegister(input: RegisterResponse): String {
-        var result = ""
-        result = input.success.toString()
-        return result
+        return input.success.toString()
     }
 
     fun mapperString(input: SimpleResponse): String {
-        var result = ""
-        result = input.message.toString()
-        return result
+        return input.message.toString()
     }
-
 
 }

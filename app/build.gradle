@@ -71,28 +71,11 @@ dependencies {
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-//    // Koin for Kotlin apps
-//    implementation "io.insert-koin:koin-android:$koin_version"
-//    // Koin Core features
-//    implementation "io.insert-koin:koin-core:$koin_version"
-//    // Koin Test features
-//    testImplementation "io.insert-koin:koin-test:$koin_version"
-//    implementation "org.koin:koin-android-viewmodel:$koin_version"
-//    implementation "org.koin:koin-core:$koin_version"
-//    implementation "org.koin:koin-android:$koin_version"
-//    implementation "org.koin:koin-android-viewmodel:$koin_version"
-
     // Koin for Kotlin apps
     implementation "io.insert-koin:koin-android:$koin_version"
-//    implementation "io.insert-koin:koin-core:$koin_version"
     // Testing
     testImplementation "io.insert-koin:koin-test:$koin_version"
     testImplementation "io.insert-koin:koin-test-junit4:$koin_version"
-
-//    implementation 'com.github.ajithvgiri:Canvas-Library:v1.1.1'
-
-//    implementation  'io.ak1:drawbox:1.0.2'
-//    implementation 'com.github.imabhishekkumar:CanvasView:1.0'
 
 //    firebase
     implementation platform('com.google.firebase:firebase-bom:29.3.1')
@@ -120,9 +103,7 @@ dependencies {
     testImplementation "org.mockito:mockito-inline:$mockitoVersion"
     testImplementation "androidx.arch.core:core-testing:$androidCoreTestVersion"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockitoKotlinVersion"
-
     testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.3'
-
     androidTestImplementation "org.koin:koin-test:2.1.6"
 
     implementation "androidx.room:room-runtime:$room_version"

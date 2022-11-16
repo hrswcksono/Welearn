@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.core.utils
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
@@ -48,7 +49,12 @@ class FirebaseService : FirebaseMessagingService() {
             print(player)
         }
 
-        pendingIntent1 = PendingIntent.getActivity(this,0,intent, PendingIntent.FLAG_ONE_SHOT)
+        val flags = when {
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_MUTABLE
+            else -> FLAG_UPDATE_CURRENT
+        }
+
+        pendingIntent1 = PendingIntent.getActivity(this,0,intent, FLAG_MUTABLE)
 
         if (message.data["type"] == "angka") {
             intent1 = Intent(this, AngkaReadyActivity::class.java)
@@ -56,14 +62,14 @@ class FirebaseService : FirebaseMessagingService() {
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(AngkaReadyActivity::class.java)
                 .addNextIntent(intent1)
-                .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
+                .getPendingIntent(110, flags)!!
         } else if(message.data["type"] == "huruf") {
             intent1 = Intent(this, HurufReadyActivity::class.java)
             intent1.putExtra(HurufReadyActivity.ID_GAME, message.data["action"])
             pendingIntent1 = TaskStackBuilder.create(this)
                 .addParentStack(HurufReadyActivity::class.java)
                 .addNextIntent(intent1)
-                .getPendingIntent(110, PendingIntent.FLAG_UPDATE_CURRENT)!!
+                .getPendingIntent(110, flags)!!
         } else if (message.data["type"] == "score"){
             intent1 = Intent(this, ScoreMultiplayerActivity::class.java)
             intent1.putExtra(ScoreMultiplayerActivity.ID_GAME, message.data["action"])
@@ -157,4 +163,5 @@ class FirebaseService : FirebaseMessagingService() {
         }
         notificationManager.createNotificationChannel(channel)
     }
+
 }

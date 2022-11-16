@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.data
 
-import com.tugasakhir.welearn.core.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.core.utils.DataMapper
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IWelearnRepository

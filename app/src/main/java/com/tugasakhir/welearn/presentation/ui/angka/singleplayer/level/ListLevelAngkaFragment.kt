@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.data.Resource
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
 import kotlinx.coroutines.Dispatchers
@@ -55,17 +55,9 @@ class ListLevelAngkaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.getLevelSoal(2)
-                    .collectLatest { level ->
-                        when(level) {
-                            is Resource.Loading -> binding.progressLevelAngka.visibility = View.VISIBLE
-                            is Resource.Success -> {
-                                binding.progressLevelAngka.visibility = View.GONE
-                                angkaAdapter.setData(level.data)
-                            }
-                            is Resource.Error -> {
-                                binding.progressLevelAngka.visibility = View.GONE
-                            }
-                        }
+                    .collectLatest {
+                        angkaAdapter.setData(it)
+                        binding.progressLevelAngka.visibility = View.GONE
                     }
             }
         }

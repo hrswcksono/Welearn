@@ -1,27 +1,24 @@
 package com.tugasakhir.welearn.presentation.ui.angka.canvas
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Base64
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
-import com.tugasakhir.welearn.core.utils.TextToSpeech.speak
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PredictAngkaMultiPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
@@ -30,7 +27,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.io.ByteArrayOutputStream
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -50,6 +46,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
+    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,9 +60,6 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
         handlingMode(mode.toString())
 
-        binding.cnvsLevelDuaAngka.setBackgroundColor(Color.BLACK)
-        binding.cnvsLevelDuaAngka.setColor(Color.WHITE)
-
         refreshCanvasOnClick()
         back()
 
@@ -76,6 +70,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
+            listDialog(idGame!!.toInt())
             joinGame(idGame!!.toInt())
             var index = 0
             var total = 0L
@@ -101,6 +96,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
             }
         }else if (mode == "single") {
+            binding.btnUserParticipantA2.visibility = View.INVISIBLE
             val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitDuaAngka.setOnClickListener{
@@ -226,6 +222,24 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
                         "high"
                     )
                 ).collectLatest {  }
+            }
+        }
+    }
+
+    private fun listDialog(idGame: Int) {
+        binding.btnUserParticipantA2.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Default) {
+                withContext(Dispatchers.Main) {
+                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
+                        when(it) {
+                            is Resource.Loading -> {}
+                            is Resource.Success -> {
+                                Template.listUser(it.data!!, this@AngkaLevelDuaActivity)
+                            }
+                            is Resource.Error -> {}
+                        }
+                    }
+                }
             }
         }
     }
