@@ -1,92 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/scroll_tiga_angka"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
-    tools:context=".presentation.ui.huruf.canvas.HurufLevelTigaActivity"
-    tools:ignore="Overdraw">
+    android:background="@drawable/bg_home"
+    tools:context=".presentation.ui.home.HomeFragment">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/constraintLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/main_bg"
-        tools:context=".presentation.ui.home.HomeFragment">
+    <!-- TODO: Update blank fragment layout -->
 
-        <!-- TODO: Update blank fragment layout -->
+    <ImageView
+        android:id="@+id/btn_huruf"
+        android:layout_width="333dp"
+        android:layout_height="141dp"
+        android:layout_marginTop="172dp"
+        android:src="@drawable/btn_menu_huruf"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_highscore" />
 
-        <ImageView
-            android:id="@+id/btn_huruf"
-            android:layout_width="333dp"
-            android:layout_height="141dp"
-            android:layout_marginTop="25dp"
-            android:src="@drawable/btn_angka"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_highscore" />
+    <ImageView
+        android:id="@+id/btn_angka"
+        android:layout_width="334dp"
+        android:layout_height="138dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/btn_huruf"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_huruf"
+        app:layout_constraintVertical_bias="0.004" />
 
-        <ImageView
-            android:id="@+id/btn_angka"
-            android:layout_width="334dp"
-            android:layout_height="138dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/btn_huruf"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.506"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btn_huruf"
-            app:layout_constraintVertical_bias="0.004" />
+    <TextView
+        android:id="@+id/level_angka_ke"
+        android:layout_width="195dp"
+        android:layout_height="89dp"
+        android:layout_marginStart="108dp"
+        android:layout_marginTop="56dp"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="Ayo Belajar Bersama"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="35dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/level_angka_ke"
-            android:layout_width="195dp"
-            android:layout_height="89dp"
-            android:layout_marginTop="56dp"
-            android:fontFamily="@font/rubik_regular"
-            android:text="Ayo Belajar Bersama"
-            android:textAlignment="center"
-            android:textSize="35dp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.55"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/btn_logout"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/btn_logout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_logout"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:src="@drawable/exit_app"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/btn_highscore"
+        android:layout_width="97dp"
+        android:layout_height="59dp"
+        android:layout_marginTop="72dp"
+        android:src="@drawable/highscore"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.338"
+        app:layout_constraintStart_toEndOf="@+id/level_angka_ke"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/btn_highscore"
-            android:layout_width="97dp"
-            android:layout_height="59dp"
-            android:layout_marginStart="30dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/highscore"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/level_angka_ke" />
-
-        <ProgressBar
-            android:id="@+id/progressbar_home"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            app:layout_constraintBottom_toBottomOf="@+id/btn_angka"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btn_huruf" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+    <ProgressBar
+        android:id="@+id/progressbar_home"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_angka"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_huruf" />
+</androidx.constraintlayout.widget.ConstraintLayout>

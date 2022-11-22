@@ -27,6 +27,7 @@
     <string name="menu_submit">Submit</string>
     <string name="menu_restart">Restart</string>
     <string name="retypepassword">Masukkan Ulang Password</string>
+    <string name="masuk">Masuk</string>
 
 
 </resources>

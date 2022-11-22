@@ -28,4 +28,8 @@
     <color name="custom_yellow">#dff848</color>
 
     <color name="button">#fab907</color>
+
+    <color name="main_green">#77F58B</color>
+
+    <color name="bottom_navigation">#77F58B</color>
 </resources>

@@ -4,97 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
+    android:background="@drawable/bg_splash_screen"
     tools:context=".presentation.ui.auth.LoginActivity">
 
-    <CheckBox
-        android:id="@+id/cb_pwd"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="49dp"
-        android:layout_marginTop="-5dp"
-        android:text="Tampilkan password"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField2" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/username_login"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginStart="50dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="68dp"
         android:layout_marginEnd="50dp"
+        android:background="@drawable/tf_rounded_corners"
+        android:drawableLeft="@drawable/draw_left_user"
+        android:hint="Masukkan Username"
         app:hintEnabled="false"
+        android:fontFamily="@font/rubik_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/username_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="@string/username"
-            tools:ignore="TouchTargetSizeCheck" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textField2"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+    <EditText
+        android:id="@+id/password_login"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="55dp"
         android:layout_marginStart="50dp"
         android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
         app:hintEnabled="false"
+        android:hint="Masukkan Password"
+        android:drawableLeft="@drawable/draw_left_password"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:background="@drawable/tf_rounded_corners"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField">
+        app:layout_constraintTop_toBottomOf="@+id/username_login">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/password_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:hint="@string/password"
-            android:inputType="textPassword"
-            tools:ignore="TouchTargetSizeCheck" />
+    </EditText>
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_login"
-        android:layout_width="wrap_content"
+        android:layout_width="159dp"
         android:layout_height="50dp"
         android:layout_marginStart="100dp"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="100dp"
-        android:text="@string/Login"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="@string/masuk"
+        android:textSize="22sp"
+        android:textColor="@color/white"
+        android:background="@drawable/btn_login_register"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textField2" />
+        app:layout_constraintTop_toBottomOf="@+id/password_login" />
 
     <TextView
         android:id="@+id/tv_reg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
-        android:text="Tidak punya akun. Daftar"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:shadowColor="#FFFFFF"
+        android:shadowDx="5"
+        android:shadowDy="5"
+        android:shadowRadius="4"
+        android:text="Jika tidak memiliki akun. Silahkan mendaftar"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
 
     <ImageView
         android:id="@+id/imageView5"
-        android:layout_width="wrap_content"
-        android:layout_height="135dp"
-        android:layout_marginTop="41dp"
+        android:layout_width="120dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.168"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/logo_welearn" />
@@ -108,6 +96,22 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="83dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/btn_login_register"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="DAFTAR"
+        android:textColor="@color/white"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.681"
+        app:layout_constraintStart_toEndOf="@+id/tv_reg"
+        app:layout_constraintTop_toBottomOf="@+id/btn_login"
+        tools:ignore="TouchTargetSizeCheck" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

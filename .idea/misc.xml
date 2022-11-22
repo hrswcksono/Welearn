@@ -5,7 +5,12 @@
       <map>
         <entry key="..\:/TA/welearn/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.158" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/back_nav.xml" value="0.2575" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/btn_login_register.xml" value="0.228" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/custom_progress_bar.xml" value="0.148" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/draw_left_email.xml" value="0.228" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/draw_left_gender.xml" value="0.228" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/draw_left_password.xml" value="0.228" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/draw_left_user.xml" value="0.242" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/exit_app.xml" value="0.2575" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/ic_baseline_home.xml" value="0.158" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/ic_baseline_reload.xml" value="0.2245" />
@@ -18,12 +23,13 @@
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/rectangle.xml" value="0.156" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/rectangle_score.xml" value="0.2285" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/rounded_button.xml" value="0.2165" />
+        <entry key="..\:/TA/welearn/app/src/main/res/drawable/tf_rounded_corners.xml" value="0.2445" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/white_rounded_rectangle.xml" value="0.2205" />
         <entry key="..\:/TA/welearn/app/src/main/res/font/rubik.xml" value="0.284375" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_dua.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_empat.xml" value="0.2" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_nol.xml" value="0.2" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_nol.xml" value="0.176" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_satu.xml" value="0.20520833333333333" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_level_tiga.xml" value="0.20520833333333333" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_angka_ready.xml" value="0.2" />
@@ -41,9 +47,9 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_level_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_soal_angka.xml" value="0.24010416666666667" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_soal_huruf.xml" value="0.25416666666666665" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_login.xml" value="0.23854166666666668" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_login.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_main.xml" value="0.1578125" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_match_angka.xml" value="0.264" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_match_angka.xml" value="0.176" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_match_huruf.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_register.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_score.xml" value="0.18385416666666668" />
@@ -58,7 +64,7 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/dialog_list_user_participant.xml" value="0.4" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_find_player.xml" value="0.25416666666666665" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_home.xml" value="0.264" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_level_angka.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_level_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_soal_angka.xml" value="0.25416666666666665" />

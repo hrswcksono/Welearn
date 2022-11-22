@@ -22,7 +22,7 @@
         android:layout_width="370dp"
         android:layout_height="45dp"
         android:layout_marginTop="15dp"
-        android:background="@color/view_soal"
+        android:background="@color/main_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/level_angka_ke" />
@@ -32,7 +32,7 @@
         android:layout_width="190dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:fontFamily="@font/rubik_regular"
+        android:fontFamily="@font/rubik_semi_bold"
         android:text="Level Angka"
         android:textAlignment="center"
         android:textColor="@color/black"

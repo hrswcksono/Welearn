@@ -5,11 +5,11 @@
     android:layout_height="170dp"
     android:gravity="center">
 
-    <de.hdodenhof.circleimageview.CircleImageView
+    <ImageView
         android:id="@+id/img_jenis"
         android:layout_width="0dp"
         android:layout_height="100dp"
-        android:src="@color/item_grid"
+        app:srcCompat="@drawable/bg_grid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"

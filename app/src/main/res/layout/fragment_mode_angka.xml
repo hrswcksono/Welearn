@@ -5,7 +5,7 @@
     android:id="@+id/frameLayout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/main_bg"
+    android:background="@drawable/bg_mode"
     tools:context=".presentation.ui.angka.ModeAngkaFragment">
 
     <TextView
@@ -13,9 +13,10 @@
         android:layout_width="195dp"
         android:layout_height="89dp"
         android:layout_marginTop="80dp"
-        android:fontFamily="@font/rubik_regular"
+        android:fontFamily="@font/rubik_semi_bold"
         android:text="Ayo Belajar Berhitung"
         android:textAlignment="center"
+        android:textColor="@color/white"
         android:textSize="35dp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,7 +28,7 @@
         android:layout_width="330dp"
         android:layout_height="128dp"
         android:layout_marginTop="84dp"
-        android:src="@drawable/btn_single"
+        android:src="@drawable/img_single_player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"

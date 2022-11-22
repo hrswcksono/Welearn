@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/bgSplashScreen"
+    android:background="@drawable/bg_splash_screen"
     tools:context=".presentation.ui.splashScreen.SplashScreenActivity">
 
     <ImageView
@@ -15,5 +15,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.411"
         app:srcCompat="@drawable/logo_welearn" />
 </androidx.constraintlayout.widget.ConstraintLayout>
