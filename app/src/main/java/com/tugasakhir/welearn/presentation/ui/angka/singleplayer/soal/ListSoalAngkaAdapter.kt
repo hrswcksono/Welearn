@@ -22,12 +22,9 @@ class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewH
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridSoalAngkaBinding.bind(itemView)
-        var index: Int = 0
         fun bind(data: SoalEntity) {
             with(binding) {
                 idSoalAngka.text = (absoluteAdapterPosition+1).toString()
-                index = absoluteAdapterPosition +1
-                soalAngka.text = "Soal $index"
             }
         }
 

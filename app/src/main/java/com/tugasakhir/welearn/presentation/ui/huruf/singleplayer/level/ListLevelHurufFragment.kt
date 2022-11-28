@@ -63,7 +63,7 @@ class ListLevelHurufFragment : Fragment() {
         }
 
         with(binding.rvLevelHuruf) {
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
             adapter = hurufAdapter
         }

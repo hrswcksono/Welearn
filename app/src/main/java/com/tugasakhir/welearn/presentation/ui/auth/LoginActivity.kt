@@ -43,17 +43,17 @@ class LoginActivity : AppCompatActivity() {
             loginUser()
         }
 
-        binding.tvReg.setOnClickListener {
+        binding.btnToRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
         }
 
-        binding.cbPwd.setOnClickListener {
-            if(binding.cbPwd.isChecked) {
-                binding.passwordLogin.transformationMethod = HideReturnsTransformationMethod.getInstance()
-            }else{
-                binding.passwordLogin.transformationMethod = PasswordTransformationMethod.getInstance()
-            }
-        }
+//        binding.cbPwd.setOnClickListener {
+//            if(binding.cbPwd.isChecked) {
+//                binding.passwordLogin.transformationMethod = HideReturnsTransformationMethod.getInstance()
+//            }else{
+//                binding.passwordLogin.transformationMethod = PasswordTransformationMethod.getInstance()
+//            }
+//        }
     }
 
     private fun loginUser(){
@@ -82,6 +82,10 @@ class LoginActivity : AppCompatActivity() {
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
 }

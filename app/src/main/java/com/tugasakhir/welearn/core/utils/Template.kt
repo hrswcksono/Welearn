@@ -37,11 +37,17 @@ object Template {
     }
 
     fun speak(string: String) {
+        var audioString: String = string
+        if(string.contains("+", ignoreCase = true)){
+            audioString = string.replace("+", "ditambah")
+        }else if (string.contains("-", ignoreCase = true)){
+            audioString = string.replace("-", "dikurangi")
+        }
         // Set the ApiKey and create GoogleCloudTTS.
         val googleCloudTTS = GoogleCloudTTSFactory.create(Constants.GOOGLE_API_KEY)
         googleCloudTTS.setVoiceSelectionParams(VoiceSelectionParams( "id-ID", "id-ID-Standard-A"))
             .setAudioConfig(AudioConfig(AudioEncoding.MP3, 1f , 10f))
         // start speak
-        googleCloudTTS.start(string)
+        googleCloudTTS.start(audioString)
     }
 }

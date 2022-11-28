@@ -25,7 +25,6 @@ class ListLevelAngkaAdapter : RecyclerView.Adapter<ListLevelAngkaAdapter.GridVie
         fun bind(data: LevelEntity) {
             with(binding) {
                 idJenisAngka.text = data.idLevel.toString()
-                jenisAngka.text = data.levelSoal
             }
         }
 

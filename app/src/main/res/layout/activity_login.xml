@@ -19,6 +19,7 @@
         android:drawableLeft="@drawable/draw_left_user"
         android:hint="Masukkan Username"
         app:hintEnabled="false"
+        android:textSize="12sp"
         android:fontFamily="@font/rubik_semi_bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -33,6 +34,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="50dp"
         app:hintEnabled="false"
+        android:textSize="12sp"
         android:hint="Masukkan Password"
         android:drawableLeft="@drawable/draw_left_password"
         android:fontFamily="@font/rubik_semi_bold"
@@ -98,6 +100,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_to_register"
         android:layout_width="83dp"
         android:layout_height="30dp"
         android:layout_marginTop="10dp"

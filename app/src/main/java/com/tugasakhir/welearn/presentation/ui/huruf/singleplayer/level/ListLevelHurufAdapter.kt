@@ -25,7 +25,6 @@ class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridVie
         fun bind(data: LevelEntity) {
             with(binding) {
                 idJenisGrid.text = data.idLevel.toString()
-                jenisSoal.text = data.levelSoal
             }
         }
 

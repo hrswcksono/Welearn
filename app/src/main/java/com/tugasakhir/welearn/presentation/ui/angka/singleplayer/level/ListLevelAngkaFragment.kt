@@ -64,7 +64,7 @@ class ListLevelAngkaFragment : Fragment() {
 
 //        angka_adapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
-            layoutManager = GridLayoutManager(context, 2)
+            layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
             adapter = angkaAdapter
         }
