@@ -65,6 +65,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
+            enableButton()
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
@@ -78,13 +79,14 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitEmpatAngka.setOnClickListener {
+                disableButton()
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap())!!)
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap())!!)
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
@@ -102,9 +104,20 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap())!!)
                 image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap())!!)
+                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
+    }
+
+    private fun disableButton(){
+        binding.submitEmpatAngka.isEnabled = false
+        binding.submitEmpatAngka.isClickable = false
+    }
+
+    private fun enableButton(){
+        binding.submitEmpatAngka.isEnabled = true
+        binding.submitEmpatAngka.isClickable = true
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){

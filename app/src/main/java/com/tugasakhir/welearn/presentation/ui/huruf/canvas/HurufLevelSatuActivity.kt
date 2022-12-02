@@ -63,6 +63,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
+            enableButton()
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(HurufLevelNolActivity.ID_GAME)
@@ -75,6 +76,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             var idSoal = arrayID[index]
             showScreen(idSoal)
             binding.submitSatuHuruf.setOnClickListener {
+                disableButton()
                 val image = ArrayList<String>()
                 image.apply {
                     add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
@@ -84,7 +86,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
@@ -104,9 +106,20 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                     add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
                     add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
                 }
+                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
+    }
+
+    private fun disableButton(){
+        binding.submitSatuHuruf.isEnabled = false
+        binding.submitSatuHuruf.isClickable = false
+    }
+
+    private fun enableButton(){
+        binding.submitSatuHuruf.isEnabled = true
+        binding.submitSatuHuruf.isClickable = true
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){

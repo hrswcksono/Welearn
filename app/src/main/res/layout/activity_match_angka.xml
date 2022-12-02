@@ -20,7 +20,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_find_angka"
         android:layout_width="172dp"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_rounded_green"
         android:text="CARI PLAYER"
@@ -33,7 +33,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_start_angka"
         android:layout_width="172dp"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_rounded_green"
         android:text="MULAI"
@@ -46,7 +46,7 @@
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_angka_acak"
         android:layout_width="172dp"
-        android:layout_height="38dp"
+        android:layout_height="50dp"
         android:layout_marginTop="56dp"
         android:background="@drawable/btn_rounded_green"
         android:text="ACAK SOAL"

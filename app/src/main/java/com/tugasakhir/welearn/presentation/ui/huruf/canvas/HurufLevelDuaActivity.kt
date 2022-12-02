@@ -68,6 +68,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
+            enableButton()
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
@@ -80,6 +81,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
             var idSoal = arrayID[index]
             showScreen(idSoal)
             binding.submitDuaHuruf.setOnClickListener {
+                disableButton()
                 val image = ArrayList<String>()
                 image.apply {
                     add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap()))
@@ -91,7 +93,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
@@ -114,9 +116,20 @@ class HurufLevelDuaActivity : AppCompatActivity() {
                     add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap()))
                     add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap()))
                 }
+                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
+    }
+
+    private fun disableButton(){
+        binding.submitDuaHuruf.isEnabled = false
+        binding.submitDuaHuruf.isClickable = false
+    }
+
+    private fun enableButton(){
+        binding.submitDuaHuruf.isEnabled = true
+        binding.submitDuaHuruf.isClickable = true
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){

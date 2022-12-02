@@ -72,6 +72,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
+            enableButton()
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
@@ -85,12 +86,13 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitSatuAngka.setOnClickListener {
+                disableButton()
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelSatuAngka.getBitmap())!!)
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
@@ -107,9 +109,20 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
             binding.submitSatuAngka.setOnClickListener{
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelSatuAngka.getBitmap())!!)
+                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
+    }
+
+    private fun disableButton(){
+        binding.submitSatuAngka.isEnabled = false
+        binding.submitSatuAngka.isClickable = false
+    }
+
+    private fun enableButton(){
+        binding.submitSatuAngka.isEnabled = true
+        binding.submitSatuAngka.isClickable = true
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){

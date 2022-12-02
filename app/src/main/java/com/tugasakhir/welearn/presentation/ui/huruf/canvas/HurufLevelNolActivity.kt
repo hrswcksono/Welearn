@@ -65,6 +65,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
+            enableButton()
             val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
             val idGame = intent.getStringExtra(ID_GAME)
@@ -78,12 +79,13 @@ class HurufLevelNolActivity : AppCompatActivity() {
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal)
             binding.submitNolHuruf.setOnClickListener {
+                disableButton()
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap()))
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
+//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
@@ -100,9 +102,20 @@ class HurufLevelNolActivity : AppCompatActivity() {
             binding.submitNolHuruf.setOnClickListener{
                 val image = ArrayList<String>()
                 image.add(encodeImage(binding.cnvsLevelNolHuruf.getBitmap()))
+                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
+    }
+
+    private fun disableButton(){
+        binding.submitNolHuruf.isEnabled = false
+        binding.submitNolHuruf.isClickable = false
+    }
+
+    private fun enableButton(){
+        binding.submitNolHuruf.isEnabled = true
+        binding.submitNolHuruf.isClickable = true
     }
 
     private fun submitDrawing(id: String, image: ArrayList<String>) {
