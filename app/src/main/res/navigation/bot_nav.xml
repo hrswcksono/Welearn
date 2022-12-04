@@ -27,6 +27,9 @@
         android:name="com.tugasakhir.welearn.presentation.ui.angka.ModeAngkaFragment"
         android:label="fragment_mode_angka"
         tools:layout="@layout/fragment_mode_angka" >
+        <deepLink
+            android:id="@+id/deepLink"
+            app:uri="www.example.com" />
         <action
             android:id="@+id/back_to_home_mode_angka"
             app:destination="@id/home_nav" />
@@ -74,6 +77,21 @@
             android:name="id_level"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/to_angka_level_nol"
+            app:destination="@id/angka_level_nol_nav" />
+        <action
+            android:id="@+id/to_angka_level_satu"
+            app:destination="@id/angka_level_satu_nav" />
+        <action
+            android:id="@+id/to_angka_level_dua"
+            app:destination="@id/angka_level_dua_nav" />
+        <action
+            android:id="@+id/to_angka_level_tiga"
+            app:destination="@id/angka_level_tiga_nav" />
+        <action
+            android:id="@+id/to_angka_level_empat"
+            app:destination="@id/angka_level_empat_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"
@@ -103,6 +121,63 @@
             android:name="id_level"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/to_huruf_level_nol"
+            app:destination="@id/huruf_level_nol_nav" />
+        <action
+            android:id="@+id/to_huruf_level_satu"
+            app:destination="@id/huruf_level_satu_nav" />
+        <action
+            android:id="@+id/to_huruf_level_dua"
+            app:destination="@id/huruf_level_dua_nav" />
+        <action
+            android:id="@+id/to_huruf_level_tiga"
+            app:destination="@id/huruf_level_tiga_nav" />
     </fragment>
+    <fragment
+        android:id="@+id/angka_level_nol_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolFragment"
+        android:label="fragment_angka_level_nol"
+        tools:layout="@layout/fragment_angka_level_nol" />
+    <fragment
+        android:id="@+id/angka_level_satu_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuFragment"
+        android:label="fragment_angka_level_satu"
+        tools:layout="@layout/fragment_angka_level_satu" />
+    <fragment
+        android:id="@+id/angka_level_dua_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaFragment"
+        android:label="fragment_angka_level_dua"
+        tools:layout="@layout/fragment_angka_level_dua" />
+    <fragment
+        android:id="@+id/angka_level_tiga_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaFragment"
+        android:label="fragment_angka_level_tiga"
+        tools:layout="@layout/fragment_angka_level_tiga" />
+    <fragment
+        android:id="@+id/angka_level_empat_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelEmpatFragment"
+        android:label="fragment_angka_level_empat"
+        tools:layout="@layout/fragment_angka_level_empat" />
+    <fragment
+        android:id="@+id/huruf_level_nol_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolFragment"
+        android:label="fragment_huruf_level_nol"
+        tools:layout="@layout/fragment_huruf_level_nol" />
+    <fragment
+        android:id="@+id/huruf_level_satu_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuFragment"
+        android:label="fragment_huruf_level_satu"
+        tools:layout="@layout/fragment_huruf_level_satu" />
+    <fragment
+        android:id="@+id/huruf_level_dua_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaFragment"
+        android:label="fragment_huruf_level_dua"
+        tools:layout="@layout/fragment_huruf_level_dua" />
+    <fragment
+        android:id="@+id/huruf_level_tiga_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaFragment"
+        android:label="fragment_huruf_level_tiga"
+        tools:layout="@layout/fragment_huruf_level_tiga" />
 
 </navigation>

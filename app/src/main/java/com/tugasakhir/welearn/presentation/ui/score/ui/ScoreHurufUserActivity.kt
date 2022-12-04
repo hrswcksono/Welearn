@@ -3,6 +3,8 @@ package com.tugasakhir.welearn.presentation.ui.score.ui
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.entity.ScoreEntity
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreUserPresenter
@@ -25,6 +27,10 @@ class ScoreHurufUserActivity : AppCompatActivity() {
         supportActionBar?.hide()
 
         show()
+
+        binding.btnBackDaftarSoalHuruf.setOnClickListener {
+            backListSoal()
+        }
     }
 
     private fun show() {
@@ -41,7 +47,14 @@ class ScoreHurufUserActivity : AppCompatActivity() {
         binding.tvScoreUserHuruf.text = data.score.toString()
     }
 
-//    override fun onBackPressed() {
-//        return
-//    }
+    override fun onBackPressed() {
+        return
+    }
+
+    private fun backListSoal() {
+        val navController = findNavController(R.id.nav_host)
+//        navController.navigateUp()
+        navController.navigate(R.id.list_soal_angka_nav)
+    }
+
 }

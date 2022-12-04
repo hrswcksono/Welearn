@@ -66,7 +66,7 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
-                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil LoginEntity")
+//                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil LoginEntity")
                     login(it)
                 }
             }

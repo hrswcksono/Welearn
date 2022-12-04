@@ -3,6 +3,7 @@ package com.tugasakhir.welearn
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
+import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -36,5 +37,12 @@ class MainActivity : AppCompatActivity() {
 
 //        setupActionBarWithNavController(navController)
         navView.setupWithNavController(navController)
+        navController.addOnDestinationChangedListener{ _, dest, _ ->
+            when(dest.id) {
+                R.id.home_nav -> navView.visibility = View.VISIBLE
+                R.id.mode_angka_nav -> navView.visibility = View.VISIBLE
+                R.id.mode_huruf_nav -> navView.visibility = View.VISIBLE
+            }
+        }
     }
 }

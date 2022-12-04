@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.ui.angka.singleplayer.level
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -8,6 +9,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
@@ -74,5 +76,6 @@ class ListLevelAngkaFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
 
 }

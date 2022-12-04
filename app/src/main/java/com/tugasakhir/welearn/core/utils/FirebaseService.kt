@@ -11,6 +11,8 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
+import androidx.navigation.NavDeepLinkBuilder
+import androidx.navigation.fragment.NavHostFragment.Companion.findNavController
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.tugasakhir.welearn.MainActivity
@@ -54,15 +56,21 @@ class FirebaseService : FirebaseMessagingService() {
             else -> FLAG_UPDATE_CURRENT
         }
 
-        pendingIntent1 = PendingIntent.getActivity(this,0,intent, FLAG_MUTABLE)
+        pendingIntent1 = getActivity(this,0,intent, FLAG_MUTABLE)
 
         if (message.data["type"] == "angka") {
-            intent1 = Intent(this, AngkaReadyActivity::class.java)
-            intent1.putExtra(AngkaReadyActivity.ID_GAME, message.data["action"])
-            pendingIntent1 = TaskStackBuilder.create(this)
-                .addParentStack(AngkaReadyActivity::class.java)
-                .addNextIntent(intent1)
-                .getPendingIntent(110, flags)!!
+//            intent1 = Intent(this, AngkaReadyActivity::class.java)
+//            intent1.putExtra(AngkaReadyActivity.ID_GAME, message.data["action"])
+//            pendingIntent1 = TaskStackBuilder.create(this)
+//                .addParentStack(AngkaReadyActivity::class.java)
+//                .addNextIntent(intent1)
+//                .getPendingIntent(110, flags)!!
+            pendingIntent1 = NavDeepLinkBuilder(this)
+                .setGraph(R.navigation.bot_nav)
+                .setDestination(R.id.mode_angka_nav)
+                .setComponentName(MainActivity::class.java)
+                .createPendingIntent()
+
         } else if(message.data["type"] == "huruf") {
             intent1 = Intent(this, HurufReadyActivity::class.java)
             intent1.putExtra(HurufReadyActivity.ID_GAME, message.data["action"])
