@@ -332,6 +332,9 @@
             android:name="id_user"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/back_to_home_from_score_angka"
+            app:destination="@id/home_nav" />
     </fragment>
     <fragment
         android:id="@+id/score_huruf_user_nav"
@@ -345,6 +348,9 @@
             android:name="id_user"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/back_to_home_from_score_huruf"
+            app:destination="@id/home_nav" />
     </fragment>
     <fragment
         android:id="@+id/match_angka_nav"
@@ -368,11 +374,19 @@
         android:id="@+id/angka_ready_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyFragment"
         android:label="fragment_angka_ready"
-        tools:layout="@layout/fragment_angka_ready" />
+        tools:layout="@layout/fragment_angka_ready" >
+        <action
+            android:id="@+id/back_home_angka_ready"
+            app:destination="@id/home_nav" />
+    </fragment>
     <fragment
         android:id="@+id/huruf_ready_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.HurufReadyFragment"
         android:label="fragment_huruf_ready"
-        tools:layout="@layout/fragment_huruf_ready" />
+        tools:layout="@layout/fragment_huruf_ready" >
+        <action
+            android:id="@+id/back_home_huruf_ready"
+            app:destination="@id/home_nav" />
+    </fragment>
 
 </navigation>

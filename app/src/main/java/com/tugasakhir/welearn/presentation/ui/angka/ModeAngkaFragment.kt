@@ -33,7 +33,8 @@ class ModeAngkaFragment : Fragment() {
         }
 
         binding.btnMultiAngka.setOnClickListener {
-            startActivity(Intent(activity, MatchAngkaActivity::class.java))
+//            startActivity(Intent(activity, MatchAngkaActivity::class.java))
+            view?.findNavController()?.navigate(ModeAngkaFragmentDirections.toMatchAngka())
         }
 
         binding.modeAngkaBack.setOnClickListener {

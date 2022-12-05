@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelSatuBinding
@@ -21,7 +20,6 @@ import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -184,12 +182,7 @@ class AngkaLevelSatuFragment : Fragment() {
                                 "Berhasil Menjawab",
                                 it.message
                             ) {
-                                startActivity(
-                                    Intent(
-                                        activity,
-                                        ScoreAngkaUserActivity::class.java
-                                    )
-                                )
+                                view?.findNavController()?.navigate(AngkaLevelSatuFragmentDirections.toScoreAngkaSatu())
                             }
                         }
                     }

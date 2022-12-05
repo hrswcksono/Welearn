@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.databinding.FragmentModeHurufBinding
 import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufFragmentDirections
 
 class ModeHurufFragment : Fragment() {
 
@@ -32,7 +33,7 @@ class ModeHurufFragment : Fragment() {
         }
 
         binding.btnMultiHuruf.setOnClickListener {
-            startActivity(Intent(activity, MatchHurufActivity::class.java))
+            view?.findNavController()?.navigate(ModeHurufFragmentDirections.toMatchHuruf())
         }
 
         binding.modeHurufBack.setOnClickListener {

@@ -20,7 +20,6 @@ import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -166,12 +165,7 @@ class AngkaLevelNolFragment : Fragment() {
                                 "Berhasil Menjawab",
                                 it.message
                             ) {
-                                startActivity(
-                                    Intent(
-                                        activity,
-                                        ScoreAngkaUserActivity::class.java
-                                    )
-                                )
+                                view?.findNavController()?.navigate(AngkaLevelNolFragmentDirections.toScoreAngkaNol())
                             }
                         }
                     }

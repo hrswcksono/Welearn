@@ -44,6 +44,21 @@ class MainActivity : AppCompatActivity() {
                 R.id.home_nav -> navView.visibility = View.VISIBLE
                 R.id.mode_angka_nav -> navView.visibility = View.VISIBLE
                 R.id.mode_huruf_nav -> navView.visibility = View.VISIBLE
+                R.id.angka_level_nol_nav -> navView.visibility = View.GONE
+                R.id.angka_level_satu_nav -> navView.visibility = View.GONE
+                R.id.angka_level_dua_nav -> navView.visibility = View.GONE
+                R.id.angka_level_tiga_nav -> navView.visibility = View.GONE
+                R.id.angka_level_empat_nav -> navView.visibility = View.GONE
+                R.id.huruf_level_nol_nav -> navView.visibility = View.GONE
+                R.id.huruf_level_satu_nav -> navView.visibility = View.GONE
+                R.id.huruf_level_dua_nav -> navView.visibility = View.GONE
+                R.id.huruf_level_tiga_nav -> navView.visibility = View.GONE
+                R.id.match_angka_nav -> navView.visibility = View.GONE
+                R.id.match_huruf_nav -> navView.visibility = View.GONE
+                R.id.angka_ready_nav -> navView.visibility = View.GONE
+                R.id.huruf_ready_nav -> navView.visibility = View.GONE
+                R.id.score_angka_user_nav -> navView.visibility = View.GONE
+                R.id.score_huruf_user_nav -> navView.visibility = View.GONE
             }
         }
     }
