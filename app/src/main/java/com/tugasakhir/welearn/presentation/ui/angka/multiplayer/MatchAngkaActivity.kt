@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.presentation.ui.angka.multiplayer
 
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.google.firebase.messaging.FirebaseMessaging
@@ -78,7 +79,7 @@ class MatchAngkaActivity : AppCompatActivity() {
             binding.alevel4.visibility = View.VISIBLE
             inputLevel = 4
         }
-        randomSoal(inputLevel)
+        randomSoal(4)
     }
 
     private fun findPlayer(level: String, id_game : String) {

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/main_bg"
+    tools:context=".presentation.ui.huruf.multiplayer.MatchHurufFragment">
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="44dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/back_button" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_find_huruf"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_rounded_green"
+        android:text="CARI PLAYER"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_huruf_acak"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_start_huruf"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/btn_rounded_green"
+        android:text="MULAI"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_find_huruf"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_huruf_acak"
+        android:layout_width="172dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/btn_rounded_green"
+        android:text="ACAK SOAL"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ba_level3"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="250sp"
+        android:layout_height="71sp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/title_list"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:gravity="center"
+        android:paddingHorizontal="20sp"
+        android:text="Huruf Multiplayer"
+        android:textColor="@color/color_black"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView4" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ba_level0"
+        android:layout_width="93sp"
+        android:layout_height="66sp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_grid"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="level 0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ba_level1"
+        android:layout_width="93sp"
+        android:layout_height="66sp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="104dp"
+        android:background="@drawable/bg_grid"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="level 1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ba_level3"
+        android:layout_width="93sp"
+        android:layout_height="66sp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="75dp"
+        android:background="@drawable/bg_grid"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="level3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.907"
+        app:layout_constraintStart_toEndOf="@+id/ba_level2"
+        app:layout_constraintTop_toBottomOf="@+id/ba_level1" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/ba_level2"
+        android:layout_width="93sp"
+        android:layout_height="66sp"
+        android:layout_marginStart="96dp"
+        android:layout_marginTop="28dp"
+        android:background="@drawable/bg_grid"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="level 2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ba_level1" />
+
+    <ProgressBar
+        android:id="@+id/pg_huruf_acak"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_huruf_acak"
+        app:layout_constraintStart_toEndOf="@+id/btn_huruf_acak"
+        app:layout_constraintTop_toTopOf="@+id/btn_huruf_acak" />
+
+    <ProgressBar
+        android:id="@+id/pg_cari_player_huruf"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_find_huruf"
+        app:layout_constraintStart_toEndOf="@+id/btn_find_huruf"
+        app:layout_constraintTop_toTopOf="@+id/btn_find_huruf" />
+
+    <ImageView
+        android:id="@+id/cek_acak_huruf"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_huruf_acak"
+        app:layout_constraintEnd_toStartOf="@+id/btn_huruf_acak"
+        app:layout_constraintTop_toTopOf="@+id/btn_huruf_acak"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <ImageView
+        android:id="@+id/cek_cari_player_huruf"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_find_huruf"
+        app:layout_constraintEnd_toStartOf="@+id/btn_find_huruf"
+        app:layout_constraintTop_toTopOf="@+id/btn_find_huruf"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <ImageView
+        android:id="@+id/hlevel_0"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ba_level0"
+        app:layout_constraintEnd_toStartOf="@+id/ba_level0"
+        app:layout_constraintTop_toTopOf="@+id/ba_level0"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <ImageView
+        android:id="@+id/hlevel_1"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="12dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ba_level1"
+        app:layout_constraintEnd_toStartOf="@+id/ba_level1"
+        app:layout_constraintTop_toTopOf="@+id/ba_level1"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <ImageView
+        android:id="@+id/hlevel_2"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ba_level2"
+        app:layout_constraintEnd_toStartOf="@+id/ba_level2"
+        app:layout_constraintTop_toTopOf="@+id/ba_level2"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+    <ImageView
+        android:id="@+id/hlevel_3"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/ba_level3"
+        app:layout_constraintEnd_toStartOf="@+id/ba_level3"
+        app:layout_constraintTop_toTopOf="@+id/ba_level3"
+        app:srcCompat="@drawable/ic_baseline_submit" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

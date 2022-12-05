@@ -1,9 +1,11 @@
 package com.tugasakhir.welearn
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.StrictMode
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
@@ -45,4 +47,5 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
 }
