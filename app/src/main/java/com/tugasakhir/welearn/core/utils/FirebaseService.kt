@@ -12,13 +12,17 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaFragment
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufFragment
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlin.random.Random
+
 
 private const val CHANNEL_ID = "my_channel"
 
@@ -26,6 +30,7 @@ class FirebaseService : FirebaseMessagingService() {
 
     private lateinit var pendingIntent1: PendingIntent
     private lateinit var intent1: Intent
+    private lateinit var myFragment: MatchHurufFragment
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -38,6 +43,14 @@ class FirebaseService : FirebaseMessagingService() {
         }
 
         var player = 0
+//        myFragment = MatchHurufFragment()
+//        supportFragmentManager
+//            .beginTransaction()
+//            .add(R.id.fragment_container, myFragment , "MyFragment")
+//            .commit()
+
+        //this is fragment method, we call it from activity
+//        myFragment.getToast(this)
 
         if (message.data["action"] == "gabung") {
             player++
@@ -67,6 +80,7 @@ class FirebaseService : FirebaseMessagingService() {
                 "0" -> pendingIntent1 = startPendingIntent(R.id.angka_level_nol_nav, bundleStart(message))
                 "1" -> pendingIntent1 = startPendingIntent(R.id.angka_level_satu_nav, bundleStart(message))
                 "2" -> pendingIntent1 = startPendingIntent(R.id.angka_level_dua_nav, bundleStart(message))
+//                "2" -> hLevel2Huruf.test()
                 "3" -> pendingIntent1 = startPendingIntent(R.id.angka_level_tiga_nav, bundleStart(message))
                 "4" -> pendingIntent1 = startPendingIntent(R.id.angka_level_empat_nav, bundleStart(message))
             }
