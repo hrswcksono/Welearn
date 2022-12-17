@@ -15,7 +15,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class RegisterActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityRegisterBinding
@@ -32,6 +31,10 @@ class RegisterActivity : AppCompatActivity() {
         binding.btnRegister.setOnClickListener {
             binding.progressbarRegister.visibility = View.VISIBLE
             register()
+        }
+
+        binding.btnregLogin.setOnClickListener {
+            startActivity(Intent(this, LoginActivity::class.java))
         }
     }
 

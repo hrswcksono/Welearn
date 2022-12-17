@@ -5,7 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.databinding.ItemScoreAngkaBinding
+import com.tugasakhir.welearn.databinding.ItemScoreSingleBinding
 import com.tugasakhir.welearn.domain.entity.RankingScoreEntity
 
 class ScoreAngkaAdapter : RecyclerView.Adapter<ScoreAngkaAdapter.ListViewHolder>() {
@@ -21,18 +21,18 @@ class ScoreAngkaAdapter : RecyclerView.Adapter<ScoreAngkaAdapter.ListViewHolder>
     }
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemScoreAngkaBinding.bind(itemView)
+        private val binding = ItemScoreSingleBinding.bind(itemView)
         fun bind(data: RankingScoreEntity) {
             with(binding) {
-                tvNoAngka.text = (absoluteAdapterPosition+1).toString()
-                tvNamaSkor.text = data.name
-                tvValueSkorAngka.text = data.total
+                tvNoSingle.text = (absoluteAdapterPosition+1).toString()
+                tvNamaSingle.text = data.name
+                tvSkorSingle.text = data.total
             }
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score_angka, parent, false))
+        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score_single, parent, false))
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val data = listData[position]

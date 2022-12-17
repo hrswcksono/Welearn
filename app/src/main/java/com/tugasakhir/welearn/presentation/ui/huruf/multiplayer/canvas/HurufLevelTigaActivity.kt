@@ -1,25 +1,27 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.canvas
+package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.data.Resource
-import com.tugasakhir.welearn.databinding.FragmentHurufLevelTigaBinding
+import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
+import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,10 +30,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HurufLevelTigaFragment : Fragment() {
+class HurufLevelTigaActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
+        const val ID_GAME = "id_game"
+        const val NO_SOAL = "no_soal"
+    }
 
-    private var _binding: FragmentHurufLevelTigaBinding ?= null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityHurufLevelTigaBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
@@ -40,34 +48,29 @@ class HurufLevelTigaFragment : Fragment() {
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHurufLevelTigaBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityHurufLevelTigaBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        supportActionBar?.hide()
 
-        val mode = HurufLevelTigaFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
+        val mode = intent.getStringExtra(GAME_MODE)
+
+        binding.levelTigaHurufBack.setOnClickListener {
+            onBackPressed()
         }
-
+        draw()
+        handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
     }
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
+            val idGame = intent.getStringExtra(ID_GAME)
             listDialog(idGame!!.toInt())
             joinGame(idGame!!.toInt())
             var index = 0
@@ -76,65 +79,62 @@ class HurufLevelTigaFragment : Fragment() {
 //            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-            showScreen(idSoal.toInt())
+            showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener {
-                disableButton()
                 val image = ArrayList<String>()
                 image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap().scale(200, 200)))
+                    add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap().scale(200, 200)))
                 }
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
+                    showScreen(idSoal)
 //                    submitDrawing(idSoal)
                 }
-
             }
         }else if (mode == "single") {
+            val noSoal = intent.getStringExtra(NO_SOAL)
             binding.btnUserParticipantH3.visibility = View.INVISIBLE
-            val idSoal = HurufLevelTigaFragmentArgs.fromBundle(arguments as Bundle).idSoal
+            val idSoal = intent.getIntExtra(AngkaLevelNolActivity.EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitTigaHuruf.setOnClickListener{
                 val image = ArrayList<String>()
                 image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
                 }
-                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun disableButton(){
-        binding.submitTigaHuruf.isEnabled = false
-        binding.submitTigaHuruf.isClickable = false
+    private fun hideButton() {
+        binding.submitTigaHuruf.visibility = View.GONE
+        binding.refreshTigaHuruf.visibility = View.GONE
     }
 
-    private fun enableButton(){
-        binding.submitTigaHuruf.isEnabled = true
-        binding.submitTigaHuruf.isClickable = true
+    private fun showButton() {
+        binding.submitTigaHuruf.visibility = View.VISIBLE
+        binding.refreshTigaHuruf.visibility = View.VISIBLE
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
@@ -148,29 +148,32 @@ class HurufLevelTigaFragment : Fragment() {
         }
     }
 
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
         binding.progressBarH3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id.toInt(), image)
                     .collectLatest {
                         binding.progressBarH3.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(HurufLevelTigaFragmentDirections.toScoreHurufTiga())
-                            }
+                        CustomDialogBox.withConfirm(
+                            this@HurufLevelTigaActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+//                            startActivity(
+//                                Intent(
+//                                    this@HurufLevelTigaActivity,
+//                                    ScoreHurufUserActivity::class.java
+//                                )
+//                            )
                         }
                     }
             }
         }
     }
 
-    private fun showScreen(id: Int) {
+    private fun showScreen(id: String) {
         binding.progressBarH3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
@@ -184,9 +187,9 @@ class HurufLevelTigaFragment : Fragment() {
     }
 
     private fun show(data: SoalEntity){
-        Template.speak(data.keterangan)
+        speak(data.keterangan)
         binding.spkTigaHuruf.setOnClickListener {
-            Template.speak(data.keterangan)
+            speak(data.keterangan)
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
@@ -215,7 +218,7 @@ class HurufLevelTigaFragment : Fragment() {
 
     private fun back(){
         binding.levelTigaHurufBack.setOnClickListener {
-            view?.findNavController()?.navigate(HurufLevelTigaFragmentDirections.backFromHurufTiga())
+            onBackPressed()
         }
     }
 
@@ -258,7 +261,11 @@ class HurufLevelTigaFragment : Fragment() {
                         Constants.TOPIC_JOIN_HURUF,
                         "high"
                     )
-                ).collectLatest {  }
+                ).collectLatest {
+                    val moveToScoreMulti = Intent(this@HurufLevelTigaActivity, ScoreMultiplayerActivity::class.java)
+                    moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
+                    startActivity(moveToScoreMulti)
+                }
             }
         }
     }
@@ -271,7 +278,7 @@ class HurufLevelTigaFragment : Fragment() {
                         when(it) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
+                                Template.listUser(it.data!!, this@HurufLevelTigaActivity)
                             }
                             is Resource.Error -> {}
                         }
@@ -280,5 +287,4 @@ class HurufLevelTigaFragment : Fragment() {
             }
         }
     }
-
 }

@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListLevelAngkaBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
@@ -24,6 +25,8 @@ class ListLevelAngkaFragment : Fragment() {
     private var _binding: FragmentListLevelAngkaBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LevelSoalPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,8 +41,10 @@ class ListLevelAngkaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.listAngkaBack.setOnClickListener {
-            view.findNavController().navigate(ListLevelAngkaFragmentDirections.backModeAngka())
+            view.findNavController().navigate(ListLevelAngkaFragmentDirections.actionListLevelAngkaNavToModeAngkaNav())
         }
+
+        sessionManager = activity?.let { SharedPreference(it) }!!
 
         showGridAngka()
     }
@@ -49,8 +54,10 @@ class ListLevelAngkaFragment : Fragment() {
         binding.progressLevelAngka.visibility = View.VISIBLE
 
         angkaAdapter.onItemClick = {
+            sessionManager.deleteIDLevel()
             val toSoalAngka = ListLevelAngkaFragmentDirections.toSoalAngka()
             toSoalAngka.idLevel = it.idLevel
+            sessionManager.saveIDLevel(it.idLevel)
             view?.findNavController()?.navigate(toSoalAngka)
         }
 

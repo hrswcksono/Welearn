@@ -36,6 +36,7 @@ class ScoreHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         showScore()
+        header(View.INVISIBLE)
     }
 
     private fun showScore() {
@@ -45,6 +46,7 @@ class ScoreHurufFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.highScore(1).collectLatest {
+                    header(View.VISIBLE)
                     scoreHurufAdapter.setData(it)
                     binding.progressBarSHuruf.visibility = View.INVISIBLE
                 }
@@ -56,5 +58,11 @@ class ScoreHurufFragment : Fragment() {
             setHasFixedSize(true)
             adapter = scoreHurufAdapter
         }
+    }
+
+    private fun header(vis: Int){
+        binding.tvhNo.visibility = vis
+        binding.tvhUsername.visibility = vis
+        binding.tvhSkor.visibility = vis
     }
 }

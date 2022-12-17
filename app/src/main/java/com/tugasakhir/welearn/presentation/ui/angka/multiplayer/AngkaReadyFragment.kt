@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
@@ -87,7 +86,6 @@ class AngkaReadyFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_game)
                     .collectLatest {
-                        Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
                         if (it == "Berhasil Join") {
                             ready()
                         }

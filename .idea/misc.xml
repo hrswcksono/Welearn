@@ -42,7 +42,7 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_huruf_level_tiga.xml" value="0.23854166666666668" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_huruf_level_tiga_next.xml" value="0.20153985507246377" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_huruf_ready.xml" value="0.264" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_joined_game.xml" value="0.264" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_joined_game.xml" value="0.152" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_level_angka.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_level_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/activity_list_soal_angka.xml" value="0.24010416666666667" />
@@ -80,7 +80,7 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_level_huruf.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_soal_angka.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_list_soal_huruf.xml" value="0.25416666666666665" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_match_angka.xml" value="0.15" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_match_angka.xml" value="0.2" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_match_huruf.xml" value="0.15" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_mode.xml" value="0.152" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_mode_angka.xml" value="0.25416666666666665" />
@@ -89,7 +89,7 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_quiz.xml" value="0.16302083333333334" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_rank.xml" value="0.16302083333333334" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score.xml" value="0.1578125" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_angka.xml" value="0.176" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_angka.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_angka_user.xml" value="0.21240942028985507" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_huruf.xml" value="0.18385416666666668" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_score_huruf_user.xml" value="0.21240942028985507" />

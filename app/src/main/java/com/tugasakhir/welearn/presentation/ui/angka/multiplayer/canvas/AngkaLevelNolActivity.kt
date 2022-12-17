@@ -1,25 +1,26 @@
-package com.tugasakhir.welearn.presentation.ui.angka.canvas
+package com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
+import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.data.Resource
-import com.tugasakhir.welearn.databinding.FragmentAngkaLevelDuaBinding
+import com.tugasakhir.welearn.databinding.ActivityAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,10 +29,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AngkaLevelDuaFragment : Fragment() {
+class AngkaLevelNolActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
+        const val ID_GAME = "id_game"
+        const val NO_SOAL = "no_soal"
+    }
 
-    private var _binding: FragmentAngkaLevelDuaBinding ?= null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityAngkaLevelNolBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
     private val predictAngkaMultiPresenter: PredictAngkaMultiPresenter by viewModel()
@@ -40,85 +47,79 @@ class AngkaLevelDuaFragment : Fragment() {
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentAngkaLevelDuaBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityAngkaLevelNolBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        supportActionBar?.hide()
 
-        val mode = AngkaLevelDuaFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
-        }
+        val mode = intent.getStringExtra(GAME_MODE)
 
+//        binding.cnvsLevelNolAngka.setBackgroundColor(Color.BLACK)
+//        binding.cnvsLevelNolAngka.setColor(Color.WHITE)
+
+        binding.tvSelesaiA0.visibility = View.INVISIBLE
+        handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
     }
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
-            if (idGame != null) {
-                listDialog(idGame.toInt())
-            }
-            if (idGame != null) {
-                joinGame(idGame.toInt())
-            }
+            val idGame = intent.getStringExtra(ID_GAME)
+            listDialog(idGame!!.toInt())
+            joinGame(idGame!!.toInt())
             var index = 0
-            var total = 0L
+            var total: Long
             val begin = Date().time
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-            showScreen(idSoal.toInt())
-            binding.submitDuaAngka.setOnClickListener {
-                disableButton()
+            showScreen(idSoal)
+            binding.submitNolAngka.setOnClickListener {
+                hideButton()
                 val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelDuaAngka.getBitmap())!!)
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
+                image.add(encodeImage(binding.cnvsLevelNolAngka.getBitmap().scale(150,150))!!)
                 val end = Date().time
                 total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame!!.toInt(),idSoal.toInt(),total.toInt(), image)
+                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
+                    showScreen(idSoal)
 //                    submitDrawing(idSoal)
+                } else if (index == 3) {
+                    binding.progressBarA0.visibility = View.VISIBLE
+                    binding.tvSelesaiA0.visibility = View.VISIBLE
                 }
 
             }
         }else if (mode == "single") {
-            binding.btnUserParticipantA2.visibility = View.INVISIBLE
-            val idSoal = AngkaLevelDuaFragmentArgs.fromBundle(arguments as Bundle).idSoal
+            val noSoal = intent.getStringExtra(NO_SOAL)
+            binding.btnUserParticipantA0.visibility = View.INVISIBLE
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
-            binding.submitDuaAngka.setOnClickListener{
+            binding.submitNolAngka.setOnClickListener{
                 val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelDuaAngka.getBitmap())!!)
-                disableButton()
+                image.add(encodeImage(binding.cnvsLevelNolAngka.getBitmap().scale(150,150))!!)
                 submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun disableButton(){
-        binding.submitDuaAngka.isEnabled = false
-        binding.submitDuaAngka.isClickable = false
-    }
-
-    private fun enableButton(){
-        binding.submitDuaAngka.isEnabled = true
-        binding.submitDuaAngka.isClickable = true
+    private fun showScreen(id: String) {
+        binding.progressBarA0.visibility = View.VISIBLE
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                soalViewModel.getSoalByID(id.toInt()).collectLatest {
+                    showData(it)
+                    showButton()
+                    binding.progressBarA0.visibility = View.INVISIBLE
+                    refreshCanvas()
+                }
+            }
+        }
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
@@ -132,64 +133,54 @@ class AngkaLevelDuaFragment : Fragment() {
         }
     }
 
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
-        binding.progressBarA2.visibility = View.VISIBLE
+    private fun showData(data: SoalEntity){
+        speak(data.keterangan + " " + data.soal)
+        binding.spkNolAngka.setOnClickListener {
+            speak(data.keterangan + " " + data.soal)
+        }
+        binding.soalAngkaDipilih.text = data.keterangan
+        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
+        binding.tvSoal.text = data.soal
+    }
+
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
+        binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictAngkaPresenter.predictAngka(id.toInt(), image)
                     .collectLatest {
-                        binding.progressBarA2.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(AngkaLevelDuaFragmentDirections.toScoreAngkaDua())
-                            }
+                        binding.progressBarA0.visibility = View.INVISIBLE
+                        CustomDialogBox.withConfirm(
+                            this@AngkaLevelNolActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+//                            startActivity(
+//                                Intent(
+//                                    this@AngkaLevelNolActivity,
+//                                    ScoreAngkaUserActivity::class.java
+//                                )
+//                            )
                         }
                     }
             }
         }
     }
 
-    private fun showScreen(id: Int) {
-        binding.progressBarA2.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                soalViewModel.getSoalByID(id.toInt()).collectLatest {
-                    showData(it)
-                    binding.progressBarA2.visibility = View.INVISIBLE
-                    refreshCanvas()
-                }
-            }
-        }
-    }
-
-    private fun showData(data: SoalEntity){
-        Template.speak(data.keterangan + " " + data.soal)
-        binding.spkDuaAngka.setOnClickListener {
-            Template.speak(data.keterangan + " " + data.soal)
-        }
-        binding.soalAngkaDipilih.text = data.keterangan
-        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
-        binding.tvSoalAngkaDua.text = data.soal
-    }
-
     private fun refreshCanvasOnClick(){
-        binding.refreshDuaAngka.setOnClickListener {
+        binding.refreshNolAngka.setOnClickListener {
             refreshCanvas()
         }
     }
 
     private fun refreshCanvas(){
-        binding.cnvsLevelDuaAngka.clearCanvas()
+        binding.cnvsLevelNolAngka.clearCanvas()
     }
 
-    private fun back() {
-        binding.levelDuaAngkaBack.setOnClickListener {
-            view?.findNavController()?.navigate(AngkaLevelDuaFragmentDirections.backFromAngkaDua())
+    private fun back(){
+        binding.levelNolAngkaBack.setOnClickListener {
+            onBackPressed()
         }
     }
 
@@ -208,7 +199,6 @@ class AngkaLevelDuaFragment : Fragment() {
                 endGamePresenter.endGame(idGame.toString())
                     .collectLatest {
                         if (it == "Berhasil End Game"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
                             showScoreMulti(idGame.toString())
                         }
                     }
@@ -227,25 +217,39 @@ class AngkaLevelDuaFragment : Fragment() {
                             ,"score",
                             "",
                             0,
-                            idGame,
+                            idGame
                         ),
                         Constants.TOPIC_JOIN_ANGKA,
                         "high"
                     )
-                ).collectLatest {  }
+                ).collectLatest {
+                    val moveToScoreMulti = Intent(this@AngkaLevelNolActivity, ScoreMultiplayerActivity::class.java)
+                    moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
+                    startActivity(moveToScoreMulti)
+                }
             }
         }
     }
 
+    private fun hideButton() {
+        binding.submitNolAngka.visibility = View.GONE
+        binding.refreshNolAngka.visibility = View.GONE
+    }
+
+    private fun showButton() {
+        binding.submitNolAngka.visibility = View.VISIBLE
+        binding.refreshNolAngka.visibility = View.VISIBLE
+    }
+
     private fun listDialog(idGame: Int) {
-        binding.btnUserParticipantA2.setOnClickListener {
+        binding.btnUserParticipantA0.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
                         when(it) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
+                                Template.listUser(it.data!!, this@AngkaLevelNolActivity)
                             }
                             is Resource.Error -> {}
                         }

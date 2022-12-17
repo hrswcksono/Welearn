@@ -96,7 +96,6 @@ class HurufReadyFragment : Fragment() {
                 joinGamePresenter.joinGame(id_game)
                     .collectLatest {
 //                        Toast.makeText()
-                        Toast.makeText(activity, it, Toast.LENGTH_SHORT).show()
                         if (it == "Berhasil Join") {
                             ready()
                         }

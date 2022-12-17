@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
+import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -35,7 +36,7 @@ class ListSoalHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.soalHurufBack.setOnClickListener {
-            view.findNavController().navigate(ListSoalHurufFragmentDirections.backLevelHuruf())
+            view.findNavController().navigate(ListSoalHurufFragmentDirections.backToLevelFromSoalHuruf())
         }
 
         showGridSoalHuruf()

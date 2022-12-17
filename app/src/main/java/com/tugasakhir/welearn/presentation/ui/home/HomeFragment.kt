@@ -125,17 +125,15 @@ class HomeFragment : Fragment() {
         flatDialog
             .setTitle("Lihat ScoreEntity")
             .setTitleColor(Color.BLACK)
-//            .setSubtitle("write your profile info here")
             .setFirstButtonText("Single Player")
             .setFirstButtonColor(Color.parseColor("#a6e474"))
-            .setFirstButtonTextColor(Color.parseColor("#667763"))
+            .setFirstButtonTextColor(Color.BLACK)
             .setSecondButtonText("Multi Player")
             .setSecondButtonColor(Color.parseColor("#e0f84a"))
-            .setSecondButtonTextColor(Color.parseColor("#667763"))
+            .setSecondButtonTextColor(Color.BLACK)
             .setBackgroundColor(Color.parseColor("#e3ffdf"))
             .isCancelable(true)
             .withFirstButtonListner {
-                // do something ...
                 flatDialog.dismiss()
                 startActivity(Intent(activity, ScoreActivity::class.java))
             }

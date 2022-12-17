@@ -6,33 +6,36 @@
     android:layout_margin="10dp">
 
     <TextView
-        android:id="@+id/tv_no_angka"
+        android:id="@+id/tv_no_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/rubik_regular"
         android:text="1"
+        android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_nama_skor"
+        android:id="@+id/tv_nama_single"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:fontFamily="@font/rubik_regular"
         android:text="@string/nama"
+        android:textColor="@color/black"
         android:textSize="17sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_value_skor_angka"
-        app:layout_constraintStart_toEndOf="@+id/tv_no_angka"
+        app:layout_constraintEnd_toStartOf="@+id/tv_skor_single"
+        app:layout_constraintStart_toEndOf="@+id/tv_no_single"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tv_value_skor_angka"
+        android:id="@+id/tv_skor_single"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/rubik_regular"
         android:text="100"
+        android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

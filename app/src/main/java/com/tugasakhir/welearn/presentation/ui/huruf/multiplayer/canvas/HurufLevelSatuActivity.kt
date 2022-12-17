@@ -1,25 +1,25 @@
-package com.tugasakhir.welearn.presentation.ui.huruf.canvas
+package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas
 
 import android.content.Intent
+import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.Template.encodeImage
+import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.data.Resource
-import com.tugasakhir.welearn.databinding.FragmentHurufLevelSatuBinding
+import com.tugasakhir.welearn.databinding.ActivityHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
+import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -28,10 +28,16 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class HurufLevelSatuFragment : Fragment() {
+class HurufLevelSatuActivity : AppCompatActivity() {
+    companion object {
+        const val EXTRA_SOAL = "extra_soal"
+        const val GAME_MODE = "game_mode"
+        const val LEVEL_SOAL = "level_soal"
+        const val ID_GAME = "id_game"
+        const val NO_SOAL = "no_soal"
+    }
 
-    private var _binding: FragmentHurufLevelSatuBinding ?= null
-    private val binding get() = _binding!!
+    private lateinit var binding: ActivityHurufLevelSatuBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
@@ -40,34 +46,26 @@ class HurufLevelSatuFragment : Fragment() {
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        _binding = FragmentHurufLevelSatuBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        binding = ActivityHurufLevelSatuBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+        supportActionBar?.hide()
 
-        val mode = HurufLevelSatuFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
-        }
+        val mode = intent.getStringExtra(GAME_MODE)
+        binding.tvSelesaiH1.visibility = View.INVISIBLE
 
+        handlingMode(mode.toString())
         refreshCanvasOnClick()
         back()
     }
 
     private fun handlingMode(mode: String) {
         if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
+            val soalID = intent.getStringExtra(LEVEL_SOAL)
             val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
+            val idGame = intent.getStringExtra(HurufLevelNolActivity.ID_GAME)
             listDialog(idGame!!.toInt())
             joinGame(idGame!!.toInt())
             var index = 0
@@ -75,52 +73,54 @@ class HurufLevelSatuFragment : Fragment() {
             val begin = Date().time
 //            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
             var idSoal = arrayID[index]
-            showScreen(idSoal.toInt())
+            showScreen(idSoal)
             binding.submitSatuHuruf.setOnClickListener {
-                disableButton()
+                hideButton()
                 val image = ArrayList<String>()
                 image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
                 }
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
                 submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
                 index++
                 if (index < 3) {
                     idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
+                    showScreen(idSoal)
 //                    submitDrawing(idSoal)
+                }else if (index == 3) {
+                    binding.progressBarH1.visibility = View.VISIBLE
+                    binding.tvSelesaiH1.visibility = View.VISIBLE
                 }
             }
         }else if (mode == "single") {
+            val noSoal = intent.getStringExtra(NO_SOAL)
             binding.btnUserParticipantH1.visibility = View.INVISIBLE
-            val idSoal = HurufLevelSatuFragmentArgs.fromBundle(arguments as Bundle).idSoal
+            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
             showScreen(idSoal)
             binding.submitSatuHuruf.setOnClickListener{
                 val image = ArrayList<String>()
                 image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
+                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
                 }
-                disableButton()
                 submitDrawing(idSoal, image)
             }
         }
     }
 
-    private fun disableButton(){
-        binding.submitSatuHuruf.isEnabled = false
-        binding.submitSatuHuruf.isClickable = false
+    private fun hideButton() {
+        binding.submitSatuHuruf.visibility = View.GONE
+        binding.refreshSatuHuruf.visibility = View.GONE
     }
 
-    private fun enableButton(){
-        binding.submitSatuHuruf.isEnabled = true
-        binding.submitSatuHuruf.isClickable = true
+    private fun showButton() {
+        binding.submitSatuHuruf.visibility = View.VISIBLE
+        binding.refreshSatuHuruf.visibility = View.VISIBLE
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
@@ -134,29 +134,32 @@ class HurufLevelSatuFragment : Fragment() {
         }
     }
 
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+    private fun submitDrawing(id: String, image: ArrayList<String>) {
         binding.progressBarH1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id.toInt(), image)
                     .collectLatest {
                         binding.progressBarH1.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(HurufLevelSatuFragmentDirections.toScoreHurufSatu())
-                            }
+                        CustomDialogBox.withConfirm(
+                            this@HurufLevelSatuActivity,
+                            SweetAlertDialog.SUCCESS_TYPE,
+                            "Berhasil Menjawab",
+                            it.message
+                        ) {
+//                            startActivity(
+//                                Intent(
+//                                    this@HurufLevelSatuActivity,
+//                                    ScoreHurufUserActivity::class.java
+//                                )
+//                            )
                         }
                     }
             }
         }
     }
 
-    private fun showScreen(id: Int) {
+    private fun showScreen(id: String) {
         binding.progressBarH1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
@@ -170,9 +173,9 @@ class HurufLevelSatuFragment : Fragment() {
     }
 
     private fun showData(data: SoalEntity){
-        Template.speak(data.keterangan)
+        speak(data.keterangan)
         binding.spkSatuHuruf.setOnClickListener {
-            Template.speak(data.keterangan)
+            speak(data.keterangan)
         }
         binding.soalHurufDipilih.text = data.keterangan
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
@@ -192,7 +195,7 @@ class HurufLevelSatuFragment : Fragment() {
 
     private fun back(){
         binding.levelSatuHurufBack.setOnClickListener {
-            view?.findNavController()?.navigate(HurufLevelSatuFragmentDirections.backFromHurufSatu())
+            onBackPressed()
         }
     }
 
@@ -235,7 +238,11 @@ class HurufLevelSatuFragment : Fragment() {
                         Constants.TOPIC_JOIN_HURUF,
                         "high"
                     )
-                ).collectLatest {  }
+                ).collectLatest {
+                    val moveToScoreMulti = Intent(this@HurufLevelSatuActivity, ScoreMultiplayerActivity::class.java)
+                    moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
+                    startActivity(moveToScoreMulti)
+                }
             }
         }
     }
@@ -248,7 +255,7 @@ class HurufLevelSatuFragment : Fragment() {
                         when(it) {
                             is Resource.Loading -> {}
                             is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
+                                Template.listUser(it.data!!, this@HurufLevelSatuActivity)
                             }
                             is Resource.Error -> {}
                         }

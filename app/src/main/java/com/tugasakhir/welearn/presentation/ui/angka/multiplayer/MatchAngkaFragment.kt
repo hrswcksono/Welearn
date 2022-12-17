@@ -50,7 +50,7 @@ class MatchAngkaFragment : Fragment() {
         FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC_JOIN_ANGKA)
 
         binding.btnBackMatchAngka.setOnClickListener {
-            view?.findNavController()?.navigate(MatchAngkaFragmentDirections.backFromMatchAngka())
+            view?.findNavController()?.navigateUp()
         }
         choseeLevel()
     }
@@ -63,33 +63,37 @@ class MatchAngkaFragment : Fragment() {
         binding.cekCariPlayerAngka.visibility = View.INVISIBLE
         binding.cekAcakAngka.visibility = View.INVISIBLE
 
-        var inputLevel = 0
+        var inputLevel: Int
         binding.bhLevel0.setOnClickListener {
             eraseCheckLevel()
             binding.alevel0.visibility = View.VISIBLE
             inputLevel = 0
+            randomSoal(inputLevel)
         }
         binding.bhLevel1.setOnClickListener {
             eraseCheckLevel()
             binding.alevel1.visibility = View.VISIBLE
             inputLevel = 1
+            randomSoal(inputLevel)
         }
         binding.bhLevel2.setOnClickListener {
             eraseCheckLevel()
             binding.alevel2.visibility = View.VISIBLE
             inputLevel = 2
+            randomSoal(inputLevel)
         }
         binding.bhLevel3.setOnClickListener {
             eraseCheckLevel()
             binding.alevel3.visibility = View.VISIBLE
             inputLevel = 3
+            randomSoal(inputLevel)
         }
         binding.bhLevel4.setOnClickListener {
             eraseCheckLevel()
             binding.alevel4.visibility = View.VISIBLE
             inputLevel = 4
+            randomSoal(inputLevel)
         }
-        randomSoal(inputLevel)
     }
 
     private fun findPlayer(level: String, id_game : String) {
@@ -100,7 +104,7 @@ class MatchAngkaFragment : Fragment() {
                     viewModel.pushNotification(
                         PushNotification(
                             NotificationData(
-                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka!"
+                                "${sessionManager.fetchName().toString()} mengajak anda bertanding Angka level $level"
                                 ,"Siapa yang ingin ikut?"
                                 ,"angka",
                                 "",

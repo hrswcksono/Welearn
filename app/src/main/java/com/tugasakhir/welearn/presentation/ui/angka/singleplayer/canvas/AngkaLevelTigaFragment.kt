@@ -1,19 +1,20 @@
-package com.tugasakhir.welearn.presentation.ui.angka.canvas
+package com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.data.Resource
-import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
+import com.tugasakhir.welearn.databinding.FragmentAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
@@ -28,9 +29,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
 import kotlin.collections.ArrayList
 
-class AngkaLevelNolFragment : Fragment() {
+class AngkaLevelTigaFragment : Fragment() {
 
-    private var _binding: FragmentAngkaLevelNolBinding ?= null
+    private var _binding: FragmentAngkaLevelTigaBinding ?= null
     private val binding get() = _binding!!
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
@@ -39,26 +40,28 @@ class AngkaLevelNolFragment : Fragment() {
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentAngkaLevelNolBinding.inflate(inflater, container, false)
+        _binding = FragmentAngkaLevelTigaBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val mode = AngkaLevelNolFragmentArgs.fromBundle(arguments as Bundle).gameMode
+        sessionManager = activity?.let { SharedPreference(it) }!!
+        val mode = AngkaLevelTigaFragmentArgs.fromBundle(arguments as Bundle).gameMode
         if (mode == " "){
             arguments?.getString("mode")?.let { handlingMode(it) }
         } else{
             handlingMode(mode)
         }
 
-        refreshCanvas()
+        refreshCanvasOnClick()
         back()
     }
 
@@ -77,10 +80,10 @@ class AngkaLevelNolFragment : Fragment() {
             var idSoal = arrayID[index]
 //            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             showScreen(idSoal.toInt())
-            binding.submitNolAngka.setOnClickListener {
+            binding.submitTigaAngka.setOnClickListener {
                 disableButton()
                 val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelNolAngka.getBitmap())!!)
+                image.add(Template.encodeImage(binding.cnvsLevelTigaAngka.getBitmap().scale(150,150))!!)
 //                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
                 val end = Date().time
                 total = (end - begin)/1000
@@ -90,17 +93,16 @@ class AngkaLevelNolFragment : Fragment() {
                 if (index < 3) {
                     idSoal = arrayID[index]
                     showScreen(idSoal.toInt())
-//                    submitDrawing(idSoal)
                 }
 
             }
         }else if (mode == "single") {
-            binding.btnUserParticipantA0.visibility = View.INVISIBLE
+            binding.btnUserParticipantA3.visibility = View.INVISIBLE
             val idSoal = AngkaLevelNolFragmentArgs.fromBundle(arguments as Bundle).idSoal
             showScreen(idSoal)
-            binding.submitNolAngka.setOnClickListener{
+            binding.submitTigaAngka.setOnClickListener{
                 val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelNolAngka.getBitmap())!!)
+                image.add(Template.encodeImage(binding.cnvsLevelTigaAngka.getBitmap().scale(150,150))!!)
                 disableButton()
                 submitDrawing(idSoal, image)
             }
@@ -108,24 +110,33 @@ class AngkaLevelNolFragment : Fragment() {
     }
 
     private fun disableButton(){
-        binding.submitNolAngka.isEnabled = false
-        binding.submitNolAngka.isClickable = false
+        binding.submitTigaAngka.isEnabled = false
+        binding.submitTigaAngka.isClickable = false
     }
 
     private fun enableButton(){
-        binding.submitNolAngka.isEnabled = true
-        binding.submitNolAngka.isClickable = true
+        binding.submitTigaAngka.isEnabled = true
+        binding.submitTigaAngka.isClickable = true
     }
 
-    private fun showScreen(id: Int) {
-        binding.progressBarA0.visibility = View.VISIBLE
+    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+        binding.progressBarA3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.getSoalByID(id.toInt()).collectLatest {
-                    showData(it)
-                    binding.progressBarA0.visibility = View.INVISIBLE
-                    refreshCanvas()
-                }
+                predictAngkaPresenter.predictAngka(id, image)
+                    .collectLatest {
+                        binding.progressBarA3.visibility = View.INVISIBLE
+                        activity?.let { it1 ->
+                            CustomDialogBox.withConfirm(
+                                it1,
+                                SweetAlertDialog.SUCCESS_TYPE,
+                                "Berhasil Menjawab",
+                                it.message
+                            ) {
+                                view?.findNavController()?.navigate(AngkaLevelTigaFragmentDirections.toScoreAngkaTiga())
+                            }
+                        }
+                    }
             }
         }
     }
@@ -141,51 +152,44 @@ class AngkaLevelNolFragment : Fragment() {
         }
     }
 
-    private fun showData(data: SoalEntity){
-        Template.speak(data.keterangan)
-        binding.spkNolAngka.setOnClickListener {
-            Template.speak(data.keterangan)
-        }
-        binding.soalAngkaDipilih.text = data.keterangan
-        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
-        binding.tvSoal.text = data.soal
-    }
-
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
-        binding.progressBarA0.visibility = View.VISIBLE
+    private fun showScreen(idSoal: Int) {
+        binding.progressBarA3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaPresenter.predictAngka(id.toInt(), image)
-                    .collectLatest {
-                        binding.progressBarA0.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(AngkaLevelNolFragmentDirections.toScoreAngkaNol())
-                            }
-                        }
-                    }
+                soalViewModel.getSoalByID(idSoal).collectLatest {
+                    showData(it)
+                    binding.progressBarA3.visibility = View.INVISIBLE
+                    refreshCanvas()
+                }
             }
         }
     }
 
+    private fun showData(data: SoalEntity){
+        Template.speak(data.keterangan + " " + data.soal)
+        binding.spkTigaAngka.setOnClickListener {
+            Template.speak(data.keterangan + " " + data.soal)
+        }
+        binding.soalAngkaDipilih.text = data.keterangan
+        binding.levelAngkaKe.text = "Level ke ${data.idLevel}"
+        binding.tvSoalAngkaTiga.text = data.soal
+    }
+
     private fun refreshCanvasOnClick(){
-        binding.refreshNolAngka.setOnClickListener {
+        binding.refreshTigaAngka.setOnClickListener {
             refreshCanvas()
         }
     }
 
     private fun refreshCanvas(){
-        binding.cnvsLevelNolAngka.clearCanvas()
+        binding.cnvsLevelTigaAngka.clearCanvas()
     }
 
     private fun back(){
-        binding.levelNolAngkaBack.setOnClickListener {
-            view?.findNavController()?.navigate(AngkaLevelNolFragmentDirections.backFromAngkaNol())
+        binding.levelTigaAngkaBack.setOnClickListener {
+            val backSoal = AngkaLevelTigaFragmentDirections.actionAngkaLevelTigaNavToListSoalAngkaNav()
+            backSoal.idLevel = sessionManager.getIDLevel()!!
+            view?.findNavController()?.navigate(backSoal)
         }
     }
 
@@ -204,6 +208,7 @@ class AngkaLevelNolFragment : Fragment() {
                 endGamePresenter.endGame(idGame.toString())
                     .collectLatest {
                         if (it == "Berhasil End Game"){
+//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
                             showScoreMulti(idGame.toString())
                         }
                     }
@@ -233,7 +238,7 @@ class AngkaLevelNolFragment : Fragment() {
     }
 
     private fun listDialog(idGame: Int) {
-        binding.btnUserParticipantA0.setOnClickListener {
+        binding.btnUserParticipantA3.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {

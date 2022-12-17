@@ -1,9 +1,11 @@
 package com.tugasakhir.welearn.presentation.ui.score.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreMultiAdapter
@@ -31,6 +33,10 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
         binding.papanScoreBack.setOnClickListener {
             onBackPressed()
+        }
+
+        binding.btnToHome.setOnClickListener {
+            startActivity(Intent(this, MainActivity::class.java))
         }
 
         showList()

@@ -26,7 +26,6 @@ class HurufReadyActivity : AppCompatActivity() {
     private lateinit var sessionManager: SharedPreference
 
     companion object{
-        const val ID_GAME = "id_game"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

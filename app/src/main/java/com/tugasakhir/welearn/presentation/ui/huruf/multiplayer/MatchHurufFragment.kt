@@ -44,7 +44,7 @@ class MatchHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.imageView4.setOnClickListener {
-            view?.findNavController()?.navigate(MatchHurufFragmentDirections.backFromMatchHuruf())
+            view?.findNavController()?.navigateUp()
         }
 
         sessionManager = SharedPreference(activity!!)
@@ -63,28 +63,31 @@ class MatchHurufFragment : Fragment() {
         binding.cekAcakHuruf.visibility = View.INVISIBLE
         binding.cekCariPlayerHuruf.visibility = View.INVISIBLE
 
-        var inputLevel = 0
+        var inputLevel: Int
         binding.baLevel0.setOnClickListener {
             eraseCheckLevel()
             binding.hlevel0.visibility = View.VISIBLE
             inputLevel = 0
+            randomSoal(inputLevel)
         }
         binding.baLevel1.setOnClickListener {
             eraseCheckLevel()
             binding.hlevel1.visibility = View.VISIBLE
             inputLevel = 1
+            randomSoal(inputLevel)
         }
         binding.baLevel2.setOnClickListener {
             eraseCheckLevel()
             binding.hlevel2.visibility = View.VISIBLE
             inputLevel = 2
+            randomSoal(inputLevel)
         }
         binding.baLevel3.setOnClickListener {
             eraseCheckLevel()
             binding.hlevel3.visibility = View.VISIBLE
             inputLevel = 3
+            randomSoal(inputLevel)
         }
-        randomSoal(inputLevel)
     }
 
     private fun randomSoal(inputLevel: Int) {

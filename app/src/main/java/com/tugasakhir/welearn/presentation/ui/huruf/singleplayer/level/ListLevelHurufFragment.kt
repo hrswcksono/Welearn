@@ -8,9 +8,11 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
+import com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -22,6 +24,7 @@ class ListLevelHurufFragment : Fragment() {
     private var _binding: FragmentListLevelHurufBinding? = null
     private val binding get() = _binding!!
     private val viewModel: LevelSoalPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,9 +39,10 @@ class ListLevelHurufFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.listHurufBack.setOnClickListener {
-            view.findNavController().navigate(ListLevelHurufFragmentDirections.backModeHuruf())
+            view.findNavController().navigate(ListLevelHurufFragmentDirections.actionListLevelHurufNavToModeHurufNav())
         }
 
+        sessionManager = activity?.let { SharedPreference(it) }!!
         showGridHuruf()
     }
 
@@ -47,8 +51,10 @@ class ListLevelHurufFragment : Fragment() {
         binding.progressLevelHuruf.visibility = View.VISIBLE
 
         hurufAdapter.onItemClick = {
+            sessionManager.deleteIDLevel()
             val toSoalHuruf = ListLevelHurufFragmentDirections.toSoalHuruf()
             toSoalHuruf.idLevel = it.idLevel
+            sessionManager.saveIDLevel(it.idLevel)
             view?.findNavController()?.navigate(toSoalHuruf)
         }
 

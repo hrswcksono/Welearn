@@ -8,6 +8,16 @@
     tools:context=".presentation.ui.score.ui.ScoreActivity">
 
     <ImageView
+        android:id="@+id/btn_to_home"
+        android:layout_width="45dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:src="@drawable/ic_baseline_home_24"
+        app:layout_constraintStart_toEndOf="@+id/papanScoreBack"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
         android:id="@+id/papanScoreBack"
         android:layout_width="40dp"
         android:layout_height="40dp"

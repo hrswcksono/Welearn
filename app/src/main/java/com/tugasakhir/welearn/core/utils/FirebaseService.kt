@@ -12,14 +12,16 @@ import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
 import androidx.core.os.bundleOf
-import androidx.fragment.app.FragmentManager
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaFragment
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufFragment
+import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.*
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelDuaActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelNolActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelSatuActivity
+import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelTigaActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlin.random.Random
 
@@ -30,7 +32,6 @@ class FirebaseService : FirebaseMessagingService() {
 
     private lateinit var pendingIntent1: PendingIntent
     private lateinit var intent1: Intent
-    private lateinit var myFragment: MatchHurufFragment
 
     override fun onMessageReceived(message: RemoteMessage) {
         super.onMessageReceived(message)
@@ -77,20 +78,68 @@ class FirebaseService : FirebaseMessagingService() {
             startActivity(intent1)
         } else if(message.data["type"] == "startangka") {
             when(message.data["idLevel"]){
-                "0" -> pendingIntent1 = startPendingIntent(R.id.angka_level_nol_nav, bundleStart(message))
-                "1" -> pendingIntent1 = startPendingIntent(R.id.angka_level_satu_nav, bundleStart(message))
-                "2" -> pendingIntent1 = startPendingIntent(R.id.angka_level_dua_nav, bundleStart(message))
-//                "2" -> hLevel2Huruf.test()
-                "3" -> pendingIntent1 = startPendingIntent(R.id.angka_level_tiga_nav, bundleStart(message))
-                "4" -> pendingIntent1 = startPendingIntent(R.id.angka_level_empat_nav, bundleStart(message))
+                "0" -> {
+                    intent1 = Intent(this, AngkaLevelNolActivity::class.java)
+                    intent1.putExtra(AngkaLevelNolActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(AngkaLevelNolActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelNolActivity.ID_GAME, message.data["action"])
+                }
+                "1" -> {
+                    intent1 = Intent(this, AngkaLevelSatuActivity::class.java)
+                    intent1.putExtra(AngkaLevelSatuActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(AngkaLevelSatuActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelSatuActivity.ID_GAME, message.data["action"])
+                }
+                "2" -> {
+                    intent1 = Intent(this, AngkaLevelDuaActivity::class.java)
+                    intent1.putExtra(AngkaLevelDuaActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(AngkaLevelDuaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelDuaActivity.ID_GAME, message.data["action"])
+                }
+                "3" -> {
+                    intent1 = Intent(this, AngkaLevelTigaActivity::class.java)
+                    intent1.putExtra(AngkaLevelTigaActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(AngkaLevelTigaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelTigaActivity.ID_GAME, message.data["action"])
+                }
+                "4" -> {
+                    intent1 = Intent(this, AngkaLevelEmpatActivity::class.java)
+                    intent1.putExtra(AngkaLevelEmpatActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(AngkaLevelEmpatActivity.GAME_MODE, "multi")
+                    intent1.putExtra(AngkaLevelEmpatActivity.ID_GAME, message.data["action"])
+                }
             }
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent1)
         } else if(message.data["type"] == "starthuruf") {
             when(message.data["idLevel"]){
-                "0" -> pendingIntent1 = startPendingIntent(R.id.huruf_level_nol_nav, bundleStart(message))
-                "1" -> pendingIntent1 = startPendingIntent(R.id.huruf_level_satu_nav, bundleStart(message))
-                "2" -> pendingIntent1 = startPendingIntent(R.id.huruf_level_dua_nav, bundleStart(message))
-                "3" -> pendingIntent1 = startPendingIntent(R.id.huruf_level_tiga_nav, bundleStart(message))
+                "0" -> {
+                    intent1 = Intent(this, HurufLevelNolActivity::class.java)
+                    intent1.putExtra(HurufLevelNolActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(HurufLevelNolActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelNolActivity.ID_GAME, message.data["action"])
+                }
+                "1" -> {
+                    intent1 = Intent(this, HurufLevelSatuActivity::class.java)
+                    intent1.putExtra(HurufLevelSatuActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(HurufLevelSatuActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelSatuActivity.ID_GAME, message.data["action"])
+                }
+                "2" -> {
+                    intent1 = Intent(this, HurufLevelDuaActivity::class.java)
+                    intent1.putExtra(HurufLevelDuaActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(HurufLevelDuaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelDuaActivity.ID_GAME, message.data["action"])
+                }
+                "3" -> {
+                    intent1 = Intent(this, HurufLevelTigaActivity::class.java)
+                    intent1.putExtra(HurufLevelTigaActivity.LEVEL_SOAL, message.data["idSoal"])
+                    intent1.putExtra(HurufLevelTigaActivity.GAME_MODE, "multi")
+                    intent1.putExtra(HurufLevelTigaActivity.ID_GAME, message.data["action"])
+                }
             }
+            intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            startActivity(intent1)
         }
 
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
@@ -116,13 +165,13 @@ class FirebaseService : FirebaseMessagingService() {
         notificationManager.createNotificationChannel(channel)
     }
 
-    private fun bundleStart(message: RemoteMessage): Bundle {
-        return bundleOf(
-            "idSoal" to message.data["idSoal"],
-            "mode" to "multi",
-            "idGame" to message.data["action"]
-        )
-    }
+//    private fun bundleStart(message: RemoteMessage): Bundle {
+//        return bundleOf(
+//            "idSoal" to message.data["idSoal"],
+//            "mode" to "multi",
+//            "idGame" to message.data["action"]
+//        )
+//    }
 
     private fun startPendingIntent(destId: Int, args: Bundle) : PendingIntent {
         return NavDeepLinkBuilder(this)

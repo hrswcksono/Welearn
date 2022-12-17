@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_bg"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.huruf.canvas.HurufLevelDuaFragment">
+    tools:context=".presentation.ui.huruf.singleplayer.canvas.HurufLevelDuaFragment">
 
     <ImageView
         android:id="@+id/levelDuaHurufBack"

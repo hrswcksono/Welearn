@@ -20,7 +20,6 @@ class ScoreAngkaFragment : Fragment() {
 
     private var _binding: FragmentScoreAngkaBinding? = null
     private val binding get() = _binding!!
-
     private val viewModel: HighScorePresenter by viewModel()
 
     override fun onCreateView(
@@ -35,6 +34,7 @@ class ScoreAngkaFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showScore()
+        header(View.INVISIBLE)
     }
 
     private fun showScore(){
@@ -44,6 +44,7 @@ class ScoreAngkaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.highScore(2).collectLatest {
+                    header(View.VISIBLE)
                     scoreAngkaAdapter.setData(it)
                     binding.progressBarSAngka.visibility = View.INVISIBLE
                 }
@@ -55,5 +56,11 @@ class ScoreAngkaFragment : Fragment() {
             setHasFixedSize(true)
             adapter = scoreAngkaAdapter
         }
+    }
+
+    private fun header(vis: Int){
+        binding.tvhNo.visibility = vis
+        binding.tvhUsername.visibility = vis
+        binding.tvhSkor.visibility = vis
     }
 }

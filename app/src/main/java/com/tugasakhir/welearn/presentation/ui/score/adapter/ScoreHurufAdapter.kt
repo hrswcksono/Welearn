@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ItemScoreHurufBinding
+import com.tugasakhir.welearn.databinding.ItemScoreSingleBinding
 import com.tugasakhir.welearn.domain.entity.RankingScoreEntity
 
 class ScoreHurufAdapter: RecyclerView.Adapter<ScoreHurufAdapter.ListViewHolder>() {
@@ -21,12 +22,12 @@ class ScoreHurufAdapter: RecyclerView.Adapter<ScoreHurufAdapter.ListViewHolder>(
     }
 
     inner class ListViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        private val binding = ItemScoreHurufBinding.bind(itemView)
+        private val binding = ItemScoreSingleBinding.bind(itemView)
         fun bind(data: RankingScoreEntity) {
             with(binding) {
-                tvNoHuruf.text = (absoluteAdapterPosition+1).toString()
-                tvNamaSkor.text = data.name
-                tvValueSkorHuruf.text = data.total
+                tvNoSingle.text = (absoluteAdapterPosition+1).toString()
+                tvNamaSingle.text = data.name
+                tvSkorSingle.text = data.total
             }
         }
     }
@@ -35,7 +36,7 @@ class ScoreHurufAdapter: RecyclerView.Adapter<ScoreHurufAdapter.ListViewHolder>(
         parent: ViewGroup,
         viewType: Int
     ): ListViewHolder =
-        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score_huruf, parent, false))
+        ListViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_score_single, parent, false))
 
     override fun onBindViewHolder(holder: ListViewHolder, position: Int) {
         val data = listData[position]

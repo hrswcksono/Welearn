@@ -40,6 +40,7 @@
         app:tabRippleColor="@color/white"
         app:tabTextAppearance="@style/tab_text"
         app:tabTextColor="@android:color/black"
+        app:tabSelectedTextColor="@color/black"
         tools:ignore="SpeakableTextPresentCheck,SpeakableTextPresentCheck" />
 
     <androidx.viewpager2.widget.ViewPager2
@@ -56,9 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
-        android:fontFamily="@font/rubik_regular"
+        android:fontFamily="@font/rubik_semi_bold"
         android:text="Papan Skor"
         android:textSize="35sp"
+        android:textColor="@color/black"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

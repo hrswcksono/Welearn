@@ -76,8 +76,6 @@ class LoginActivity : AppCompatActivity() {
     private fun login(login: LoginEntity) {
 
 //        sessionManager.saveAuthToken(login.token)
-        binding.btnLogin.isClickable = false
-        binding.btnLogin.isEnabled = false
         sessionManager.saveName(login.name)
         sessionManager.saveUserID(login.id)
 //        RemoteDataSource.tokenUser = login.token

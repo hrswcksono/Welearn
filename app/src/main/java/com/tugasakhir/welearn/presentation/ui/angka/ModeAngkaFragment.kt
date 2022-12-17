@@ -1,16 +1,12 @@
 package com.tugasakhir.welearn.presentation.ui.angka
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.findNavController
-import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.databinding.FragmentModeAngkaBinding
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MatchAngkaActivity
 
 class ModeAngkaFragment : Fragment() {
 
@@ -33,12 +29,11 @@ class ModeAngkaFragment : Fragment() {
         }
 
         binding.btnMultiAngka.setOnClickListener {
-//            startActivity(Intent(activity, MatchAngkaActivity::class.java))
             view?.findNavController()?.navigate(ModeAngkaFragmentDirections.toMatchAngka())
         }
 
         binding.modeAngkaBack.setOnClickListener {
-            view.findNavController().navigate(ModeAngkaFragmentDirections.backToHomeModeAngka())
+            view.findNavController().navigate(ModeAngkaFragmentDirections.backHomeFromModeAngka())
         }
     }
 

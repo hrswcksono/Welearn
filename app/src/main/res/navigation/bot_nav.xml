@@ -28,14 +28,14 @@
         android:label="fragment_mode_angka"
         tools:layout="@layout/fragment_mode_angka" >
         <action
-            android:id="@+id/back_to_home_mode_angka"
-            app:destination="@id/home_nav" />
-        <action
             android:id="@+id/to_level_angka"
             app:destination="@id/list_level_angka_nav" />
         <action
             android:id="@+id/to_match_angka"
             app:destination="@id/match_angka_nav" />
+        <action
+            android:id="@+id/back_home_from_mode_angka"
+            app:destination="@id/home_nav" />
     </fragment>
     <fragment
         android:id="@+id/mode_huruf_nav"
@@ -43,14 +43,14 @@
         android:label="fragment_mode_huruf"
         tools:layout="@layout/fragment_mode_huruf" >
         <action
-            android:id="@+id/back_to_home_mode_huruf"
-            app:destination="@id/home_nav" />
-        <action
             android:id="@+id/to_level_huruf"
             app:destination="@id/list_level_huruf_nav" />
         <action
             android:id="@+id/to_match_huruf"
             app:destination="@id/match_huruf_nav" />
+        <action
+            android:id="@+id/back_home_from_mode_huruf"
+            app:destination="@id/home_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_level_angka_nav"
@@ -58,24 +58,21 @@
         android:label="fragment_list_level_angka"
         tools:layout="@layout/fragment_list_level_angka" >
         <action
-            android:id="@+id/back_mode_angka"
-            app:destination="@id/mode_angka_nav" />
-        <action
             android:id="@+id/to_soal_angka"
             app:destination="@id/list_soal_angka_nav" >
             <argument
                 android:name="id_level"
                 android:defaultValue="0" />
         </action>
+        <action
+            android:id="@+id/action_list_level_angka_nav_to_mode_angka_nav"
+            app:destination="@id/mode_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_soal_angka_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaFragment"
         android:label="fragment_list_soal_angka"
         tools:layout="@layout/fragment_list_soal_angka" >
-        <action
-            android:id="@+id/back_level_angka"
-            app:destination="@id/list_level_angka_nav" />
         <argument
             android:name="id_level"
             app:argType="integer"
@@ -95,6 +92,9 @@
         <action
             android:id="@+id/to_angka_level_empat"
             app:destination="@id/angka_level_empat_nav" />
+        <action
+            android:id="@+id/back_to_level_from_soal_angka"
+            app:destination="@id/list_level_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"
@@ -102,24 +102,21 @@
         android:label="fragment_list_level_huruf"
         tools:layout="@layout/fragment_list_level_huruf" >
         <action
-            android:id="@+id/back_mode_huruf"
-            app:destination="@id/mode_huruf_nav" />
-        <action
             android:id="@+id/to_soal_huruf"
             app:destination="@id/list_soal_huruf_nav" >
             <argument
                 android:name="id_level"
                 android:defaultValue="0" />
         </action>
+        <action
+            android:id="@+id/action_list_level_huruf_nav_to_mode_huruf_nav"
+            app:destination="@id/mode_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_soal_huruf_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufFragment"
         android:label="fragment_list_soal_huruf"
         tools:layout="@layout/fragment_list_soal_huruf" >
-        <action
-            android:id="@+id/back_level_huruf"
-            app:destination="@id/list_level_huruf_nav" />
         <argument
             android:name="id_level"
             app:argType="integer"
@@ -136,15 +133,15 @@
         <action
             android:id="@+id/to_huruf_level_tiga"
             app:destination="@id/huruf_level_tiga_nav" />
+        <action
+            android:id="@+id/back_to_level_from_soal_huruf"
+            app:destination="@id/list_level_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/angka_level_nol_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelNolFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelNolFragment"
         android:label="fragment_angka_level_nol"
         tools:layout="@layout/fragment_angka_level_nol" >
-        <action
-            android:id="@+id/back_from_angka_nol"
-            app:destination="@id/list_soal_angka_nav" />
         <action
             android:id="@+id/to_score_angka_nol"
             app:destination="@id/score_angka_user_nav" />
@@ -156,15 +153,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_angka_level_nol_nav_to_list_soal_angka_nav"
+            app:destination="@id/list_soal_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/angka_level_satu_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelSatuFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelSatuFragment"
         android:label="fragment_angka_level_satu"
         tools:layout="@layout/fragment_angka_level_satu" >
-        <action
-            android:id="@+id/back_from_angka_satu"
-            app:destination="@id/list_soal_angka_nav" />
         <action
             android:id="@+id/to_score_angka_satu"
             app:destination="@id/score_angka_user_nav" />
@@ -176,15 +173,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_angka_level_satu_nav_to_list_soal_angka_nav"
+            app:destination="@id/list_soal_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/angka_level_dua_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelDuaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelDuaFragment"
         android:label="fragment_angka_level_dua"
         tools:layout="@layout/fragment_angka_level_dua" >
-        <action
-            android:id="@+id/back_from_angka_dua"
-            app:destination="@id/list_soal_angka_nav" />
         <action
             android:id="@+id/to_score_angka_dua"
             app:destination="@id/score_angka_user_nav" />
@@ -199,15 +196,15 @@
         <deepLink
             android:id="@+id/deepLink"
             app:uri="www.example.com" />
+        <action
+            android:id="@+id/action_angka_level_dua_nav_to_list_soal_angka_nav"
+            app:destination="@id/list_soal_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/angka_level_tiga_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelTigaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelTigaFragment"
         android:label="fragment_angka_level_tiga"
         tools:layout="@layout/fragment_angka_level_tiga" >
-        <action
-            android:id="@+id/back_from_angka_tiga"
-            app:destination="@id/list_soal_angka_nav" />
         <action
             android:id="@+id/to_score_angka_tiga"
             app:destination="@id/score_angka_user_nav" />
@@ -219,15 +216,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_angka_level_tiga_nav_to_list_soal_angka_nav"
+            app:destination="@id/list_soal_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/angka_level_empat_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.canvas.AngkaLevelEmpatFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelEmpatFragment"
         android:label="fragment_angka_level_empat"
         tools:layout="@layout/fragment_angka_level_empat" >
-        <action
-            android:id="@+id/back_from_angka_empat"
-            app:destination="@id/list_soal_angka_nav" />
         <action
             android:id="@+id/to_score_angka_ampat"
             app:destination="@id/score_angka_user_nav" />
@@ -239,15 +236,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_angka_level_empat_nav_to_list_soal_angka_nav"
+            app:destination="@id/list_soal_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/huruf_level_nol_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelNolFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelNolFragment"
         android:label="fragment_huruf_level_nol"
         tools:layout="@layout/fragment_huruf_level_nol" >
-        <action
-            android:id="@+id/back_from_huruf_nol"
-            app:destination="@id/list_soal_huruf_nav" />
         <action
             android:id="@+id/to_score_huruf_nol"
             app:destination="@id/score_huruf_user_nav" />
@@ -259,15 +256,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_huruf_level_nol_nav_to_list_soal_huruf_nav"
+            app:destination="@id/list_soal_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/huruf_level_satu_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelSatuFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelSatuFragment"
         android:label="fragment_huruf_level_satu"
         tools:layout="@layout/fragment_huruf_level_satu" >
-        <action
-            android:id="@+id/back_from_huruf_satu"
-            app:destination="@id/list_soal_huruf_nav" />
         <action
             android:id="@+id/to_score_huruf_satu"
             app:destination="@id/score_huruf_user_nav" />
@@ -279,15 +276,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_huruf_level_satu_nav_to_list_soal_huruf_nav"
+            app:destination="@id/list_soal_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/huruf_level_dua_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelDuaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelDuaFragment"
         android:label="fragment_huruf_level_dua"
         tools:layout="@layout/fragment_huruf_level_dua" >
-        <action
-            android:id="@+id/back_from_huruf_dua"
-            app:destination="@id/list_soal_huruf_nav" />
         <action
             android:id="@+id/to_score_huruf_dua"
             app:destination="@id/score_huruf_user_nav" />
@@ -299,15 +296,15 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_huruf_level_dua_nav_to_list_soal_huruf_nav"
+            app:destination="@id/list_soal_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/huruf_level_tiga_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.canvas.HurufLevelTigaFragment"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelTigaFragment"
         android:label="fragment_huruf_level_tiga"
         tools:layout="@layout/fragment_huruf_level_tiga" >
-        <action
-            android:id="@+id/back_from_huruf_tiga"
-            app:destination="@id/list_soal_huruf_nav" />
         <action
             android:id="@+id/to_score_huruf_tiga"
             app:destination="@id/score_huruf_user_nav" />
@@ -319,6 +316,9 @@
             android:name="game_mode"
             app:argType="string"
             android:defaultValue=" " />
+        <action
+            android:id="@+id/action_huruf_level_tiga_nav_to_list_soal_huruf_nav"
+            app:destination="@id/list_soal_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/score_angka_user_nav"
@@ -358,7 +358,7 @@
         android:label="fragment_match_angka"
         tools:layout="@layout/fragment_match_angka" >
         <action
-            android:id="@+id/back_from_match_angka"
+            android:id="@+id/action_match_angka_nav_to_mode_angka_nav"
             app:destination="@id/mode_angka_nav" />
     </fragment>
     <fragment
@@ -367,7 +367,7 @@
         android:label="fragment_match_huruf"
         tools:layout="@layout/fragment_match_huruf" >
         <action
-            android:id="@+id/back_from_match_huruf"
+            android:id="@+id/action_match_huruf_nav_to_mode_huruf_nav"
             app:destination="@id/mode_huruf_nav" />
     </fragment>
     <fragment

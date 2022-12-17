@@ -89,10 +89,10 @@
         android:id="@+id/bh_level1"
         android:layout_width="93sp"
         android:layout_height="66sp"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="100dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="90dp"
         android:text="Level 1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
@@ -101,11 +101,11 @@
         android:id="@+id/bh_level2"
         android:layout_width="93sp"
         android:layout_height="66sp"
-        android:layout_marginTop="15dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="16dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
         android:text="Level 2"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bh_level1" />
 
@@ -113,20 +113,20 @@
         android:id="@+id/bh_level3"
         android:layout_width="93sp"
         android:layout_height="66sp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="24dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
         android:text="Level 3"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/bh_level4"
         app:layout_constraintTop_toBottomOf="@+id/bh_level0" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bh_level4"
         android:layout_width="93sp"
         android:layout_height="66sp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="44dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
         android:text="Level 4"
@@ -197,9 +197,9 @@
         android:id="@+id/alevel_2"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginEnd="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/bh_level2"
-        app:layout_constraintStart_toEndOf="@+id/bh_level2"
+        app:layout_constraintEnd_toStartOf="@+id/bh_level2"
         app:layout_constraintTop_toTopOf="@+id/bh_level2"
         app:srcCompat="@drawable/ic_baseline_submit" />
 
@@ -207,20 +207,22 @@
         android:id="@+id/alevel_4"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginStart="15dp"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@+id/bh_level4"
         app:layout_constraintStart_toEndOf="@+id/bh_level4"
         app:layout_constraintTop_toTopOf="@+id/bh_level4"
+        app:layout_constraintVertical_bias="0.583"
         app:srcCompat="@drawable/ic_baseline_submit" />
 
     <ImageView
         android:id="@+id/alevel_3"
         android:layout_width="30dp"
         android:layout_height="30dp"
-        android:layout_marginEnd="15dp"
-        app:layout_constraintBottom_toBottomOf="@+id/bh_level3"
-        app:layout_constraintEnd_toStartOf="@+id/bh_level3"
-        app:layout_constraintTop_toTopOf="@+id/bh_level3"
+        android:layout_marginTop="8dp"
+        app:layout_constraintEnd_toEndOf="@+id/bh_level3"
+        app:layout_constraintHorizontal_bias="0.444"
+        app:layout_constraintStart_toStartOf="@+id/bh_level3"
+        app:layout_constraintTop_toBottomOf="@+id/bh_level3"
         app:srcCompat="@drawable/ic_baseline_submit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

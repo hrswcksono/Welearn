@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.entity.ScoreEntity
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreUserPresenter
@@ -22,6 +23,7 @@ class ScoreHurufUserFragment : Fragment() {
     private var _binding: FragmentScoreHurufUserBinding ?= null
     private val binding get() = _binding!!
     private val viewModel: ScoreUserPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,11 +35,14 @@ class ScoreHurufUserFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        sessionManager = activity?.let { SharedPreference(it) }!!
 
         show()
 
         binding.btnBackDaftarSoalHuruf.setOnClickListener {
-            view?.findNavController()?.navigate(ScoreHurufUserFragmentDirections.backToListSoalHuruf())
+            val backDaftarSoal = ScoreHurufUserFragmentDirections.backToListSoalHuruf()
+            backDaftarSoal.idLevel = sessionManager.getIDLevel()!!
+            view?.findNavController()?.navigate(backDaftarSoal)
         }
 
         binding.btnHome.setOnClickListener {
