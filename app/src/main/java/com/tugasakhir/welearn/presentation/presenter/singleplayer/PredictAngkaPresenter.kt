@@ -5,6 +5,6 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class PredictAngkaPresenter(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun predictAngka(idSoal: Int, image: ArrayList<String>) =
-        useCase.angkaPredict(idSoal, image)
+    fun predictAngka(idSoal: Int, score: Int) =
+        useCase.angkaPredict(idSoal, score)
 }

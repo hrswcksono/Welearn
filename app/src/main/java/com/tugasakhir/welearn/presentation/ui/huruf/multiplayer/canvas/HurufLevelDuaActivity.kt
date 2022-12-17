@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Predict
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
@@ -30,11 +32,8 @@ import kotlin.collections.ArrayList
 
 class HurufLevelDuaActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_SOAL = "extra_soal"
-        const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
         const val ID_GAME = "id_game"
-        const val NO_SOAL = "no_soal"
     }
 
     private lateinit var binding: ActivityHurufLevelDuaBinding
@@ -45,6 +44,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private var answer: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,69 +53,63 @@ class HurufLevelDuaActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        val mode = intent.getStringExtra(GAME_MODE)
-
         binding.levelDuaHurufBack.setOnClickListener {
             onBackPressed()
         }
 
         binding.tvSelesaiH2.visibility = View.INVISIBLE
-        handlingMode(mode.toString())
+        main()
         refreshCanvasOnClick()
         back()
-
+        initializeCanvas()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            val soalID = intent.getStringExtra(LEVEL_SOAL)
-            val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(ID_GAME)
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-            var idSoal = arrayID[index]
-            showScreen(idSoal)
-            binding.submitDuaHuruf.setOnClickListener {
-                hideButton()
-                val image = ArrayList<String>()
-                image.apply {
-                    add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap()))
-                }
-                val end = Date().time
-                total = (end - begin)/1000
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal)
-//                    submitDrawing(idSoal)
-                } else if(index == 3) {
-                    binding.progressBarH2.visibility = View.VISIBLE
-                    binding.tvSelesaiH2.visibility = View.VISIBLE
-                }
+    private fun initializeCanvas(){
+        binding.cnvsLevelDuaHurufone.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruftwo.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHurufthree.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruffour.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruffive.setStrokeWidth(30f)
+    }
+
+    private fun main() {
+        val soalID = intent.getStringExtra(LEVEL_SOAL)
+        val arrayID = soalID.toString().split("|")
+        val idGame = intent.getStringExtra(ID_GAME)
+        listDialog(idGame!!.toInt())
+        joinGame(idGame!!.toInt())
+        var index = 0
+        var total = 0L
+        val begin = Date().time
+        var idSoal = arrayID[index]
+        showScreen(idSoal)
+        binding.submitDuaHuruf.setOnClickListener {
+            hideButton()
+            var score = 0
+            val canvas1 = binding.cnvsLevelDuaHurufone.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelDuaHuruftwo.getBitmap().scale(224, 224)
+            val canvas3 = binding.cnvsLevelDuaHurufthree.getBitmap().scale(224, 224)
+            val canvas4 = binding.cnvsLevelDuaHuruffour.getBitmap().scale(224, 224)
+            val canvas5 = binding.cnvsLevelDuaHuruffive.getBitmap().scale(224, 224)
+            val result1 = Predict.predictHuruf(this, canvas1, answer?.get(0)!!)
+            val result2 = Predict.predictHuruf(this, canvas2, answer?.get(1)!!)
+            val result3 = Predict.predictHuruf(this, canvas3, answer?.get(2)!!)
+            val result4 = Predict.predictHuruf(this, canvas4, answer?.get(3)!!)
+            val result5 = Predict.predictHuruf(this, canvas5, answer?.get(4)!!)
+            if ((result1 + result2 + result3 + result4 + result5) == 50) {
+                score =  10
             }
-        }else if (mode == "single") {
-            val noSoal = intent.getStringExtra(NO_SOAL)
-            binding.btnUserParticipantH2.visibility = View.INVISIBLE
-            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
-            showScreen(idSoal)
-            binding.submitDuaHuruf.setOnClickListener{
-                val image = ArrayList<String>()
-                image.apply {
-                    add(encodeImage(binding.cnvsLevelDuaHurufone.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap()))
-                }
-                submitDrawing(idSoal, image)
+            val end = Date().time
+            total = (end - begin)/1000
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
+            index++
+            if (index < 3) {
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+//                    submitDrawing(idSoal)
+            } else if(index == 3) {
+                binding.progressBarH2.visibility = View.VISIBLE
+                binding.tvSelesaiH2.visibility = View.VISIBLE
             }
         }
     }
@@ -130,10 +124,10 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         binding.refreshDuaHuruf.visibility = View.VISIBLE
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
+                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, score,  duration)
                     .collectLatest {
                         endGame(idGame)
                     }
@@ -145,7 +139,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         binding.progressBarH2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id.toInt(), image)
+                predictHurufPresenter.predictHuruf(id.toInt(), 0)
                     .collectLatest {
                         binding.progressBarH2.visibility = View.INVISIBLE
                         CustomDialogBox.withConfirm(
@@ -173,6 +167,7 @@ class HurufLevelDuaActivity : AppCompatActivity() {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
                     showButton()
+                    answer = it.jawaban
                     binding.progressBarH2.visibility = View.INVISIBLE
                     refreshCanvas()
                 }

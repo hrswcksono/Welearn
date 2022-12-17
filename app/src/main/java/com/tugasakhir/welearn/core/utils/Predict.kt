@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.core.utils
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.Color
+import android.util.Log
 import com.tugasakhir.welearn.ml.AngkaModel
 import com.tugasakhir.welearn.ml.HurufModel
 import org.tensorflow.lite.DataType
@@ -10,8 +11,8 @@ import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
-class Predict {
-    fun PredictHuruf(context : Context, bitmap: Bitmap, answer: String) : Int {
+object Predict {
+    fun predictHuruf(context: Context, bitmap: Bitmap, answer: Char) : Int {
         val byteBuffer = bitmapToByteBuffer(bitmap)
         val model = HurufModel.newInstance(context)
 
@@ -24,16 +25,18 @@ class Predict {
         val outputFeature0 = outputs.outputFeature0AsTensorBuffer
 
         val result = resultLetter(outputFeature0.floatArray.asList().indexOf(outputFeature0.floatArray.max()))
+        Log.d("shape", outputFeature0.floatArray.asList().toString())
+        Log.d("resultHuruf", result.toString())
 
         // Releases model resources if no longer used.
         model.close()
-        if (result.toString() == answer) {
+        if (result == answer) {
             return 10
         }
         return 0
     }
 
-    fun PredictAngka(context : Context, bitmap: Bitmap, answer: String) : Int {
+    fun PredictAngka(context: Context, bitmap: Bitmap, answer: Char) : Int {
         val byteBuffer = bitmapToByteBuffer(inverseBitmapColors(bitmap))
         val model = AngkaModel.newInstance(context)
 
@@ -47,6 +50,8 @@ class Predict {
 
         val result = outputFeature0.floatArray.asList().indexOf(outputFeature0.floatArray.max())
 
+        Log.d("shape", outputFeature0.floatArray.asList().toString())
+        Log.d("resultAngka", result.toString())
         // Releases model resources if no longer used.
         model.close()
         if (result.toString() == answer) {

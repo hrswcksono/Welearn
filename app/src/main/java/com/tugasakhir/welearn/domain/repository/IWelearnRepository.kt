@@ -15,14 +15,14 @@ interface IWelearnRepository {
     fun scoreUser(id: Int): Flow<ScoreEntity>
     fun highScore(id: Int): Flow<List<RankingScoreEntity>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
-    fun predictAngka(idSoal: Int, image: ArrayList<String>): Flow<ResultPredictEntity>
-    fun predictHuruf(idSoal: Int, image: ArrayList<String>): Flow<ResultPredictEntity>
+    fun predictAngka(idSoal: Int, score: Int): Flow<ResultPredictEntity>
+    fun predictHuruf(idSoal: Int, score: Int): Flow<ResultPredictEntity>
     fun makeRoomGame(id_jenis: Int): Flow<String>
     fun joinGame(idGame: String): Flow<String>
     fun endGame(idGame: String): Flow<String>
     fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>
-    fun predictHurufMulti(idGame: Int,idSoal: Int, image: ArrayList<String>, duration: Int): Flow<String>
-    fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
+    fun predictHurufMulti(idGame: Int,idSoal: Int, score: Int, duration: Int): Flow<String>
+    fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int): Flow<String>
     fun getJoinedGame(): Flow<List<UserJoinEntity>>
     fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
     fun getRandSoalSingle(jenis: Int ,level: Int): Flow<List<SoalEntity>>

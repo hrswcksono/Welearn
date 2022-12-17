@@ -5,7 +5,7 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class PredictHurufMultiPresenter(private val useCase: WelearnUseCase): ViewModel() {
 
-    fun predictHurufMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int) =
-        useCase.predictHurufMulti(idGame, idSoal,image , duration)
+    fun predictHurufMulti(idGame: Int,idSoal: Int,score: Int , duration: Int) =
+        useCase.predictHurufMulti(idGame, idSoal,score , duration)
 
 }

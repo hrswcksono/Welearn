@@ -72,53 +72,28 @@ class ListSoalAngkaFragment : Fragment() {
     private fun moveDrawingActivity(soal: SoalEntity) {
         when(soal.idLevel){
             0 -> {
-//                val moveToLevelNolActivity = Intent(activity, AngkaLevelNolActivity::class.java)
-//                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.EXTRA_SOAL, soal.idSoal)
-//                moveToLevelNolActivity.putExtra(AngkaLevelNolActivity.GAME_MODE, "single")
-//                startActivity(moveToLevelNolActivity)
                 val toLevelNolAngka = ListSoalAngkaFragmentDirections.toAngkaLevelNol()
                 toLevelNolAngka.idSoal = soal.idSoal
-                toLevelNolAngka.gameMode = "single"
                 view?.findNavController()?.navigate(toLevelNolAngka)
             }
             1 -> {
-//                val moveToLevelSatuActivity = Intent(activity, AngkaLevelSatuActivity::class.java)
-//                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.EXTRA_SOAL, soal.idSoal)
-//                moveToLevelSatuActivity.putExtra(AngkaLevelSatuActivity.GAME_MODE, "single")
-//                startActivity(moveToLevelSatuActivity)
                 val toLevelSatuAngka = ListSoalAngkaFragmentDirections.toAngkaLevelSatu()
                 toLevelSatuAngka.idSoal = soal.idSoal
-                toLevelSatuAngka.gameMode = "single"
                 view?.findNavController()?.navigate(toLevelSatuAngka)
             }
             2 -> {
-//                val moveToLevelDuaActivity = Intent(activity, AngkaLevelDuaActivity::class.java)
-//                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.EXTRA_SOAL, soal.idSoal)
-//                moveToLevelDuaActivity.putExtra(AngkaLevelDuaActivity.GAME_MODE, "single")
-//                startActivity(moveToLevelDuaActivity)
                 val toLevelDuaAngka = ListSoalAngkaFragmentDirections.toAngkaLevelDua()
                 toLevelDuaAngka.idSoal = soal.idSoal
-                toLevelDuaAngka.gameMode = "single"
                 view?.findNavController()?.navigate(toLevelDuaAngka)
             }
             3 -> {
-//                val moveToLevelTigaActivity = Intent(activity, AngkaLevelTigaActivity::class.java)
-//                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.EXTRA_SOAL, soal.idSoal)
-//                moveToLevelTigaActivity.putExtra(AngkaLevelTigaActivity.GAME_MODE, "single")
-//                startActivity(moveToLevelTigaActivity)
                 val toLevelTigaAngka = ListSoalAngkaFragmentDirections.toAngkaLevelTiga()
                 toLevelTigaAngka.idSoal = soal.idSoal
-                toLevelTigaAngka.gameMode = "single"
                 view?.findNavController()?.navigate(toLevelTigaAngka)
             }
             4 -> {
-//                val moveToLevelEmpatActivity = Intent(activity, AngkaLevelEmpatActivity::class.java)
-//                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.EXTRA_SOAL, soal.idSoal)
-//                moveToLevelEmpatActivity.putExtra(AngkaLevelEmpatActivity.GAME_MODE, "single")
-//                startActivity(moveToLevelEmpatActivity)
                 val toLevelEmpatAngka = ListSoalAngkaFragmentDirections.toAngkaLevelEmpat()
                 toLevelEmpatAngka.idSoal = soal.idSoal
-                toLevelEmpatAngka.gameMode = "single"
                 view?.findNavController()?.navigate(toLevelEmpatAngka)
             }
         }

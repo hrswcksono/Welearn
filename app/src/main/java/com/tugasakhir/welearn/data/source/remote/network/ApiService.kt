@@ -87,7 +87,7 @@ interface ApiService {
     @POST("predictangka")
     suspend fun predictAngka(
         @Field("id_soal") idSoal : Int,
-        @Field("img[]") image : ArrayList<String>,
+        @Field("score") score : Int,
         @Header("Authorization") token: String
     ): PredictResponse
 
@@ -95,7 +95,7 @@ interface ApiService {
     @POST("predicthuruf")
     suspend fun predictHuruf(
         @Field("id_soal") idSoal : Int,
-        @Field("img[]") image : ArrayList<String>,
+        @Field("score") score : Int,
         @Header("Authorization") token: String
     ): PredictResponse
 
@@ -131,7 +131,7 @@ interface ApiService {
     suspend fun predictAngkaMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,
-        @Field("img[]") image : ArrayList<String>,
+        @Field("score") score : Int,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String
     ): SimpleResponse
@@ -141,7 +141,7 @@ interface ApiService {
     suspend fun predictHurufMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,
-        @Field("img[]") image : ArrayList<String>,
+        @Field("score") score : Int,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String
     ): SimpleResponse

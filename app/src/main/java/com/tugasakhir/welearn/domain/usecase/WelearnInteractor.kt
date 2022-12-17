@@ -34,13 +34,13 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun angkaPredict(
         idSoal: Int,
-        image: ArrayList<String>
-    ) = welearnRepository.predictAngka(idSoal, image)
+        score: Int
+    ) = welearnRepository.predictAngka(idSoal, score)
 
     override fun hurufPredict(
         idSoal: Int,
-        image: ArrayList<String>
-    ) = welearnRepository.predictHuruf(idSoal, image)
+        score: Int
+    ) = welearnRepository.predictHuruf(idSoal, score)
 
     override fun makeRoomGame(idJenis: Int) = welearnRepository.makeRoomGame(idJenis)
 
@@ -53,13 +53,13 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
     override fun predictHurufMulti(
         idGame: Int,
         idSoal: Int,
-        image: ArrayList<String>,
+        score: Int,
         duration: Int,
-    ) = welearnRepository.predictHurufMulti(idGame, idSoal, image , duration)
+    ) = welearnRepository.predictHurufMulti(idGame, idSoal, score , duration)
 
     override fun predictAngkaMulti(
-        idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int,
-    ) = welearnRepository.predictAngkaMulti(idGame, idSoal, image, duration)
+        idGame: Int,idSoal: Int,score: Int , duration: Int,
+    ) = welearnRepository.predictAngkaMulti(idGame, idSoal, score, duration)
 
     override fun userJoinedGame() = welearnRepository.getJoinedGame()
 

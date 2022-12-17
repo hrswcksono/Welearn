@@ -9,10 +9,7 @@ import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
-import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
@@ -35,12 +32,8 @@ class HurufLevelSatuFragment : Fragment() {
     private val binding get() = _binding!!
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
-    private val joinGamePresenter: JoinGamePresenter by viewModel()
-    private val endGamePresenter: EndGamePresenter by viewModel()
-    private val pushNotification: PushNotificationPresenter by viewModel()
-    private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
-    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
+    private var answer: String ?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,65 +47,35 @@ class HurufLevelSatuFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sessionManager = activity?.let { SharedPreference(it) }!!
-        val mode = HurufLevelSatuFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
-        }
+        main()
 
+        initializeCanvas()
         refreshCanvasOnClick()
         back()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
-            val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-            showScreen(idSoal.toInt())
-            binding.submitSatuHuruf.setOnClickListener {
-                disableButton()
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
-                }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
-//                    submitDrawing(idSoal)
-                }
+    private fun initializeCanvas(){
+        binding.cnvsLevelSatuHurufone.setStrokeWidth(30f)
+        binding.cnvsLevelSatuHuruftwo.setStrokeWidth(30f)
+        binding.cnvsLevelSatuHurufthree.setStrokeWidth(30f)
+    }
+
+    private fun main() {
+        binding.btnUserParticipantH1.visibility = View.INVISIBLE
+        val idSoal = HurufLevelSatuFragmentArgs.fromBundle(arguments as Bundle).idSoal
+        showScreen(idSoal)
+        binding.submitSatuHuruf.setOnClickListener{
+            var score = 0
+            val canvas1 = binding.cnvsLevelSatuHurufone.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelSatuHuruftwo.getBitmap().scale(224, 224)
+            val canvas3 = binding.cnvsLevelSatuHurufthree.getBitmap().scale(224, 224)
+            val result1 = Predict.predictHuruf(activity!!, canvas1, answer?.get(0)!!)
+            val result2 = Predict.predictHuruf(activity!!, canvas2, answer?.get(1)!!)
+            val result3 = Predict.predictHuruf(activity!!, canvas3, answer?.get(2)!!)
+            if ((result1 + result2 + result3) == 30) {
+                score = 10
             }
-        }else if (mode == "single") {
-            binding.btnUserParticipantH1.visibility = View.INVISIBLE
-            val idSoal = HurufLevelSatuFragmentArgs.fromBundle(arguments as Bundle).idSoal
-            showScreen(idSoal)
-            binding.submitSatuHuruf.setOnClickListener{
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufone.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap().scale(100, 100)))
-                }
-                disableButton()
-                submitDrawing(idSoal, image)
-            }
+            submitDrawing(idSoal, score)
         }
     }
 
@@ -126,22 +89,11 @@ class HurufLevelSatuFragment : Fragment() {
         binding.submitSatuHuruf.isClickable = true
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
-                    .collectLatest {
-                        endGame(idGame)
-                    }
-            }
-        }
-    }
-
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+    private fun submitDrawing(id: Int, score : Int) {
         binding.progressBarH1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id, image)
+                predictHurufPresenter.predictHuruf(id, score)
                     .collectLatest {
                         binding.progressBarH1.visibility = View.INVISIBLE
                         activity?.let { it1 ->
@@ -165,6 +117,7 @@ class HurufLevelSatuFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id).collectLatest {
                     showData(it)
+                    answer = it.jawaban
                     binding.progressBarH1.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
@@ -198,68 +151,6 @@ class HurufLevelSatuFragment : Fragment() {
             val backSoal = HurufLevelSatuFragmentDirections.actionHurufLevelSatuNavToListSoalHurufNav()
             backSoal.idLevel = sessionManager.getIDLevel()!!
             view?.findNavController()?.navigate(backSoal)
-        }
-    }
-
-    private fun joinGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame.toString())
-                    .collectLatest {  }
-            }
-        }
-    }
-
-    private fun endGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                endGamePresenter.endGame(idGame.toString())
-                    .collectLatest {
-                        if (it == "Berhasil End Game"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
-                            showScoreMulti(idGame.toString())
-                        }
-                    }
-            }
-        }
-    }
-
-    private fun showScoreMulti(idGame: String) {
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                pushNotification.pushNotification(
-                    PushNotification(
-                        NotificationData(
-                            "Selesai"
-                            ,"Pertandingan telah selesai"
-                            ,"score",
-                            "",
-                            0,
-                            idGame
-                        ),
-                        Constants.TOPIC_JOIN_HURUF,
-                        "high"
-                    )
-                ).collectLatest {  }
-            }
-        }
-    }
-
-    private fun listDialog(idGame: Int) {
-        binding.btnUserParticipantH1.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
-                            }
-                            is Resource.Error -> {}
-                        }
-                    }
-                }
-            }
         }
     }
 }

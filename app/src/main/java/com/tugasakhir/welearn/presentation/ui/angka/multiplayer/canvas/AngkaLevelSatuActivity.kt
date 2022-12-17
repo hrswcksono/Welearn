@@ -7,10 +7,7 @@ import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
-import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.data.Resource
@@ -48,6 +45,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
+    private var answer: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,63 +68,60 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
 //            cnvsLevelSatuAngka.setColor(Color.WHITE)
 //        }
 
-        handlingMode(mode.toString())
+        main()
         refreshCanvasOnClick()
         back()
+        initializeCanvas()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            val soalID = intent.getStringExtra(LEVEL_SOAL)
-            val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(ID_GAME)
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-            showScreen(idSoal)
-            binding.submitSatuAngka.setOnClickListener {
-                hideButton()
-                val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelSatuAngkaOne.getBitmap().scale(100,100))!!)
-                image.add(Template.encodeImage(binding.cnvsLevelSatuAngkaTwo.getBitmap().scale(100,100))!!)
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal)
-//                    submitDrawing(idSoal)
-                }else if (index == 3){
-                    binding.progressBarA1.visibility = View.VISIBLE
-                    binding.tvSelesaiA1.visibility = View.VISIBLE
-                }
+    private fun initializeCanvas() {
+        binding.cnvsLevelSatuAngkaOne.setStrokeWidth(30f)
+        binding.cnvsLevelSatuAngkaTwo.setStrokeWidth(30f)
+    }
 
+    private fun main() {
+        val soalID = intent.getStringExtra(LEVEL_SOAL)
+        val arrayID = soalID.toString().split("|")
+        val idGame = intent.getStringExtra(ID_GAME)
+        listDialog(idGame!!.toInt())
+        joinGame(idGame!!.toInt())
+        var index = 0
+        var total = 0L
+        val begin = Date().time
+//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
+        var idSoal = arrayID[index]
+//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
+        showScreen(idSoal)
+        binding.submitSatuAngka.setOnClickListener {
+            hideButton()
+            var score = 0
+            val canvas1 = binding.cnvsLevelSatuAngkaOne.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelSatuAngkaTwo.getBitmap().scale(224, 224)
+            val result1 = Predict.PredictAngka(this, canvas1, answer?.get(0)!!)
+            val result2 = Predict.PredictAngka(this, canvas2, answer?.get(1)!!)
+            if (result1 + result2 == 20){
+                score = 10
             }
-        }else if (mode == "single") {
-            val noSoal = intent.getStringExtra(NO_SOAL)
-            binding.btnUserParticipantA1.visibility = View.INVISIBLE
-            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
-            showScreen(idSoal)
-            binding.submitSatuAngka.setOnClickListener{
-                val image = ArrayList<String>()
-                image.add(Template.encodeImage(binding.cnvsLevelSatuAngkaOne.getBitmap().scale(100,100))!!)
-                image.add(Template.encodeImage(binding.cnvsLevelSatuAngkaTwo.getBitmap().scale(100,100))!!)
-                submitDrawing(idSoal, image)
+            val end = Date().time
+            total = (end - begin)/1000
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
+            index++
+            if (index < 3) {
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+//                    submitDrawing(idSoal)
+            }else if (index == 3){
+                binding.progressBarA1.visibility = View.VISIBLE
+                binding.tvSelesaiA1.visibility = View.VISIBLE
             }
+
         }
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, image,  duration)
+                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, score,  duration)
                     .collectLatest {
                         endGame(idGame)
                     }
@@ -141,6 +136,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
                     showButton()
+                    answer = it.jawaban
                     binding.progressBarA1.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
@@ -173,31 +169,6 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
     private fun back(){
         binding.levelSatuAngkaBack.setOnClickListener {
             onBackPressed()
-        }
-    }
-
-    private fun submitDrawing(id: String, image: ArrayList<String>) {
-        binding.progressBarA1.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictAngkaPresenter.predictAngka(id.toInt(), image)
-                    .collectLatest {
-                        binding.progressBarA1.visibility = View.INVISIBLE
-                        CustomDialogBox.withConfirm(
-                            this@AngkaLevelSatuActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            "Berhasil Menjawab",
-                            it.message
-                        ) {
-//                            startActivity(
-//                                Intent(
-//                                    this@AngkaLevelSatuActivity,
-//                                    ScoreAngkaUserActivity::class.java
-//                                )
-//                            )
-                        }
-                    }
-            }
         }
     }
 

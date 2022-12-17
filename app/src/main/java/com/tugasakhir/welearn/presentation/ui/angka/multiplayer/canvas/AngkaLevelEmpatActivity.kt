@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Predict
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
@@ -32,19 +33,16 @@ import kotlin.collections.ArrayList
 class AngkaLevelEmpatActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAngkaLevelEmpatBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
     private val predictAngkaMultiPresenter: PredictAngkaMultiPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private var answer: String ?= null
 
     companion object {
-        const val EXTRA_SOAL = "extra_soal"
-        const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
         const val ID_GAME = "id_game"
-        const val NO_SOAL = "no_soal"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -52,103 +50,65 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
         binding = ActivityAngkaLevelEmpatBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val mode = intent.getStringExtra(GAME_MODE)
-
-        handlingMode(mode.toString())
+        main()
 
         binding.tvSelesaiA4.visibility = View.INVISIBLE
-//        binding.apply {
-//            cnvsLevelEmpatAngkaOne.setBackgroundColor(Color.BLACK)
-//            cnvsLevelEmpatAngkaOne.setColor(Color.WHITE)
-//            cnvsLevelEmpatAngkaTwo.setBackgroundColor(Color.BLACK)
-//            cnvsLevelEmpatAngkaTwo.setColor(Color.WHITE)
-//        }
 
         supportActionBar?.hide()
 
         refreshCanvasOnClick()
         back()
+        initializeCanvas()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            val soalID = intent.getStringExtra(LEVEL_SOAL)
-            val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(ID_GAME)
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-            showScreen(idSoal)
-            binding.submitEmpatAngka.setOnClickListener {
-                hideButton()
-                val image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap().scale(100,100))!!)
-                image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap().scale(100,100))!!)
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal)
-//                    submitDrawing(idSoal)
-                } else if (index == 3) {
-                    binding.progressBarA4.visibility = View.VISIBLE
-                    binding.tvSelesaiA4.visibility = View.VISIBLE
-                }
+    private fun initializeCanvas() {
+        binding.cnvsLevelEmpatAngkaOne.setStrokeWidth(30f)
+        binding.cnvsLevelEmpatAngkaTwo.setStrokeWidth(30f)
+    }
 
+    private fun main() {
+        val soalID = intent.getStringExtra(LEVEL_SOAL)
+        val arrayID = soalID.toString().split("|")
+        val idGame = intent.getStringExtra(ID_GAME)
+        listDialog(idGame!!.toInt())
+        joinGame(idGame!!.toInt())
+        var index = 0
+        var total = 0L
+        val begin = Date().time
+        var idSoal = arrayID[index]
+        showScreen(idSoal)
+        binding.submitEmpatAngka.setOnClickListener {
+            hideButton()
+            var score = 0
+            val canvas1 = binding.cnvsLevelEmpatAngkaOne.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelEmpatAngkaTwo.getBitmap().scale(224, 224)
+            val result1 = Predict.PredictAngka(this, canvas1, answer?.get(0)!!)
+            val result2 = Predict.PredictAngka(this, canvas2, answer?.get(1)!!)
+            if (result1 + result2 == 20){
+                score = 10
             }
-        }else if (mode == "single") {
-            val noSoal = intent.getStringExtra(NO_SOAL)
-            binding.btnUserParticipantA4.visibility = View.INVISIBLE
-            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
-            showScreen(idSoal)
-            binding.submitEmpatAngka.setOnClickListener{
-                val image = ArrayList<String>()
-                image.add(encodeImage(binding.cnvsLevelEmpatAngkaOne.getBitmap().scale(100,100))!!)
-                image.add(encodeImage(binding.cnvsLevelEmpatAngkaTwo.getBitmap().scale(100,100))!!)
-                submitDrawing(idSoal, image)
+            val end = Date().time
+            total = (end - begin)/1000
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
+            index++
+            if (index < 3) {
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+//                    submitDrawing(idSoal)
+            } else if (index == 3) {
+                binding.progressBarA4.visibility = View.VISIBLE
+                binding.tvSelesaiA4.visibility = View.VISIBLE
             }
+
         }
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, image,  duration)
+                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, score,  duration)
                     .collectLatest {
                         endGame(idGame)
-                    }
-            }
-        }
-    }
-
-    private fun submitDrawing(id: String, image: ArrayList<String>) {
-        binding.progressBarA4.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictAngkaPresenter.predictAngka(id.toInt(), image)
-                    .collectLatest {
-                        binding.progressBarA4.visibility = View.INVISIBLE
-                        CustomDialogBox.withConfirm(
-                            this@AngkaLevelEmpatActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            "Berhasil Menjawab",
-                            it.message
-                        ) {
-//                            startActivity(
-//                                Intent(
-//                                    this@AngkaLevelEmpatActivity,
-//                                    ScoreAngkaUserActivity::class.java
-//                                )
-//                            )
-                        }
                     }
             }
         }
@@ -161,6 +121,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
                     showButton()
+                    answer = it.jawaban
                     binding.progressBarA4.visibility = View.INVISIBLE
                     refreshCanvas()
                 }

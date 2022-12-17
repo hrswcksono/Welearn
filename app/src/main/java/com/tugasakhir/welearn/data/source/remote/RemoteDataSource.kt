@@ -113,20 +113,20 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngka(idSoal: Int, image: ArrayList<String>, tokenUser: String) =
+    fun predictAngka(idSoal: Int, score: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.predictAngka(idSoal, image, token = "Bearer $tokenUser")
+                val response = apiService.predictAngka(idSoal, score, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHuruf(idSoal: Int, image: ArrayList<String>, tokenUser: String) =
+    fun predictHuruf(idSoal: Int, score: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.predictHuruf(idSoal, image, token = "Bearer $tokenUser")
+                val response = apiService.predictHuruf(idSoal, score, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -173,20 +173,20 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictAngkaMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int, tokenUser: String) =
+    fun predictAngkaMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.predictAngkaMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
+                val response = apiService.predictAngkaMulti(idGame, idSoal,score, duration, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
 
-    fun predictHurufMulti(idGame: Int, idSoal: Int,image: ArrayList<String> , duration: Int, tokenUser: String) =
+    fun predictHurufMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.predictHurufMulti(idGame, idSoal,image, duration, token = "Bearer $tokenUser")
+                val response = apiService.predictHurufMulti(idGame, idSoal,score, duration, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

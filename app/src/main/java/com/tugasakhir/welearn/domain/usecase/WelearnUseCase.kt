@@ -15,16 +15,15 @@ interface WelearnUseCase {
     fun userScore(id: Int): Flow<ScoreEntity>
     fun getHighScore(id: Int): Flow<List<RankingScoreEntity>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
-    fun angkaPredict(idSoal: Int, image: ArrayList<String>): Flow<ResultPredictEntity>
-    fun hurufPredict(idSoal: Int, image: ArrayList<String>): Flow<ResultPredictEntity>
+    fun angkaPredict(idSoal: Int, score: Int): Flow<ResultPredictEntity>
+    fun hurufPredict(idSoal: Int, score: Int): Flow<ResultPredictEntity>
     fun makeRoomGame(idJenis: Int): Flow<String>
     fun joinGame(idGame: String): Flow<String>
     fun endGame(idGame: String): Flow<String>
     fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>
-    fun predictHurufMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
-    fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int): Flow<String>
+    fun predictHurufMulti(idGame: Int,idSoal: Int,score: Int , duration: Int): Flow<String>
+    fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int): Flow<String>
     fun userJoinedGame(): Flow<List<UserJoinEntity>>
-
     fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<List<SoalEntity>>
     fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
     fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>>

@@ -5,7 +5,7 @@ import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
 
 class PredictAngkaMultiPresenter (private val useCase: WelearnUseCase): ViewModel() {
 
-    fun predictAngkaMulti(idGame: Int,idSoal: Int,image: ArrayList<String> , duration: Int) =
-        useCase.predictAngkaMulti(idGame, idSoal,image , duration)
+    fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int) =
+        useCase.predictAngkaMulti(idGame, idSoal,score , duration)
 
 }

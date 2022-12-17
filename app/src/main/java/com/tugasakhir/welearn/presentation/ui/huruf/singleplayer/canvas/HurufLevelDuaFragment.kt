@@ -9,10 +9,7 @@ import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
-import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
@@ -34,12 +31,8 @@ class HurufLevelDuaFragment : Fragment() {
     private var _binding: FragmentHurufLevelDuaBinding ?= null
     private val binding get() = _binding!!
     private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
-    private val joinGamePresenter: JoinGamePresenter by viewModel()
-    private val endGamePresenter: EndGamePresenter by viewModel()
-    private val pushNotification: PushNotificationPresenter by viewModel()
-    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private var answer: String ?= null
     private lateinit var sessionManager: SharedPreference
 
     override fun onCreateView(
@@ -54,99 +47,49 @@ class HurufLevelDuaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sessionManager = activity?.let { SharedPreference(it) }!!
-        val mode = HurufLevelDuaFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
-        }
+        main()
 
+        initializeCanvas()
         refreshCanvasOnClick()
         back()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
-            val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-//            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-            showScreen(idSoal.toInt())
-            binding.submitDuaHuruf.setOnClickListener {
-                disableButton()
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelDuaHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap()))
-                }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
-//                    submitDrawing(idSoal)
-                }
+    private fun initializeCanvas(){
+        binding.cnvsLevelDuaHurufone.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruftwo.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHurufthree.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruffour.setStrokeWidth(30f)
+        binding.cnvsLevelDuaHuruffive.setStrokeWidth(30f)
+    }
 
+    private fun main() {
+        binding.btnUserParticipantH2.visibility = View.INVISIBLE
+        val idSoal = HurufLevelDuaFragmentArgs.fromBundle(arguments as Bundle).idSoal
+        showScreen(idSoal)
+        binding.submitDuaHuruf.setOnClickListener{
+            var score = 0
+            val canvas1 = binding.cnvsLevelDuaHurufone.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelDuaHuruftwo.getBitmap().scale(224, 224)
+            val canvas3 = binding.cnvsLevelDuaHurufthree.getBitmap().scale(224, 224)
+            val canvas4 = binding.cnvsLevelDuaHuruffour.getBitmap().scale(224, 224)
+            val canvas5 = binding.cnvsLevelDuaHuruffive.getBitmap().scale(224, 224)
+            val result1 = Predict.predictHuruf(activity!!, canvas1, answer?.get(0)!!)
+            val result2 = Predict.predictHuruf(activity!!, canvas2, answer?.get(1)!!)
+            val result3 = Predict.predictHuruf(activity!!, canvas3, answer?.get(2)!!)
+            val result4 = Predict.predictHuruf(activity!!, canvas4, answer?.get(3)!!)
+            val result5 = Predict.predictHuruf(activity!!, canvas5, answer?.get(4)!!)
+            if ((result1 + result2 + result3 + result4 + result5) == 50) {
+                score =  10
             }
-        }else if (mode == "single") {
-            binding.btnUserParticipantH2.visibility = View.INVISIBLE
-            val idSoal = HurufLevelDuaFragmentArgs.fromBundle(arguments as Bundle).idSoal
-            showScreen(idSoal)
-            binding.submitDuaHuruf.setOnClickListener{
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelDuaHurufone.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruftwo.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHurufthree.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruffour.getBitmap().scale(100, 100)))
-                    add(Template.encodeImage(binding.cnvsLevelDuaHuruffive.getBitmap().scale(100, 100)))
-                }
-                disableButton()
-                submitDrawing(idSoal, image)
-            }
+            submitDrawing(idSoal, score!!)
         }
     }
 
-    private fun disableButton(){
-        binding.submitDuaHuruf.isEnabled = false
-        binding.submitDuaHuruf.isClickable = false
-    }
-
-    private fun enableButton(){
-        binding.submitDuaHuruf.isEnabled = true
-        binding.submitDuaHuruf.isClickable = true
-    }
-
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
-                    .collectLatest {
-                        endGame(idGame)
-                    }
-            }
-        }
-    }
-
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+    private fun submitDrawing(id: Int, score: Int) {
         binding.progressBarH2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id, image)
+                predictHurufPresenter.predictHuruf(id, score)
                     .collectLatest {
                         binding.progressBarH2.visibility = View.INVISIBLE
                         activity?.let { it1 ->
@@ -172,6 +115,7 @@ class HurufLevelDuaFragment : Fragment() {
                     showData(it)
                     binding.progressBarH2.visibility = View.INVISIBLE
                     refreshCanvas()
+                    answer = it.jawaban
                 }
             }
         }
@@ -205,68 +149,6 @@ class HurufLevelDuaFragment : Fragment() {
             val backSoal = HurufLevelDuaFragmentDirections.actionHurufLevelDuaNavToListSoalHurufNav()
             backSoal.idLevel = sessionManager.getIDLevel()!!
             view?.findNavController()?.navigate(backSoal)
-        }
-    }
-
-    private fun joinGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame.toString())
-                    .collectLatest {  }
-            }
-        }
-    }
-
-    private fun endGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                endGamePresenter.endGame(idGame.toString())
-                    .collectLatest {
-                        if (it == "Berhasil End Game"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
-                            showScoreMulti(idGame.toString())
-                        }
-                    }
-            }
-        }
-    }
-
-    private fun showScoreMulti(idGame: String) {
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                pushNotification.pushNotification(
-                    PushNotification(
-                        NotificationData(
-                            "Selesai"
-                            ,"Pertandingan telah selesai"
-                            ,"score",
-                            "",
-                            0,
-                            idGame
-                        ),
-                        Constants.TOPIC_JOIN_HURUF,
-                        "high"
-                    )
-                ).collectLatest {  }
-            }
-        }
-    }
-
-    private fun listDialog(idGame: Int) {
-        binding.btnUserParticipantH2.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
-                            }
-                            is Resource.Error -> {}
-                        }
-                    }
-                }
-            }
         }
     }
 }

@@ -58,13 +58,13 @@ class WelearnRepository constructor(
 
     override fun predictAngka(
         idSoal: Int,
-        image: ArrayList<String>
-    ) = remoteDataSource.predictAngka(idSoal, image, token).map { DataMapper.mapperPredict(it) }
+        score: Int
+    ) = remoteDataSource.predictAngka(idSoal, score, token).map { DataMapper.mapperPredict(it) }
 
     override fun predictHuruf(
         idSoal: Int,
-        image: ArrayList<String>
-    ) = remoteDataSource.predictHuruf(idSoal, image, token).map { DataMapper.mapperPredict(it) }
+        score: Int
+    ) = remoteDataSource.predictHuruf(idSoal, score, token).map { DataMapper.mapperPredict(it) }
 
     override fun makeRoomGame(id_jenis: Int) =
         remoteDataSource.makeRoomGame(id_jenis, token).map { DataMapper.mapperString(it) }
@@ -81,18 +81,18 @@ class WelearnRepository constructor(
     override fun predictHurufMulti(
         idGame: Int,
         idSoal: Int,
-        image: ArrayList<String>,
+        score: Int,
         duration: Int
-    ) = remoteDataSource.predictHurufMulti(idGame, idSoal,image, duration, token).map {
+    ) = remoteDataSource.predictHurufMulti(idGame, idSoal,score, duration, token).map {
         DataMapper.mapperString(it)
     }
 
     override fun predictAngkaMulti(
         idGame: Int,
         idSoal: Int,
-        image: ArrayList<String>,
+        score: Int,
         duration: Int
-    ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, image, duration, token).map {
+    ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, score, duration, token).map {
         DataMapper.mapperString(it)
     }
 

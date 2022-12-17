@@ -4,10 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
+import com.tugasakhir.welearn.core.utils.Predict
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
@@ -30,21 +32,18 @@ import kotlin.collections.ArrayList
 
 class HurufLevelSatuActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_SOAL = "extra_soal"
-        const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
         const val ID_GAME = "id_game"
-        const val NO_SOAL = "no_soal"
     }
 
     private lateinit var binding: ActivityHurufLevelSatuBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictHurufPresenter: PredictHurufPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private var answer: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,63 +51,56 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         supportActionBar?.hide()
-
-        val mode = intent.getStringExtra(GAME_MODE)
         binding.tvSelesaiH1.visibility = View.INVISIBLE
 
-        handlingMode(mode.toString())
+        main()
         refreshCanvasOnClick()
         back()
+        initializeCanvas()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            val soalID = intent.getStringExtra(LEVEL_SOAL)
-            val arrayID = soalID.toString().split("|")
-            val idGame = intent.getStringExtra(HurufLevelNolActivity.ID_GAME)
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
+    private fun initializeCanvas(){
+        binding.cnvsLevelSatuHurufone.setStrokeWidth(30f)
+        binding.cnvsLevelSatuHuruftwo.setStrokeWidth(30f)
+        binding.cnvsLevelSatuHurufthree.setStrokeWidth(30f)
+    }
+
+    private fun main() {
+        val soalID = intent.getStringExtra(LEVEL_SOAL)
+        val arrayID = soalID.toString().split("|")
+        val idGame = intent.getStringExtra(HurufLevelNolActivity.ID_GAME)
+        listDialog(idGame!!.toInt())
+        joinGame(idGame!!.toInt())
+        var index = 0
+        var total: Long
+        val begin = Date().time
 //            Toast.makeText(this, soalID, Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-            showScreen(idSoal)
-            binding.submitSatuHuruf.setOnClickListener {
-                hideButton()
-                val image = ArrayList<String>()
-                image.apply {
-                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
-                }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal)
-//                    submitDrawing(idSoal)
-                }else if (index == 3) {
-                    binding.progressBarH1.visibility = View.VISIBLE
-                    binding.tvSelesaiH1.visibility = View.VISIBLE
-                }
+        var idSoal = arrayID[index]
+        showScreen(idSoal)
+        binding.submitSatuHuruf.setOnClickListener {
+            hideButton()
+            var score = 0
+            val canvas1 = binding.cnvsLevelSatuHurufone.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelSatuHuruftwo.getBitmap().scale(224, 224)
+            val canvas3 = binding.cnvsLevelSatuHurufthree.getBitmap().scale(224, 224)
+            val result1 = Predict.predictHuruf(this, canvas1, answer?.get(0)!!)
+            val result2 = Predict.predictHuruf(this, canvas2, answer?.get(1)!!)
+            val result3 = Predict.predictHuruf(this, canvas3, answer?.get(2)!!)
+            if ((result1 + result2 + result3) == 30) {
+                score = 10
             }
-        }else if (mode == "single") {
-            val noSoal = intent.getStringExtra(NO_SOAL)
-            binding.btnUserParticipantH1.visibility = View.INVISIBLE
-            val idSoal = intent.getIntExtra(EXTRA_SOAL, 0).toString()
-            showScreen(idSoal)
-            binding.submitSatuHuruf.setOnClickListener{
-                val image = ArrayList<String>()
-                image.apply {
-                    add(encodeImage(binding.cnvsLevelSatuHurufone.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelSatuHuruftwo.getBitmap()))
-                    add(encodeImage(binding.cnvsLevelSatuHurufthree.getBitmap()))
-                }
-                submitDrawing(idSoal, image)
+//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
+            val end = Date().time
+            total = (end - begin)/1000
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
+            index++
+            if (index < 3) {
+                idSoal = arrayID[index]
+                showScreen(idSoal)
+//                    submitDrawing(idSoal)
+            }else if (index == 3) {
+                binding.progressBarH1.visibility = View.VISIBLE
+                binding.tvSelesaiH1.visibility = View.VISIBLE
             }
         }
     }
@@ -123,37 +115,12 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         binding.refreshSatuHuruf.visibility = View.VISIBLE
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
+    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
+                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, score,  duration)
                     .collectLatest {
                         endGame(idGame)
-                    }
-            }
-        }
-    }
-
-    private fun submitDrawing(id: String, image: ArrayList<String>) {
-        binding.progressBarH1.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id.toInt(), image)
-                    .collectLatest {
-                        binding.progressBarH1.visibility = View.INVISIBLE
-                        CustomDialogBox.withConfirm(
-                            this@HurufLevelSatuActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            "Berhasil Menjawab",
-                            it.message
-                        ) {
-//                            startActivity(
-//                                Intent(
-//                                    this@HurufLevelSatuActivity,
-//                                    ScoreHurufUserActivity::class.java
-//                                )
-//                            )
-                        }
                     }
             }
         }
@@ -165,6 +132,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
+                    answer = it.jawaban
                     binding.progressBarH1.visibility = View.INVISIBLE
                     refreshCanvas()
                 }

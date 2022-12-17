@@ -9,11 +9,7 @@ import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
-import com.tugasakhir.welearn.core.utils.Template
-import com.tugasakhir.welearn.data.Resource
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -26,7 +22,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
 import kotlin.collections.ArrayList
 
 class HurufLevelTigaFragment : Fragment() {
@@ -34,13 +29,9 @@ class HurufLevelTigaFragment : Fragment() {
     private var _binding: FragmentHurufLevelTigaBinding ?= null
     private val binding get() = _binding!!
     private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
-    private val joinGamePresenter: JoinGamePresenter by viewModel()
-    private val endGamePresenter: EndGamePresenter by viewModel()
-    private val pushNotification: PushNotificationPresenter by viewModel()
-    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
+    private var answer: String ?= null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,79 +45,53 @@ class HurufLevelTigaFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         sessionManager = activity?.let { SharedPreference(it) }!!
-        val mode = HurufLevelTigaFragmentArgs.fromBundle(arguments as Bundle).gameMode
-        if (mode == " "){
-            arguments?.getString("mode")?.let { handlingMode(it) }
-        } else{
-            handlingMode(mode)
-        }
+        main()
 
+        initializeCanvas()
         refreshCanvasOnClick()
         back()
     }
 
-    private fun handlingMode(mode: String) {
-        if (mode == "multi") {
-            enableButton()
-            val soalID = arguments?.getString("idSoal")
-            val arrayID = soalID.toString().split("|")
-            val idGame = arguments?.getString("idGame")
-            listDialog(idGame!!.toInt())
-            joinGame(idGame!!.toInt())
-            var index = 0
-            var total = 0L
-            val begin = Date().time
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
-            var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-            showScreen(idSoal.toInt())
-            binding.submitTigaHuruf.setOnClickListener {
-                disableButton()
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufone.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap()))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap()))
-                }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
-                val end = Date().time
-                total = (end - begin)/1000
-//                Toast.makeText(this, total.toString(), Toast.LENGTH_SHORT).show()
-                submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), image)
-                index++
-                if (index < 3) {
-                    idSoal = arrayID[index]
-                    showScreen(idSoal.toInt())
-//                    submitDrawing(idSoal)
-                }
+    private fun initializeCanvas(){
+        binding.cnvsLevelTigaHurufone.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHuruftwo.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHurufthree.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHuruffour.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHuruffive.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHurufsix.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHurufseven.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHurufeight.setStrokeWidth(30f)
+        binding.cnvsLevelTigaHurufnine.setStrokeWidth(30f)
+    }
 
+    private fun main() {
+        binding.btnUserParticipantH3.visibility = View.INVISIBLE
+        val idSoal = HurufLevelTigaFragmentArgs.fromBundle(arguments as Bundle).idSoal
+        showScreen(idSoal)
+        binding.submitTigaHuruf.setOnClickListener{
+            var score = 0
+            val canvas1 = binding.cnvsLevelTigaHurufone.getBitmap().scale(224, 224)
+            val canvas2 = binding.cnvsLevelTigaHuruftwo.getBitmap().scale(224, 224)
+            val canvas3 = binding.cnvsLevelTigaHurufthree.getBitmap().scale(224, 224)
+            val canvas4 = binding.cnvsLevelTigaHuruffour.getBitmap().scale(224, 224)
+            val canvas5 = binding.cnvsLevelTigaHuruffive.getBitmap().scale(224, 224)
+            val canvas6 = binding.cnvsLevelTigaHurufsix.getBitmap().scale(224, 224)
+            val canvas7 = binding.cnvsLevelTigaHurufseven.getBitmap().scale(224, 224)
+            val canvas8 = binding. cnvsLevelTigaHurufeight.getBitmap().scale(224, 224)
+            val canvas9 = binding.cnvsLevelTigaHurufnine.getBitmap().scale(224, 224)
+            val result1 = Predict.predictHuruf(activity!!, canvas1, answer?.get(0)!!)
+            val result2 = Predict.predictHuruf(activity!!, canvas2, answer?.get(1)!!)
+            val result3 = Predict.predictHuruf(activity!!, canvas3, answer?.get(2)!!)
+            val result4 = Predict.predictHuruf(activity!!, canvas4, answer?.get(3)!!)
+            val result5 = Predict.predictHuruf(activity!!, canvas5, answer?.get(4)!!)
+            val result6 = Predict.predictHuruf(activity!!, canvas6, answer?.get(5)!!)
+            val result7 = Predict.predictHuruf(activity!!, canvas7, answer?.get(6)!!)
+            val result8 = Predict.predictHuruf(activity!!, canvas8, answer?.get(7)!!)
+            val result9 = Predict.predictHuruf(activity!!, canvas9, answer?.get(8)!!)
+            if ((result1 + result2 + result3 + result4 + result5 + result6 +result7 + result8 +result9) == 90){
+                score = 10
             }
-        }else if (mode == "single") {
-            binding.btnUserParticipantH3.visibility = View.INVISIBLE
-            val idSoal = HurufLevelTigaFragmentArgs.fromBundle(arguments as Bundle).idSoal
-            showScreen(idSoal)
-            binding.submitTigaHuruf.setOnClickListener{
-                val image = ArrayList<String>()
-                image.apply {
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufone.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruftwo.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufthree.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffive.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufsix.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHuruffour.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufseven.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufeight.getBitmap().scale(200, 200)))
-                    add(Template.encodeImage(binding.cnvsLevelTigaHurufnine.getBitmap().scale(200, 200)))
-                }
-                disableButton()
-                submitDrawing(idSoal, image)
-            }
+            submitDrawing(idSoal, score)
         }
     }
 
@@ -140,22 +105,11 @@ class HurufLevelTigaFragment : Fragment() {
         binding.submitTigaHuruf.isClickable = true
     }
 
-    private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, image: ArrayList<String>){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufMultiPresenter.predictHurufMulti(idGame, idSoal, image,  duration)
-                    .collectLatest {
-                        endGame(idGame)
-                    }
-            }
-        }
-    }
-
-    private fun submitDrawing(id: Int, image: ArrayList<String>) {
+    private fun submitDrawing(id: Int, score : Int) {
         binding.progressBarH3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id, image)
+                predictHurufPresenter.predictHuruf(id, score)
                     .collectLatest {
                         binding.progressBarH3.visibility = View.INVISIBLE
                         activity?.let { it1 ->
@@ -179,6 +133,7 @@ class HurufLevelTigaFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id).collectLatest {
                     show(it)
+                    answer = it.jawaban
                     binding.progressBarH3.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
@@ -218,68 +173,6 @@ class HurufLevelTigaFragment : Fragment() {
             val backSoal = HurufLevelTigaFragmentDirections.actionHurufLevelTigaNavToListSoalHurufNav()
             backSoal.idLevel = sessionManager.getIDLevel()!!
             view?.findNavController()?.navigate(backSoal)
-        }
-    }
-
-    private fun joinGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame.toString())
-                    .collectLatest {  }
-            }
-        }
-    }
-
-    private fun endGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                endGamePresenter.endGame(idGame.toString())
-                    .collectLatest {
-                        if (it == "Berhasil End Game"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
-                            showScoreMulti(idGame.toString())
-                        }
-                    }
-            }
-        }
-    }
-
-    private fun showScoreMulti(idGame: String) {
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                pushNotification.pushNotification(
-                    PushNotification(
-                        NotificationData(
-                            "Selesai"
-                            ,"Pertandingan telah selesai"
-                            ,"score",
-                            "",
-                            0,
-                            idGame
-                        ),
-                        Constants.TOPIC_JOIN_HURUF,
-                        "high"
-                    )
-                ).collectLatest {  }
-            }
-        }
-    }
-
-    private fun listDialog(idGame: Int) {
-        binding.btnUserParticipantH3.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                activity?.let { it1 -> Template.listUser(it.data!!, it1) }
-                            }
-                            is Resource.Error -> {}
-                        }
-                    }
-                }
-            }
         }
     }
 
