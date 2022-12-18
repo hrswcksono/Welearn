@@ -23,7 +23,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_rounded_green"
-        android:text="CARI PLAYER"
+        android:text="@string/cari_player"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_huruf_acak"
@@ -35,7 +35,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="20dp"
         android:background="@drawable/btn_rounded_green"
-        android:text="MULAI"
+        android:text="@string/mulai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -48,7 +48,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="40dp"
         android:background="@drawable/btn_rounded_green"
-        android:text="ACAK SOAL"
+        android:text="@string/acak_soal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ba_level3"
@@ -63,7 +63,7 @@
         android:fontFamily="@font/rubik_semi_bold"
         android:gravity="center"
         android:paddingHorizontal="20sp"
-        android:text="Huruf Multiplayer"
+        android:text="@string/huruf_multiplayer"
         android:textColor="@color/color_black"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -79,7 +79,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="level 0"
+        android:text="@string/level_0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -91,7 +91,7 @@
         android:layout_marginEnd="104dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="level 1"
+        android:text="@string/level_1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
@@ -103,7 +103,7 @@
         android:layout_marginEnd="75dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="level3"
+        android:text="@string/level_3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.907"
         app:layout_constraintStart_toEndOf="@+id/ba_level2"
@@ -117,7 +117,7 @@
         android:layout_marginTop="28dp"
         android:background="@drawable/bg_grid"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="level 2"
+        android:text="@string/level_2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ba_level1" />
 

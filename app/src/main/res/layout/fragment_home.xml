@@ -41,10 +41,10 @@
         android:layout_marginStart="108dp"
         android:layout_marginTop="84dp"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="AYO BELAJAR BERSAMA"
+        android:text="@string/ayo_belajar_bersama"
         android:textAlignment="center"
         android:textColor="@color/white"
-        android:textSize="28dp"
+        android:textSize="28sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

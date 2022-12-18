@@ -58,7 +58,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="Papan Skor"
+        android:text="@string/papan_skor"
         android:textSize="35sp"
         android:textColor="@color/black"
         android:textStyle="bold"
