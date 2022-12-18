@@ -83,7 +83,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         binding.submitDuaAngka.setOnClickListener {
             hideButton()
             val bitmap = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(this, bitmap, answer!!)
+            val result = Predict.PredictAngka(this, bitmap, answer!!)
             val end = Date().time
             total = (end - begin)/1000
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)

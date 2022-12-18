@@ -64,9 +64,9 @@
         <entry key="..\:/TA/welearn/app/src/main/res/layout/content_main.xml" value="0.25416666666666665" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/dialog_list_user_participant.xml" value="0.4" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_dua.xml" value="0.11875" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_empat.xml" value="0.11875" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_empat.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_nol.xml" value="0.11875" />
-        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_satu.xml" value="0.11875" />
+        <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_satu.xml" value="0.264" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_level_tiga.xml" value="0.1" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_angka_ready.xml" value="0.15" />
         <entry key="..\:/TA/welearn/app/src/main/res/layout/fragment_find_player.xml" value="0.25416666666666665" />

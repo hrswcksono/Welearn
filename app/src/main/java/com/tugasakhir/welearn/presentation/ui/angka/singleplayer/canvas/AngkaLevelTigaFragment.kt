@@ -64,7 +64,7 @@ class AngkaLevelTigaFragment : Fragment() {
         showScreen(idSoal)
         binding.submitTigaAngka.setOnClickListener{
             val bitmap = binding.cnvsLevelTigaAngka.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(activity!!, bitmap, answer!!)
+            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
             submitDrawing(idSoal, result)
         }
     }

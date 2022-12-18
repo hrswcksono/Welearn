@@ -10,12 +10,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
-import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelDuaBinding
-import com.tugasakhir.welearn.domain.entity.NotificationData
-import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
@@ -23,8 +19,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.util.*
-import kotlin.collections.ArrayList
 
 class AngkaLevelDuaFragment : Fragment() {
 
@@ -65,7 +59,7 @@ class AngkaLevelDuaFragment : Fragment() {
         showScreen(idSoal)
         binding.submitDuaAngka.setOnClickListener{
             val bitmap = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(activity!!, bitmap, answer!!)
+            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
             submitDrawing(idSoal, result)
         }
     }

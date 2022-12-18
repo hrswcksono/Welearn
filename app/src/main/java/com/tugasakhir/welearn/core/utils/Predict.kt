@@ -54,7 +54,7 @@ object Predict {
         Log.d("resultAngka", result.toString())
         // Releases model resources if no longer used.
         model.close()
-        if (result.toString() == answer) {
+        if (result.toString()[0] == answer) {
             return 10
         }
         return 0
