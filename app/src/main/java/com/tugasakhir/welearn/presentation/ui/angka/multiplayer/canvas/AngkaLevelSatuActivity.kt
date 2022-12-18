@@ -56,7 +56,6 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
 
         sessionManager = SharedPreference(this)
 
-        val mode = intent.getStringExtra(GAME_MODE)
 
         binding.levelSatuAngkaBack.setOnClickListener {
             onBackPressed()

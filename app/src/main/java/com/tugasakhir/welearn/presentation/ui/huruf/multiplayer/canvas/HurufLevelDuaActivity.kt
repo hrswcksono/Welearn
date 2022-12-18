@@ -135,31 +135,6 @@ class HurufLevelDuaActivity : AppCompatActivity() {
         }
     }
 
-    private fun submitDrawing(id: String, image: ArrayList<String>) {
-        binding.progressBarH2.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id.toInt(), 0)
-                    .collectLatest {
-                        binding.progressBarH2.visibility = View.INVISIBLE
-                        CustomDialogBox.withConfirm(
-                            this@HurufLevelDuaActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            "Berhasil Menjawab",
-                            it.message
-                        ) {
-//                            startActivity(
-//                                Intent(
-//                                    this@HurufLevelDuaActivity,
-//                                    ScoreHurufUserActivity::class.java
-//                                )
-//                            )
-                        }
-                    }
-            }
-        }
-    }
-
     private fun showScreen(id: String) {
         binding.progressBarH2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {

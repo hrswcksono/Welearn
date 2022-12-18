@@ -111,31 +111,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
         binding.refreshNolHuruf.visibility = View.VISIBLE
     }
 
-    private fun submitDrawing(id: String, image: ArrayList<String>) {
-        binding.progressBarH0.visibility = View.VISIBLE
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Main) {
-                predictHurufPresenter.predictHuruf(id.toInt(), 0)
-                    .collectLatest {
-                        binding.progressBarH0.visibility = View.INVISIBLE
-                        CustomDialogBox.withConfirm(
-                            this@HurufLevelNolActivity,
-                            SweetAlertDialog.SUCCESS_TYPE,
-                            "Berhasil Menjawab",
-                            it.message
-                        ) {
-//                            startActivity(
-//                                Intent(
-//                                    this@HurufLevelNolActivity,
-//                                    ScoreHurufUserActivity::class.java
-//                                )
-//                            )
-                        }
-                    }
-            }
-        }
-    }
-
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
@@ -154,6 +129,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
+                    showButton()
                     answer = it.jawaban[0]
                     binding.progressBarH0.visibility = View.INVISIBLE
                     refreshCanvas()

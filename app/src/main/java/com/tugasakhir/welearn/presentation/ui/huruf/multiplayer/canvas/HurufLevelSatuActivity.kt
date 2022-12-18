@@ -132,6 +132,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     showData(it)
+                    showButton()
                     answer = it.jawaban
                     binding.progressBarH1.visibility = View.INVISIBLE
                     refreshCanvas()

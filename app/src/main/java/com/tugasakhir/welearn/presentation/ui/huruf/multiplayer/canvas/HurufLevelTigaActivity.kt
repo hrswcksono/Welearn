@@ -56,6 +56,8 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         binding.levelTigaHurufBack.setOnClickListener {
             onBackPressed()
         }
+
+        binding.tvSelesaiH3.visibility = View.GONE
         draw()
         main()
         refreshCanvasOnClick()
@@ -155,6 +157,8 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id.toInt()).collectLatest {
                     show(it)
+                    showButton()
+                    answer = it.jawaban
                     binding.progressBarH3.visibility = View.INVISIBLE
                     refreshCanvas()
                 }
