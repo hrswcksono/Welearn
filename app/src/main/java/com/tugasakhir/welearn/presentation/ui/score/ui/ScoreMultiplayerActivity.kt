@@ -35,9 +35,10 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
             onBackPressed()
         }
 
-        binding.btnToHome.setOnClickListener {
-            startActivity(Intent(this, MainActivity::class.java))
-        }
+//        binding.btnToHome.setOnClickListener {
+//            startActivity(Intent(this, MainActivity::class.java))
+//            this.finish()
+//        }
 
         showList()
     }
@@ -59,6 +60,7 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
         with(binding.rvScoreMultiplayer) {
             layoutManager = LinearLayoutManager(context)
+            setPadding(0, 10, 0, 0)
             setHasFixedSize(true)
             adapter = scoreMultiAdapter
         }

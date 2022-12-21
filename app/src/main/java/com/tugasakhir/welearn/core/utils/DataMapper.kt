@@ -113,7 +113,8 @@ object DataMapper {
             val joinGame = UserJoinEntity(
                 id = it.idGame.toString(),
                 username = it.username.toString(),
-                jenisSoal = it.jenis_soal.toString()
+                jenisSoal = it.jenis_soal.toString(),
+                idLevel = it.id_level!!
             )
             joinGameList.add(joinGame)
         }

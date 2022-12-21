@@ -17,7 +17,7 @@ interface WelearnUseCase {
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun angkaPredict(idSoal: Int, score: Int): Flow<ResultPredictEntity>
     fun hurufPredict(idSoal: Int, score: Int): Flow<ResultPredictEntity>
-    fun makeRoomGame(idJenis: Int): Flow<String>
+    fun makeRoomGame(idJenis: Int, idLevel: Int): Flow<String>
     fun joinGame(idGame: String): Flow<String>
     fun endGame(idGame: String): Flow<String>
     fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>

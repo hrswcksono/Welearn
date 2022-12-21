@@ -133,10 +133,10 @@ class RemoteDataSource (private val apiService: ApiService) {
             }
         }.flowOn(Dispatchers.IO)
 
-    fun makeRoomGame(id_jenis: Int, tokenUser: String) =
+    fun makeRoomGame(id_jenis: Int, id_level: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.makeRoom(id_jenis,token = "Bearer $tokenUser")
+                val response = apiService.makeRoom(id_jenis, id_level,token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

@@ -17,7 +17,7 @@ interface IWelearnRepository {
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun predictAngka(idSoal: Int, score: Int): Flow<ResultPredictEntity>
     fun predictHuruf(idSoal: Int, score: Int): Flow<ResultPredictEntity>
-    fun makeRoomGame(id_jenis: Int): Flow<String>
+    fun makeRoomGame(id_jenis: Int, id_level: Int): Flow<String>
     fun joinGame(idGame: String): Flow<String>
     fun endGame(idGame: String): Flow<String>
     fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>

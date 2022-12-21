@@ -7,14 +7,13 @@
     android:background="@color/main_bg"
     tools:context=".presentation.ui.score.ui.ScoreActivity">
 
-    <ImageView
-        android:id="@+id/btn_to_home"
-        android:layout_width="45dp"
-        android:layout_height="39dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:src="@drawable/ic_baseline_home_24"
-        app:layout_constraintStart_toEndOf="@+id/papanScoreBack"
+    <View
+        android:id="@+id/view8"
+        android:layout_width="411dp"
+        android:layout_height="150dp"
+        android:background="@color/main_green"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -29,24 +28,23 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="249dp"
-        android:layout_height="wrap_content"
+        android:layout_width="227dp"
+        android:layout_height="78dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="10dp"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="@string/skor_multiplayer"
+        android:text="@string/detail_skor_multiplayer"
         android:textAlignment="textStart"
         android:textColor="@color/black"
-        android:textSize="35sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageView7"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_score_multiplayer"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="24dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.487"
@@ -54,66 +52,63 @@
         app:layout_constraintTop_toBottomOf="@+id/view8"
         tools:listitem="@layout/item_score_multiplayer" />
 
-    <View
-        android:id="@+id/view8"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:background="@color/main_green"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
     <TextView
         android:id="@+id/textView8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/no"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_score_multiplayer"
-        app:layout_constraintStart_toStartOf="@+id/view8"
-        app:layout_constraintTop_toTopOf="@+id/view8" />
+        app:layout_constraintStart_toStartOf="@+id/view8" />
 
     <TextView
         android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/username"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_score_multiplayer"
-        app:layout_constraintStart_toEndOf="@+id/textView8"
-        app:layout_constraintTop_toTopOf="@+id/view8"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintStart_toEndOf="@+id/textView8" />
 
     <TextView
         android:id="@+id/textView10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/skor"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_score_multiplayer"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view8"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/durasi"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toTopOf="@+id/rv_score_multiplayer"
-        app:layout_constraintEnd_toStartOf="@+id/textView10"
-        app:layout_constraintTop_toTopOf="@+id/view8"
-        app:layout_constraintVertical_bias="0.518" />
+        app:layout_constraintEnd_toStartOf="@+id/textView10" />
+
+    <ImageView
+        android:id="@+id/imageView7"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trophy" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

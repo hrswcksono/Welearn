@@ -72,6 +72,9 @@
     <string name="id">id</string>
     <string name="id_user">id_user</string>
     <string name="mode">mode</string>
+    <string name="detail_skor_multiplayer">Detail Skor Multiplayer</string>
+    <string name="ID">ID</string>
+    <string name="levelk">level</string>
 
 
 </resources>

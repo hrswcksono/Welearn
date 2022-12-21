@@ -27,6 +27,7 @@ class JoinedGameAdapter : RecyclerView.Adapter<JoinedGameAdapter.ListViewHolder>
                 idJoin.text = data.id
                 usernameTextView.text = data.username
                 mode.text = data.jenisSoal.substringAfterLast(" ")
+                level.text = data.idLevel.toString()
             }
         }
 

@@ -159,7 +159,7 @@ class MatchHurufFragment : Fragment() {
     private fun makeRoom(idSoal: String, idLevel: Int){
         lifecycleScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Default) {
-                makeRoomPresenter.makeRoom(1).collectLatest {
+                makeRoomPresenter.makeRoom(1, idLevel).collectLatest {
                     lifecycleScope.launch(Dispatchers.Default) {
                         withContext(Dispatchers.Main) {
                             viewModel.pushNotification(

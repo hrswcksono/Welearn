@@ -185,12 +185,17 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                         "high"
                     )
                 ).collectLatest {
-                    val moveToScoreMulti = Intent(this@AngkaLevelNolActivity, ScoreMultiplayerActivity::class.java)
-                    moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
-                    startActivity(moveToScoreMulti)
+                    moveToScoreMulti(idGame)
                 }
             }
         }
+    }
+
+    private fun moveToScoreMulti(idGame: String) {
+        val moveToScoreMulti = Intent(this@AngkaLevelNolActivity, ScoreMultiplayerActivity::class.java)
+        moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
+        startActivity(moveToScoreMulti)
+        this.finish()
     }
 
     private fun hideButton() {

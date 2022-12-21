@@ -21,4 +21,7 @@ data class JoinedGameResponse(
 
 	@field:SerializedName("jenis_soal")
 	val jenis_soal: String? = null,
+
+	@field:SerializedName("id_level")
+	val id_level: Int? = null,
 )

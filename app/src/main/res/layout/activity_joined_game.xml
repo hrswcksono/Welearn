@@ -9,26 +9,36 @@
 
     <View
         android:id="@+id/view6"
-        android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="120dp"
+        android:layout_width="411dp"
+        android:layout_height="150dp"
         android:background="@color/main_green"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="24dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/trophy" />
+
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="248dp"
-        android:layout_height="82dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="202dp"
+        android:layout_height="83dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/rubik_semi_bold"
-        android:text="@string/daftar_game_yang_diikuti"
+        android:text="@string/skor_multiplayer"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="35sp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_back_joined_game"
         app:layout_constraintTop_toTopOf="parent"
         tools:listitem="@layout/item_user_join" />
 
@@ -58,39 +68,48 @@
         android:id="@+id/textView12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:text="@string/id_room"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="10dp"
+        android:text="@string/ID"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view6"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/textView13"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="44dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/jenis"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintStart_toEndOf="@+id/textView12"
-        app:layout_constraintTop_toTopOf="@+id/view6"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintStart_toEndOf="@+id/textView12" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/level"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view6"
+        app:layout_constraintStart_toEndOf="@+id/textView13" />
 
     <TextView
         android:id="@+id/textView14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/pembuat_room"
         android:textColor="@color/black"
         android:textSize="17sp"
         app:layout_constraintBottom_toBottomOf="@+id/view6"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/view6"
-        app:layout_constraintVertical_bias="0.481" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

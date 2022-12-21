@@ -1,18 +1,14 @@
 package com.tugasakhir.welearn.presentation.ui.huruf.multiplayer
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHurufReadyBinding
@@ -20,8 +16,6 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyActivity
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

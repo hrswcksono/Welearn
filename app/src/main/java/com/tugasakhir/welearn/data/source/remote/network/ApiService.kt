@@ -103,6 +103,7 @@ interface ApiService {
     @POST("makeRoom")
     suspend fun makeRoom(
         @Field("id_jenis") idJenis : Int,
+        @Field("id_level") idLevel: Int,
         @Header("Authorization") token: String
     ): SimpleResponse
 

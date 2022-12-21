@@ -1,20 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="10dp">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <View
+        android:id="@+id/view9"
+        android:layout_width="375dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/rounded_button"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_no_angka"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
         android:fontFamily="@font/rubik_regular"
         android:text="@string/_0"
         android:textColor="@color/black"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/view9" />
 
     <TextView
         android:id="@+id/tv_nama_skor_multi"
@@ -26,24 +41,13 @@
         android:text="@string/nama"
         android:textColor="@color/black"
         android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
         app:layout_constraintEnd_toStartOf="@+id/tv_value_duration_multi"
         app:layout_constraintStart_toEndOf="@+id/tv_no_angka"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/view9" />
 
     <TextView
         android:id="@+id/tv_value_skor_multi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="1dp"
-        android:fontFamily="@font/rubik_regular"
-        android:text="@string/_100"
-        android:textColor="@color/black"
-        android:textSize="17sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/tv_value_duration_multi"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="30dp"
@@ -51,7 +55,22 @@
         android:text="@string/_100"
         android:textColor="@color/black"
         android:textSize="17sp"
-        app:layout_constraintEnd_toStartOf="@+id/tv_value_skor_multi"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/view9" />
+
+    <TextView
+        android:id="@+id/tv_value_duration_multi"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/rubik_regular"
+        android:text="@string/_100"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        app:layout_constraintBottom_toBottomOf="@+id/view9"
+        app:layout_constraintEnd_toEndOf="@+id/view9"
+        app:layout_constraintTop_toTopOf="@+id/view9"
+        app:layout_constraintVertical_bias="0.48" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

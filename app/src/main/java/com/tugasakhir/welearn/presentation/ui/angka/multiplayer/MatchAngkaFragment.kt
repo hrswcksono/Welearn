@@ -166,7 +166,7 @@ class MatchAngkaFragment : Fragment() {
     private fun makeRoom(idSoal: String, idLevel: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                makeRoomPresenter.makeRoom(2)
+                makeRoomPresenter.makeRoom(2, idLevel)
                     .collectLatest {
                         lifecycleScope.launch(Dispatchers.Default) {
                             withContext(Dispatchers.Main) {

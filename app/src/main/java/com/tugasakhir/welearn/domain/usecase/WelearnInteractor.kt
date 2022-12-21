@@ -42,7 +42,7 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
         score: Int
     ) = welearnRepository.predictHuruf(idSoal, score)
 
-    override fun makeRoomGame(idJenis: Int) = welearnRepository.makeRoomGame(idJenis)
+    override fun makeRoomGame(idJenis: Int, idLevel: Int) = welearnRepository.makeRoomGame(idJenis, idLevel)
 
     override fun joinGame(idGame: String) = welearnRepository.joinGame(idGame)
 

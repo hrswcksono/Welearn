@@ -66,8 +66,8 @@ class WelearnRepository constructor(
         score: Int
     ) = remoteDataSource.predictHuruf(idSoal, score, token).map { DataMapper.mapperPredict(it) }
 
-    override fun makeRoomGame(id_jenis: Int) =
-        remoteDataSource.makeRoomGame(id_jenis, token).map { DataMapper.mapperString(it) }
+    override fun makeRoomGame(id_jenis: Int, id_level: Int) =
+        remoteDataSource.makeRoomGame(id_jenis, id_level, token).map { DataMapper.mapperString(it) }
 
     override fun joinGame(idGame: String) =
         remoteDataSource.joinGame(idGame, token).map { DataMapper.mapperString(it) }
