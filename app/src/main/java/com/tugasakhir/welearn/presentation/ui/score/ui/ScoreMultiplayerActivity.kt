@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
 import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreMultiAdapter
@@ -22,6 +23,7 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
     companion object{
         const val ID_GAME = "id_game"
+        const val BACK = "back"
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,16 +33,26 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
-        binding.papanScoreBack.setOnClickListener {
-            onBackPressed()
-        }
-
-//        binding.btnToHome.setOnClickListener {
-//            startActivity(Intent(this, MainActivity::class.java))
-//            this.finish()
-//        }
+        backButton()
 
         showList()
+    }
+
+    private fun backButton() {
+        val back = intent.getStringExtra(BACK)
+        if (back == "back") {
+            binding.papanScoreBack.setImageResource(R.drawable.back_button)
+            binding.papanScoreBack.setOnClickListener {
+                onBackPressed()
+            }
+        } else {
+            binding.papanScoreBack.setImageResource(R.drawable.ic_baseline_home_24)
+            binding.papanScoreBack.setOnClickListener {
+                startActivity(Intent(this, MainActivity::class.java))
+                this.finish()
+            }
+        }
+
     }
 
     private fun showList() {

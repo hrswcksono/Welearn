@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
 
         binding.btnToRegister.setOnClickListener {
             startActivity(Intent(this, RegisterActivity::class.java))
+            this.finish()
         }
 
 //        binding.cbPwd.setOnClickListener {
@@ -81,6 +82,7 @@ class LoginActivity : AppCompatActivity() {
 //        RemoteDataSource.tokenUser = login.token
         if (login.token.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+            this.finish()
         }
     }
 

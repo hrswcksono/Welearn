@@ -35,6 +35,7 @@ class RegisterActivity : AppCompatActivity() {
 
         binding.btnregLogin.setOnClickListener {
             startActivity(Intent(this, LoginActivity::class.java))
+            this.finish()
         }
     }
 
@@ -80,5 +81,8 @@ class RegisterActivity : AppCompatActivity() {
             .show()
     }
 
+    override fun onBackPressed() {
+        return
+    }
 
 }

@@ -47,6 +47,7 @@ class JoinedGameActivity : AppCompatActivity() {
         joinedGameAdapter.onItemClick = {
             val moveToScoreMulti = Intent(this@JoinedGameActivity, ScoreMultiplayerActivity::class.java)
             moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, it.id)
+            moveToScoreMulti.putExtra(ScoreMultiplayerActivity.BACK, "back")
             startActivity(moveToScoreMulti)
         }
 
