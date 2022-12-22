@@ -7,10 +7,7 @@ import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.Predict
-import com.tugasakhir.welearn.core.utils.Template
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.data.Resource
@@ -44,6 +41,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private var answer: Char ?= null
+    private lateinit var sessionManager: SharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,6 +50,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
 
+        sessionManager = SharedPreference(this)
         binding.tvSelesaiA0.visibility = View.INVISIBLE
         main()
         refreshCanvasOnClick()
@@ -81,6 +80,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             val end = Date().time
             total = (end - begin)/1000
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+            Template.saveMediaToStorage(canvas1, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++
             if (index < 3) {
                 idSoal = arrayID[index]

@@ -61,6 +61,7 @@ class AngkaLevelDuaFragment : Fragment() {
             val bitmap = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
             val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
             submitDrawing(idSoal, result)
+            Template.saveMediaToStorage(bitmap, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
         }
     }
 

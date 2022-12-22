@@ -92,6 +92,15 @@ class HurufLevelTigaFragment : Fragment() {
                 score = 10
             }
             submitDrawing(idSoal, score)
+            Template.saveMediaToStorage(canvas1, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas2, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas3, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas4, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas5, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas6, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas7, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas8, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas9, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
         }
     }
 

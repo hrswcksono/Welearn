@@ -73,6 +73,8 @@ class AngkaLevelSatuFragment : Fragment() {
                 score = 10
             }
             submitDrawing(idSoal, score)
+            Template.saveMediaToStorage(canvas1, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas2, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
         }
     }
 

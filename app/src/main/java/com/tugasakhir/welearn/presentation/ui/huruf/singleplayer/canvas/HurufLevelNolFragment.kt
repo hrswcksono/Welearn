@@ -65,7 +65,7 @@ class HurufLevelNolFragment : Fragment() {
             val bitmap = binding.cnvsLevelNolHuruf.getBitmap().scale(224, 224)
             val result = Predict.predictHuruf(activity!!, bitmap, answer!!)
             submitDrawing(idSoal, result)
-        }
+            Template.saveMediaToStorage(bitmap, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")}
     }
 
     private fun submitDrawing(id: Int, score: Int) {

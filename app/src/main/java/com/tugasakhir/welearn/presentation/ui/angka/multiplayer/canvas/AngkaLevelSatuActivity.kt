@@ -104,6 +104,8 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
             val end = Date().time
             total = (end - begin)/1000
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
+            Template.saveMediaToStorage(canvas1, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
+            Template.saveMediaToStorage(canvas2, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++
             if (index < 3) {
                 idSoal = arrayID[index]

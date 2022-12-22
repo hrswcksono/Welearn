@@ -1,21 +1,18 @@
 package com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.graphics.scale
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
-import com.tugasakhir.welearn.data.Resource
+import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
-import com.tugasakhir.welearn.domain.entity.NotificationData
-import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
@@ -23,7 +20,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.collections.ArrayList
 
 class AngkaLevelNolFragment : Fragment() {
 
@@ -65,6 +61,7 @@ class AngkaLevelNolFragment : Fragment() {
             val canvas1 = binding.cnvsLevelNolAngka.getBitmap().scale(240,240)
             val result = Predict.PredictAngka(activity!!, canvas1, answer!!)
             submitDrawing(idSoal, result!!)
+            Template.saveMediaToStorage(canvas1, context!!, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
         }
     }
 

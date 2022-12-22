@@ -7,9 +7,7 @@ import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.Predict
+import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.listUser
 import com.tugasakhir.welearn.core.utils.Template.speak
@@ -46,6 +44,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
+    private lateinit var sessionManager: SharedPreference
     private var answer: Char ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,6 +54,8 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
         supportActionBar?.hide()
         binding.tvSelesaiH0.visibility = View.INVISIBLE
+
+        sessionManager = SharedPreference(this)
 
         main()
         refreshCanvasOnClick()
@@ -88,6 +89,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             total = (end - begin)/1000
 
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+            Template.saveMediaToStorage(bitmap, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
