@@ -75,6 +75,8 @@
     <string name="detail_skor_multiplayer">Detail Skor Multiplayer</string>
     <string name="ID">ID</string>
     <string name="levelk">level</string>
+    <string name="soal_angka">Soal Angka</string>
+    <string name="soal_huruf">Soal Huruf</string>
 
 
 </resources>

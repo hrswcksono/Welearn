@@ -28,7 +28,6 @@
         android:name=".presentation.ui.score.ui.ScoreActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
-
     <service
         android:name=".core.utils.FirebaseService"
         android:exported="false"
@@ -38,7 +37,6 @@
             <action android:name="com.google.android.c2dm.intent.RECEIVE" />
         </intent-filter>
     </service>
-
     <activity
         android:name=".MainActivity"
         android:exported="true"
@@ -59,11 +57,9 @@
         android:screenOrientation="portrait">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
-
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-
     <activity
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelEmpatActivity"
         android:exported="false"
@@ -88,7 +84,6 @@
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelSatuActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
-
     <activity
         android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelNolActivity"
         android:exported="true"
@@ -101,7 +96,6 @@
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelNolActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
-
 </application>
 
 </manifest>
