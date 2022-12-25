@@ -19,7 +19,7 @@ object DataMapper {
         angka = it.angka.toString()
     )
 
-    fun mapperSoal(it: SMessage) = SoalEntity(
+    fun mapperSoal(it: SoalResponseMessage) = SoalEntity(
         idSoal = it.idSoal!!,
         idJenis = it.idJenis!!,
         idLevel = it.idLevel!!,

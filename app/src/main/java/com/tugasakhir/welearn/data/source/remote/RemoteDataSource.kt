@@ -81,7 +81,7 @@ class RemoteDataSource (private val apiService: ApiService) {
             } catch (e: Exception) {
             Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO) as Flow<SMessage>
+        }.flowOn(Dispatchers.IO) as Flow<SoalResponseMessage>
 
     fun scoreUser(id: Int, tokenUser: String) =
         flow {
@@ -197,12 +197,6 @@ class RemoteDataSource (private val apiService: ApiService) {
         flow{
             try {
                 val response = apiService.joinedUser(token = "Bearer $tokenUser")
-//                val data = response.message
-//                if (data.isNotEmpty()){
-//                    emit(ApiResponse.Success(response.message))
-//                }else{
-//                    emit(ApiResponse.Empty)
-//                }
                 emit(response.message)
             }catch (e: Exception) {
                 Log.e("RemoteDataSource", e.toString())

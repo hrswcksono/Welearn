@@ -8,10 +8,10 @@ data class SoalResponse(
 	val success: String? = null,
 
 	@field:SerializedName("message")
-	val message: SMessage? = null
+	val message: SoalResponseMessage? = null
 )
 
-data class SMessage(
+data class SoalResponseMessage(
 
 	@field:SerializedName("soal")
 	val soal: String? = null,

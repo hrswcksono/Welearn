@@ -70,8 +70,6 @@ class ListLevelAngkaFragment : Fragment() {
                     }
             }
         }
-
-//        angka_adapter.setData(LevelData.listLevel)
         with(binding.rvLevelAngka) {
             layoutManager = GridLayoutManager(context, 3)
             setHasFixedSize(false)
@@ -83,6 +81,4 @@ class ListLevelAngkaFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-
 }
