@@ -142,4 +142,8 @@ object DataMapper {
         return input.message.toString()
     }
 
+    fun mapIDSoalMulti(input: SimpleResponse) = IDSoalMultiEntity(
+        id_soal = input.message.toString()
+    )
+
 }

@@ -10,7 +10,7 @@ interface IWelearnRepository {
     fun detailUser(): Flow<ProfileEntity>
     fun registerUser(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String>
     fun logoutUser() : Flow<String>
-    fun getIDSoalMultiplayer(jenis: Int, level: Int): Flow<String>
+    fun getIDSoalMultiplayer(jenis: Int, level: Int): Flow<IDSoalMultiEntity>
     fun soalByID(id: Int): Flow<SoalEntity>
     fun scoreUser(id: Int): Flow<ScoreEntity>
     fun highScore(id: Int): Flow<List<RankingScoreEntity>>

@@ -89,7 +89,6 @@ class HurufReadyFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_game)
                     .collectLatest {
-//                        Toast.makeText()
                         if (it == "Berhasil Join") {
                             ready()
                         }
@@ -104,5 +103,4 @@ class HurufReadyFragment : Fragment() {
             .setContentText("Harap menunggu pemain yang lain")
             .show()
     }
-
 }

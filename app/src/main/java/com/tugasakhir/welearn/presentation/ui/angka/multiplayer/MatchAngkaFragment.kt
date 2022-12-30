@@ -138,7 +138,7 @@ class MatchAngkaFragment : Fragment() {
                     viewModelRandom.randomIDSoalMultiByLevel(2,
                         inputLevel
                     ).collectLatest {
-                        if (it.isNotEmpty()){
+                        if (it.id_soal.isNotEmpty()){
                             binding.pgAngkaAcak.visibility = View.INVISIBLE
                             binding.cekAcakAngka.visibility = View.VISIBLE
                             activity?.let { it1 ->
@@ -147,8 +147,8 @@ class MatchAngkaFragment : Fragment() {
                                     "Berhasil Mendapatkan Soal"
                                 )
                             }
-                            startMatch(it, inputLevel)
-                            findPlayer(it, inputLevel.toString())
+                            startMatch(it.id_soal, inputLevel)
+                            findPlayer(it.id_soal, inputLevel.toString())
 //                            dialogBox()
                         }
                     }

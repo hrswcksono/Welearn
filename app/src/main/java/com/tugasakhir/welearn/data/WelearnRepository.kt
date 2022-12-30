@@ -42,7 +42,7 @@ class WelearnRepository constructor(
         remoteDataSource.logoutUser(token).map { DataMapper.mapperString(it) }
 
     override fun getIDSoalMultiplayer(jenis: Int, level: Int) =
-        remoteDataSource.soalMultiplayer(jenis, level, token).map { DataMapper.mapperString(it) }
+        remoteDataSource.soalMultiplayer(jenis, level, token).map { DataMapper.mapIDSoalMulti(it) }
 
     override fun soalByID(id: Int) =
         remoteDataSource.soalByID(id, token).map { DataMapper.mapperSoal(it) }

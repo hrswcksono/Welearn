@@ -10,7 +10,7 @@ interface WelearnUseCase {
     fun userDetail() : Flow<ProfileEntity>
     fun userRegister(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String>
     fun userLogout(): Flow<String>
-    fun getIDSoalMultiplayer(jenis: Int,level: Int): Flow<String>
+    fun getIDSoalMultiplayer(jenis: Int,level: Int): Flow<IDSoalMultiEntity>
     fun getSoalByID(id: Int): Flow<SoalEntity>
     fun userScore(id: Int): Flow<ScoreEntity>
     fun getHighScore(id: Int): Flow<List<RankingScoreEntity>>

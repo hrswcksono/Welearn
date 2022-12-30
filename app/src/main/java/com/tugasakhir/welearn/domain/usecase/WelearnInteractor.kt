@@ -18,11 +18,9 @@ class WelearnInteractor(private val welearnRepository: IWelearnRepository): Wele
 
     override fun userLogout() = welearnRepository.logoutUser()
 
-    override fun getSoalRandomSinglePlayer(jenis: Int, level: Int) =
-        welearnRepository.getRandSoalSingle(jenis, level)
+    override fun getSoalRandomSinglePlayer(jenis: Int, level: Int) = welearnRepository.getRandSoalSingle(jenis, level)
 
-    override fun getIDSoalMultiplayer(jenis: Int, level: Int) =
-        welearnRepository.getIDSoalMultiplayer(jenis, level)
+    override fun getIDSoalMultiplayer(jenis: Int, level: Int) = welearnRepository.getIDSoalMultiplayer(jenis, level)
 
     override fun getSoalByID(id: Int) = welearnRepository.soalByID(id)
 

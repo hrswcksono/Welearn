@@ -98,7 +98,7 @@ class MatchHurufFragment : Fragment() {
                     viewModelRandom.randomIDSoalMultiByLevel(1,
                         inputLevel
                     ).collectLatest {
-                        if (it.isNotEmpty()){
+                        if (it.id_soal.isNotEmpty()){
                             binding.pgHurufAcak.visibility = View.INVISIBLE
                             binding.cekAcakHuruf.visibility = View.VISIBLE
                             activity?.let { it1 ->
@@ -107,8 +107,8 @@ class MatchHurufFragment : Fragment() {
                                     "Berhasil Mendapatkan Soal"
                                 )
                             }
-                            startMatch(it, inputLevel)
-                            findPlayer(it)
+                            startMatch(it.id_soal, inputLevel)
+                            findPlayer(it.id_soal)
                         }
                     }
                 }

@@ -39,7 +39,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHurufLevelNolBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
-    private val predictHurufPresenter: PredictHurufPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
@@ -235,5 +234,4 @@ class HurufLevelNolActivity : AppCompatActivity() {
             }
         }
     }
-
 }
