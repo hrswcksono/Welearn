@@ -139,16 +139,12 @@ class AngkaLevelSatuFragment : Fragment() {
                 predictAngkaPresenter.predictAngka(id, score)
                     .collectLatest {
                         binding.progressBarA1.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(AngkaLevelSatuFragmentDirections.toScoreAngkaSatu())
-                            }
-                        }
+                        CustomDialogBox.dialogPredict(
+                            context!!,
+                            { view?.findNavController()?.navigate(AngkaLevelSatuFragmentDirections.toScoreAngkaSatu()) },
+                            score,
+                            0
+                        )
                     }
             }
         }

@@ -38,7 +38,6 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAngkaLevelDuaBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
     private val predictAngkaMultiPresenter: PredictAngkaMultiPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val endGamePresenter: EndGamePresenter by viewModel()
@@ -77,7 +76,6 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         var total = 0L
         val begin = Date().time
         var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
         showScreen(idSoal)
         binding.submitDuaAngka.setOnClickListener {
             hideButton()
@@ -85,13 +83,18 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             val result = Predict.PredictAngka(this, bitmap, answer!!)
             val end = Date().time
             total = (end - begin)/1000
+            CustomDialogBox.dialogPredict(
+                this@AngkaLevelDuaActivity,
+                {},
+                result,
+                10
+            )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
             Template.saveMediaToStorage(bitmap, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
                 showScreen(idSoal)
-//                    submitDrawing(idSoal)
             }else if (index == 3){
                 binding.progressBarA2.visibility = View.VISIBLE
                 binding.tvSelesaiA2.visibility = View.VISIBLE

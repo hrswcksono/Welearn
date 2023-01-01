@@ -17,6 +17,7 @@ import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
+import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelTigaFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -121,16 +122,12 @@ class HurufLevelTigaFragment : Fragment() {
                 predictHurufPresenter.predictHuruf(id, score)
                     .collectLatest {
                         binding.progressBarH3.visibility = View.INVISIBLE
-                        activity?.let { it1 ->
-                            CustomDialogBox.withConfirm(
-                                it1,
-                                SweetAlertDialog.SUCCESS_TYPE,
-                                "Berhasil Menjawab",
-                                it.message
-                            ) {
-                                view?.findNavController()?.navigate(HurufLevelTigaFragmentDirections.toScoreHurufTiga())
-                            }
-                        }
+                        CustomDialogBox.dialogPredict(
+                            context!!,
+                            { view?.findNavController()?.navigate(HurufLevelTigaFragmentDirections.toScoreHurufTiga()) },
+                            score,
+                            0
+                        )
                     }
             }
         }
