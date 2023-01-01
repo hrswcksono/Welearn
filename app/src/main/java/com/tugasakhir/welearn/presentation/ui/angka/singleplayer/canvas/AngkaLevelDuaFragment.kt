@@ -86,7 +86,6 @@ class AngkaLevelDuaFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelDuaFragmentDirections.toScoreAngkaDua()) },
                             score,
-                            0
                         )
                     }
             }

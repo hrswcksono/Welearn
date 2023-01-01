@@ -91,7 +91,6 @@ class AngkaLevelTigaFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelTigaFragmentDirections.toScoreAngkaTiga()) },
                             score,
-                            0
                         )
                     }
             }

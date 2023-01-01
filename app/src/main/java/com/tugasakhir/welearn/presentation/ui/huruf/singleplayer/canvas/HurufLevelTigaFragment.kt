@@ -126,7 +126,6 @@ class HurufLevelTigaFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelTigaFragmentDirections.toScoreHurufTiga()) },
                             score,
-                            0
                         )
                     }
             }

@@ -89,9 +89,13 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             if ((result1 + result2 + result3) == 30) {
                 score = 10
             }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             val end = Date().time
             total = (end - begin)/1000
+            CustomDialogBox.dialogPredict(
+                this@HurufLevelSatuActivity,
+                {},
+                score,
+            )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             Template.saveMediaToStorage(canvas1, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             Template.saveMediaToStorage(canvas2, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")

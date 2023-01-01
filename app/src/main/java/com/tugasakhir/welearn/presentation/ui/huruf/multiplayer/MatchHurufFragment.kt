@@ -101,12 +101,7 @@ class MatchHurufFragment : Fragment() {
                         if (it.id_soal.isNotEmpty()){
                             binding.pgHurufAcak.visibility = View.INVISIBLE
                             binding.cekAcakHuruf.visibility = View.VISIBLE
-                            activity?.let { it1 ->
-                                CustomDialogBox.notifOnly(
-                                    it1,
-                                    "Berhasil Mendapatkan Soal"
-                                )
-                            }
+                            CustomDialogBox.dialogSoalMulti(context!!)
                             startMatch(it.id_soal, inputLevel)
                             findPlayer(it.id_soal)
                         }

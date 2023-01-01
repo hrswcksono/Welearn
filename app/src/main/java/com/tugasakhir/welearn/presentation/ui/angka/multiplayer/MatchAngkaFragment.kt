@@ -141,15 +141,9 @@ class MatchAngkaFragment : Fragment() {
                         if (it.id_soal.isNotEmpty()){
                             binding.pgAngkaAcak.visibility = View.INVISIBLE
                             binding.cekAcakAngka.visibility = View.VISIBLE
-                            activity?.let { it1 ->
-                                CustomDialogBox.notifOnly(
-                                    it1,
-                                    "Berhasil Mendapatkan Soal"
-                                )
-                            }
+                            CustomDialogBox.dialogSoalMulti(context!!)
                             startMatch(it.id_soal, inputLevel)
                             findPlayer(it.id_soal, inputLevel.toString())
-//                            dialogBox()
                         }
                     }
                 }

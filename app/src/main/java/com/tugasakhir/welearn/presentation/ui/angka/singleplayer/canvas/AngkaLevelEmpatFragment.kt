@@ -99,7 +99,6 @@ class AngkaLevelEmpatFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelEmpatFragmentDirections.toScoreAngkaAmpat()) },
                             score,
-                            0
                         )
                     }
             }

@@ -87,7 +87,6 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
                 this@AngkaLevelDuaActivity,
                 {},
                 result,
-                10
             )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
             Template.saveMediaToStorage(bitmap, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")

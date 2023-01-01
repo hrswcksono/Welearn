@@ -86,9 +86,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         var index = 0
         var total = 0L
         val begin = Date().time
-//            Toast.makeText(this, idGame.toString(), Toast.LENGTH_SHORT).show()
         var idSoal = arrayID[index]
-//            Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
         showScreen(idSoal)
         binding.submitTigaHuruf.setOnClickListener {
             hideButton()
@@ -114,9 +112,13 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             if ((result1 + result2 + result3 + result4 + result5 + result6 +result7 + result8 +result9) == 90){
                 score = 10
             }
-//                Toast.makeText(this, idSoal, Toast.LENGTH_SHORT).show()
             val end = Date().time
             total = (end - begin)/1000
+            CustomDialogBox.dialogPredict(
+                this@HurufLevelTigaActivity,
+                {},
+                score,
+            )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             Template.saveMediaToStorage(canvas1, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             Template.saveMediaToStorage(canvas2, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")

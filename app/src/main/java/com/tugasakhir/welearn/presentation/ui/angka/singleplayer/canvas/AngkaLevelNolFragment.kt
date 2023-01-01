@@ -110,7 +110,6 @@ class AngkaLevelNolFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelNolFragmentDirections.toScoreAngkaNol()) },
                             score,
-                            0
                         )
                     }
             }

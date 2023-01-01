@@ -143,7 +143,6 @@ class AngkaLevelSatuFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelSatuFragmentDirections.toScoreAngkaSatu()) },
                             score,
-                            0
                         )
                     }
             }

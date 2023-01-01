@@ -79,6 +79,11 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             val result = Predict.PredictAngka(this, canvas1, answer!!)
             val end = Date().time
             total = (end - begin)/1000
+            CustomDialogBox.dialogPredict(
+                this@AngkaLevelNolActivity,
+                {},
+                result,
+            )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
             Template.saveMediaToStorage(canvas1, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++

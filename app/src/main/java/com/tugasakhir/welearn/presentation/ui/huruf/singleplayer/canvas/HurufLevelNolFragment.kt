@@ -80,7 +80,6 @@ class HurufLevelNolFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelNolFragmentDirections.toScoreHurufNol()) },
                             score,
-                            0
                         )
                     }
             }

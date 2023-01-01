@@ -104,7 +104,6 @@ class HurufLevelSatuFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelSatuFragmentDirections.toScoreHurufSatu()) },
                             score,
-                            0
                         )
                     }
             }

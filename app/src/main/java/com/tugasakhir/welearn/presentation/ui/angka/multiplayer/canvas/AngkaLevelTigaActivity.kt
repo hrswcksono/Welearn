@@ -88,6 +88,11 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
             val result = Predict.PredictAngka(this, bitmap, answer!!)
             val end = Date().time
             total = (end - begin)/1000
+            CustomDialogBox.dialogPredict(
+                this@AngkaLevelTigaActivity,
+                {},
+                result,
+            )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
             Template.saveMediaToStorage(bitmap, this, "${sessionManager.fetchName()}${idSoal}${Template.getDateTime()}")
             index++

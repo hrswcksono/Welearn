@@ -102,7 +102,6 @@ class HurufLevelDuaFragment : Fragment() {
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelDuaFragmentDirections.toScoreHurufDua()) },
                             score,
-                            0,
                         )
                     }
             }

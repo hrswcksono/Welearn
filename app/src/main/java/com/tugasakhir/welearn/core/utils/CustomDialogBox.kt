@@ -41,7 +41,7 @@ object CustomDialogBox {
             .show()
     }
 
-    fun dialogPredict(context: Context, function: ()->Unit, result: Int, duration: Int) {
+    fun dialogPredict(context: Context, function: ()->Unit, result: Int) {
         var dialogType = DialogType.SUCCESS
         var title = "Benar"
         var message = "Jawaban anda benar"
@@ -50,18 +50,34 @@ object CustomDialogBox {
             message = "Jawaban anda salah"
             title = "salah"
         }
-        AestheticDialog.Builder(context as Activity, DialogStyle.TOASTER, dialogType)
+        AestheticDialog.Builder(context as Activity, DialogStyle.FLASH, dialogType)
             .setTitle(title)
             .setMessage(message)
             .setCancelable(false)
             .setDarkMode(false)
-            .setDuration(duration)
-            .setGravity(Gravity.TOP)
+            .setGravity(Gravity.CENTER)
             .setAnimation(DialogAnimation.SHRINK)
             .setOnClickListener(object : OnDialogClickListener {
                 override fun onClick(dialog: AestheticDialog.Builder) {
                     dialog.dismiss()
                     function()
+                }
+            })
+            .show()
+    }
+
+    fun dialogSoalMulti(context: Context) {
+        AestheticDialog.Builder(context as Activity, DialogStyle.EMOTION, DialogType.SUCCESS)
+            .setTitle("Berhasil")
+            .setMessage("Berhasil mengacak soal")
+            .setCancelable(true)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    //actions...
                 }
             })
             .show()
