@@ -78,5 +78,9 @@
     <string name="soal_angka">Soal Angka</string>
     <string name="soal_huruf">Soal Huruf</string>
 
+    <string-array name="Gender">
+        <item>Laki-laki</item>
+        <item>Perempuan</item>
+    </string-array>
 
 </resources>

@@ -66,7 +66,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/username_register" />
 
-    <androidx.appcompat.widget.AppCompatAutoCompleteTextView
+    <AutoCompleteTextView
         android:id="@+id/jenis_kelamin_register"
         android:layout_width="300dp"
         android:layout_height="48dp"
@@ -76,6 +76,7 @@
         android:fontFamily="@font/rubik_semi_bold"
         android:hint="@string/JenisKelamin"
         app:hintEnabled="false"
+        android:text=""
         android:drawableStart="@drawable/draw_left_gender"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -170,6 +171,5 @@
         app:layout_constraintStart_toEndOf="@+id/tv_reg"
         app:layout_constraintTop_toBottomOf="@+id/btn_register"
         tools:ignore="TouchTargetSizeCheck" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

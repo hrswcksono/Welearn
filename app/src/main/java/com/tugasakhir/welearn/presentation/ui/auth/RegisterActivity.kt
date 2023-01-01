@@ -3,10 +3,12 @@ package com.tugasakhir.welearn.presentation.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
 import com.tugasakhir.welearn.presentation.presenter.auth.RegisterPresenter
 import kotlinx.coroutines.Dispatchers
@@ -43,9 +45,15 @@ class RegisterActivity : AppCompatActivity() {
         val name = binding.nameRegister.editableText
         val username = binding.usernameRegister.editableText
         val email = binding.emailRegister.editableText
-        val jenisKelamin = binding.jenisKelaminRegister.editableText
         val password = binding.passwordRegister.editableText
         val retypePassword = binding.retypePasswordRegister.editableText
+
+        val strJenisKelamin = resources.getStringArray(R.array.Gender)
+        val jenisKelamin = binding.jenisKelaminRegister
+
+        val adapter = ArrayAdapter(this@RegisterActivity,
+            android.R.layout.simple_dropdown_item_1line, strJenisKelamin)
+        jenisKelamin.setAdapter(adapter)
 
         if (password.toString() == retypePassword.toString()){
             lifecycleScope.launch(Dispatchers.Default) {
@@ -76,10 +84,6 @@ class RegisterActivity : AppCompatActivity() {
                 startActivity(Intent(this@RegisterActivity, LoginActivity::class.java))
             }
             .show()
-    }
-
-    override fun onBackPressed() {
-        return
     }
 
 }
