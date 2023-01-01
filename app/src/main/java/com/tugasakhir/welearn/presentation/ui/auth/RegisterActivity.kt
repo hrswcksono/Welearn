@@ -47,10 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         val password = binding.passwordRegister.editableText
         val retypePassword = binding.retypePasswordRegister.editableText
 
-//        print(name.toString())
-
         if (password.toString() == retypePassword.toString()){
-//            Toast.makeText(this, "dsadasdas", Toast.LENGTH_SHORT).show()
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModel.registerUser(

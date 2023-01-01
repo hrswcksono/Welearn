@@ -100,7 +100,7 @@ class HomeFragment : Fragment() {
             requireContext(),
             SweetAlertDialog.WARNING_TYPE,
             "Apakah yakin?",
-            "Keluar aplikasi ini!",
+            "Keluar dari akun ini!",
             "Logout!",
         ) {
             binding.progressbarHome.visibility = View.VISIBLE
@@ -117,6 +117,7 @@ class HomeFragment : Fragment() {
     private fun logoutSuccess(){
         CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
         startActivity(Intent(activity, LoginActivity::class.java))
+        activity?.finish()
 //        sessionManager.deleteToken()
     }
 

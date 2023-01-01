@@ -3,10 +3,14 @@ package com.tugasakhir.welearn.presentation.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.view.View
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
@@ -24,6 +28,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private val viewModel: LoginPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
+    private var doubleBackToExitPressedOnce = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,7 +92,26 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        return
+        if (doubleBackToExitPressedOnce) {
+            dialogLoOut()
+            return
+        }
+
+        this.doubleBackToExitPressedOnce = true
+
+        Handler(Looper.getMainLooper()).postDelayed({ doubleBackToExitPressedOnce = false }, 2000)
+    }
+
+    private fun dialogLoOut(){
+        CustomDialogBox.withCancel(
+            this@LoginActivity,
+            SweetAlertDialog.WARNING_TYPE,
+            "Apakah yakin?",
+            "Keluar dari aplikasi ini!",
+            "Keluar!",
+        ) {
+            super.onBackPressed()
+        }
     }
 
 }
