@@ -43,21 +43,6 @@ class FirebaseService : FirebaseMessagingService() {
             createNotificationChannel(notificationManager)
         }
 
-        var player = 0
-//        myFragment = MatchHurufFragment()
-//        supportFragmentManager
-//            .beginTransaction()
-//            .add(R.id.fragment_container, myFragment , "MyFragment")
-//            .commit()
-
-        //this is fragment method, we call it from activity
-//        myFragment.getToast(this)
-
-        if (message.data["action"] == "gabung") {
-            player++
-            print(player)
-        }
-
         val flags = when {
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M -> FLAG_UPDATE_CURRENT or FLAG_MUTABLE
             else -> FLAG_UPDATE_CURRENT
@@ -155,14 +140,6 @@ class FirebaseService : FirebaseMessagingService() {
         }
         notificationManager.createNotificationChannel(channel)
     }
-
-//    private fun bundleStart(message: RemoteMessage): Bundle {
-//        return bundleOf(
-//            "idSoal" to message.data["idSoal"],
-//            "mode" to "multi",
-//            "idGame" to message.data["action"]
-//        )
-//    }
 
     private fun startPendingIntent(destId: Int, args: Bundle) : PendingIntent {
         return NavDeepLinkBuilder(this)

@@ -96,6 +96,8 @@
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelNolActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
+    <service android:name=".core.utils.ExitApp"
+        android:stopWithTask="false"/>
 </application>
 
 </manifest>

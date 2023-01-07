@@ -47,13 +47,7 @@ class RegisterActivity : AppCompatActivity() {
         val email = binding.emailRegister.editableText
         val password = binding.passwordRegister.editableText
         val retypePassword = binding.retypePasswordRegister.editableText
-
-        val strJenisKelamin = resources.getStringArray(R.array.Gender)
-        val jenisKelamin = binding.jenisKelaminRegister
-
-        val adapter = ArrayAdapter(this@RegisterActivity,
-            android.R.layout.simple_dropdown_item_1line, strJenisKelamin)
-        jenisKelamin.setAdapter(adapter)
+        val jenisKelamin = binding.jenisKelaminRegister.editableText
 
         if (password.toString() == retypePassword.toString()){
             lifecycleScope.launch(Dispatchers.Default) {
