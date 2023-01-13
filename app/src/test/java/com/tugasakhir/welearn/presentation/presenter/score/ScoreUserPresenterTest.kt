@@ -2,10 +2,9 @@ package com.tugasakhir.welearn.presentation.presenter.score
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -34,7 +33,7 @@ class ScoreUserPresenterTest : KoinTest {
             networkModule,
             repositoryModule,
             useCaseModule,
-            viewModelModule
+            presentationModule
         ))
     }
 
@@ -49,14 +48,14 @@ class ScoreUserPresenterTest : KoinTest {
     }
 
     @Test
-    fun `score_user_huruf`() = runBlocking{
+    fun `score_user_huruf_success`() = runBlocking{
         scoreUser.userScore(1).collectLatest {
             assertNotNull(it)
         }
     }
 
     @Test
-    fun `score_user_angka`() = runBlocking{
+    fun `score_user_angka_success`() = runBlocking{
         scoreUser.userScore(2).collectLatest {
             assertNotNull(it)
         }

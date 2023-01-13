@@ -1,13 +1,13 @@
 package com.tugasakhir.welearn.core.di
 
 import androidx.room.Room
-import com.tugasakhir.welearn.data.WelearnRepository
-import com.tugasakhir.welearn.data.source.local.LocalDataSource
-import com.tugasakhir.welearn.data.source.local.room.WelearnDatabase
 import com.tugasakhir.welearn.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
-import com.tugasakhir.welearn.domain.repository.IWelearnRepository
+import com.tugasakhir.welearn.core.utils.SessionManager
+import com.tugasakhir.welearn.data.*
+import com.tugasakhir.welearn.data.source.ScoreRepository
+import com.tugasakhir.welearn.domain.repository.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.ext.koin.androidContext
@@ -15,16 +15,6 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
-
-val databaseModule = module {
-    factory { get<WelearnDatabase>().welearnDao() }
-    single {
-        Room.databaseBuilder(
-            androidContext(),
-            WelearnDatabase::class.java, "Welearn.db"
-        ).fallbackToDestructiveMigration().build()
-    }
-}
 
 // jalankan lt --port 8000 --subdomain gfhdgdjsjcbsjcgdjsdjdjs
 val networkModule = module {
@@ -47,8 +37,11 @@ val networkModule = module {
 
 val repositoryModule = module {
     single { RemoteDataSource(get()) }
-    single { LocalDataSource(get()) }
-//    factory { SharedPreference(get()) }
-//    factory { AppExecutors() }
-    single<IWelearnRepository> { WelearnRepository(get(), get())}
+    factory { SessionManager(get()) }
+//    single<IWelearnRepository> { WelearnRepository(get())}
+    single<IMultiPlayerRepository> { MultiPlayerRepository(get(), get())}
+    single<IScoreRepository> { ScoreRepository(get(), SessionManager(get()))}
+    single<ISinglePlayerRepository> { SinglePlayerRepository(get(), SessionManager(get()))}
+    single<ISoalRepsoitory> { SoalRepository(get(), SessionManager(get()))}
+    single<IUserRepository> { UserRepository(get(), SessionManager(get()))}
 }

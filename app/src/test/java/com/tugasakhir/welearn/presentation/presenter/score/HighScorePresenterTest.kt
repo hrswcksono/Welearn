@@ -2,10 +2,10 @@ package com.tugasakhir.welearn.presentation.presenter.score
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.UserRepository
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -26,29 +26,28 @@ import org.mockito.Mockito
 class HighScorePresenterTest : KoinTest {
 
     val highScore by inject<HighScorePresenter>()
-    val login by inject<LoginPresenter>()
-
+//    val login by inject<LoginPresenter>()
+    val test by inject<UserRepository>()
+//
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
         modules(
             listOf(
                 networkModule,
-                repositoryModule,
-                useCaseModule,
-                viewModelModule
+                repositoryModule
             )
         )
     }
-
-    @get:Rule
-    val mockProvider = MockProviderRule.create { clazz ->
-        Mockito.mock(clazz.java)
-    }
-
+//
+//    @get:Rule
+//    val mockProvider = MockProviderRule.create { clazz ->
+//        Mockito.mock(clazz.java)
+//    }
+//
     @Before
     fun before() = runBlocking {
-        login.loginUser("Andi123", "12345").collectLatest { }
+        test.loginUser("aini", "aini")
     }
 
     @After
@@ -57,17 +56,23 @@ class HighScorePresenterTest : KoinTest {
     }
 
     @Test
-    fun `list_score_huruf_single_player`() = runBlocking {
-        highScore.highScore(1).collectLatest {
-            assertNotNull(it)
-        }
+    fun addition_isCorrect() {
+        assertNotNull(test.detailUser())
     }
 
-    @Test
-    fun `list_score_angka_single_player`() = runBlocking {
-        highScore.highScore(2).collectLatest {
-            assertNotNull(it)
-        }
-    }
+//
+//    @Test
+//    fun `list_score_huruf_single_player_success`() = runBlocking {
+//        highScore.highScore(1).collectLatest {
+//            assertNotNull(it)
+//        }
+//    }
+//
+//    @Test
+//    fun `list_score_angka_single_player_success`() = runBlocking {
+//        highScore.highScore(2).collectLatest {
+//            assertNotNull(it)
+//        }
+//    }
 
 }

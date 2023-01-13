@@ -2,9 +2,9 @@ package com.tugasakhir.welearn.presentation.presenter.singleplayer
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -31,7 +31,7 @@ class LevelSoalPresenterTest : KoinTest {
             networkModule,
             repositoryModule,
             useCaseModule,
-            viewModelModule
+            presentationModule
         ))
     }
 
@@ -46,7 +46,7 @@ class LevelSoalPresenterTest : KoinTest {
     }
 
     @Test
-    fun `test_level_huruf`() = runBlocking{
+    fun `test_level_huruf_success`() = runBlocking{
         level.getLevelSoal(1).collectLatest {
             assertNotNull(it)
             assertEquals(4, it.size)
@@ -54,7 +54,7 @@ class LevelSoalPresenterTest : KoinTest {
     }
 
     @Test
-    fun `test_level_angka`() = runBlocking{
+    fun `test_level_angka_success`() = runBlocking{
         level.getLevelSoal(2).collectLatest {
             assertNotNull(it)
             assertEquals(5, it.size)

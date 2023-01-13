@@ -227,16 +227,8 @@ class RemoteDataSource (private val apiService: ApiService) {
         flow {
             try {
                 val response = apiService.getUserParticipant(id,token = "Bearer $tokenUser")
-                val data = response.message
-                if (data != null) {
-                    if (data.isNotEmpty()){
-                        emit(ApiResponse.Success(response.message))
-                    }else{
-                        emit(ApiResponse.Empty)
-                    }
-                }
+                emit(response.message)
             }catch (e: Exception) {
-                emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)

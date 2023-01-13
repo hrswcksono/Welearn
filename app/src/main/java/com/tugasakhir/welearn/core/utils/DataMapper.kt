@@ -85,6 +85,20 @@ object DataMapper {
 
     // user participant
 
+    fun mapperUserParticipant(input: List<UserParticipatedResponse>): List<UserPaticipantEntity> {
+        val userParticipantL = ArrayList<UserPaticipantEntity>()
+        input.map {
+            val userParticipant =  UserPaticipantEntity(
+                idGame = it.idGame!!,
+                id = it.id!!,
+                username = it.id.toString()
+
+            )
+            userParticipantL.add(userParticipant)
+        }
+        return userParticipantL
+    }
+
     fun mapResponseToEntitiesUserParticipant(input: List<UserParticipatedResponse>): List<UserParticipant> {
         val userList = ArrayList<UserParticipant>()
         input.map {

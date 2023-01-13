@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.databinding.FragmentProfileBinding
 import com.tugasakhir.welearn.domain.entity.ProfileEntity
-import com.tugasakhir.welearn.presentation.presenter.ProfilePresenter
+import com.tugasakhir.welearn.presentation.presenter.user.ProfilePresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

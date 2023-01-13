@@ -3,14 +3,12 @@ package com.tugasakhir.welearn.presentation.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
-import com.tugasakhir.welearn.presentation.presenter.auth.RegisterPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.RegisterPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

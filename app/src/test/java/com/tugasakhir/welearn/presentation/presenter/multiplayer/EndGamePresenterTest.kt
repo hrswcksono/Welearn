@@ -2,9 +2,9 @@ package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -12,6 +12,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -33,7 +34,7 @@ class EndGamePresenterTest : KoinTest {
                 networkModule,
                 repositoryModule,
                 useCaseModule,
-                viewModelModule
+                presentationModule
             )
         )
     }
@@ -45,11 +46,18 @@ class EndGamePresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("Andi123", "12345").collectLatest { }
+        login.loginUser("test", "12345").collectLatest { }
     }
 
     @After
     fun after() {
         stopKoin()
+    }
+
+    @Test
+    fun `end_game_success`() = runBlocking{
+        endGame.endGame("1").collectLatest {
+            assertEquals(it, "Berhasil End Game")
+        }
     }
 }

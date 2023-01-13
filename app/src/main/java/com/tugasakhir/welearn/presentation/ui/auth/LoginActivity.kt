@@ -5,10 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.text.method.HideReturnsTransformationMethod
-import android.text.method.PasswordTransformationMethod
 import android.view.View
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.MainActivity
@@ -16,7 +13,7 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.entity.LoginEntity
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -60,6 +57,8 @@ class LoginActivity : AppCompatActivity() {
 //                binding.passwordLogin.transformationMethod = PasswordTransformationMethod.getInstance()
 //            }
 //        }
+
+
     }
 
     private fun loginUser(){

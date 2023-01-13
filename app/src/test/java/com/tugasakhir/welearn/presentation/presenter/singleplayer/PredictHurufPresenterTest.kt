@@ -2,10 +2,9 @@ package com.tugasakhir.welearn.presentation.presenter.singleplayer
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -13,6 +12,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -24,7 +24,7 @@ import org.mockito.Mockito
 @ExperimentalCoroutinesApi
 class PredictHurufPresenterTest : KoinTest {
 
-    val endGame by inject<EndGamePresenter>()
+    val predictHuruf by inject<PredictHurufPresenter>()
     val login by inject<LoginPresenter>()
 
     @get:Rule
@@ -35,7 +35,7 @@ class PredictHurufPresenterTest : KoinTest {
                 networkModule,
                 repositoryModule,
                 useCaseModule,
-                viewModelModule
+                presentationModule
             )
         )
     }
@@ -53,5 +53,12 @@ class PredictHurufPresenterTest : KoinTest {
     @After
     fun after() {
         stopKoin()
+    }
+
+    @Test
+    fun `predict_huruf`() = runBlocking{
+        predictHuruf.predictHuruf(1, 0).collectLatest {
+            assertNotNull(it)
+        }
     }
 }

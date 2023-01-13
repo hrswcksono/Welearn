@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.presentation.ui.home
 
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -14,7 +13,6 @@ import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.flatdialoglibrary.dialog.FlatDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
 import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
@@ -22,7 +20,7 @@ import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreActivity
-import com.tugasakhir.welearn.presentation.presenter.auth.LogoutPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LogoutPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.JoinedGameActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -116,6 +114,7 @@ class HomeFragment : Fragment() {
 
     private fun logoutSuccess(){
         CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         startActivity(Intent(activity, LoginActivity::class.java))
         activity?.finish()
 //        sessionManager.deleteToken()

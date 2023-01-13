@@ -6,18 +6,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
-import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
-import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -25,7 +21,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class AngkaLevelDuaActivity : AppCompatActivity() {
     companion object {
@@ -222,13 +217,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                Template.listUser(it.data!!, this@AngkaLevelDuaActivity)
-                            }
-                            is Resource.Error -> {}
-                        }
+                        Template.listUser(it, this@AngkaLevelDuaActivity)
                     }
                 }
             }
