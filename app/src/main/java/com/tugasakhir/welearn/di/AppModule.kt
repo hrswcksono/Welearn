@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.di
 
-import com.tugasakhir.welearn.data.UserRepository
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerInteractor
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
 import com.tugasakhir.welearn.domain.usecase.score.ScoreInteractor
