@@ -14,18 +14,3 @@ data class NotificationData(
     val idLevel: Int,
     val action: String,
 )
-//
-//data class PushNotificationStart(
-//    val data: StartGame,
-//    val to: String,
-//    val priority: String
-//)
-//
-//data class StartGame(
-//    val title: String,
-//    val message: String,
-//    val type: String,
-//    val idSoal: String,
-//    val idLevel: Int,
-//    val action: String
-//)

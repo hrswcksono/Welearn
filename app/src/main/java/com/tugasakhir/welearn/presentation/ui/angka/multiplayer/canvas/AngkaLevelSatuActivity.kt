@@ -246,13 +246,7 @@ class AngkaLevelSatuActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                Template.listUser(it.data!!, this@AngkaLevelSatuActivity)
-                            }
-                            is Resource.Error -> {}
-                        }
+                        Template.listUser(it, this@AngkaLevelSatuActivity)
                     }
                 }
             }

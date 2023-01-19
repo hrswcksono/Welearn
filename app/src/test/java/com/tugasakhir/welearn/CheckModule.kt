@@ -2,8 +2,8 @@ package com.tugasakhir.welearn
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
 import org.junit.Rule
 import org.junit.Test
 import org.koin.test.check.checkModules
@@ -25,7 +25,7 @@ class CheckModule {
             networkModule,
             repositoryModule,
             useCaseModule,
-            viewModelModule
+            presentationModule
         ))
     }
 }

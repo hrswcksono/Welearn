@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.data
 
-import com.tugasakhir.welearn.data.source.local.LocalDataSource
 import com.tugasakhir.welearn.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.data.source.remote.network.ApiResponse
 import com.tugasakhir.welearn.data.source.remote.response.LevelResponse
@@ -13,8 +12,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
 class WelearnRepository constructor(
-    private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource
+    private val remoteDataSource: RemoteDataSource
     ): IWelearnRepository{
 
     var token = ""
@@ -105,17 +103,6 @@ class WelearnRepository constructor(
     override fun getRandSoalSingle(jenis: Int, level: Int) =
         remoteDataSource.randSoalSingle(jenis, level, token).map { DataMapper.mapperRandomSoal(it) }
 
-    override fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>> =
-        object : NetworkBoundResource<List<UserPaticipantEntity>, List<UserParticipatedResponse>>() {
-            override fun loadFromDB(): Flow<List<UserPaticipantEntity>> =
-                localDataSource.getUserParticipant(idGame).map { DataMapper.mapEntitiesToDomainUserParticipant(it) }
-            override fun shouldFetch(data: List<UserPaticipantEntity>?): Boolean =
-                data == null || data.isEmpty()
-            override suspend fun createCall(): Flow<ApiResponse<List<UserParticipatedResponse>>> =
-                remoteDataSource.userParticipant(idGame, token)
-            override suspend fun saveCallResult(data: List<UserParticipatedResponse>) {
-                val userList = DataMapper.mapResponseToEntitiesUserParticipant(data)
-                localDataSource.insertUserParticipant(userList)
-            }
-        }.asFlow()
+    override fun getUserParticipant(idGame: Int) =
+        remoteDataSource.userParticipant(idGame, token).map { DataMapper.mapperUserParticipant(it) }
 }

@@ -26,5 +26,5 @@ interface WelearnUseCase {
     fun userJoinedGame(): Flow<List<UserJoinEntity>>
     fun getSoalRandomSinglePlayer(jenis: Int, level: Int): Flow<List<SoalEntity>>
     fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
-    fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>>
+    fun getUserParticipant(idGame: Int): Flow<List<UserPaticipantEntity>>
 }

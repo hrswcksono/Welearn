@@ -226,13 +226,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                listUser(it.data!!, this@HurufLevelNolActivity)
-                            }
-                            is Resource.Error -> {}
-                        }
+                        Template.listUser(it, this@HurufLevelNolActivity)
                     }
                 }
             }

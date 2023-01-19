@@ -60,6 +60,8 @@ class LoginActivity : AppCompatActivity() {
 //                binding.passwordLogin.transformationMethod = PasswordTransformationMethod.getInstance()
 //            }
 //        }
+
+
     }
 
     private fun loginUser(){

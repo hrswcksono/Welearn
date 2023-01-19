@@ -116,6 +116,7 @@ class HomeFragment : Fragment() {
 
     private fun logoutSuccess(){
         CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
+        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         startActivity(Intent(activity, LoginActivity::class.java))
         activity?.finish()
 //        sessionManager.deleteToken()

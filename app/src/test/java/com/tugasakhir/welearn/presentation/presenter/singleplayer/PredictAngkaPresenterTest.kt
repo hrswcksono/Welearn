@@ -2,8 +2,8 @@ package com.tugasakhir.welearn.presentation.presenter.singleplayer
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.EndGamePresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -13,6 +13,7 @@ import org.junit.After
 import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
+import org.junit.Test
 import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
@@ -24,7 +25,7 @@ import org.mockito.Mockito
 @ExperimentalCoroutinesApi
 class PredictAngkaPresenterTest : KoinTest {
 
-    val endGame by inject<EndGamePresenter>()
+    val predictAngka by inject<PredictAngkaPresenter>()
     val login by inject<LoginPresenter>()
 
     @get:Rule
@@ -35,7 +36,7 @@ class PredictAngkaPresenterTest : KoinTest {
                 networkModule,
                 repositoryModule,
                 useCaseModule,
-                viewModelModule
+                presentationModule
             )
         )
     }
@@ -53,5 +54,12 @@ class PredictAngkaPresenterTest : KoinTest {
     @After
     fun after() {
         stopKoin()
+    }
+
+    @Test
+    fun `predict_angka`() = runBlocking{
+        predictAngka.predictAngka(1, 0).collectLatest {
+
+        }
     }
 }

@@ -271,13 +271,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     listUserParticipantPresenter.getListUserParticipant(idGame).collectLatest {
-                        when(it) {
-                            is Resource.Loading -> {}
-                            is Resource.Success -> {
-                                Template.listUser(it.data!!, this@HurufLevelTigaActivity)
-                            }
-                            is Resource.Error -> {}
-                        }
+                        Template.listUser(it, this@HurufLevelTigaActivity)
                     }
                 }
             }

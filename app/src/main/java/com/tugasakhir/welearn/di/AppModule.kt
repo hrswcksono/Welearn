@@ -19,7 +19,7 @@ val useCaseModule = module {
     factory<WelearnUseCase> { WelearnInteractor(get())}
 }
 
-val viewModelModule = module {
+val presentationModule = module {
     viewModel { LoginPresenter(get()) }
     viewModel { ProfilePresenter(get()) }
     viewModel { ListSoalRandomPresenter(get()) }

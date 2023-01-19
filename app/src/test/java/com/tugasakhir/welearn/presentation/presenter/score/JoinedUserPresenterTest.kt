@@ -2,8 +2,8 @@ package com.tugasakhir.welearn.presentation.presenter.score
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -32,7 +32,7 @@ class JoinedUserPresenterTest : KoinTest {
             networkModule,
             repositoryModule,
             useCaseModule,
-            viewModelModule
+            presentationModule
         ))
     }
 
@@ -47,7 +47,7 @@ class JoinedUserPresenterTest : KoinTest {
     }
 
     @Test
-    fun `show_joined_user`() = runBlocking{
+    fun `show_joined_user_success`() = runBlocking{
         joinUser.getJoinedGame().collectLatest {
             assertNotNull(it)
         }

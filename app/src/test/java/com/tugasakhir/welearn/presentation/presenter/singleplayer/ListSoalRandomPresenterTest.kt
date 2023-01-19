@@ -2,8 +2,8 @@ package com.tugasakhir.welearn.presentation.presenter.singleplayer
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.di.viewModelModule
 import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -35,7 +35,7 @@ class ListSoalRandomPresenterTest : KoinTest {
             networkModule,
             repositoryModule,
             useCaseModule,
-            viewModelModule
+            presentationModule
         ))
     }
 
@@ -50,7 +50,7 @@ class ListSoalRandomPresenterTest : KoinTest {
     }
 
     @Test
-    fun `list_soal_huruf`() = runBlocking{
+    fun `list_soal_huruf_success`() = runBlocking{
         soal.randomSoalSingle(1, 2).collectLatest {
             assertNotNull(it)
             assertEquals(10, it.size)
@@ -58,7 +58,7 @@ class ListSoalRandomPresenterTest : KoinTest {
     }
 
     @Test
-    fun `list_soal_angka`() = runBlocking{
+    fun `list_soal_angka_success`() = runBlocking{
         soal.randomSoalSingle(2, 2).collectLatest {
             assertNotNull(it)
             assertEquals(10, it.size)

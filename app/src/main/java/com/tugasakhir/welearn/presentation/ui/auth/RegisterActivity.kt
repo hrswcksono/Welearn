@@ -8,7 +8,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
 import com.tugasakhir.welearn.presentation.presenter.auth.RegisterPresenter
 import kotlinx.coroutines.Dispatchers

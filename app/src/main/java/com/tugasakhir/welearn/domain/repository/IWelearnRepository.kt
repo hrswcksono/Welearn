@@ -26,5 +26,5 @@ interface IWelearnRepository {
     fun getJoinedGame(): Flow<List<UserJoinEntity>>
     fun getLevel(idLevel: Int): Flow<List<LevelEntity>>
     fun getRandSoalSingle(jenis: Int ,level: Int): Flow<List<SoalEntity>>
-    fun getUserParticipant(idGame: Int): Flow<Resource<List<UserPaticipantEntity>>>
+    fun getUserParticipant(idGame: Int): Flow<List<UserPaticipantEntity>>
 }
