@@ -4,7 +4,7 @@ import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.presentation.presenter.auth.LoginPresenter
+import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
@@ -18,15 +18,13 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
-import org.koin.test.mock.MockProviderRule
-import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
 class HighScorePresenterTest : KoinTest {
 
     val highScore by inject<HighScorePresenter>()
     val login by inject<LoginPresenter>()
-
+//
     @get:Rule
     val koinTestRule = KoinTestRule.create {
         printLogger()
@@ -39,15 +37,15 @@ class HighScorePresenterTest : KoinTest {
             )
         )
     }
-
-    @get:Rule
-    val mockProvider = MockProviderRule.create { clazz ->
-        Mockito.mock(clazz.java)
-    }
-
+//
+//    @get:Rule
+//    val mockProvider = MockProviderRule.create { clazz ->
+//        Mockito.mock(clazz.java)
+//    }
+//
     @Before
     fun before() = runBlocking {
-        login.loginUser("Andi123", "12345").collectLatest { }
+        login.loginUser("aini", "aini")
     }
 
     @After
@@ -68,5 +66,4 @@ class HighScorePresenterTest : KoinTest {
             assertNotNull(it)
         }
     }
-
 }

@@ -8,12 +8,11 @@ import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

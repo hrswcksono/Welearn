@@ -6,17 +6,14 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
-import com.tugasakhir.welearn.core.utils.Template.encodeImage
 import com.tugasakhir.welearn.core.utils.Template.speak
-import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +22,6 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import kotlin.collections.ArrayList
 
 class HurufLevelDuaActivity : AppCompatActivity() {
     companion object {

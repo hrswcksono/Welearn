@@ -16,7 +16,7 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomIDSoalMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.RandomIDSoalMultiPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.presenter.auth
+package com.tugasakhir.welearn.presentation.presenter.user
 
 import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule

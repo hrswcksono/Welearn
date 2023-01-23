@@ -3,6 +3,12 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/activity_login.xml" value="0.12360688956433637" />
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/fragment_list_level_angka.xml" value="0.12360688956433637" />
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/fragment_list_level_huruf.xml" value="0.12360688956433637" />
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/fragment_list_soal_angka.xml" value="0.12360688956433637" />
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/fragment_list_soal_huruf.xml" value="0.12360688956433637" />
+        <entry key="..\:/TA/backup/welearn/app/src/main/res/layout/fragment_match_angka.xml" value="0.12360688956433637" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.158" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/back_nav.xml" value="0.2575" />
         <entry key="..\:/TA/welearn/app/src/main/res/drawable/btn_login_register.xml" value="0.228" />

@@ -8,7 +8,6 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
@@ -17,7 +16,7 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomIDSoalMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.RandomIDSoalMultiPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

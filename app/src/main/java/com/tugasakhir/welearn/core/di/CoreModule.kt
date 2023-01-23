@@ -1,14 +1,18 @@
 package com.tugasakhir.welearn.core.di
 
+<<<<<<< HEAD
 import androidx.room.Room
 import com.tugasakhir.welearn.data.WelearnRepository
+=======
+>>>>>>> da79e37b7ac3186a7049a99dd22654ee1eeb405d
 import com.tugasakhir.welearn.data.source.remote.RemoteDataSource
 import com.tugasakhir.welearn.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
-import com.tugasakhir.welearn.domain.repository.IWelearnRepository
+import com.tugasakhir.welearn.core.utils.SessionManager
+import com.tugasakhir.welearn.data.*
+import com.tugasakhir.welearn.domain.repository.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

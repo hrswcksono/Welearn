@@ -8,22 +8,16 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelTigaBinding
-import com.tugasakhir.welearn.domain.entity.NotificationData
-import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.SoalEntity
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.score.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.presenter.soal.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
-import com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelTigaFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import kotlin.collections.ArrayList
 
 class HurufLevelTigaFragment : Fragment() {
 
