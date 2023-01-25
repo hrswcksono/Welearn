@@ -1,6 +1,5 @@
 package com.tugasakhir.welearn.core.utils
 
-import com.tugasakhir.welearn.data.source.local.entity.UserParticipant
 import com.tugasakhir.welearn.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.entity.*
 
@@ -98,28 +97,6 @@ object DataMapper {
         }
         return userParticipantL
     }
-
-    fun mapResponseToEntitiesUserParticipant(input: List<UserParticipatedResponse>): List<UserParticipant> {
-        val userList = ArrayList<UserParticipant>()
-        input.map {
-            val user = UserParticipant(
-                id = it.id!!,
-                idGame = it.idGame!!,
-                username = it.name.toString()
-            )
-            userList.add(user)
-        }
-        return userList
-    }
-
-    fun mapEntitiesToDomainUserParticipant(input: List<UserParticipant>): List<UserPaticipantEntity> =
-        input.map {
-            UserPaticipantEntity(
-                it.id,
-                it.idGame,
-                it.username
-            )
-        }
 
     fun mapperJoinedGame(input: List<JoinedGameResponse>): List<UserJoinEntity> {
         val joinGameList = ArrayList<UserJoinEntity>()

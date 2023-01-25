@@ -41,8 +41,8 @@ class AngkaReadyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backToHome.setOnClickListener {
-            view?.findNavController()?.navigate(AngkaReadyFragmentDirections.backHomeAngkaReady())
+        binding.backToMultiAngka.setOnClickListener {
+            view?.findNavController()?.navigateUp()
         }
 
         sessionManager = SharedPreference(activity!!)

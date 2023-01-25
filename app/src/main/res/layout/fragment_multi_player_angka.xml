@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/frameLayout8"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_multi"
+    tools:context=".presentation.ui.angka.multiplayer.MultiPlayerAngkaFragment">
+
+    <ImageView
+        android:id="@+id/btn_gabung_angka"
+        android:layout_width="330dp"
+        android:layout_height="131dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/btn_gabung_room"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_room_angka" />
+
+    <ImageView
+        android:id="@+id/btn_room_angka"
+        android:layout_width="330dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="88dp"
+        android:src="@drawable/btn_room_angka"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.493"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/multi_angka" />
+
+    <TextView
+        android:id="@+id/multi_angka"
+        android:layout_width="267dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="@string/multi_angka"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

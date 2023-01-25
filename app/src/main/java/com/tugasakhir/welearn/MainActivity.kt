@@ -57,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.huruf_ready_nav -> navView.visibility = View.GONE
                 R.id.score_angka_user_nav -> navView.visibility = View.GONE
                 R.id.score_huruf_user_nav -> navView.visibility = View.GONE
+                R.id.multi_angka_nav -> navView.visibility = View.VISIBLE
+                R.id.multi_huruf_nav -> navView.visibility = View.VISIBLE
             }
         }
     }

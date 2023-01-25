@@ -7,12 +7,6 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-<<<<<<< HEAD
-import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.core.utils.Constants
-=======
->>>>>>> da79e37b7ac3186a7049a99dd22654ee1eeb405d
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
 import com.tugasakhir.welearn.presentation.presenter.user.RegisterPresenter
 import kotlinx.coroutines.Dispatchers

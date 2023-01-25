@@ -209,6 +209,104 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
+  <TextView
+      android:id="@+id/number_canvas_1"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="1"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufone"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufone" />
+
+  <TextView
+      android:id="@+id/number_canvas_"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="2"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHuruftwo"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHuruftwo" />
+
+  <TextView
+      android:id="@+id/number_canvas_4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="4"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHuruffour" />
+
+  <TextView
+      android:id="@+id/number_canvas_5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="5"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHuruffive"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHuruffive" />
+
+  <TextView
+      android:id="@+id/number_canvas_6"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="6"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufsix"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufsix" />
+
+  <TextView
+      android:id="@+id/number_canvas_7"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="7"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufseven"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufseven" />
+
+  <TextView
+      android:id="@+id/number_canvas_8"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="8"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufeight"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufeight" />
+
+  <TextView
+      android:id="@+id/number_canvas_9"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="9"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufnine"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufnine" />
+
+  <TextView
+      android:id="@+id/number_canvas_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="3"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelTigaHurufthree"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelTigaHurufthree" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,10 +1,9 @@
 package com.tugasakhir.welearn.presentation.presenter.user
 
 import androidx.lifecycle.ViewModel
-import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import com.tugasakhir.welearn.domain.usecase.user.UserUseCase
+import com.tugasakhir.welearn.domain.usecase.auth.AuthUseCase
 
-class RegisterPresenter(private val useCase: UserUseCase): ViewModel() {
+class RegisterPresenter(private val useCase: AuthUseCase): ViewModel() {
 
     fun registerUser(
         username: String,

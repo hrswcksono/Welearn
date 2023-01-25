@@ -7,11 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufUserBinding
 import com.tugasakhir.welearn.domain.entity.ScoreEntity
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreUserPresenter
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.ScoreUserPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

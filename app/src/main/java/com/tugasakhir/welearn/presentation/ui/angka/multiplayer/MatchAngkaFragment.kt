@@ -16,7 +16,7 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.presentation.presenter.soal.RandomIDSoalMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomIDSoalMultiPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -55,49 +55,49 @@ class MatchAngkaFragment : Fragment() {
     }
 
     private fun choseeLevel(){
-        eraseCheckLevel()
-
-        binding.pgCariPlayerAngka.visibility = View.INVISIBLE
-        binding.pgAngkaAcak.visibility = View.INVISIBLE
-        binding.cekCariPlayerAngka.visibility = View.INVISIBLE
-        binding.cekAcakAngka.visibility = View.INVISIBLE
-
-        var inputLevel: Int
-        binding.bhLevel0.setOnClickListener {
-            eraseCheckLevel()
-            binding.alevel0.visibility = View.VISIBLE
-            inputLevel = 0
-            randomSoal(inputLevel)
-        }
-        binding.bhLevel1.setOnClickListener {
-            eraseCheckLevel()
-            binding.alevel1.visibility = View.VISIBLE
-            inputLevel = 1
-            randomSoal(inputLevel)
-        }
-        binding.bhLevel2.setOnClickListener {
-            eraseCheckLevel()
-            binding.alevel2.visibility = View.VISIBLE
-            inputLevel = 2
-            randomSoal(inputLevel)
-        }
-        binding.bhLevel3.setOnClickListener {
-            eraseCheckLevel()
-            binding.alevel3.visibility = View.VISIBLE
-            inputLevel = 3
-            randomSoal(inputLevel)
-        }
-        binding.bhLevel4.setOnClickListener {
-            eraseCheckLevel()
-            binding.alevel4.visibility = View.VISIBLE
-            inputLevel = 4
-            randomSoal(inputLevel)
-        }
+//        eraseCheckLevel()
+//
+//        binding.pgCariPlayerAngka.visibility = View.INVISIBLE
+//        binding.pgAngkaAcak.visibility = View.INVISIBLE
+//        binding.cekCariPlayerAngka.visibility = View.INVISIBLE
+//        binding.cekAcakAngka.visibility = View.INVISIBLE
+//
+//        var inputLevel: Int
+//        binding.bhLevel0.setOnClickListener {
+//            eraseCheckLevel()
+//            binding.alevel0.visibility = View.VISIBLE
+//            inputLevel = 0
+//            randomSoal(inputLevel)
+//        }
+//        binding.bhLevel1.setOnClickListener {
+//            eraseCheckLevel()
+//            binding.alevel1.visibility = View.VISIBLE
+//            inputLevel = 1
+//            randomSoal(inputLevel)
+//        }
+//        binding.bhLevel2.setOnClickListener {
+//            eraseCheckLevel()
+//            binding.alevel2.visibility = View.VISIBLE
+//            inputLevel = 2
+//            randomSoal(inputLevel)
+//        }
+//        binding.bhLevel3.setOnClickListener {
+//            eraseCheckLevel()
+//            binding.alevel3.visibility = View.VISIBLE
+//            inputLevel = 3
+//            randomSoal(inputLevel)
+//        }
+//        binding.bhLevel4.setOnClickListener {
+////            eraseCheckLevel()
+////            binding.alevel4.visibility = View.VISIBLE
+//            inputLevel = 4
+//            randomSoal(inputLevel)
+//        }
     }
 
     private fun findPlayer(level: String, id_game : String) {
         binding.btnFindAngka.setOnClickListener {
-            binding.pgCariPlayerAngka.visibility = View.VISIBLE
+//            binding.pgCariPlayerAngka.visibility = View.VISIBLE
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModel.pushNotification(
@@ -114,21 +114,21 @@ class MatchAngkaFragment : Fragment() {
                             "high"
                         )
                     ).collectLatest {
-                        binding.pgCariPlayerAngka.visibility = View.INVISIBLE
-                        binding.cekCariPlayerAngka.visibility = View.VISIBLE
+//                        binding.pgCariPlayerAngka.visibility = View.INVISIBLE
+//                        binding.cekCariPlayerAngka.visibility = View.VISIBLE
                     }
                 }
             }
         }
     }
 
-    private fun eraseCheckLevel(){
-        binding.alevel0.visibility = View.INVISIBLE
-        binding.alevel1.visibility = View.INVISIBLE
-        binding.alevel2.visibility = View.INVISIBLE
-        binding.alevel3.visibility = View.INVISIBLE
-        binding.alevel4.visibility = View.INVISIBLE
-    }
+//    private fun eraseCheckLevel(){
+//        binding.alevel0.visibility = View.INVISIBLE
+//        binding.alevel1.visibility = View.INVISIBLE
+//        binding.alevel2.visibility = View.INVISIBLE
+//        binding.alevel3.visibility = View.INVISIBLE
+//        binding.alevel4.visibility = View.INVISIBLE
+//    }
 
     private fun randomSoal(inputLevel: Int){
         binding.btnAngkaAcak.setOnClickListener {
@@ -138,11 +138,11 @@ class MatchAngkaFragment : Fragment() {
                         inputLevel
                     ).collectLatest {
                         if (it.id_soal.isNotEmpty()){
-                            binding.pgAngkaAcak.visibility = View.INVISIBLE
-                            binding.cekAcakAngka.visibility = View.VISIBLE
+//                            binding.pgAngkaAcak.visibility = View.INVISIBLE
+//                            binding.cekAcakAngka.visibility = View.VISIBLE
                             CustomDialogBox.dialogSoalMulti(context!!)
                             startMatch(it.id_soal, inputLevel)
-                            findPlayer(it.id_soal, inputLevel.toString())
+                            findPlayer(inputLevel.toString(), inputLevel.toString())
                         }
                     }
                 }

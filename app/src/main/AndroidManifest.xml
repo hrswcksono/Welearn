@@ -52,7 +52,7 @@
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name=".presentation.ui.splashScreen.SplashScreenActivity"
+        android:name=".SplashScreenActivity"
         android:exported="true"
         android:screenOrientation="portrait">
         <intent-filter>

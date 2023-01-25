@@ -31,7 +31,7 @@ class ModeHurufFragment : Fragment() {
         }
 
         binding.btnMultiHuruf.setOnClickListener {
-            view?.findNavController()?.navigate(ModeHurufFragmentDirections.toMatchHuruf())
+            view?.findNavController()?.navigate(ModeHurufFragmentDirections.toMultiHuruf())
         }
 
         binding.modeHurufBack.setOnClickListener {

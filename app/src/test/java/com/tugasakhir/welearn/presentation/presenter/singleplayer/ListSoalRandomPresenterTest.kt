@@ -4,7 +4,6 @@ import com.tugasakhir.welearn.core.di.networkModule
 import com.tugasakhir.welearn.core.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.presentation.presenter.soal.ListSoalRandomPresenter
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +22,6 @@ import org.koin.test.inject
 
 @ExperimentalCoroutinesApi
 class ListSoalRandomPresenterTest : KoinTest {
-
 
     val soal by inject<ListSoalRandomPresenter>()
     val login by inject<LoginPresenter>()

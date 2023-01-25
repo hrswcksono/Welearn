@@ -1,12 +1,7 @@
 package com.tugasakhir.welearn.domain.usecase.multiplayer
 
-import com.tugasakhir.welearn.data.source.remote.response.PushNotificationResponse
 import com.tugasakhir.welearn.domain.entity.PushNotification
-import com.tugasakhir.welearn.domain.entity.UserJoinEntity
-import com.tugasakhir.welearn.domain.entity.UserPaticipantEntity
 import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
-import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import kotlinx.coroutines.flow.Flow
 
 class MultiPlayerInteractor (private val welearnRepository: IMultiPlayerRepository): MultiPlayerUseCase {
     override fun makeRoomGame(idJenis: Int, idLevel: Int) = welearnRepository.makeRoomGame(idJenis, idLevel)
@@ -31,4 +26,10 @@ class MultiPlayerInteractor (private val welearnRepository: IMultiPlayerReposito
     override fun getUserParticipant(idGame: Int) = welearnRepository.getUserParticipant(idGame)
 
     override fun pushNotification(body: PushNotification) = welearnRepository.pushNotification(body)
+
+    override fun getIDSoalMultiplayer(jenis: Int, level: Int) = welearnRepository.getIDSoalMultiplayer(jenis, level)
+
+    override fun getSoalByID(id: Int) = welearnRepository.soalByID(id)
+
+    override fun scoreMulti(idGame: Int) = welearnRepository.scoreMulti(idGame)
 }

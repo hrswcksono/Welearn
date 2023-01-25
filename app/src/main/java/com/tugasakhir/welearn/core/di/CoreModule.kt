@@ -1,15 +1,14 @@
 package com.tugasakhir.welearn.core.di
 
-<<<<<<< HEAD
-import androidx.room.Room
-import com.tugasakhir.welearn.data.WelearnRepository
-=======
->>>>>>> da79e37b7ac3186a7049a99dd22654ee1eeb405d
-import com.tugasakhir.welearn.data.source.remote.RemoteDataSource
-import com.tugasakhir.welearn.data.source.remote.network.ApiService
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
 import com.tugasakhir.welearn.core.utils.SessionManager
 import com.tugasakhir.welearn.data.*
+import com.tugasakhir.welearn.data.source.remote.AuthDataSource
+import com.tugasakhir.welearn.data.source.remote.MultiPlayerDataSource
+import com.tugasakhir.welearn.data.source.remote.SinglePlayerDataSource
+import com.tugasakhir.welearn.data.source.remote.network.AuthApi
+import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerApi
+import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerApi
 import com.tugasakhir.welearn.domain.repository.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -33,11 +32,32 @@ val networkModule = module {
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
-        retrofit.create(ApiService::class.java)
+        retrofit.create(AuthApi::class.java)
+    }
+    single {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL_API)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(get())
+            .build()
+        retrofit.create(MultiPlayerApi::class.java)
+    }
+    single {
+        val retrofit = Retrofit.Builder()
+            .baseUrl(BASE_URL_API)
+            .addConverterFactory(GsonConverterFactory.create())
+            .client(get())
+            .build()
+        retrofit.create(SinglePlayerApi::class.java)
     }
 }
 
 val repositoryModule = module {
-    single { RemoteDataSource(get()) }
-    single<IWelearnRepository> { WelearnRepository(get())}
+    single { AuthDataSource(get<AuthApi>()) }
+    single { MultiPlayerDataSource(get<MultiPlayerApi>())}
+    single { SinglePlayerDataSource(get<SinglePlayerApi>()) }
+    factory { SessionManager(get()) }
+    single<IAuthRepository> { AuthRepository(get(), get())}
+    single<IMultiPlayerRepository> { MultiPlayerRepository(get(), get())}
+    single<ISinglePlayerRepository> { SinglePlayerRepository(get(), get()) }
 }

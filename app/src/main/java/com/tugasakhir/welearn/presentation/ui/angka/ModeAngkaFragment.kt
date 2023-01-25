@@ -29,7 +29,7 @@ class ModeAngkaFragment : Fragment() {
         }
 
         binding.btnMultiAngka.setOnClickListener {
-            view?.findNavController()?.navigate(ModeAngkaFragmentDirections.toMatchAngka())
+            view?.findNavController()?.navigate(ModeAngkaFragmentDirections.toMultiAngka())
         }
 
         binding.modeAngkaBack.setOnClickListener {

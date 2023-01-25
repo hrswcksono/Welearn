@@ -1,11 +1,6 @@
 package com.tugasakhir.welearn.domain.usecase.singleplayer
 
-import com.tugasakhir.welearn.domain.entity.LevelEntity
-import com.tugasakhir.welearn.domain.entity.ResultPredictEntity
 import com.tugasakhir.welearn.domain.repository.ISinglePlayerRepository
-import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import com.tugasakhir.welearn.domain.usecase.soal.SoalUseCase
-import kotlinx.coroutines.flow.Flow
 
 class SinglePlayerInteractor (private val welearnRepository: ISinglePlayerRepository): SinglePlayerUseCase {
     override fun angkaPredict(
@@ -19,4 +14,10 @@ class SinglePlayerInteractor (private val welearnRepository: ISinglePlayerReposi
     ) = welearnRepository.predictHuruf(idSoal, score)
 
     override fun getLevel(idLevel: Int) = welearnRepository.getLevel(idLevel)
+
+    override fun getSoalRandomSinglePlayer(jenis: Int, level: Int) = welearnRepository.getRandSoalSingle(jenis, level)
+
+    override fun userScore(id: Int) = welearnRepository.scoreUser(id)
+
+    override fun getHighScore(id: Int) = welearnRepository.highScore(id)
 }

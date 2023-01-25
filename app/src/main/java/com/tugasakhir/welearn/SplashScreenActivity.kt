@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.presentation.ui.splashScreen
+package com.tugasakhir.welearn
 
 import android.content.Intent
 import android.os.Build
@@ -6,10 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.WindowManager
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
@@ -41,13 +39,5 @@ class SplashScreenActivity : AppCompatActivity() {
             startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
             finish()
         }, 3000)
-
-        unsubscribeTopic()
-    }
-
-    private fun unsubscribeTopic(){
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.TOPIC_GENERAL)
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.TOPIC_JOIN_ANGKA)
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.TOPIC_JOIN_HURUF)
     }
 }

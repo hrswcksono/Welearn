@@ -169,4 +169,28 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <TextView
+      android:id="@+id/canvas_huruf_no4"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="1"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelEmpatAngkaOne"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelEmpatAngkaOne" />
+
+  <TextView
+      android:id="@+id/canvas_huruf_no5"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="1dp"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="2"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelEmpatAngkaTwo"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelEmpatAngkaTwo" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

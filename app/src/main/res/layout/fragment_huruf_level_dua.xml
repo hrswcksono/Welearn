@@ -162,4 +162,59 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="1"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cnvsLevelDuaHurufone"
+        app:layout_constraintTop_toTopOf="@+id/cnvsLevelDuaHurufone" />
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="2"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cnvsLevelDuaHuruftwo"
+        app:layout_constraintTop_toTopOf="@+id/cnvsLevelDuaHuruftwo" />
+
+    <TextView
+        android:id="@+id/textView20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="3"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cnvsLevelDuaHurufthree"
+        app:layout_constraintTop_toTopOf="@+id/cnvsLevelDuaHurufthree" />
+
+    <TextView
+        android:id="@+id/textView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="4"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cnvsLevelDuaHuruffour"
+        app:layout_constraintTop_toTopOf="@+id/cnvsLevelDuaHuruffour" />
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:text="5"
+        android:textColor="@color/black"
+        android:textSize="22sp"
+        app:layout_constraintStart_toStartOf="@+id/cnvsLevelDuaHuruffive"
+        app:layout_constraintTop_toTopOf="@+id/cnvsLevelDuaHuruffive" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

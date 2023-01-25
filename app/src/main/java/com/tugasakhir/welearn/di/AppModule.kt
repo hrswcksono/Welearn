@@ -2,35 +2,25 @@ package com.tugasakhir.welearn.di
 
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerInteractor
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
-import com.tugasakhir.welearn.domain.usecase.score.ScoreInteractor
-import com.tugasakhir.welearn.domain.usecase.score.ScoreUseCase
 import com.tugasakhir.welearn.domain.usecase.singleplayer.SinglePlayerInteractor
 import com.tugasakhir.welearn.domain.usecase.singleplayer.SinglePlayerUseCase
-import com.tugasakhir.welearn.domain.usecase.soal.SoalInteractor
-import com.tugasakhir.welearn.domain.usecase.soal.SoalUseCase
-import com.tugasakhir.welearn.domain.usecase.user.UserInteractor
-import com.tugasakhir.welearn.domain.usecase.user.UserUseCase
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
-import com.tugasakhir.welearn.presentation.presenter.soal.ListSoalRandomPresenter
+import com.tugasakhir.welearn.domain.usecase.auth.AuthInteractor
+import com.tugasakhir.welearn.domain.usecase.auth.AuthUseCase
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import com.tugasakhir.welearn.presentation.presenter.user.RegisterPresenter
 import com.tugasakhir.welearn.presentation.presenter.user.LogoutPresenter
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import com.tugasakhir.welearn.presentation.presenter.user.ProfilePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.score.*
-import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
-import com.tugasakhir.welearn.presentation.presenter.soal.RandomIDSoalMultiPresenter
-import com.tugasakhir.welearn.presentation.presenter.soal.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomIDSoalMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.*
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val useCaseModule = module {
-    factory<UserUseCase> { UserInteractor(get()) }
+    factory<AuthUseCase> { AuthInteractor(get()) }
     factory<MultiPlayerUseCase> { MultiPlayerInteractor(get()) }
     factory<SinglePlayerUseCase> { SinglePlayerInteractor(get()) }
-    factory<SoalUseCase> { SoalInteractor(get()) }
-    factory<ScoreUseCase> { ScoreInteractor(get()) }
 }
 
 val presentationModule = module {

@@ -41,8 +41,8 @@ class HurufReadyFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.backToHome.setOnClickListener {
-            view?.findNavController()?.navigate(HurufReadyFragmentDirections.backHomeHurufReady())
+        binding.backToMultiHuruf.setOnClickListener {
+            view?.findNavController()?.navigateUp()
         }
 
         sessionManager = SharedPreference(activity!!)

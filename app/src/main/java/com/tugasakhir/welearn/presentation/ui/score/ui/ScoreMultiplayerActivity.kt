@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
-import com.tugasakhir.welearn.presentation.presenter.score.ScoreMultiPresenter
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreMultiAdapter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

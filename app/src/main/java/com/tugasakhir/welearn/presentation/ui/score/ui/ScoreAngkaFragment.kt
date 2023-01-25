@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.databinding.FragmentScoreAngkaBinding
 import com.tugasakhir.welearn.presentation.ui.score.adapter.ScoreAngkaAdapter
-import com.tugasakhir.welearn.presentation.presenter.score.HighScorePresenter
+import com.tugasakhir.welearn.presentation.presenter.singleplayer.HighScorePresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch

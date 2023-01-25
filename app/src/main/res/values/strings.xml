@@ -77,6 +77,10 @@
     <string name="levelk">level</string>
     <string name="soal_angka">Soal Angka</string>
     <string name="soal_huruf">Soal Huruf</string>
+    <string name="multi_huruf">Bermain Multiplayer Huruf</string>
+    <string name="multi_angka">Bermain Multiplayer Angka</string>
+    <string name="buat_room">Buat Room</string>
+    <string name="id_game">ID Game</string>
 
     <string-array name="Gender">
         <item>Laki-laki</item>

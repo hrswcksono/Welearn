@@ -1,13 +1,8 @@
-package com.tugasakhir.welearn.domain.usecase.user
+package com.tugasakhir.welearn.domain.usecase.auth
 
-import com.tugasakhir.welearn.domain.entity.LoginEntity
-import com.tugasakhir.welearn.domain.entity.ProfileEntity
-import com.tugasakhir.welearn.domain.repository.IUserRepository
-import com.tugasakhir.welearn.domain.repository.IWelearnRepository
-import com.tugasakhir.welearn.domain.usecase.WelearnUseCase
-import kotlinx.coroutines.flow.Flow
+import com.tugasakhir.welearn.domain.repository.IAuthRepository
 
-class UserInteractor (private val welearnRepository: IUserRepository): UserUseCase {
+class AuthInteractor (private val welearnRepository: IAuthRepository): AuthUseCase {
     override fun userLogin(username: String, password: String) = welearnRepository.loginUser(username, password)
 
     override fun userDetail() = welearnRepository.detailUser()

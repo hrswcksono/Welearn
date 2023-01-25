@@ -31,11 +31,11 @@
             android:id="@+id/to_level_angka"
             app:destination="@id/list_level_angka_nav" />
         <action
-            android:id="@+id/to_match_angka"
-            app:destination="@id/match_angka_nav" />
-        <action
             android:id="@+id/back_home_from_mode_angka"
             app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/to_multi_angka"
+            app:destination="@id/multi_angka_nav" />
     </fragment>
     <fragment
         android:id="@+id/mode_huruf_nav"
@@ -46,11 +46,11 @@
             android:id="@+id/to_level_huruf"
             app:destination="@id/list_level_huruf_nav" />
         <action
-            android:id="@+id/to_match_huruf"
-            app:destination="@id/match_huruf_nav" />
-        <action
             android:id="@+id/back_home_from_mode_huruf"
             app:destination="@id/home_nav" />
+        <action
+            android:id="@+id/to_multi_huruf"
+            app:destination="@id/multi_huruf_nav" />
     </fragment>
     <fragment
         android:id="@+id/list_level_angka_nav"
@@ -356,37 +356,45 @@
         android:id="@+id/match_angka_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MatchAngkaFragment"
         android:label="fragment_match_angka"
-        tools:layout="@layout/fragment_match_angka" >
-        <action
-            android:id="@+id/action_match_angka_nav_to_mode_angka_nav"
-            app:destination="@id/mode_angka_nav" />
-    </fragment>
+        tools:layout="@layout/fragment_match_angka" />
     <fragment
         android:id="@+id/match_huruf_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufFragment"
         android:label="fragment_match_huruf"
-        tools:layout="@layout/fragment_match_huruf" >
-        <action
-            android:id="@+id/action_match_huruf_nav_to_mode_huruf_nav"
-            app:destination="@id/mode_huruf_nav" />
-    </fragment>
+        tools:layout="@layout/fragment_match_huruf" />
     <fragment
         android:id="@+id/angka_ready_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyFragment"
         android:label="fragment_angka_ready"
-        tools:layout="@layout/fragment_angka_ready" >
-        <action
-            android:id="@+id/back_home_angka_ready"
-            app:destination="@id/home_nav" />
-    </fragment>
+        tools:layout="@layout/fragment_angka_ready" />
     <fragment
         android:id="@+id/huruf_ready_nav"
         android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.HurufReadyFragment"
         android:label="fragment_huruf_ready"
-        tools:layout="@layout/fragment_huruf_ready" >
+        tools:layout="@layout/fragment_huruf_ready" />
+    <fragment
+        android:id="@+id/multi_angka_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MultiPlayerAngkaFragment"
+        android:label="fragment_multi_player_angka"
+        tools:layout="@layout/fragment_multi_player_angka" >
         <action
-            android:id="@+id/back_home_huruf_ready"
-            app:destination="@id/home_nav" />
+            android:id="@+id/to_match_angka"
+            app:destination="@id/match_angka_nav" />
+        <action
+            android:id="@+id/to_gabung_angka"
+            app:destination="@id/angka_ready_nav" />
+    </fragment>
+    <fragment
+        android:id="@+id/multi_huruf_nav"
+        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MultiPlayerHurufFragment"
+        android:label="fragment_multi_player_huruf"
+        tools:layout="@layout/fragment_multi_player_huruf" >
+        <action
+            android:id="@+id/to_match_huruf"
+            app:destination="@id/match_huruf_nav" />
+        <action
+            android:id="@+id/to_gabung_huruf"
+            app:destination="@id/huruf_ready_nav" />
     </fragment>
 
 </navigation>

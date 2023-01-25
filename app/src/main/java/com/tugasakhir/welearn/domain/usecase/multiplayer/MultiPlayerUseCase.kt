@@ -13,4 +13,7 @@ interface MultiPlayerUseCase {
     fun userJoinedGame(): Flow<List<UserJoinEntity>>
     fun getUserParticipant(idGame: Int): Flow<List<UserPaticipantEntity>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
+    fun getIDSoalMultiplayer(jenis: Int,level: Int): Flow<IDSoalMultiEntity>
+    fun getSoalByID(id: Int): Flow<SoalEntity>
+    fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>
 }

@@ -157,4 +157,37 @@
       app:layout_constraintStart_toStartOf="parent"
       app:layout_constraintTop_toTopOf="parent" />
 
-  </androidx.constraintlayout.widget.ConstraintLayout>
+  <TextView
+      android:id="@+id/textView16"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="1"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelSatuHurufone"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelSatuHurufone" />
+
+  <TextView
+      android:id="@+id/textView17"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="2"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelSatuHuruftwo"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelSatuHuruftwo" />
+
+  <TextView
+      android:id="@+id/textView18"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/rubik_semi_bold"
+      android:text="3"
+      android:textColor="@color/black"
+      android:textSize="22sp"
+      app:layout_constraintStart_toStartOf="@+id/cnvsLevelSatuHurufthree"
+      app:layout_constraintTop_toTopOf="@+id/cnvsLevelSatuHurufthree" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

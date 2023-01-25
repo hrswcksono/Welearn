@@ -8,20 +8,21 @@
     tools:context=".presentation.ui.angka.multiplayer.AngkaReadyFragment">
 
     <ImageView
-        android:id="@+id/backToHome"
+        android:id="@+id/back_to_multi_angka"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/icon_home" />
+        app:srcCompat="@drawable/back_button"
+        android:contentDescription="TODO" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_angka_ready"
         android:layout_width="135dp"
         android:layout_height="51dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="44dp"
         android:background="@drawable/title_list"
         android:fontFamily="@font/rubik_semi_bold"
         android:gravity="center"
@@ -29,7 +30,7 @@
         android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+        app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
 
     <TextView
         android:id="@+id/textView4"
@@ -48,5 +49,20 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/appCompatEditText"
+        android:layout_width="173dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="92dp"
+        android:background="@drawable/tf_rounded_corners"
+        android:hint="@string/id_game"
+        android:fontFamily="@font/rubik_semi_bold"
+        android:textAlignment="center"
+        android:textColorHint="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

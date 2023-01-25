@@ -1,12 +1,10 @@
-package com.tugasakhir.welearn.domain.usecase.user
+package com.tugasakhir.welearn.domain.usecase.auth
 
 import com.tugasakhir.welearn.domain.entity.LoginEntity
 import com.tugasakhir.welearn.domain.entity.ProfileEntity
-import com.tugasakhir.welearn.domain.entity.ScoreEntity
-import com.tugasakhir.welearn.domain.entity.SoalEntity
 import kotlinx.coroutines.flow.Flow
 
-interface UserUseCase {
+interface AuthUseCase {
     fun userLogin(username: String, password: String) : Flow<LoginEntity>
     fun userDetail() : Flow<ProfileEntity>
     fun userRegister(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String>
