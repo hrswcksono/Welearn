@@ -2,9 +2,7 @@ package com.tugasakhir.welearn.core.di
 
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
 import com.tugasakhir.welearn.data.*
-import com.tugasakhir.welearn.data.source.remote.AuthDataSource
-import com.tugasakhir.welearn.data.source.remote.MultiPlayerDataSource
-import com.tugasakhir.welearn.data.source.remote.SinglePlayerDataSource
+import com.tugasakhir.welearn.data.source.remote.*
 import com.tugasakhir.welearn.data.source.remote.network.AuthClient
 import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerClient
 import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerClient
@@ -19,19 +17,27 @@ import java.util.concurrent.TimeUnit
 
 // jalankan lt --port 8000 --subdomain gfhdgdjsjcbsjcgdjsdjdjs
 val networkModule = module {
-    single {
-        OkHttpClient.Builder()
+    fun provideClient(): OkHttpClient {
+        return OkHttpClient.Builder()
             .addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
             .connectTimeout(120, TimeUnit.SECONDS)
             .readTimeout(120, TimeUnit.SECONDS)
             .build()
     }
-    single {
-        Retrofit.Builder()
+
+    fun provideRetrofit(client: OkHttpClient): Retrofit {
+        return Retrofit.Builder()
             .baseUrl(BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
+            .client(client)
             .build()
+    }
+
+    single {
+        provideClient()
+    }
+    single {
+        provideRetrofit(get())
     }
 }
 
@@ -52,9 +58,9 @@ val apiModule = module {
 }
 
 val dataSourceModule = module {
-    single { AuthDataSource(get<AuthClient>()) }
-    single { MultiPlayerDataSource(get<MultiPlayerClient>())}
-    single { SinglePlayerDataSource(get<SinglePlayerClient>()) }
+    single<IAuthDataSource> { AuthDataSource(get<AuthClient>()) }
+    single<IMultiplayerDataSource> { MultiPlayerDataSource(get<MultiPlayerClient>())}
+    single<ISinglePlayerDataSource> { SinglePlayerDataSource(get<SinglePlayerClient>()) }
 }
 
 val repositoryModule = module {

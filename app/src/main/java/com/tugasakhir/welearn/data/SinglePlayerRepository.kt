@@ -1,12 +1,13 @@
 package com.tugasakhir.welearn.data
 
 import com.tugasakhir.welearn.core.utils.DataMapper
+import com.tugasakhir.welearn.data.source.remote.ISinglePlayerDataSource
 import com.tugasakhir.welearn.data.source.remote.SinglePlayerDataSource
 import com.tugasakhir.welearn.domain.repository.ISinglePlayerRepository
 import kotlinx.coroutines.flow.map
 
 class SinglePlayerRepository constructor(
-    private val remoteDataSource: SinglePlayerDataSource
+    private val remoteDataSource: ISinglePlayerDataSource
 ): ISinglePlayerRepository {
 
     override fun scoreUser(id: Int, authToken: String) =

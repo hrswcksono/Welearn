@@ -9,8 +9,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class AuthDataSource(private val apiService: AuthClient) {
-    fun loginUser(username: String, password: String) =
+class AuthDataSource constructor(private val apiService: AuthClient): IAuthDataSource {
+    override fun loginUser(username: String, password: String) =
         flow {
             try {
                 val response = apiService.login(username, password)
@@ -22,7 +22,7 @@ class AuthDataSource(private val apiService: AuthClient) {
             }
         }.flowOn(Dispatchers.IO) as Flow<Message>
 
-    fun detailUser(tokenUser: String) =
+    override fun detailUser(tokenUser: String) =
         flow {
             try {
                 val response = apiService.detail(token = "Bearer $tokenUser")
@@ -34,7 +34,7 @@ class AuthDataSource(private val apiService: AuthClient) {
             }
         }.flowOn(Dispatchers.IO) as Flow<DMessage>
 
-    fun registerUser(
+    override fun registerUser(
         username: String,
         password: String,
         email: String,
@@ -49,7 +49,7 @@ class AuthDataSource(private val apiService: AuthClient) {
         }
     }.flowOn(Dispatchers.IO)
 
-    fun logoutUser(tokenUser: String) =
+    override fun logoutUser(tokenUser: String) =
         flow {
             try {
                 val response = apiService.logout(token = "Bearer $tokenUser")

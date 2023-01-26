@@ -2,13 +2,14 @@ package com.tugasakhir.welearn.data
 
 import com.tugasakhir.welearn.core.utils.DataMapper
 import com.tugasakhir.welearn.core.utils.SessionManager
+import com.tugasakhir.welearn.data.source.remote.IMultiplayerDataSource
 import com.tugasakhir.welearn.data.source.remote.MultiPlayerDataSource
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
 import kotlinx.coroutines.flow.map
 
 class MultiPlayerRepository constructor(
-    private val remoteDataSource: MultiPlayerDataSource
+    private val remoteDataSource: IMultiplayerDataSource
 ): IMultiPlayerRepository {
 
     override fun getIDSoalMultiplayer(jenis: Int, level: Int, authToken: String) =

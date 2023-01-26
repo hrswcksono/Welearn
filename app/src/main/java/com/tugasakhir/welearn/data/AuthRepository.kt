@@ -1,13 +1,12 @@
 package com.tugasakhir.welearn.data
 
 import com.tugasakhir.welearn.core.utils.DataMapper
-import com.tugasakhir.welearn.core.utils.SessionManager
-import com.tugasakhir.welearn.data.source.remote.AuthDataSource
+import com.tugasakhir.welearn.data.source.remote.IAuthDataSource
 import com.tugasakhir.welearn.domain.repository.IAuthRepository
 import kotlinx.coroutines.flow.map
 
 class AuthRepository constructor(
-    private val remoteDataSource: AuthDataSource
+    private val remoteDataSource: IAuthDataSource
 ): IAuthRepository {
 
     override fun loginUser(username: String, password: String) =
