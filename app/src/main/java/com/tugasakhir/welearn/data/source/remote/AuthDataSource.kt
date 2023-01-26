@@ -1,7 +1,7 @@
 package com.tugasakhir.welearn.data.source.remote
 
 import android.util.Log
-import com.tugasakhir.welearn.data.source.remote.network.AuthApi
+import com.tugasakhir.welearn.data.source.remote.network.AuthClient
 import com.tugasakhir.welearn.data.source.remote.response.DMessage
 import com.tugasakhir.welearn.data.source.remote.response.Message
 import kotlinx.coroutines.Dispatchers
@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class AuthDataSource(private val apiService: AuthApi) {
+class AuthDataSource(private val apiService: AuthClient) {
     fun loginUser(username: String, password: String) =
         flow {
             try {

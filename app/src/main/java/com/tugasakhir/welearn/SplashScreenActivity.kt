@@ -7,11 +7,9 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
-import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.core.utils.Constants
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
-import com.tugasakhir.welearn.presentation.ui.auth.LoginActivity
+import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
 
 class SplashScreenActivity : AppCompatActivity() {
 

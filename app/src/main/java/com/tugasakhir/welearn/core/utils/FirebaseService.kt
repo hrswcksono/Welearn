@@ -17,12 +17,12 @@ import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.*
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelDuaActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelNolActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelSatuActivity
-import com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelTigaActivity
-import com.tugasakhir.welearn.presentation.ui.score.ui.ScoreMultiplayerActivity
+import com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.*
+import com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelDuaActivity
+import com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelNolActivity
+import com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelSatuActivity
+import com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelTigaActivity
+import com.tugasakhir.welearn.presentation.view.score.ui.ScoreMultiplayerActivity
 import kotlin.random.Random
 
 

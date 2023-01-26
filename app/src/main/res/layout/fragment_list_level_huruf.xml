@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    tools:context=".presentation.ui.huruf.singleplayer.level.ListLevelHurufFragment">
+    tools:context=".presentation.view.huruf.singleplayer.level.ListLevelHurufFragment">
     <ImageView
         android:id="@+id/listHurufBack"
         android:layout_width="40dp"

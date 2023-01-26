@@ -5,15 +5,15 @@ import com.tugasakhir.welearn.domain.entity.*
 import kotlinx.coroutines.flow.Flow
 
 interface IMultiPlayerRepository {
-    fun getIDSoalMultiplayer(jenis: Int, level: Int): Flow<IDSoalMultiEntity>
-    fun soalByID(id: Int): Flow<SoalEntity>
+    fun getIDSoalMultiplayer(jenis: Int, level: Int, authToken: String): Flow<IDSoalMultiEntity>
+    fun soalByID(id: Int, authToken: String): Flow<SoalEntity>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
-    fun makeRoomGame(id_jenis: Int, id_level: Int): Flow<String>
-    fun joinGame(idGame: String): Flow<String>
-    fun endGame(idGame: String): Flow<String>
-    fun scoreMulti(idGame: Int): Flow<List<ScoreMultiEntity>>
-    fun predictHurufMulti(idGame: Int,idSoal: Int, score: Int, duration: Int): Flow<String>
-    fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int): Flow<String>
-    fun getJoinedGame(): Flow<List<UserJoinEntity>>
-    fun getUserParticipant(idGame: Int): Flow<List<UserPaticipantEntity>>
+    fun makeRoomGame(id_jenis: Int, id_level: Int, authToken: String): Flow<String>
+    fun joinGame(idGame: String, authToken: String): Flow<String>
+    fun endGame(idGame: String, authToken: String): Flow<String>
+    fun scoreMulti(idGame: Int, authToken: String): Flow<List<ScoreMultiEntity>>
+    fun predictHurufMulti(idGame: Int,idSoal: Int, score: Int, duration: Int, authToken: String): Flow<String>
+    fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<String>
+    fun getJoinedGame(authToken: String): Flow<List<UserJoinEntity>>
+    fun getUserParticipant(idGame: Int, authToken: String): Flow<List<UserPaticipantEntity>>
 }

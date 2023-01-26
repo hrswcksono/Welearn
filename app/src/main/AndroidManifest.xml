@@ -19,13 +19,13 @@
     android:theme="@style/Theme.Welearn"
     android:usesCleartextTraffic="true">
     <activity
-        android:name=".presentation.ui.score.ui.JoinedGameActivity"
+        android:name=".presentation.view.score.ui.JoinedGameActivity"
         android:exported="false" />
     <activity
-        android:name=".presentation.ui.score.ui.ScoreMultiplayerActivity"
+        android:name=".presentation.view.score.ui.ScoreMultiplayerActivity"
         android:exported="false" />
     <activity
-        android:name=".presentation.ui.score.ui.ScoreActivity"
+        android:name=".presentation.view.score.ui.ScoreActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <service
@@ -44,11 +44,11 @@
         <nav-graph android:value="@navigation/bot_nav" />
     </activity>
     <activity
-        android:name=".presentation.ui.auth.RegisterActivity"
+        android:name=".presentation.view.auth.RegisterActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name=".presentation.ui.auth.LoginActivity"
+        android:name=".presentation.view.auth.LoginActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
@@ -61,39 +61,39 @@
         </intent-filter>
     </activity>
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelEmpatActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelEmpatActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelTigaActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelTigaActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelSatuActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelSatuActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelTigaActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelTigaActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelDuaActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelDuaActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelSatuActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelSatuActivity"
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelNolActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelNolActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.canvas.HurufLevelDuaActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelDuaActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
     <activity
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.canvas.AngkaLevelNolActivity"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelNolActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
     <service android:name=".core.utils.ExitApp"

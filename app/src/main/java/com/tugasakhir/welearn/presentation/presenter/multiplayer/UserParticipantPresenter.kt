@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
 
 class UserParticipantPresenter(private val useCase: MultiPlayerUseCase): ViewModel() {
-    fun getListUserParticipant(idGame: Int) = useCase.getUserParticipant(idGame)
+    fun getListUserParticipant(idGame: Int, authToken: String) = useCase.getUserParticipant(idGame, authToken)
 }

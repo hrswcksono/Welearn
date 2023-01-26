@@ -41,6 +41,32 @@ object CustomDialogBox {
             .show()
     }
 
+
+    fun dialogPredictCoba(context: Context, function: ()->Unit, result: Int, alert: String) {
+        var dialogType = DialogType.SUCCESS
+        var title = "Benar"
+        var message = alert
+        if (result == 0) {
+            dialogType = DialogType.ERROR
+            message = alert
+            title = "salah"
+        }
+        AestheticDialog.Builder(context as Activity, DialogStyle.FLASH, dialogType)
+            .setTitle(title)
+            .setMessage(message)
+            .setCancelable(false)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    function()
+                }
+            })
+            .show()
+    }
+
     fun dialogPredict(context: Context, function: ()->Unit, result: Int) {
         var dialogType = DialogType.SUCCESS
         var title = "Benar"

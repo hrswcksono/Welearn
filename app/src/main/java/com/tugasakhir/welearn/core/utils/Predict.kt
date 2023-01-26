@@ -12,6 +12,49 @@ import java.nio.ByteBuffer
 import java.nio.ByteOrder
 
 object Predict {
+
+    fun predictHurufCoba(context: Context, bitmap: Bitmap) : Pair<Char, Float> {
+        val byteBuffer = bitmapToByteBuffer(bitmap)
+        val model = HurufModel.newInstance(context)
+
+        // Creates inputs for reference.
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(byteBuffer)
+
+        // Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+        val result = resultLetter(outputFeature0.floatArray.asList().indexOf(outputFeature0.floatArray.max()))
+        Log.d("shape", outputFeature0.floatArray.asList().toString())
+        Log.d("resultHuruf", result.toString())
+
+        // Releases model resources if no longer used.
+        model.close()
+        return result to outputFeature0.floatArray.max()
+    }
+
+    fun PredictAngkaCoba(context: Context, bitmap: Bitmap) : Pair<Char, Float> {
+        val byteBuffer = bitmapToByteBuffer(inverseBitmapColors(bitmap))
+        val model = AngkaModel.newInstance(context)
+
+        // Creates inputs for reference.
+        val inputFeature0 = TensorBuffer.createFixedSize(intArrayOf(1, 224, 224, 3), DataType.FLOAT32)
+        inputFeature0.loadBuffer(byteBuffer)
+
+        // Runs model inference and gets result.
+        val outputs = model.process(inputFeature0)
+        val outputFeature0 = outputs.outputFeature0AsTensorBuffer
+
+        val result = outputFeature0.floatArray.asList().indexOf(outputFeature0.floatArray.max())
+
+        Log.d("shape", outputFeature0.floatArray.asList().toString())
+        Log.d("resultAngka", result.toString())
+        // Releases model resources if no longer used.
+        model.close()
+        return result.toString()[0] to outputFeature0.floatArray.max()
+    }
+
     fun predictHuruf(context: Context, bitmap: Bitmap, answer: Char) : Int {
         val byteBuffer = bitmapToByteBuffer(bitmap)
         val model = HurufModel.newInstance(context)

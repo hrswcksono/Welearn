@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface AuthUseCase {
     fun userLogin(username: String, password: String) : Flow<LoginEntity>
-    fun userDetail() : Flow<ProfileEntity>
+    fun userDetail(authToken: String) : Flow<ProfileEntity>
     fun userRegister(username: String, password: String, email: String, name: String, jenisKelamin: String): Flow<String>
-    fun userLogout(): Flow<String>
+    fun userLogout(authToken: String): Flow<String>
 }

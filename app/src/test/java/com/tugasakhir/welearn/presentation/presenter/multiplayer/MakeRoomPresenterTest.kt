@@ -25,6 +25,7 @@ class MakeRoomPresenterTest : KoinTest {
 
     val makeRoom by inject<MakeRoomPresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -46,7 +47,9 @@ class MakeRoomPresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("test", "12345").collectLatest { }
+        login.loginUser("test", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -56,7 +59,7 @@ class MakeRoomPresenterTest : KoinTest {
 
     @Test
     fun `make_room_success`() = runBlocking{
-        makeRoom.makeRoom(2,2).collectLatest {
+        makeRoom.makeRoom(2,2, authToken).collectLatest {
             assertEquals(it, "2")
         }
     }

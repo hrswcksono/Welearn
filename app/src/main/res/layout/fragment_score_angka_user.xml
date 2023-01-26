@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@color/main_green"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.ui.score.ui.ScoreAngkaUserFragment">
+    tools:context=".presentation.view.score.ui.ScoreAngkaUserFragment">
 
     <View
         android:id="@+id/view3"

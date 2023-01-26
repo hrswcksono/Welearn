@@ -25,6 +25,7 @@ class RandomIDSoalMultiPresenterTest : KoinTest {
 
     val randomIDSoalMulti by inject<RandomIDSoalMultiPresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -46,7 +47,9 @@ class RandomIDSoalMultiPresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("test", "12345").collectLatest { }
+        login.loginUser("test", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -56,7 +59,7 @@ class RandomIDSoalMultiPresenterTest : KoinTest {
 
     @Test
     fun `get_random_soal_id_success`() = runBlocking{
-        randomIDSoalMulti.randomIDSoalMultiByLevel(1,1).collectLatest {
+        randomIDSoalMulti.randomIDSoalMultiByLevel(1,1, authToken).collectLatest {
             assertNotNull(it)
         }
     }

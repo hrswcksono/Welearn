@@ -1,20 +1,20 @@
 package com.tugasakhir.welearn.core.di
 
 import com.tugasakhir.welearn.core.utils.Constants.Companion.BASE_URL_API
-import com.tugasakhir.welearn.core.utils.SessionManager
 import com.tugasakhir.welearn.data.*
 import com.tugasakhir.welearn.data.source.remote.AuthDataSource
 import com.tugasakhir.welearn.data.source.remote.MultiPlayerDataSource
 import com.tugasakhir.welearn.data.source.remote.SinglePlayerDataSource
-import com.tugasakhir.welearn.data.source.remote.network.AuthApi
-import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerApi
-import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerApi
+import com.tugasakhir.welearn.data.source.remote.network.AuthClient
+import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerClient
+import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerClient
 import com.tugasakhir.welearn.domain.repository.*
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 
 // jalankan lt --port 8000 --subdomain gfhdgdjsjcbsjcgdjsdjdjs
@@ -27,37 +27,40 @@ val networkModule = module {
             .build()
     }
     single {
-        val retrofit = Retrofit.Builder()
+        Retrofit.Builder()
             .baseUrl(BASE_URL_API)
             .addConverterFactory(GsonConverterFactory.create())
             .client(get())
             .build()
-        retrofit.create(AuthApi::class.java)
-    }
-    single {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL_API)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
-            .build()
-        retrofit.create(MultiPlayerApi::class.java)
-    }
-    single {
-        val retrofit = Retrofit.Builder()
-            .baseUrl(BASE_URL_API)
-            .addConverterFactory(GsonConverterFactory.create())
-            .client(get())
-            .build()
-        retrofit.create(SinglePlayerApi::class.java)
     }
 }
 
-val repositoryModule = module {
-    single { AuthDataSource(get<AuthApi>()) }
-    single { MultiPlayerDataSource(get<MultiPlayerApi>())}
-    single { SinglePlayerDataSource(get<SinglePlayerApi>()) }
-    factory { SessionManager(get()) }
-    single<IAuthRepository> { AuthRepository(get(), get())}
-    single<IMultiPlayerRepository> { MultiPlayerRepository(get(), get())}
-    single<ISinglePlayerRepository> { SinglePlayerRepository(get(), get()) }
+val apiModule = module {
+    fun provideUseApiAuth(retrofit: Retrofit): AuthClient {
+        return retrofit.create(AuthClient::class.java)
+    }
+    fun provideUseApiMultiPlayer(retrofit: Retrofit): MultiPlayerClient {
+        return retrofit.create(MultiPlayerClient::class.java)
+    }
+    fun provideUseApiSinglePlayer(retrofit: Retrofit): SinglePlayerClient {
+        return retrofit.create(SinglePlayerClient::class.java)
+    }
+
+    single { provideUseApiAuth(get()) }
+    single { provideUseApiMultiPlayer(get()) }
+    single { provideUseApiSinglePlayer(get()) }
 }
+
+val dataSourceModule = module {
+    single { AuthDataSource(get<AuthClient>()) }
+    single { MultiPlayerDataSource(get<MultiPlayerClient>())}
+    single { SinglePlayerDataSource(get<SinglePlayerClient>()) }
+}
+
+val repositoryModule = module {
+    single<IAuthRepository> { AuthRepository(get())}
+    single<IMultiPlayerRepository> { MultiPlayerRepository(get())}
+    single<ISinglePlayerRepository> { SinglePlayerRepository(get()) }
+}
+
+

@@ -23,6 +23,7 @@ class LevelSoalPresenterTest : KoinTest {
 
     val level by inject<LevelSoalPresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -37,7 +38,9 @@ class LevelSoalPresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("Andi123", "12345").collectLatest {  }
+        login.loginUser("Andi123", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -47,7 +50,7 @@ class LevelSoalPresenterTest : KoinTest {
 
     @Test
     fun `test_level_huruf_success`() = runBlocking{
-        level.getLevelSoal(1).collectLatest {
+        level.getLevelSoal(1, authToken).collectLatest {
             assertNotNull(it)
             assertEquals(4, it.size)
         }
@@ -55,7 +58,7 @@ class LevelSoalPresenterTest : KoinTest {
 
     @Test
     fun `test_level_angka_success`() = runBlocking{
-        level.getLevelSoal(2).collectLatest {
+        level.getLevelSoal(2, authToken).collectLatest {
             assertNotNull(it)
             assertEquals(5, it.size)
         }

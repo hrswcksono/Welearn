@@ -5,6 +5,6 @@ import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
 
 class JoinedUserPresenter(private val useCase: MultiPlayerUseCase): ViewModel() {
 
-    fun getJoinedGame() = useCase.userJoinedGame()
+    fun getJoinedGame(authToken: String) = useCase.userJoinedGame(authToken)
 
 }

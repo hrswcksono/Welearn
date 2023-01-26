@@ -24,25 +24,25 @@ val useCaseModule = module {
 }
 
 val presentationModule = module {
-    viewModel { LoginPresenter(get()) }
-    viewModel { ProfilePresenter(get()) }
-    viewModel { ListSoalRandomPresenter(get()) }
-    viewModel { LogoutPresenter(get()) }
-    viewModel { RegisterPresenter(get()) }
-    viewModel { HighScorePresenter(get()) }
-    viewModel { PushNotificationPresenter(get()) }
-    viewModel { RandomIDSoalMultiPresenter(get()) }
-    viewModel { PredictAngkaPresenter(get()) }
-    viewModel { PredictHurufPresenter(get()) }
-    viewModel { ScoreUserPresenter(get()) }
-    viewModel { MakeRoomPresenter(get()) }
-    viewModel { JoinGamePresenter(get()) }
-    viewModel { SoalByIDPresenter(get()) }
-    viewModel { JoinedUserPresenter(get()) }
-    viewModel { ScoreMultiPresenter(get()) }
-    viewModel { LevelSoalPresenter(get()) }
-    viewModel { PredictHurufMultiPresenter(get()) }
-    viewModel { PredictAngkaMultiPresenter(get()) }
-    viewModel { EndGamePresenter(get()) }
-    viewModel { UserParticipantPresenter(get()) }
+    viewModel { LoginPresenter(get<AuthUseCase>()) }
+    viewModel { ProfilePresenter(get<AuthUseCase>()) }
+    viewModel { LogoutPresenter(get<AuthUseCase>()) }
+    viewModel { RegisterPresenter(get<AuthUseCase>()) }
+    viewModel { LevelSoalPresenter(get<SinglePlayerUseCase>()) }
+    viewModel { ListSoalRandomPresenter(get<SinglePlayerUseCase>()) }
+    viewModel { HighScorePresenter(get<SinglePlayerUseCase>()) }
+    viewModel { PredictAngkaPresenter(get<SinglePlayerUseCase>()) }
+    viewModel { PredictHurufPresenter(get<SinglePlayerUseCase>()) }
+    viewModel { ScoreUserPresenter(get<SinglePlayerUseCase>()) }
+    viewModel { PushNotificationPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { RandomIDSoalMultiPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { MakeRoomPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { JoinGamePresenter(get<MultiPlayerUseCase>()) }
+    viewModel { SoalByIDPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { JoinedUserPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { ScoreMultiPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { PredictHurufMultiPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { PredictAngkaMultiPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { EndGamePresenter(get<MultiPlayerUseCase>()) }
+    viewModel { UserParticipantPresenter(get<MultiPlayerUseCase>()) }
 }

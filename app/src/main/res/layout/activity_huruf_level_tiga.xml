@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    tools:context=".presentation.ui.huruf.multiplayer.canvas.HurufLevelTigaActivity">
+    tools:context=".presentation.view.huruf.multiplayer.canvas.HurufLevelTigaActivity">
 
   <TextView
       android:id="@+id/tv_selesai_h3"

@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/home_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.home.HomeFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.home.HomeFragment"
         android:label="Home"
         tools:layout="@layout/fragment_home" >
         <action
@@ -19,12 +19,12 @@
     </fragment>
     <fragment
         android:id="@+id/profile_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.profile.ProfileFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.profile.ProfileFragment"
         android:label="Profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/mode_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.ModeAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.ModeAngkaFragment"
         android:label="fragment_mode_angka"
         tools:layout="@layout/fragment_mode_angka" >
         <action
@@ -39,7 +39,7 @@
     </fragment>
     <fragment
         android:id="@+id/mode_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.ModeHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.ModeHurufFragment"
         android:label="fragment_mode_huruf"
         tools:layout="@layout/fragment_mode_huruf" >
         <action
@@ -54,7 +54,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_level_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.level.ListLevelAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.level.ListLevelAngkaFragment"
         android:label="fragment_list_level_angka"
         tools:layout="@layout/fragment_list_level_angka" >
         <action
@@ -70,7 +70,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_soal_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.soal.ListSoalAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.soal.ListSoalAngkaFragment"
         android:label="fragment_list_soal_angka"
         tools:layout="@layout/fragment_list_soal_angka" >
         <argument
@@ -98,7 +98,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_level_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.level.ListLevelHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.level.ListLevelHurufFragment"
         android:label="fragment_list_level_huruf"
         tools:layout="@layout/fragment_list_level_huruf" >
         <action
@@ -114,7 +114,7 @@
     </fragment>
     <fragment
         android:id="@+id/list_soal_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.soal.ListSoalHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.soal.ListSoalHurufFragment"
         android:label="fragment_list_soal_huruf"
         tools:layout="@layout/fragment_list_soal_huruf" >
         <argument
@@ -139,7 +139,7 @@
     </fragment>
     <fragment
         android:id="@+id/angka_level_nol_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelNolFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas.AngkaLevelNolFragment"
         android:label="fragment_angka_level_nol"
         tools:layout="@layout/fragment_angka_level_nol" >
         <action
@@ -159,7 +159,7 @@
     </fragment>
     <fragment
         android:id="@+id/angka_level_satu_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelSatuFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas.AngkaLevelSatuFragment"
         android:label="fragment_angka_level_satu"
         tools:layout="@layout/fragment_angka_level_satu" >
         <action
@@ -179,7 +179,7 @@
     </fragment>
     <fragment
         android:id="@+id/angka_level_dua_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelDuaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas.AngkaLevelDuaFragment"
         android:label="fragment_angka_level_dua"
         tools:layout="@layout/fragment_angka_level_dua" >
         <action
@@ -202,7 +202,7 @@
     </fragment>
     <fragment
         android:id="@+id/angka_level_tiga_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelTigaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas.AngkaLevelTigaFragment"
         android:label="fragment_angka_level_tiga"
         tools:layout="@layout/fragment_angka_level_tiga" >
         <action
@@ -222,7 +222,7 @@
     </fragment>
     <fragment
         android:id="@+id/angka_level_empat_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.singleplayer.canvas.AngkaLevelEmpatFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas.AngkaLevelEmpatFragment"
         android:label="fragment_angka_level_empat"
         tools:layout="@layout/fragment_angka_level_empat" >
         <action
@@ -242,7 +242,7 @@
     </fragment>
     <fragment
         android:id="@+id/huruf_level_nol_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelNolFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.canvas.HurufLevelNolFragment"
         android:label="fragment_huruf_level_nol"
         tools:layout="@layout/fragment_huruf_level_nol" >
         <action
@@ -262,7 +262,7 @@
     </fragment>
     <fragment
         android:id="@+id/huruf_level_satu_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelSatuFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.canvas.HurufLevelSatuFragment"
         android:label="fragment_huruf_level_satu"
         tools:layout="@layout/fragment_huruf_level_satu" >
         <action
@@ -282,7 +282,7 @@
     </fragment>
     <fragment
         android:id="@+id/huruf_level_dua_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelDuaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.canvas.HurufLevelDuaFragment"
         android:label="fragment_huruf_level_dua"
         tools:layout="@layout/fragment_huruf_level_dua" >
         <action
@@ -302,7 +302,7 @@
     </fragment>
     <fragment
         android:id="@+id/huruf_level_tiga_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.singleplayer.canvas.HurufLevelTigaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.singleplayer.canvas.HurufLevelTigaFragment"
         android:label="fragment_huruf_level_tiga"
         tools:layout="@layout/fragment_huruf_level_tiga" >
         <action
@@ -322,7 +322,7 @@
     </fragment>
     <fragment
         android:id="@+id/score_angka_user_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.score.ui.ScoreAngkaUserFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.score.ui.ScoreAngkaUserFragment"
         android:label="fragment_score_angka_user"
         tools:layout="@layout/fragment_score_angka_user" >
         <action
@@ -338,7 +338,7 @@
     </fragment>
     <fragment
         android:id="@+id/score_huruf_user_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.score.ui.ScoreHurufUserFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.score.ui.ScoreHurufUserFragment"
         android:label="fragment_score_huruf_user"
         tools:layout="@layout/fragment_score_huruf_user" >
         <action
@@ -354,27 +354,27 @@
     </fragment>
     <fragment
         android:id="@+id/match_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MatchAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.MatchAngkaFragment"
         android:label="fragment_match_angka"
         tools:layout="@layout/fragment_match_angka" />
     <fragment
         android:id="@+id/match_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MatchHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.MatchHurufFragment"
         android:label="fragment_match_huruf"
         tools:layout="@layout/fragment_match_huruf" />
     <fragment
         android:id="@+id/angka_ready_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.AngkaReadyFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.AngkaReadyFragment"
         android:label="fragment_angka_ready"
         tools:layout="@layout/fragment_angka_ready" />
     <fragment
         android:id="@+id/huruf_ready_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.HurufReadyFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.HurufReadyFragment"
         android:label="fragment_huruf_ready"
         tools:layout="@layout/fragment_huruf_ready" />
     <fragment
         android:id="@+id/multi_angka_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.multiplayer.MultiPlayerAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.MultiPlayerAngkaFragment"
         android:label="fragment_multi_player_angka"
         tools:layout="@layout/fragment_multi_player_angka" >
         <action
@@ -386,7 +386,7 @@
     </fragment>
     <fragment
         android:id="@+id/multi_huruf_nav"
-        android:name="com.tugasakhir.welearn.presentation.ui.huruf.multiplayer.MultiPlayerHurufFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.MultiPlayerHurufFragment"
         android:label="fragment_multi_player_huruf"
         tools:layout="@layout/fragment_multi_player_huruf" >
         <action

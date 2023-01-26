@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_multi"
-    tools:context=".presentation.ui.huruf.multiplayer.MultiPlayerHurufFragment">
+    tools:context=".presentation.view.huruf.multiplayer.MultiPlayerHurufFragment">
 
 
     <ImageView

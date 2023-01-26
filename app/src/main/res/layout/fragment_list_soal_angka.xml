@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/main_bg"
-    tools:context=".presentation.ui.angka.singleplayer.soal.ListSoalAngkaFragment">
+    tools:context=".presentation.view.angka.singleplayer.soal.ListSoalAngkaFragment">
     <ImageView
         android:id="@+id/soalAngkaBack"
         android:layout_width="40dp"

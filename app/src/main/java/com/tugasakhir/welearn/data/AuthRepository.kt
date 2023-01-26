@@ -7,17 +7,16 @@ import com.tugasakhir.welearn.domain.repository.IAuthRepository
 import kotlinx.coroutines.flow.map
 
 class AuthRepository constructor(
-    private val remoteDataSource: AuthDataSource,
-    private val sesi: SessionManager
+    private val remoteDataSource: AuthDataSource
 ): IAuthRepository {
+
     override fun loginUser(username: String, password: String) =
         remoteDataSource.loginUser(username, password).map {
-            sesi.saveToPreference(SessionManager.KEY_LOGIN, it.token!!)
             DataMapper.mapperLogin(it)
         }
 
-    override fun detailUser() =
-        remoteDataSource.detailUser(sesi.getFromPreference(SessionManager.KEY_LOGIN)!!).map { DataMapper.mapperDetailUser(it) }
+    override fun detailUser(authToken: String) =
+        remoteDataSource.detailUser(authToken).map { DataMapper.mapperDetailUser(it) }
 
     override fun registerUser(
         username: String,
@@ -29,6 +28,6 @@ class AuthRepository constructor(
         DataMapper.mapperRegister(it)
     }
 
-    override fun logoutUser() =
-        remoteDataSource.logoutUser(sesi.getFromPreference(SessionManager.KEY_LOGIN)!!).map { DataMapper.mapperString(it) }
+    override fun logoutUser(authToken: String) =
+        remoteDataSource.logoutUser(authToken).map { DataMapper.mapperString(it) }
 }

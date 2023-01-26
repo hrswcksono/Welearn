@@ -25,6 +25,7 @@ class PredictHurufMultiPresenterTest : KoinTest {
 
     val predictHurufMulti by inject<PredictHurufMultiPresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -46,7 +47,9 @@ class PredictHurufMultiPresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("qwerty123", "12345").collectLatest { }
+        login.loginUser("qwerty123", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -56,21 +59,21 @@ class PredictHurufMultiPresenterTest : KoinTest {
 
     @Test
     fun `predict_huruf_number_one_multi_success`() = runBlocking{
-        predictHurufMulti.predictHurufMulti(1, 95, 10, 10).collectLatest {
+        predictHurufMulti.predictHurufMulti(1, 95, 10, 10, authToken).collectLatest {
             assertEquals(it, "Benar")
         }
     }
 
     @Test
     fun `predict_huruf_number_two_multi_success`() = runBlocking{
-        predictHurufMulti.predictHurufMulti(1, 97, 10, 20).collectLatest {
+        predictHurufMulti.predictHurufMulti(1, 97, 10, 20, authToken).collectLatest {
             assertEquals(it, "Benar")
         }
     }
 
     @Test
     fun `predict_huruf_number_three_multi_success`() = runBlocking{
-        predictHurufMulti.predictHurufMulti(1, 98, 0, 30).collectLatest {
+        predictHurufMulti.predictHurufMulti(1, 98, 0, 30, authToken).collectLatest {
             assertEquals(it, "Salah")
         }
     }

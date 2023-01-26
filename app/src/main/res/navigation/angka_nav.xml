@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/soalAngkaFragment"
-        android:name="com.tugasakhir.welearn.presentation.ui.angka.SoalAngkaFragment"
+        android:name="com.tugasakhir.welearn.presentation.view.angka.SoalAngkaFragment"
         android:label="fragment_soal_angka"
         tools:layout="@layout/fragment_soal_angka" />
 </navigation>

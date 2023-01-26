@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/bg_splash_screen"
-    tools:context=".presentation.ui.auth.RegisterActivity"
+    tools:context=".presentation.view.auth.RegisterActivity"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <ImageView

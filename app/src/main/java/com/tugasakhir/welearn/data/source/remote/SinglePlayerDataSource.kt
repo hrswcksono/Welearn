@@ -1,14 +1,14 @@
 package com.tugasakhir.welearn.data.source.remote
 
 import android.util.Log
-import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerApi
+import com.tugasakhir.welearn.data.source.remote.network.SinglePlayerClient
 import com.tugasakhir.welearn.data.source.remote.response.ScoreResponse
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class SinglePlayerDataSource(private val apiService: SinglePlayerApi) {
+class SinglePlayerDataSource(private val apiService: SinglePlayerClient) {
     fun scoreUser(id: Int, tokenUser: String) =
         flow {
             try {

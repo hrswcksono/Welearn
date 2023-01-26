@@ -2,7 +2,7 @@ package com.tugasakhir.welearn.data.source.remote
 
 import android.util.Log
 import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerApi
+import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerClient
 import com.tugasakhir.welearn.data.source.remote.response.SoalResponseMessage
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import kotlinx.coroutines.Dispatchers
@@ -10,7 +10,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 
-class MultiPlayerDataSource(private val apiService: MultiPlayerApi) {
+class MultiPlayerDataSource(private val apiService: MultiPlayerClient) {
     fun soalMultiplayer(jenis: Int ,level: Int, tokenUser: String) =
         flow {
             try {

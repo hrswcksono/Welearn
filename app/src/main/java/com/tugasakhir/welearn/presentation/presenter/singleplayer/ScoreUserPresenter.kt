@@ -5,6 +5,6 @@ import com.tugasakhir.welearn.domain.usecase.singleplayer.SinglePlayerUseCase
 
 class ScoreUserPresenter(private val useCase: SinglePlayerUseCase): ViewModel() {
 
-    fun userScore(id: Int) = useCase.userScore(id)
+    fun userScore(id: Int, authToken: String) = useCase.userScore(id, authToken)
 
 }

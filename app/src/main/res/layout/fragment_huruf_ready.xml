@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/main_bg"
-    tools:context=".presentation.ui.huruf.multiplayer.HurufReadyFragment">
+    tools:context=".presentation.view.huruf.multiplayer.HurufReadyFragment">
 
     <TextView
         android:id="@+id/textView67"

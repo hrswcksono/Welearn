@@ -25,6 +25,7 @@ class PredictAngkaPresenterTest : KoinTest {
 
     val predictAngka by inject<PredictAngkaPresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -46,7 +47,9 @@ class PredictAngkaPresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("Andi123", "12345").collectLatest { }
+        login.loginUser("Andi123", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -56,7 +59,7 @@ class PredictAngkaPresenterTest : KoinTest {
 
     @Test
     fun `predict_angka`() = runBlocking{
-        predictAngka.predictAngka(1, 0).collectLatest {
+        predictAngka.predictAngka(1, 0, authToken).collectLatest {
 
         }
     }

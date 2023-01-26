@@ -25,6 +25,7 @@ class JoinGamePresenterTest : KoinTest {
 
     val joinGame by inject<JoinGamePresenter>()
     val login by inject<LoginPresenter>()
+    lateinit var authToken: String
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -46,7 +47,9 @@ class JoinGamePresenterTest : KoinTest {
 
     @Before
     fun before() = runBlocking {
-        login.loginUser("qwerty123", "12345").collectLatest { }
+        login.loginUser("qwerty123", "12345").collectLatest {
+            authToken = it.token
+        }
     }
 
     @After
@@ -56,7 +59,7 @@ class JoinGamePresenterTest : KoinTest {
 
     @Test
     fun `join_game_success`() = runBlocking{
-        joinGame.joinGame("2").collectLatest {
+        joinGame.joinGame("2", authToken).collectLatest {
             assertEquals(it, "Berhasil Join")
         }
     }
