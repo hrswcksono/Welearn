@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelNolBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import kotlinx.coroutines.Dispatchers
@@ -93,7 +93,7 @@ class HurufLevelNolFragment : Fragment() {
         }
     }
 
-    private fun showData(data: SoalEntity){
+    private fun showData(data: Soal){
         Template.speak(data.keterangan)
         binding.spkNolHuruf.setOnClickListener {
             Template.speak(data.keterangan)

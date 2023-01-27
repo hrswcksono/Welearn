@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreHurufUserBinding
-import com.tugasakhir.welearn.domain.entity.ScoreEntity
+import com.tugasakhir.welearn.domain.entity.Score
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ScoreUserPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -59,7 +59,7 @@ class ScoreHurufUserFragment : Fragment() {
         }
     }
 
-    private fun showData(data: ScoreEntity) {
+    private fun showData(data: Score) {
         binding.tvScoreUserHuruf.text = data.score.toString()
     }
 }

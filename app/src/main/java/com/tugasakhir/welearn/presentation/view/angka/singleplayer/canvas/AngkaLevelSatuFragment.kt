@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelSatuBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
@@ -97,7 +97,7 @@ class AngkaLevelSatuFragment : Fragment() {
         }
     }
 
-    private fun showData(data: SoalEntity){
+    private fun showData(data: Soal){
         Template.speak(data.keterangan + " " + data.soal)
         binding.spkSatuAngka.setOnClickListener {
             Template.speak(data.keterangan + " " + data.soal)

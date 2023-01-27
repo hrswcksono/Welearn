@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.GridLevelHurufBinding
-import com.tugasakhir.welearn.domain.entity.LevelEntity
+import com.tugasakhir.welearn.domain.entity.Level
 
 class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<LevelEntity>()
-    var onItemClick: ((LevelEntity) -> Unit)? = null
+    private var listData = ArrayList<Level>()
+    var onItemClick: ((Level) -> Unit)? = null
 
-    fun setData(newListData: List<LevelEntity>?) {
+    fun setData(newListData: List<Level>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class ListLevelHurufAdapter : RecyclerView.Adapter<ListLevelHurufAdapter.GridVie
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridLevelHurufBinding.bind(itemView)
-        fun bind(data: LevelEntity) {
+        fun bind(data: Level) {
             with(binding) {
                 idJenisGrid.text = data.idLevel.toString()
             }

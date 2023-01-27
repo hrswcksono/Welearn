@@ -10,10 +10,10 @@ interface MultiPlayerUseCase {
     fun endGame(idGame: String, authToken: String): Flow<String>
     fun predictHurufMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<String>
     fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<String>
-    fun userJoinedGame(authToken: String): Flow<List<UserJoinEntity>>
-    fun getUserParticipant(idGame: Int, authToken: String): Flow<List<UserPaticipantEntity>>
+    fun userJoinedGame(authToken: String): Flow<List<UserJoinMulti>>
+    fun getUserParticipant(idGame: Int, authToken: String): Flow<List<UserPaticipantMulti>>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
-    fun getIDSoalMultiplayer(jenis: Int,level: Int, authToken: String): Flow<IDSoalMultiEntity>
-    fun getSoalByID(id: Int, authToken: String): Flow<SoalEntity>
-    fun scoreMulti(idGame: Int, authToken: String): Flow<List<ScoreMultiEntity>>
+    fun getIDSoalMultiplayer(jenis: Int,level: Int, authToken: String): Flow<IDSoalMulti>
+    fun getSoalByID(id: Int, authToken: String): Flow<Soal>
+    fun scoreMulti(idGame: Int, authToken: String): Flow<List<ScoreMulti>>
 }

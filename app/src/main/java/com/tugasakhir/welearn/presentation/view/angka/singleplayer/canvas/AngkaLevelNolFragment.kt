@@ -1,7 +1,6 @@
 package com.tugasakhir.welearn.presentation.view.angka.singleplayer.canvas
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +12,7 @@ import androidx.navigation.findNavController
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.core.utils.Template
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
@@ -98,7 +97,7 @@ class AngkaLevelNolFragment : Fragment() {
         }
     }
 
-    private fun showData(data: SoalEntity){
+    private fun showData(data: Soal){
         Template.speak(data.keterangan + " " + data.soal)
         binding.spkNolAngka.setOnClickListener {
             Template.speak(data.keterangan + " " + data.soal)

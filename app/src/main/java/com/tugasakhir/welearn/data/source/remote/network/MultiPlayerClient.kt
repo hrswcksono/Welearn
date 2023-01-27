@@ -35,14 +35,14 @@ interface MultiPlayerClient {
         @Field("id_jenis") idJenis : Int,
         @Field("id_level") idLevel: Int,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): MakeRoomResponse
 
     @FormUrlEncoded
     @POST("joinGame")
     suspend fun joinGame(
         @Field("id_game") idGame : Int,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): JoinGameResponse
 
     @FormUrlEncoded
     @POST("endGame")
@@ -65,7 +65,7 @@ interface MultiPlayerClient {
         @Field("score") score : Int,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): SavePredictMultiResponse
 
     @FormUrlEncoded
     @POST("predictHurufMulti")
@@ -75,7 +75,7 @@ interface MultiPlayerClient {
         @Field("score") score : Int,
         @Field("duration") duration : Int,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): SavePredictMultiResponse
 
     @GET("joinedGame")
     suspend fun joinedUser(

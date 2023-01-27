@@ -11,7 +11,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -73,7 +73,7 @@ class ListSoalAngkaFragment : Fragment() {
         }
     }
 
-    private fun moveDrawingActivity(soal: SoalEntity) {
+    private fun moveDrawingActivity(soal: Soal) {
         when(soal.idLevel){
             0 -> {
                 val toLevelNolAngka = ListSoalAngkaFragmentDirections.toAngkaLevelNol()

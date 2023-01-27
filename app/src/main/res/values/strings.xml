@@ -81,10 +81,21 @@
     <string name="multi_angka">Bermain Multiplayer Angka</string>
     <string name="buat_room">Buat Room</string>
     <string name="id_game">ID Game</string>
+    <string name="cara_bermain">Cara Bermain</string>
 
     <string-array name="Gender">
         <item>Laki-laki</item>
         <item>Perempuan</item>
     </string-array>
+
+    <string name="rule_single">
+        1. Memilih menu belajar\n
+        2. Memilih mode belajar single player\n
+        3. Memilih level soal\n
+        4. Memilih nomor soal\n
+        5. Menuliskan jawaban pada kotak putih sesuai urutan\n
+        6. Menekan tombol reset jika salah menulis jawaban\n
+        7. Menekan tombol submit jika sudah menuliskan jawaban
+    </string>
 
 </resources>

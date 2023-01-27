@@ -2,15 +2,30 @@ package com.tugasakhir.welearn.core.utils
 
 import com.tugasakhir.welearn.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.entity.*
+import com.tugasakhir.welearn.domain.entity.Room
 
 object DataMapper {
-    fun mapperLogin(it: Message) = LoginEntity(
+
+    fun mapperPredictMulti(it: SavePredictMultiResponse) = SavePredictMulti(
+        status = it.data!!
+    )
+
+    fun mapperJoinGame(it: JoinGameResponse) = JoinGame(
+        status = it.data!!
+    )
+
+    fun mapperRoom(it:RoomResponse) = Room(
+        id_room = it.idRoom!!,
+        id_game = it.idGame!!
+    )
+
+    fun mapperLogin(it: Message) = Login(
         token = it.token.toString(),
         name = it.name.toString(),
         id = it.id!!
     )
 
-    fun mapperDetailUser(it: DMessage) = ProfileEntity(
+    fun mapperDetailUser(it: DMessage) = Profile(
         username = it.username.toString(),
         email = it.email.toString(),
         jenisKelamin = it.jenisKelamin.toString(),
@@ -18,7 +33,7 @@ object DataMapper {
         angka = it.angka.toString()
     )
 
-    fun mapperSoal(it: SoalResponseMessage) = SoalEntity(
+    fun mapperSoal(it: SoalResponseMessage) = Soal(
         idSoal = it.idSoal!!,
         idJenis = it.idJenis!!,
         idLevel = it.idLevel!!,
@@ -27,20 +42,20 @@ object DataMapper {
         jawaban = it.jawaban.toString()
     )
 
-    fun mapScoreUser(it: ScoreResponse) = ScoreEntity(
+    fun mapScoreUser(it: ScoreResponse) = Score(
         score = it.score!!
     )
 
-    fun mapperPredict(it: PredictResponse) = ResultPredictEntity(
+    fun mapperPredict(it: PredictResponse) = ResultPredict(
         success = it.success.toString(),
         message = it.message.toString(),
         text = it.text.toString()
     )
 
-    fun mapperHighScore(input: List<HighScoreResponse>): List<RankingScoreEntity> {
-        val highScoreList = ArrayList<RankingScoreEntity>()
+    fun mapperHighScore(input: List<HighScoreResponse>): List<RankingSingleScore> {
+        val highScoreList = ArrayList<RankingSingleScore>()
         input.map {
-            val highScore = RankingScoreEntity(
+            val highScore = RankingSingleScore(
                 name = it.name,
                 total = it.total
             )
@@ -49,10 +64,10 @@ object DataMapper {
         return highScoreList
     }
 
-    fun mapperLevel(input: List<LevelResponse>): List<LevelEntity> {
-        val levelList = ArrayList<LevelEntity>()
+    fun mapperLevel(input: List<LevelResponse>): List<Level> {
+        val levelList = ArrayList<Level>()
         input.map {
-            val level = LevelEntity(
+            val level = Level(
                 id = it.id!!,
                 idLevel = it.idLevel!!,
                 levelSoal = it.levelSoal.toString(),
@@ -65,10 +80,10 @@ object DataMapper {
 
     // soal
 
-    fun mapperRandomSoal(input: List<RandomSoalResponse>): List<SoalEntity> {
-        val soalList = ArrayList<SoalEntity>()
+    fun mapperRandomSoal(input: List<RandomSoalResponse>): List<Soal> {
+        val soalList = ArrayList<Soal>()
         input.map {
-            val soal = SoalEntity(
+            val soal = Soal(
                 idSoal = it.idSoal,
                 idJenis = it.idJenis,
                 idLevel = it.idLevel,
@@ -84,10 +99,10 @@ object DataMapper {
 
     // user participant
 
-    fun mapperUserParticipant(input: List<UserParticipatedResponse>): List<UserPaticipantEntity> {
-        val userParticipantL = ArrayList<UserPaticipantEntity>()
+    fun mapperUserParticipant(input: List<UserParticipatedResponse>): List<UserPaticipantMulti> {
+        val userParticipantL = ArrayList<UserPaticipantMulti>()
         input.map {
-            val userParticipant =  UserPaticipantEntity(
+            val userParticipant =  UserPaticipantMulti(
                 idGame = it.idGame!!,
                 id = it.id!!,
                 username = it.id.toString()
@@ -98,10 +113,10 @@ object DataMapper {
         return userParticipantL
     }
 
-    fun mapperJoinedGame(input: List<JoinedGameResponse>): List<UserJoinEntity> {
-        val joinGameList = ArrayList<UserJoinEntity>()
+    fun mapperJoinedGame(input: List<JoinedGameResponse>): List<UserJoinMulti> {
+        val joinGameList = ArrayList<UserJoinMulti>()
         input.map{
-            val joinGame = UserJoinEntity(
+            val joinGame = UserJoinMulti(
                 id = it.idGame.toString(),
                 username = it.username.toString(),
                 jenisSoal = it.jenis_soal.toString(),
@@ -112,10 +127,10 @@ object DataMapper {
         return joinGameList
     }
 
-    fun mapperScoreMulti(input: List<ScoreMultiplayerResponse>): List<ScoreMultiEntity> {
-        val scoreMultiList = ArrayList<ScoreMultiEntity>()
+    fun mapperScoreMulti(input: List<ScoreMultiplayerResponse>): List<ScoreMulti> {
+        val scoreMultiList = ArrayList<ScoreMulti>()
         input.map {
-            val scoreMulti = ScoreMultiEntity(
+            val scoreMulti = ScoreMulti(
                 name = it.name.toString(),
                 score = it.score!!,
                 duration = it.duration!!
@@ -133,7 +148,7 @@ object DataMapper {
         return input.message.toString()
     }
 
-    fun mapIDSoalMulti(input: SimpleResponse) = IDSoalMultiEntity(
+    fun mapIDSoalMulti(input: SimpleResponse) = IDSoalMulti(
         id_soal = input.message.toString()
     )
 

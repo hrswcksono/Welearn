@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.tugasakhir.welearn.core.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelTigaBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import kotlinx.coroutines.Dispatchers
@@ -131,7 +131,7 @@ class HurufLevelTigaFragment : Fragment() {
         }
     }
 
-    private fun show(data: SoalEntity){
+    private fun show(data: Soal){
         Template.speak(data.keterangan)
         binding.spkTigaHuruf.setOnClickListener {
             Template.speak(data.keterangan)

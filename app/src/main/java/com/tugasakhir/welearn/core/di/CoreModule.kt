@@ -33,12 +33,8 @@ val networkModule = module {
             .build()
     }
 
-    single {
-        provideClient()
-    }
-    single {
-        provideRetrofit(get())
-    }
+    single { provideClient() }
+    single { provideRetrofit(get()) }
 }
 
 val apiModule = module {
@@ -64,9 +60,9 @@ val dataSourceModule = module {
 }
 
 val repositoryModule = module {
-    single<IAuthRepository> { AuthRepository(get())}
-    single<IMultiPlayerRepository> { MultiPlayerRepository(get())}
-    single<ISinglePlayerRepository> { SinglePlayerRepository(get()) }
+    single<IAuthRepository> { AuthRepository(get<IAuthDataSource>())}
+    single<IMultiPlayerRepository> { MultiPlayerRepository(get<IMultiplayerDataSource>())}
+    single<ISinglePlayerRepository> { SinglePlayerRepository(get<ISinglePlayerDataSource>()) }
 }
 
 

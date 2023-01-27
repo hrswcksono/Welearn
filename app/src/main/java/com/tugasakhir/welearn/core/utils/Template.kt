@@ -2,37 +2,25 @@ package com.tugasakhir.welearn.core.utils
 
 import android.app.Application
 import android.app.Dialog
-import android.content.ContentValues
 import android.content.Context
 import android.content.SharedPreferences
 import android.graphics.Bitmap
-import android.net.Uri
-import android.os.Build
-import android.os.Environment
-import android.provider.MediaStore
 import android.util.Base64
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.domain.entity.UserPaticipantEntity
+import com.tugasakhir.welearn.domain.entity.UserPaticipantMulti
 import com.tugasakhir.welearn.presentation.view.UserParticipantAdapter
 import darren.googlecloudtts.GoogleCloudTTSFactory
 import darren.googlecloudtts.parameter.AudioConfig
 import darren.googlecloudtts.parameter.AudioEncoding
 import darren.googlecloudtts.parameter.VoiceSelectionParams
 import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.OutputStream
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
-import java.util.*
 
 object Template {
     private lateinit var dialogBox: Dialog
 
-    fun listUser(data: List<UserPaticipantEntity>, context: Context) {
+    fun listUser(data: List<UserPaticipantMulti>, context: Context) {
         this.dialogBox = Dialog(context)
         this.dialogBox.setContentView(R.layout.dialog_list_user_participant)
         val userAdapter = UserParticipantAdapter()

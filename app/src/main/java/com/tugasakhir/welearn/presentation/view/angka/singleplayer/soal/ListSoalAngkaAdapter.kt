@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.GridSoalAngkaBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 
 class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewHolder>() {
 
-    private var listData = ArrayList<SoalEntity>()
-    var onItemClick: ((SoalEntity) -> Unit)? = null
+    private var listData = ArrayList<Soal>()
+    var onItemClick: ((Soal) -> Unit)? = null
 
-    fun setData(newListData: List<SoalEntity>?) {
+    fun setData(newListData: List<Soal>?) {
         if (newListData == null) return
         listData.clear()
         listData.addAll(newListData)
@@ -22,7 +22,7 @@ class ListSoalAngkaAdapter : RecyclerView.Adapter<ListSoalAngkaAdapter.GridViewH
 
     inner class GridViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private val binding = GridSoalAngkaBinding.bind(itemView)
-        fun bind(data: SoalEntity) {
+        fun bind(data: Soal) {
             with(binding) {
                 idSoalAngka.text = (absoluteAdapterPosition+1).toString()
             }

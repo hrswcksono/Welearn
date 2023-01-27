@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.domain.entity
 
-data class UserJoinEntity(
+data class UserJoinMulti(
     val id: String,
     val username: String,
     val jenisSoal: String,

@@ -10,7 +10,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalHurufBinding
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -69,7 +69,7 @@ class ListSoalHurufFragment : Fragment() {
         }
     }
 
-    private fun moveDrawingActivity(soal: SoalEntity) {
+    private fun moveDrawingActivity(soal: Soal) {
         when(soal.idLevel){
             0 -> {
                 val toLevelNolHuruf = ListSoalHurufFragmentDirections.toHurufLevelNol()

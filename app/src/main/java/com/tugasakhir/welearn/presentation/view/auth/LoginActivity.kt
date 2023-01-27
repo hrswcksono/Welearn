@@ -12,7 +12,7 @@ import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
-import com.tugasakhir.welearn.domain.entity.LoginEntity
+import com.tugasakhir.welearn.domain.entity.Login
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -71,14 +71,14 @@ class LoginActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
-//                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil LoginEntity")
+//                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil Login")
                     login(it)
                 }
             }
         }
     }
 
-    private fun login(login: LoginEntity) {
+    private fun login(login: Login) {
 
         sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)

@@ -127,7 +127,7 @@ class HomeFragment : Fragment() {
     private fun dialogScore(){
         val flatDialog = FlatDialog(requireContext())
         flatDialog
-            .setTitle("Lihat ScoreEntity")
+            .setTitle("Lihat Score")
             .setTitleColor(Color.BLACK)
             .setFirstButtonText("Single Player")
             .setFirstButtonColor(Color.parseColor("#a6e474"))

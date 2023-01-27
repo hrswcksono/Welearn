@@ -22,10 +22,10 @@ class MultiPlayerRepository constructor(
         remoteDataSource.pushNotification(body)
 
     override fun makeRoomGame(id_jenis: Int, id_level: Int, authToken: String) =
-        remoteDataSource.makeRoomGame(id_jenis, id_level, authToken).map { DataMapper.mapperString(it) }
+        remoteDataSource.makeRoomGame(id_jenis, id_level, authToken).map { DataMapper.mapperRoom(it.data!!) }
 
     override fun joinGame(idGame: String, authToken: String) =
-        remoteDataSource.joinGame(idGame, authToken).map { DataMapper.mapperString(it) }
+        remoteDataSource.joinGame(idGame, authToken).map { DataMapper.mapperJoinGame(it) }
 
     override fun endGame(idGame: String, authToken: String) =
         remoteDataSource.endGame(idGame, authToken).map { DataMapper.mapperString(it) }
@@ -40,7 +40,7 @@ class MultiPlayerRepository constructor(
         duration: Int,
         authToken: String
     ) = remoteDataSource.predictHurufMulti(idGame, idSoal,score, duration, authToken).map {
-        DataMapper.mapperString(it)
+        DataMapper.mapperPredictMulti(it)
     }
 
     override fun predictAngkaMulti(
@@ -50,7 +50,7 @@ class MultiPlayerRepository constructor(
         duration: Int,
         authToken: String
     ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, score, duration, authToken).map {
-        DataMapper.mapperString(it)
+        DataMapper.mapperPredictMulti(it)
     }
 
     override fun getJoinedGame(authToken: String) =

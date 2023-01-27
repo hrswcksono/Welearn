@@ -11,7 +11,7 @@ import com.tugasakhir.welearn.core.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
-import com.tugasakhir.welearn.domain.entity.SoalEntity
+import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.view.score.ui.ScoreMultiplayerActivity
@@ -162,7 +162,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
     }
 
-    private fun show(data: SoalEntity){
+    private fun show(data: Soal){
         speak(data.keterangan)
         binding.spkTigaHuruf.setOnClickListener {
             speak(data.keterangan)
