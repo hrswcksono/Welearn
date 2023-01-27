@@ -10,6 +10,7 @@ import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.core.utils.ExitApp
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHurufReadyBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
@@ -47,15 +48,14 @@ class HurufReadyFragment : Fragment() {
 
         sessionManager = SharedPreference(activity!!)
 
-        val idGame = arguments?.getString("idGame")
+        val idRoom = arguments?.getString("idGame")
 
         binding.btnHurufReady.setOnClickListener {
-            joinGame(idGame.toString())
-            ready()
+            joinGame(idRoom.toString())
         }
     }
 
-    private fun ready() {
+    private fun ready(topic: String) {
         binding.btnHurufReady.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
@@ -69,13 +69,13 @@ class HurufReadyFragment : Fragment() {
                                 0,
                                 "gabung_huruf"
                             ),
-                            Constants.TOPIC_JOIN_HURUF,
+                            topic,
                             "high"
                         )
                     ).collectLatest {
-                        FirebaseMessaging.getInstance().unsubscribeFromTopic(Constants.TOPIC_GENERAL)
-                        FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC_JOIN_HURUF)
-                        FirebaseMessaging.getInstance().subscribeToTopic(Constants.TOPIC_JOIN_HURUF).addOnSuccessListener {
+                        ExitApp.topic = topic
+                        FirebaseMessaging.getInstance().subscribeToTopic(topic)
+                        FirebaseMessaging.getInstance().subscribeToTopic(topic).addOnSuccessListener {
                             dialogBox()
                         }
                     }
@@ -84,13 +84,13 @@ class HurufReadyFragment : Fragment() {
         }
     }
 
-    private fun joinGame(id_game: String) {
+    private fun joinGame(id_room: String) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                joinGamePresenter.joinGame(id_game, sessionManager.fetchAuthToken()!!)
+                joinGamePresenter.joinGame(id_room, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it == "Berhasil Join") {
-                            ready()
+                        if (it.status == "Berhasil Join") {
+                            ready(binding.tfIdRoomHuruf.text.toString())
                         }
                     }
             }

@@ -1,9 +1,7 @@
 package com.tugasakhir.welearn.data
 
 import com.tugasakhir.welearn.core.utils.DataMapper
-import com.tugasakhir.welearn.core.utils.SessionManager
 import com.tugasakhir.welearn.data.source.remote.IMultiplayerDataSource
-import com.tugasakhir.welearn.data.source.remote.MultiPlayerDataSource
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
 import kotlinx.coroutines.flow.map
@@ -24,8 +22,8 @@ class MultiPlayerRepository constructor(
     override fun makeRoomGame(id_jenis: Int, id_level: Int, authToken: String) =
         remoteDataSource.makeRoomGame(id_jenis, id_level, authToken).map { DataMapper.mapperRoom(it.data!!) }
 
-    override fun joinGame(idGame: String, authToken: String) =
-        remoteDataSource.joinGame(idGame, authToken).map { DataMapper.mapperJoinGame(it) }
+    override fun joinGame(idRoom: Int, authToken: String) =
+        remoteDataSource.joinGame(idRoom, authToken).map { DataMapper.mapperJoinGame(it) }
 
     override fun endGame(idGame: String, authToken: String) =
         remoteDataSource.endGame(idGame, authToken).map { DataMapper.mapperString(it) }

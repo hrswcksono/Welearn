@@ -51,10 +51,10 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
             }
         }.flowOn(Dispatchers.IO)
 
-    override fun joinGame(idGame: String, tokenUser: String) =
+    override fun joinGame(idRoom: Int, tokenUser: String) =
         flow{
             try {
-                val response = apiService.joinGame(idGame.toInt(), token = "Bearer $tokenUser")
+                val response = apiService.joinGame(idRoom, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())

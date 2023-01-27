@@ -6,7 +6,7 @@ import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
 class MultiPlayerInteractor (private val welearnRepository: IMultiPlayerRepository): MultiPlayerUseCase {
     override fun makeRoomGame(idJenis: Int, idLevel: Int, authToken: String) = welearnRepository.makeRoomGame(idJenis, idLevel, authToken)
 
-    override fun joinGame(idGame: String, authToken: String) = welearnRepository.joinGame(idGame, authToken)
+    override fun joinGame(idRoom: Int, authToken: String) = welearnRepository.joinGame(idRoom, authToken)
 
     override fun endGame(idGame: String, authToken: String) = welearnRepository.endGame(idGame, authToken)
 

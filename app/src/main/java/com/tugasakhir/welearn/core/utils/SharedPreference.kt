@@ -11,6 +11,21 @@ class SharedPreference (context: Context) {
         const val USER_NAME = "user_name"
         const val USER_ID = "user_id"
         const val ID_LEVEL = "id_level"
+        const val ID_ROOM = "id_room"
+    }
+
+    fun saveIDRoom(token: Int) {
+        val editor = prefs.edit()
+        editor.putInt(ID_ROOM, token)
+        editor.apply()
+    }
+
+    fun fetchIDRoom(): Int? {
+        return prefs.getInt(ID_ROOM, 0)
+    }
+
+    fun deleteIDRoom(){
+        prefs.edit().remove(ID_ROOM).apply()
     }
 
     /**

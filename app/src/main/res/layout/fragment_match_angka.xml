@@ -18,17 +18,16 @@
         app:srcCompat="@drawable/back_button" />
 
     <TextView
-        android:id="@+id/btn_find_angka"
+        android:id="@+id/tv_id_room_angka"
         android:layout_width="137dp"
         android:layout_height="52dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/tf_rounded_corners"
-        android:text="@string/id_room"
-        android:gravity="center"
-        android:textSize="25sp"
         android:fontFamily="@font/rubik_semi_bold"
+        android:gravity="center"
+        android:text="@string/id_room"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.532"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_angka_acak"
         tools:ignore="TouchTargetSizeCheck" />
@@ -37,13 +36,13 @@
         android:id="@+id/btn_start_angka"
         android:layout_width="172dp"
         android:layout_height="50dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="32dp"
         android:background="@drawable/btn_rounded_green"
         android:text="@string/mulai"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.531"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_find_angka"
+        app:layout_constraintTop_toBottomOf="@+id/tv_id_room_angka"
         tools:ignore="TouchTargetSizeCheck" />
 
     <androidx.appcompat.widget.AppCompatButton

@@ -40,7 +40,7 @@ interface MultiPlayerClient {
     @FormUrlEncoded
     @POST("joinGame")
     suspend fun joinGame(
-        @Field("id_game") idGame : Int,
+        @Field("id_room") idRoom : Int,
         @Header("Authorization") token: String
     ): JoinGameResponse
 

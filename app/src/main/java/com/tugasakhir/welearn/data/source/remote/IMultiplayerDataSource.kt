@@ -9,7 +9,7 @@ interface IMultiplayerDataSource {
     fun soalByID(id: Int, tokenUser: String): Flow<SoalResponseMessage>
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun makeRoomGame(id_jenis: Int, id_level: Int, tokenUser: String): Flow<MakeRoomResponse>
-    fun joinGame(idGame: String, tokenUser: String): Flow<JoinGameResponse>
+    fun joinGame(idRoom: Int, tokenUser: String): Flow<JoinGameResponse>
     fun endGame(idGame: String, tokenUser: String): Flow<SimpleResponse>
     fun scoreMulti(id: Int, tokenUser: String): Flow<List<ScoreMultiplayerResponse>>
     fun predictAngkaMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String): Flow<SavePredictMultiResponse>

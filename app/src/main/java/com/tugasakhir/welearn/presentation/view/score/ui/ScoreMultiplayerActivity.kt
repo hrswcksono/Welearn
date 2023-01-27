@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.MainActivity
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.core.utils.SharedPreference
@@ -49,6 +50,7 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
             }
         } else {
             binding.papanScoreBack.setImageResource(R.drawable.ic_baseline_home_24)
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(sessionManager.fetchIDRoom().toString())
             binding.papanScoreBack.setOnClickListener {
                 startActivity(Intent(this, MainActivity::class.java))
                 this.finish()
