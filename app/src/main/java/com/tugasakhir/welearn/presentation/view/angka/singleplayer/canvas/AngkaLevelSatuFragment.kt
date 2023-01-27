@@ -60,17 +60,18 @@ class AngkaLevelSatuFragment : Fragment() {
             var score = 0
             val canvas1 = binding.cnvsLevelSatuAngkaOne.getBitmap().scale(224, 224)
             val canvas2 = binding.cnvsLevelSatuAngkaTwo.getBitmap().scale(224, 224)
-            val result1 = Predict.PredictAngka(activity!!, canvas1, answer?.get(0)!!)
-            val result2 = Predict.PredictAngka(activity!!, canvas2, answer?.get(1)!!)
-            if (result1 + result2 == 20){
+            val (result1, accuracy1) = Predict.PredictAngkaCoba(activity!!, canvas1)
+            val (result2, accuracy2) = Predict.PredictAngkaCoba(activity!!, canvas2)
+            if (result1 == answer?.get(0) && result2 == answer?.get(1)){
                 score = 10
             }
-            submitDrawing(idSoal, score)
+            submitDrawing(idSoal, score, dialogText(result1, accuracy1, result2, accuracy2))
         }
     }
 
-    private fun dialogText(answer: Char, accuracy: Float) : String {
-        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
+    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float) : String {
+        return "Jawaban kamu $answer1 dengan Ketelitian ${(accuracy1*100).toInt()}%\n" +
+                "Jawaban kamu $answer2 dengan Ketelitian ${(accuracy2*100).toInt()}%"
     }
 
 //    private fun disableButton(){
@@ -127,17 +128,18 @@ class AngkaLevelSatuFragment : Fragment() {
         }
     }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarA1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictAngkaPresenter.predictAngka(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarA1.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
-                            context!!,
+                        CustomDialogBox.dialogPredictCoba(
+                            requireContext(),
                             { view?.findNavController()?.navigate(AngkaLevelSatuFragmentDirections.toScoreAngkaSatu()) },
                             score,
+                            message
                         )
                     }
             }
