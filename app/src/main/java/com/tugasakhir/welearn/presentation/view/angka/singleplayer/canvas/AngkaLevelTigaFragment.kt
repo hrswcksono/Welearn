@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -56,10 +57,20 @@ class AngkaLevelTigaFragment : Fragment() {
         val idSoal = AngkaLevelNolFragmentArgs.fromBundle(arguments as Bundle).idSoal
         showScreen(idSoal)
         binding.submitTigaAngka.setOnClickListener{
-            val bitmap = binding.cnvsLevelTigaAngka.getBitmap().scale(224, 224)
-            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
-            submitDrawing(idSoal, result)
+            val canvas = binding.cnvsLevelTigaAngka.getBitmap().scale(224, 224)
+//            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
+            val (result, accuracy) = Predict.PredictAngkaCoba(activity!!, canvas)
+            Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
+            submitDrawing(idSoal, score, dialogText(result, accuracy*100))
         }
+    }
+
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
     }
 
     private fun disableButton(){
@@ -72,17 +83,18 @@ class AngkaLevelTigaFragment : Fragment() {
         binding.submitTigaAngka.isClickable = true
     }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarA3.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictAngkaPresenter.predictAngka(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarA3.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelTigaFragmentDirections.toScoreAngkaTiga()) },
                             score,
+                            message
                         )
                     }
             }
