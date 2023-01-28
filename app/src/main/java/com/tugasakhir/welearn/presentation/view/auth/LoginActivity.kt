@@ -1,6 +1,7 @@
 package com.tugasakhir.welearn.presentation.view.auth
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -18,7 +19,9 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.java.KoinJavaComponent
 
 class LoginActivity : AppCompatActivity() {
 
@@ -79,7 +82,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(login: Login) {
-
         sessionManager.saveAuthToken(login.token)
         sessionManager.saveName(login.name)
         sessionManager.saveUserID(login.id)

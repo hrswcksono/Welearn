@@ -1,6 +1,7 @@
 package com.tugasakhir.welearn.presentation
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -11,6 +12,7 @@ import com.tugasakhir.welearn.utils.ExitApp
 import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
 import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
+import org.koin.android.ext.android.inject
 
 class SplashScreenActivity : AppCompatActivity() {
 

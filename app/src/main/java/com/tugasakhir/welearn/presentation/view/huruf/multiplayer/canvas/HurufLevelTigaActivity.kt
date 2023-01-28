@@ -224,7 +224,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                             0,
                             idGame
                         ),
-                        sessionManager.fetchAuthToken().toString(),
+                        Template.getTopic(sessionManager.fetchIDRoom().toString()),
                         "high"
                     )
                 ).collectLatest {

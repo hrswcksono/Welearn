@@ -54,28 +54,26 @@ class HurufReadyFragment : Fragment() {
     }
 
     private fun ready(topic: String) {
-        binding.btnHurufReady.setOnClickListener {
-            lifecycleScope.launch(Dispatchers.Default) {
-                withContext(Dispatchers.Main) {
-                    viewModelGame.pushNotification(
-                        PushNotification(
-                            NotificationData(
-                                "Perhatian...!",
-                                "${sessionManager.fetchName()} telah bergabung!",
-                                "",
-                                "0",
-                                0,
-                                "gabung_huruf"
-                            ),
-                            Template.getTopic(topic),
-                            "high"
-                        )
-                    ).collectLatest {
-                        ExitApp.topic = topic
-                        FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic))
-                        FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic)).addOnSuccessListener {
-                            dialogBox()
-                        }
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                viewModelGame.pushNotification(
+                    PushNotification(
+                        NotificationData(
+                            "Perhatian...!",
+                            "${sessionManager.fetchName()} telah bergabung!",
+                            "",
+                            "0",
+                            0,
+                            "gabung_huruf"
+                        ),
+                        Template.getTopic(topic),
+                        "high"
+                    )
+                ).collectLatest {
+                    ExitApp.topic = topic
+                    FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic))
+                    FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic)).addOnSuccessListener {
+                        dialogBox()
                     }
                 }
             }

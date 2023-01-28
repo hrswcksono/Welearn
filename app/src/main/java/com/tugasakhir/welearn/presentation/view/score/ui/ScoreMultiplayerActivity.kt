@@ -52,6 +52,7 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
         } else {
             binding.papanScoreBack.setImageResource(R.drawable.ic_baseline_home_24)
             FirebaseMessaging.getInstance().unsubscribeFromTopic(Template.getTopic(sessionManager.fetchIDRoom().toString()))
+            sessionManager.deleteIDRoom()
             binding.papanScoreBack.setOnClickListener {
                 startActivity(Intent(this, MainActivity::class.java))
                 this.finish()
