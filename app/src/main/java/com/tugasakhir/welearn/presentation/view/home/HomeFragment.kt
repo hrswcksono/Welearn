@@ -13,9 +13,6 @@ import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.flatdialoglibrary.dialog.FlatDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_GENERAL
-import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_ANGKA
-import com.tugasakhir.welearn.core.utils.Constants.Companion.TOPIC_JOIN_HURUF
 import com.tugasakhir.welearn.core.utils.CustomDialogBox
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
@@ -67,8 +64,6 @@ class HomeFragment : Fragment() {
 
         sessionManager = activity?.let { SharedPreference(it) }!!
 
-        subscribeFCM()
-
         binding.btnLogout.setOnClickListener {
             dialogLoOut()
         }
@@ -110,15 +105,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun subscribeFCM(){
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_ANGKA)
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_JOIN_HURUF)
-        FirebaseMessaging.getInstance().subscribeToTopic(TOPIC_GENERAL)
-    }
-
     private fun logoutSuccess(){
         CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
-        FirebaseMessaging.getInstance().unsubscribeFromTopic(TOPIC_GENERAL)
         startActivity(Intent(activity, LoginActivity::class.java))
         activity?.finish()
 //        sessionManager.deleteToken()

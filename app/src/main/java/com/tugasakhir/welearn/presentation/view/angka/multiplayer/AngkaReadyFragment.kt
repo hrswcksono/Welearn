@@ -48,10 +48,10 @@ class AngkaReadyFragment : Fragment() {
 
         sessionManager = SharedPreference(activity!!)
 
-        val idRoom = arguments?.getString("idGame")
+        val idRoom = "7478"
 
         binding.btnAngkaReady.setOnClickListener {
-            joinGame(idRoom.toString())
+            joinGame(idRoom!!.toInt())
         }
     }
 
@@ -82,7 +82,7 @@ class AngkaReadyFragment : Fragment() {
         }
     }
 
-    private fun joinGame(id_room: String) {
+    private fun joinGame(id_room: Int) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_room, sessionManager.fetchAuthToken()!!)
@@ -102,4 +102,8 @@ class AngkaReadyFragment : Fragment() {
             .show()
     }
 
+    override fun onStop() {
+        super.onStop()
+        FirebaseMessaging.getInstance().unsubscribeFromTopic("${Constants.TOPIC_BASE}${binding.tfIdRoomAngka.text.toString()}")
+    }
 }

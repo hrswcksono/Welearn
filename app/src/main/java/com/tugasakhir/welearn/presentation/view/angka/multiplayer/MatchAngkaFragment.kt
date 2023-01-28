@@ -92,7 +92,7 @@ class MatchAngkaFragment : Fragment() {
 //                            binding.pgAngkaAcak.visibility = View.INVISIBLE
 //                            binding.cekAcakAngka.visibility = View.VISIBLE
                             CustomDialogBox.dialogSoalMulti(context!!)
-                            startMatch(inputLevel)
+                            makeRoom(inputLevel)
                         }
                     }
                 }
@@ -118,5 +118,9 @@ class MatchAngkaFragment : Fragment() {
                     }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }

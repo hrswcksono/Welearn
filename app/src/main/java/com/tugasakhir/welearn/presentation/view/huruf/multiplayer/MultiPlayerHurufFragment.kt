@@ -32,5 +32,9 @@ class MultiPlayerHurufFragment : Fragment() {
         binding.btnGabungAngka.setOnClickListener {
             view.findNavController().navigate(MultiPlayerHurufFragmentDirections.toGabungHuruf())
         }
+
+        binding.backHurufMulti.setOnClickListener {
+            view.findNavController().navigateUp()
+        }
     }
 }

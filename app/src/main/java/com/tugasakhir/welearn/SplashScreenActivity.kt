@@ -2,11 +2,12 @@ package com.tugasakhir.welearn
 
 import android.content.Intent
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
+import androidx.appcompat.app.AppCompatActivity
+import com.tugasakhir.welearn.core.utils.ExitApp
 import com.tugasakhir.welearn.core.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
 import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
@@ -32,8 +33,10 @@ class SplashScreenActivity : AppCompatActivity() {
             )
         }
 
+        startService(Intent(baseContext, ExitApp::class.java))
+
         Handler(Looper.getMainLooper()).postDelayed({
-            if (sessionManager.fetchAuthToken() == ""){
+            if (sessionManager.fetchAuthToken() == null){
                 startActivity(Intent(this@SplashScreenActivity, LoginActivity::class.java))
             } else {
                 startActivity(Intent(this@SplashScreenActivity, MainActivity::class.java))

@@ -170,7 +170,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
     private fun joinGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame.toString(), sessionManager.fetchAuthToken()!!)
+                joinGamePresenter.joinGame(idGame, sessionManager.fetchAuthToken()!!)
                     .collectLatest {  }
             }
         }
@@ -203,7 +203,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                             0,
                             idGame
                         ),
-                        Constants.TOPIC_JOIN_HURUF,
+                        sessionManager.fetchAuthToken().toString(),
                         "high"
                     )
                 ).collectLatest {
@@ -230,5 +230,9 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }

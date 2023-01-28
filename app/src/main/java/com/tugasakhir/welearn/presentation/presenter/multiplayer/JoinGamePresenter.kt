@@ -4,5 +4,5 @@ import androidx.lifecycle.ViewModel
 import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
 
 class JoinGamePresenter(private val useCase: MultiPlayerUseCase): ViewModel() {
-    fun joinGame(idGame: String, authToken: String) = useCase.joinGame(idGame, authToken)
+    fun joinGame(idRoom: Int, authToken: String) = useCase.joinGame(idRoom, authToken)
 }

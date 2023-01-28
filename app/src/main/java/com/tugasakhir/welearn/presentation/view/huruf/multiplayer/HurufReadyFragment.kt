@@ -51,7 +51,7 @@ class HurufReadyFragment : Fragment() {
         val idRoom = arguments?.getString("idGame")
 
         binding.btnHurufReady.setOnClickListener {
-            joinGame(idRoom.toString())
+            joinGame(idRoom!!.toInt())
         }
     }
 
@@ -84,7 +84,7 @@ class HurufReadyFragment : Fragment() {
         }
     }
 
-    private fun joinGame(id_room: String) {
+    private fun joinGame(id_room: Int) {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_room, sessionManager.fetchAuthToken()!!)
@@ -102,5 +102,10 @@ class HurufReadyFragment : Fragment() {
             .setTitleText("Berhasil begabung...!")
             .setContentText("Harap menunggu pemain yang lain")
             .show()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
     }
 }

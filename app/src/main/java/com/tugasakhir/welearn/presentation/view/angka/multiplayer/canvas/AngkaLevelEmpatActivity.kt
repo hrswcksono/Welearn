@@ -158,7 +158,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
     private fun joinGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame.toString(), sessionManager.fetchAuthToken()!!)
+                joinGamePresenter.joinGame(idGame, sessionManager.fetchAuthToken()!!)
                     .collectLatest {  }
             }
         }
@@ -191,7 +191,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                             0,
                             idGame
                         ),
-                        Constants.TOPIC_JOIN_ANGKA,
+                        sessionManager.fetchIDRoom().toString(),
                         "high"
                     )
                 ).collectLatest {
@@ -228,5 +228,9 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 }

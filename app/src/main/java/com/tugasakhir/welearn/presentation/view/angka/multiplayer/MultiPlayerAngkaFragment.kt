@@ -32,5 +32,9 @@ class MultiPlayerAngkaFragment : Fragment() {
         binding.btnGabungAngka.setOnClickListener {
             view.findNavController().navigate(MultiPlayerAngkaFragmentDirections.toGabungAngka())
         }
+
+        binding.backAngkaMulti.setOnClickListener {
+            view.findNavController().navigateUp()
+        }
     }
 }

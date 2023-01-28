@@ -108,4 +108,8 @@ class MatchHurufFragment : Fragment() {
             }
         }
     }
+
+    override fun onStop() {
+        super.onStop()
+    }
 }
