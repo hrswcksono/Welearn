@@ -27,10 +27,11 @@ object DataMapper {
         id_game = it.idGame!!
     )
 
-    fun mapperLogin(it: Message) = Login(
-        token = it.token.toString(),
-        name = it.name.toString(),
-        id = it.id!!
+    fun mapperLogin(it: LoginResponse) = Login(
+        status = it.success.toString(),
+        token = it.message?.token.toString(),
+        name = it.message?.name.toString(),
+        id = it.message?.id
     )
 
     fun mapperDetailUser(it: DMessage) = Profile(

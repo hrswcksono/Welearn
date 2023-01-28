@@ -62,4 +62,10 @@ class ScoreHurufUserFragment : Fragment() {
     private fun showData(data: Score) {
         binding.tvScoreUserHuruf.text = data.score.toString()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

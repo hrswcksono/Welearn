@@ -104,4 +104,9 @@ class HurufReadyFragment : Fragment() {
         super.onStop()
 
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

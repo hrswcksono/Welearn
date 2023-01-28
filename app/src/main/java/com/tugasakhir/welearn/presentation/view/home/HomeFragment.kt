@@ -129,4 +129,9 @@ class HomeFragment : Fragment() {
             }
             .show()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

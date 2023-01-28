@@ -101,4 +101,9 @@ class AngkaReadyFragment : Fragment() {
             .setContentText("Harap menunggu pemain yang lain")
             .show()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

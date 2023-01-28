@@ -75,18 +75,27 @@ class LoginActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 viewModel.loginUser(username.toString(), password.toString()).collectLatest {
 //                    CustomDialogBox.notifOnly(this@LoginActivity, "Berhasil Login")
-                    login(it)
+                    if (it.status != "Client Error: Unauthorized"){
+                        login(it)
+                    } else{
+                        binding.progressLogin.visibility = View.GONE
+                        CustomDialogBox.flatDialog(
+                            this@LoginActivity,
+                            "Kata Sandi atau Username Salah",
+                            "Silahkan masukkan kembali!"
+                        )
+                    }
                 }
             }
         }
     }
 
     private fun login(login: Login) {
-        sessionManager.saveAuthToken(login.token)
-        sessionManager.saveName(login.name)
-        sessionManager.saveUserID(login.id)
+        login.token?.let { sessionManager.saveAuthToken(it) }
+        login.name?.let { sessionManager.saveName(it) }
+        login.id?.let { sessionManager.saveUserID(it) }
 //        RemoteDataSource.tokenUser = login.token
-        if (login.token.isNotEmpty()){
+        if (login.token!!.isNotEmpty()){
             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
             this.finish()
         }

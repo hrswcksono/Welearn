@@ -148,4 +148,9 @@ class MatchHurufFragment : Fragment() {
     override fun onStop() {
         super.onStop()
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.tugasakhir.welearn.databinding.ActivityRegisterBinding
 import com.tugasakhir.welearn.presentation.presenter.user.RegisterPresenter
+import com.tugasakhir.welearn.utils.CustomDialogBox
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -58,13 +59,17 @@ class RegisterActivity : AppCompatActivity() {
                         jenisKelamin.toString()).collectLatest {
                             if (it == "Successful: Created") {
                                 loginSuccess()
-
                             }
                     }
                 }
             }
+        }else if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
+            || retypePassword.isEmpty() || jenisKelamin.isEmpty()) {
+            CustomDialogBox.flatDialog(this,"Lengkapi terlebih dahulu", "Tidak Boleh yang Kosong")
+            binding.progressbarRegister.visibility = View.GONE
         }else{
-            Toast.makeText(this, "Password tidak sesuai", Toast.LENGTH_SHORT).show()
+            CustomDialogBox.flatDialog(this,"Periksa Kembali Password Anda", "Passowrd tidak sesuai")
+            binding.progressbarRegister.visibility = View.GONE
         }
     }
 

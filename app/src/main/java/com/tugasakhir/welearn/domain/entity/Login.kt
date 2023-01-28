@@ -1,7 +1,8 @@
 package com.tugasakhir.welearn.domain.entity
 
 data class Login(
-    val token:String,
-    val name: String,
-    val id: Int,
+    val status: String,
+    val token:String ?= null,
+    val name: String ?= null,
+    val id: Int ?= null,
 )

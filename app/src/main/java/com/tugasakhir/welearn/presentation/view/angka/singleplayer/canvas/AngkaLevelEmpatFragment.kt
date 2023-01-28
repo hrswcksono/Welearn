@@ -144,4 +144,9 @@ class AngkaLevelEmpatFragment : Fragment() {
             view?.findNavController()?.navigate(backSoal)
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

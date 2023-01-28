@@ -67,4 +67,10 @@ class ScoreHurufFragment : Fragment() {
         binding.tvhUsername.visibility = vis
         binding.tvhSkor.visibility = vis
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
 }

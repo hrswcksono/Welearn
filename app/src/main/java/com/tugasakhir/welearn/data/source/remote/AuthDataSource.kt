@@ -16,12 +16,12 @@ class AuthDataSource constructor(private val apiService: AuthClient): IAuthDataS
             try {
                 val response = apiService.login(username, password)
                 if (response.success != null) {
-                    emit(response.message)
+                    emit(response)
                 }
             } catch (e: Exception){
                 Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO) as Flow<Message>
+        }.flowOn(Dispatchers.IO)
 
     override fun detailUser(tokenUser: String) =
         flow {

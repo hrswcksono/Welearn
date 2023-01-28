@@ -37,4 +37,9 @@ class MultiPlayerHurufFragment : Fragment() {
             view.findNavController().navigateUp()
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
 }

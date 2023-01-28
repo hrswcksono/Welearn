@@ -2,6 +2,7 @@ package com.tugasakhir.welearn.data
 
 import com.tugasakhir.welearn.utils.DataMapper
 import com.tugasakhir.welearn.data.source.remote.IAuthDataSource
+import com.tugasakhir.welearn.data.source.remote.network.ApiResponse
 import com.tugasakhir.welearn.domain.repository.IAuthRepository
 import kotlinx.coroutines.flow.map
 
@@ -10,9 +11,7 @@ class AuthRepository constructor(
 ): IAuthRepository {
 
     override fun loginUser(username: String, password: String) =
-        remoteDataSource.loginUser(username, password).map {
-            DataMapper.mapperLogin(it)
-        }
+        remoteDataSource.loginUser(username, password).map { DataMapper.mapperLogin(it) }
 
     override fun detailUser(authToken: String) =
         remoteDataSource.detailUser(authToken).map { DataMapper.mapperDetailUser(it) }

@@ -1,13 +1,10 @@
 package com.tugasakhir.welearn.data.source.remote
 
-import com.tugasakhir.welearn.data.source.remote.response.DMessage
-import com.tugasakhir.welearn.data.source.remote.response.Message
-import com.tugasakhir.welearn.data.source.remote.response.RegisterResponse
-import com.tugasakhir.welearn.data.source.remote.response.SimpleResponse
+import com.tugasakhir.welearn.data.source.remote.response.*
 import kotlinx.coroutines.flow.Flow
 
 interface IAuthDataSource {
-    fun loginUser(username: String, password: String): Flow<Message>
+    fun loginUser(username: String, password: String): Flow<LoginResponse>
     fun detailUser(tokenUser: String): Flow<DMessage>
     fun registerUser(
         username: String,

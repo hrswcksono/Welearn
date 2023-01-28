@@ -83,4 +83,6 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
             adapter = scoreMultiAdapter
         }
     }
+
+
 }
