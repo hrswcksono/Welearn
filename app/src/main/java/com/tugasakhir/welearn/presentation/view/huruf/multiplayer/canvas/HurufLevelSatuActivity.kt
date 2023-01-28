@@ -213,6 +213,10 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        return
+    }
+
     override fun onStop() {
         super.onStop()
     }

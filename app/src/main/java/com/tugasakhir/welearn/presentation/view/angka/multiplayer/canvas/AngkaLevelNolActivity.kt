@@ -68,10 +68,20 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.submitNolAngka.setOnClickListener {
             hideButton()
             val canvas1 = binding.cnvsLevelNolAngka.getBitmap().scale(240,240)
-            val result = Predict.PredictAngka(this, canvas1, answer!!)
+            val (result, accuracy) = Predict.PredictAngkaCoba(this, canvas1)
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
             val end = Date().time
             total = (end - begin)/1000
-            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+            CustomDialogBox.dialogPredictCoba(
+                this@AngkaLevelNolActivity,
+                {},
+                score,
+                dialogText(result, accuracy*100)
+            )
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
@@ -83,6 +93,10 @@ class AngkaLevelNolActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
     }
 
     private fun showScreen(id: String) {
@@ -192,6 +206,10 @@ class AngkaLevelNolActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
     override fun onStop() {

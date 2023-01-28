@@ -117,7 +117,7 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.joinedUser(token = "Bearer $tokenUser")
-                emit(response.message)
+                emit(response.data)
             }catch (e: Exception) {
                 Log.e("RemoteDataSource", e.toString())
             }

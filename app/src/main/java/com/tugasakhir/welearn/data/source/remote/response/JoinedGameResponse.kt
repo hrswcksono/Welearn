@@ -4,11 +4,14 @@ import com.google.gson.annotations.SerializedName
 
 data class ListJoinedGameResponse(
 
-	@field:SerializedName("success")
-	val success: String? = null,
+	@field:SerializedName("code")
+	val code: Int? = null,
 
-	@field:SerializedName("message")
-	val message: List<JoinedGameResponse>
+	@field:SerializedName("status")
+	val status: String? = null,
+
+	@field:SerializedName("data")
+	val data: List<JoinedGameResponse>
 )
 
 data class JoinedGameResponse(

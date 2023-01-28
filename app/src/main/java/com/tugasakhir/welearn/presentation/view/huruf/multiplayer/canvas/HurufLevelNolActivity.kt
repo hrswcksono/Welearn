@@ -206,6 +206,10 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
     }
 
+    override fun onBackPressed() {
+        return
+    }
+
     override fun onStop() {
         super.onStop()
         this.finish()

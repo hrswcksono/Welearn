@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import com.tugasakhir.welearn.utils.*
@@ -78,16 +79,22 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         showScreen(idSoal)
         binding.submitTigaAngka.setOnClickListener {
             hideButton()
-            val bitmap = binding.cnvsLevelTigaAngka.getBitmap().scale(224, 224)
-            val result = Predict.PredictAngka(this, bitmap, answer!!)
+            val canvas = binding.cnvsLevelTigaAngka.getBitmap().scale(224, 224)
+//            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
+            val (result, accuracy) = Predict.PredictAngkaCoba(this, canvas)
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
             val end = Date().time
             total = (end - begin)/1000
-            CustomDialogBox.dialogPredict(
+            CustomDialogBox.dialogPredictCoba(
                 this@AngkaLevelTigaActivity,
                 {},
-                result,
+                score,
+                dialogText(result, accuracy*100)
             )
-            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
@@ -99,6 +106,10 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
@@ -209,6 +220,10 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
     override fun onStop() {

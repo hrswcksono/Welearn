@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.databinding.FragmentMatchAngkaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -55,25 +56,43 @@ class MatchAngkaFragment : Fragment() {
 
         var inputLevel: Int
         binding.bhLevel0.setOnClickListener {
+            refreshButton()
+            binding.bhLevel0.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 0
             randomSoal(inputLevel)
         }
         binding.bhLevel1.setOnClickListener {
+            refreshButton()
+            binding.bhLevel1.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 1
             randomSoal(inputLevel)
         }
         binding.bhLevel2.setOnClickListener {
+            refreshButton()
+            binding.bhLevel2.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 2
             randomSoal(inputLevel)
         }
         binding.bhLevel3.setOnClickListener {
+            refreshButton()
+            binding.bhLevel3.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 3
             randomSoal(inputLevel)
         }
         binding.bhLevel4.setOnClickListener {
+            refreshButton()
+            binding.bhLevel4.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 4
             randomSoal(inputLevel)
         }
+    }
+
+    private fun refreshButton(){
+        binding.bhLevel0.setBackgroundResource(R.drawable.bg_grid)
+        binding.bhLevel1.setBackgroundResource(R.drawable.bg_grid)
+        binding.bhLevel2.setBackgroundResource(R.drawable.bg_grid)
+        binding.bhLevel3.setBackgroundResource(R.drawable.bg_grid)
+        binding.bhLevel4.setBackgroundResource(R.drawable.bg_grid)
     }
 
     private fun randomSoal(inputLevel: Int){
@@ -86,6 +105,7 @@ class MatchAngkaFragment : Fragment() {
                         if (it.id_soal.isNotEmpty()){
                             CustomDialogBox.dialogSoalMulti(context!!)
                             makeRoom(inputLevel, it.id_soal)
+                            binding.btnAngkaAcak.setBackgroundResource(R.drawable.yellow)
                         }
                     }
                 }
@@ -95,6 +115,7 @@ class MatchAngkaFragment : Fragment() {
 
     private fun startMatch(idLevel: Int, idSoal: String, topic: String, id_game: String) {
         binding.btnStartAngka.setOnClickListener{
+            binding.btnStartAngka.setBackgroundResource(R.drawable.yellow)
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     pushNotif.pushNotification(

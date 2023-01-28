@@ -73,16 +73,21 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         showScreen(idSoal)
         binding.submitDuaAngka.setOnClickListener {
             hideButton()
+            var score = 0
             val bitmap = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
-            val result = Predict.PredictAngka(this, bitmap, answer!!)
+            val (result, accuracy) = Predict.PredictAngkaCoba(this, bitmap)
             val end = Date().time
+            if (result == answer){
+                score = 10
+            }
             total = (end - begin)/1000
-            CustomDialogBox.dialogPredict(
+            CustomDialogBox.dialogPredictCoba(
                 this@AngkaLevelDuaActivity,
                 {},
-                result,
+                score,
+                dialogText(result, accuracy*100)
             )
-            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
@@ -93,6 +98,10 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
     }
 
     private fun hideButton() {
@@ -203,6 +212,10 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
     override fun onStop() {

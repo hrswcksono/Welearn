@@ -73,17 +73,18 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
             var score = 0
             val canvas1 = binding.cnvsLevelEmpatAngkaOne.getBitmap().scale(224, 224)
             val canvas2 = binding.cnvsLevelEmpatAngkaTwo.getBitmap().scale(224, 224)
-            val result1 = Predict.PredictAngka(this, canvas1, answer?.get(0)!!)
-            val result2 = Predict.PredictAngka(this, canvas2, answer?.get(1)!!)
-            if (result1 + result2 == 20){
+            val (result1, accuracy1) = Predict.PredictAngkaCoba(this, canvas1)
+            val (result2, accuracy2) = Predict.PredictAngkaCoba(this, canvas2)
+            if (result1 == answer?.get(0) && result2 == answer?.get(1)){
                 score = 10
             }
             val end = Date().time
             total = (end - begin)/1000
-            CustomDialogBox.dialogPredict(
+            CustomDialogBox.dialogPredictCoba(
                 this@AngkaLevelEmpatActivity,
                 {},
                 score,
+                dialogText(result1, accuracy1, result2, accuracy2)
             )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
@@ -97,6 +98,11 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
             }
 
         }
+    }
+
+    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float) : String {
+        return "Jawaban kamu $answer1  Ketelitian ${(accuracy1*100).toInt()}%\n" +
+                "Jawaban kamu $answer2  Ketelitian ${(accuracy2*100).toInt()}%"
     }
 
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
@@ -208,6 +214,10 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
     override fun onStop() {

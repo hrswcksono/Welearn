@@ -60,7 +60,6 @@ class AngkaLevelNolFragment : Fragment() {
         binding.submitNolAngka.setOnClickListener{
             val canvas1 = binding.cnvsLevelNolAngka.getBitmap().scale(240,240)
             val (result, accuracy) = Predict.PredictAngkaCoba(activity!!, canvas1)
-            Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
             var score = 0
             if (result == answer){
                 score = 10

@@ -31,7 +31,6 @@ class HurufLevelTigaActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHurufLevelTigaBinding
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
-    private val joinGamePresenter: JoinGamePresenter by viewModel()
     private val gameAlreadyEndPresenter: GameAlreadyEndPresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
@@ -243,6 +242,10 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    override fun onBackPressed() {
+        return
     }
 
     override fun onStop() {

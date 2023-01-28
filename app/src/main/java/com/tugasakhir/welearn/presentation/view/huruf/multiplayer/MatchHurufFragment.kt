@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.utils.CustomDialogBox
 import com.tugasakhir.welearn.utils.ExitApp
 import com.tugasakhir.welearn.utils.SharedPreference
@@ -56,21 +57,36 @@ class MatchHurufFragment : Fragment() {
     private fun choseeLevel(){
         var inputLevel: Int
         binding.baLevel0.setOnClickListener {
+            refreshButton()
+            binding.baLevel0.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 0
             randomSoal(inputLevel)
         }
         binding.baLevel1.setOnClickListener {
+            refreshButton()
+            binding.baLevel1.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 1
             randomSoal(inputLevel)
         }
         binding.baLevel2.setOnClickListener {
+            refreshButton()
+            binding.baLevel2.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 2
             randomSoal(inputLevel)
         }
         binding.baLevel3.setOnClickListener {
+            refreshButton()
+            binding.baLevel3.setBackgroundResource(R.drawable.yellow_j)
             inputLevel = 3
             randomSoal(inputLevel)
         }
+    }
+
+    private fun refreshButton(){
+        binding.baLevel0.setBackgroundResource(R.drawable.bg_grid)
+        binding.baLevel1.setBackgroundResource(R.drawable.bg_grid)
+        binding.baLevel2.setBackgroundResource(R.drawable.bg_grid)
+        binding.baLevel3.setBackgroundResource(R.drawable.bg_grid)
     }
 
     private fun randomSoal(inputLevel: Int) {
@@ -83,6 +99,7 @@ class MatchHurufFragment : Fragment() {
                         if (it.id_soal.isNotEmpty()){
                             CustomDialogBox.dialogSoalMulti(context!!)
                             makeRoom(inputLevel, it.id_soal)
+                            binding.btnHurufAcak.setBackgroundResource(R.drawable.yellow)
                         }
                     }
                 }
@@ -92,6 +109,7 @@ class MatchHurufFragment : Fragment() {
 
     private fun startMatch(idLevel: Int, idSoal: String, topic: String, id_game: String) {
         binding.btnStartHuruf.setOnClickListener{
+            binding.btnStartHuruf.setBackgroundResource(R.drawable.yellow)
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     pushNotif.pushNotification(
