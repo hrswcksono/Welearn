@@ -70,8 +70,8 @@ class AngkaLevelEmpatFragment : Fragment() {
     }
 
     private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float) : String {
-        return "Jawaban kamu $answer1 dengan Ketelitian ${(accuracy1*100).toInt()}%\n" +
-                "Jawaban kamu $answer2 dengan Ketelitian ${(accuracy2*100).toInt()}%"
+        return "Jawaban kamu $answer1  Ketelitian ${(accuracy1*100).toInt()}%\n" +
+                "Jawaban kamu $answer2  Ketelitian ${(accuracy2*100).toInt()}%"
     }
 
     private fun disableButton(){
@@ -93,7 +93,7 @@ class AngkaLevelEmpatFragment : Fragment() {
                         binding.progressBarA4.visibility = View.INVISIBLE
                         CustomDialogBox.dialogPredictCoba(
                             requireContext(),
-                            { view?.findNavController()?.navigate(AngkaLevelEmpatFragmentDirections.toScoreAngkaAmpat()) },
+                            { view?.findNavController()?.navigate(AngkaLevelEmpatFragmentDirections.toScoreAngkaEmpat()) },
                             score,
                             message
                         )

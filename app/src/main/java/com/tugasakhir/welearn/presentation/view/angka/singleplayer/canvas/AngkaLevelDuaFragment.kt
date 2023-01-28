@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -57,12 +58,20 @@ class AngkaLevelDuaFragment : Fragment() {
         val idSoal = AngkaLevelDuaFragmentArgs.fromBundle(arguments as Bundle).idSoal
         showScreen(idSoal)
         binding.submitDuaAngka.setOnClickListener{
-            val bitmap = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
-            val result = Predict.PredictAngka(activity!!, bitmap, answer!!)
-            submitDrawing(idSoal, result)
+            val canvas = binding.cnvsLevelDuaAngka.getBitmap().scale(224, 224)
+            val (result, accuracy) = Predict.PredictAngkaCoba(activity!!, canvas)
+            Toast.makeText(context, result.toString(), Toast.LENGTH_SHORT).show()
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
+            submitDrawing(idSoal, score, dialogText(result, accuracy*100))
         }
     }
 
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
+    }
     private fun disableButton(){
         binding.submitDuaAngka.isEnabled = false
         binding.submitDuaAngka.isClickable = false
@@ -73,17 +82,18 @@ class AngkaLevelDuaFragment : Fragment() {
         binding.submitDuaAngka.isClickable = true
     }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarA2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictAngkaPresenter.predictAngka(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarA2.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(AngkaLevelDuaFragmentDirections.toScoreAngkaDua()) },
                             score,
+                            message
                         )
                     }
             }
