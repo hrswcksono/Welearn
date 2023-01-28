@@ -82,6 +82,7 @@ class HomeFragment : Fragment() {
                         binding.progressbarHome.visibility = View.INVISIBLE
                         startActivity(Intent(activity, LoginActivity::class.java))
                         activity?.finish()
+                        sessionManager.deleteToken()
                     }
                 }
             }
