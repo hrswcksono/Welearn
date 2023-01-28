@@ -226,7 +226,7 @@
         android:label="fragment_angka_level_empat"
         tools:layout="@layout/fragment_angka_level_empat" >
         <action
-            android:id="@+id/to_score_angka_ampat"
+            android:id="@+id/to_score_angka_empat"
             app:destination="@id/score_angka_user_nav" />
         <argument
             android:name="id_soal"
