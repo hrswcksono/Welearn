@@ -1,7 +1,7 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
-import com.tugasakhir.welearn.core.di.networkModule
-import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.di.networkModule
+import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
@@ -23,7 +23,7 @@ import org.mockito.Mockito
 @ExperimentalCoroutinesApi
 class EndGamePresenterTest : KoinTest {
 
-    val endGame by inject<EndGamePresenter>()
+    val endGame by inject<GameAlreadyEndPresenter>()
     val login by inject<LoginPresenter>()
     lateinit var authToken: String
 

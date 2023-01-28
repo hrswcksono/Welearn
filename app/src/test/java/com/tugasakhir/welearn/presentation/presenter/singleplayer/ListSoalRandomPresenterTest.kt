@@ -4,8 +4,8 @@ import android.content.Context
 import android.os.Build.VERSION_CODES.Q
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.tugasakhir.welearn.core.di.networkModule
-import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.di.networkModule
+import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter

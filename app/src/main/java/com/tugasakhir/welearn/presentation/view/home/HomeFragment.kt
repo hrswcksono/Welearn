@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.view.home
 
+import android.app.Activity
 import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
@@ -12,9 +13,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.example.flatdialoglibrary.dialog.FlatDialog
-import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.CustomDialogBox
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.view.score.ui.ScoreActivity
@@ -80,7 +80,8 @@ class HomeFragment : Fragment() {
                 viewModel.logoutUser(sessionManager.fetchAuthToken()!!).collectLatest {
                     if (it == "Successfully logged out"){
                         binding.progressbarHome.visibility = View.INVISIBLE
-                        logoutSuccess()
+                        startActivity(Intent(activity, LoginActivity::class.java))
+                        activity?.finish()
                     }
                 }
             }
@@ -94,7 +95,7 @@ class HomeFragment : Fragment() {
 
     private fun dialogLoOut(){
         CustomDialogBox.withCancel(
-            requireContext(),
+            context!!,
             SweetAlertDialog.WARNING_TYPE,
             "Apakah yakin?",
             "Keluar dari akun ini!",
@@ -103,13 +104,6 @@ class HomeFragment : Fragment() {
             binding.progressbarHome.visibility = View.VISIBLE
             logout()
         }
-    }
-
-    private fun logoutSuccess(){
-        CustomDialogBox.notifOnly(requireActivity(), "Berhasil Logout")
-        startActivity(Intent(activity, LoginActivity::class.java))
-        activity?.finish()
-//        sessionManager.deleteToken()
     }
 
     private fun dialogScore(){

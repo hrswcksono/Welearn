@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListSoalAngkaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ListSoalRandomPresenter

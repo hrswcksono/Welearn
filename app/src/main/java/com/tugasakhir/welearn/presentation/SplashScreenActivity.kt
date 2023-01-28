@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn
+package com.tugasakhir.welearn.presentation
 
 import android.content.Intent
 import android.os.Build
@@ -7,8 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import android.view.WindowManager.LayoutParams.FLAG_FULLSCREEN
 import androidx.appcompat.app.AppCompatActivity
-import com.tugasakhir.welearn.core.utils.ExitApp
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.ExitApp
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivitySplashScreenBinding
 import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
 

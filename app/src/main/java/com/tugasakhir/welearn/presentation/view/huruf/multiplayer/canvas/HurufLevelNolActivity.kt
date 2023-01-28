@@ -6,8 +6,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
-import com.tugasakhir.welearn.core.utils.*
-import com.tugasakhir.welearn.core.utils.Template.speak
+import com.tugasakhir.welearn.utils.*
+import com.tugasakhir.welearn.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -33,7 +33,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
     private val soalViewModel: SoalByIDPresenter by viewModel()
     private val predictHurufMultiPresenter: PredictHurufMultiPresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
-    private val endGamePresenter: EndGamePresenter by viewModel()
+    private val gameAlreadyEndPresenter: GameAlreadyEndPresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
     private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
@@ -65,7 +65,6 @@ class HurufLevelNolActivity : AppCompatActivity() {
         val arrayID = soalID.toString().split("|")
         val idGame = intent.getStringExtra(ID_GAME)
         listDialog(idGame!!.toInt())
-        joinGame(idGame!!.toInt())
         var index = 0
         var total = 0L
         val begin = Date().time
@@ -160,21 +159,12 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
     }
 
-    private fun joinGame(idGame: Int){
-        lifecycleScope.launch(Dispatchers.Default) {
-            withContext(Dispatchers.Default) {
-                joinGamePresenter.joinGame(idGame, sessionManager.fetchAuthToken()!!)
-                    .collectLatest {  }
-            }
-        }
-    }
-
     private fun endGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                endGamePresenter.endGame(idGame.toString(), sessionManager.fetchAuthToken()!!)
+                gameAlreadyEndPresenter.gameAlreadyEnd(idGame.toString(), sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it == "Berhasil End Game"){
+                        if (it == "Room Berhasil Ditutup"){
 //                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
                             showScoreMulti(idGame.toString())
                         }
@@ -195,21 +185,13 @@ class HurufLevelNolActivity : AppCompatActivity() {
                         "",
                         0,
                         idGame
-                    ), sessionManager.fetchAuthToken().toString(),
+                    ), Template.getTopic(sessionManager.fetchIDRoom().toString()),
                     "high"
                 )
                 ).collectLatest {
-                    moveToScoreMulti(idGame)
                 }
             }
         }
-    }
-
-    private fun moveToScoreMulti(idGame: String) {
-        val moveToScoreMulti = Intent(this@HurufLevelNolActivity, ScoreMultiplayerActivity::class.java)
-        moveToScoreMulti.putExtra(ScoreMultiplayerActivity.ID_GAME, idGame)
-        startActivity(moveToScoreMulti)
-        this.finish()
     }
 
     private fun listDialog(idGame: Int) {
@@ -226,5 +208,11 @@ class HurufLevelNolActivity : AppCompatActivity() {
 
     override fun onStop() {
         super.onStop()
+        this.finish()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        this.finish()
     }
 }

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.core.utils
+package com.tugasakhir.welearn.utils
 
 import android.app.Application
 import android.app.Dialog
@@ -19,6 +19,9 @@ import java.io.ByteArrayOutputStream
 
 object Template {
     private lateinit var dialogBox: Dialog
+
+    fun getTopic(topic: String) =
+        Constants.TOPIC_BASE + topic
 
     fun listUser(data: List<UserPaticipantMulti>, context: Context) {
         this.dialogBox = Dialog(context)

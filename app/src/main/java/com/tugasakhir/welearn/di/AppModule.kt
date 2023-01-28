@@ -43,6 +43,7 @@ val presentationModule = module {
     viewModel { ScoreMultiPresenter(get<MultiPlayerUseCase>()) }
     viewModel { PredictHurufMultiPresenter(get<MultiPlayerUseCase>()) }
     viewModel { PredictAngkaMultiPresenter(get<MultiPlayerUseCase>()) }
-    viewModel { EndGamePresenter(get<MultiPlayerUseCase>()) }
+    viewModel { GameAlreadyEndPresenter(get<MultiPlayerUseCase>()) }
     viewModel { UserParticipantPresenter(get<MultiPlayerUseCase>()) }
+    viewModel { ForceEndGamePresenter(get<MultiPlayerUseCase>())}
 }

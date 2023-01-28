@@ -10,8 +10,9 @@ interface IMultiplayerDataSource {
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun makeRoomGame(id_jenis: Int, id_level: Int, tokenUser: String): Flow<MakeRoomResponse>
     fun joinGame(idRoom: Int, tokenUser: String): Flow<JoinGameResponse>
-    fun endGame(idGame: String, tokenUser: String): Flow<SimpleResponse>
-    fun scoreMulti(id: Int, tokenUser: String): Flow<List<ScoreMultiplayerResponse>>
+    fun gameAlreadyEnd(idGame: String, tokenUser: String): Flow<GameAlreadyEndResponse>
+    fun forceEndgame(idGame: String, tokenUser: String): Flow<ForceEndGameResponse>
+    fun scoreMulti(id: Int, tokenUser: String): Flow<List<ScoreMultiItem>>
     fun predictAngkaMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String): Flow<SavePredictMultiResponse>
     fun predictHurufMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String): Flow<SavePredictMultiResponse>
     fun getJoinedGame(tokenUser: String): Flow<List<JoinedGameResponse>>

@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.core.utils
+package com.tugasakhir.welearn.utils
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -15,7 +15,7 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavDeepLinkBuilder
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
-import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.presentation.MainActivity
 import com.tugasakhir.welearn.R
 import com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.*
 import com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelDuaActivity

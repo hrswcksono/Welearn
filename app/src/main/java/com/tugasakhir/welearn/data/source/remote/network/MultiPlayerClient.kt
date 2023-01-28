@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.data.source.remote.network
 
-import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.utils.Constants
 import com.tugasakhir.welearn.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import retrofit2.http.*
@@ -45,20 +45,27 @@ interface MultiPlayerClient {
     ): JoinGameResponse
 
     @FormUrlEncoded
-    @POST("endGame")
-    suspend fun endGame(
+    @POST("forceEndGame")
+    suspend fun forceEndGame(
         @Field("id") id : String,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): ForceEndGameResponse
+
+    @FormUrlEncoded
+    @POST("gameAlreadyEnd")
+    suspend fun gameAlreadyEnd(
+        @Field("id") id : String,
+        @Header("Authorization") token: String
+    ): GameAlreadyEndResponse
 
     @GET("showScoreMulti/{id}")
     suspend fun scoreMulti(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): ListScoreMultiplayerResponse
+    ): ScoreMultiResponse
 
     @FormUrlEncoded
-    @POST("predictAngkaMulti")
+    @POST("savePredictMulti")
     suspend fun predictAngkaMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,
@@ -68,7 +75,7 @@ interface MultiPlayerClient {
     ): SavePredictMultiResponse
 
     @FormUrlEncoded
-    @POST("predictHurufMulti")
+    @POST("savePredictMulti")
     suspend fun predictHurufMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,

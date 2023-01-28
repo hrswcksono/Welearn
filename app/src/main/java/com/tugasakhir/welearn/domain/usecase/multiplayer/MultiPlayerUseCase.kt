@@ -7,7 +7,8 @@ import kotlinx.coroutines.flow.Flow
 interface MultiPlayerUseCase {
     fun makeRoomGame(idJenis: Int, idLevel: Int, authToken: String): Flow<Room>
     fun joinGame(idRoom: Int, authToken: String): Flow<JoinGame>
-    fun endGame(idGame: String, authToken: String): Flow<String>
+    fun gameAlreadyEnd(idGame: String, authToken: String): Flow<String>
+    fun forcedEndGame(idGame: String, authToken: String): Flow<String>
     fun predictHurufMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<SavePredictMulti>
     fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<SavePredictMulti>
     fun userJoinedGame(authToken: String): Flow<List<UserJoinMulti>>

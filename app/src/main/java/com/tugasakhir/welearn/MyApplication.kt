@@ -1,10 +1,7 @@
 package com.tugasakhir.welearn
 
 import android.app.Application
-import com.tugasakhir.welearn.core.di.apiModule
-import com.tugasakhir.welearn.core.di.dataSourceModule
-import com.tugasakhir.welearn.core.di.networkModule
-import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.di.*
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import org.koin.android.ext.koin.androidContext
@@ -20,12 +17,12 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
             modules(
                 listOf(
-                    apiModule,
-                    dataSourceModule,
                     networkModule,
-                    repositoryModule,
                     useCaseModule,
-                    presentationModule
+                    presentationModule,
+                    authModule,
+                    singleModule,
+                    multiModule
                 )
             )
         }

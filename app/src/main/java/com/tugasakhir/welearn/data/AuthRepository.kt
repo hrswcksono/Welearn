@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.data
 
-import com.tugasakhir.welearn.core.utils.DataMapper
+import com.tugasakhir.welearn.utils.DataMapper
 import com.tugasakhir.welearn.data.source.remote.IAuthDataSource
 import com.tugasakhir.welearn.domain.repository.IAuthRepository
 import kotlinx.coroutines.flow.map

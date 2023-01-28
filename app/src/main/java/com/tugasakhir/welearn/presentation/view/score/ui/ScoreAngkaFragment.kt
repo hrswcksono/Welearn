@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentScoreAngkaBinding
 import com.tugasakhir.welearn.presentation.view.score.adapter.ScoreAngkaAdapter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.HighScorePresenter

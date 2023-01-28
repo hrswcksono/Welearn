@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentListLevelHurufBinding
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.LevelSoalPresenter
 import kotlinx.coroutines.Dispatchers

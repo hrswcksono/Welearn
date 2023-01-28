@@ -8,9 +8,9 @@ import android.os.Looper
 import android.view.View
 import androidx.lifecycle.lifecycleScope
 import cn.pedant.SweetAlert.SweetAlertDialog
-import com.tugasakhir.welearn.MainActivity
-import com.tugasakhir.welearn.core.utils.CustomDialogBox
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.presentation.MainActivity
+import com.tugasakhir.welearn.utils.CustomDialogBox
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityLoginBinding
 import com.tugasakhir.welearn.domain.entity.Login
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter

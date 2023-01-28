@@ -29,7 +29,7 @@
         android:exported="false"
         android:screenOrientation="portrait" />
     <service
-        android:name=".core.utils.FirebaseService"
+        android:name="com.tugasakhir.welearn.utils.FirebaseService"
         android:exported="false"
         android:permission="com.google.android.c2dm.permission.SEND">
         <intent-filter>
@@ -38,7 +38,7 @@
         </intent-filter>
     </service>
     <activity
-        android:name=".MainActivity"
+        android:name=".presentation.MainActivity"
         android:exported="true"
         android:screenOrientation="portrait">
         <nav-graph android:value="@navigation/bot_nav" />
@@ -52,7 +52,7 @@
         android:exported="false"
         android:screenOrientation="portrait" />
     <activity
-        android:name=".SplashScreenActivity"
+        android:name=".presentation.SplashScreenActivity"
         android:exported="true"
         android:screenOrientation="portrait">
         <intent-filter>
@@ -96,8 +96,6 @@
         android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelNolActivity"
         android:exported="true"
         android:screenOrientation="portrait" />
-    <service android:name=".core.utils.ExitApp"
-        android:stopWithTask="false"/>
 </application>
 
 </manifest>

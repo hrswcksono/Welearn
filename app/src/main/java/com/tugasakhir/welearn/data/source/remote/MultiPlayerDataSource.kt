@@ -1,8 +1,10 @@
 package com.tugasakhir.welearn.data.source.remote
 
 import android.util.Log
-import com.tugasakhir.welearn.core.utils.Constants
+import com.tugasakhir.welearn.utils.Constants
 import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerClient
+import com.tugasakhir.welearn.data.source.remote.response.ForceEndGameResponse
+import com.tugasakhir.welearn.data.source.remote.response.GameAlreadyEndResponse
 import com.tugasakhir.welearn.data.source.remote.response.SoalResponseMessage
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import kotlinx.coroutines.Dispatchers
@@ -61,10 +63,20 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
             }
         }.flowOn(Dispatchers.IO)
 
-    override fun endGame(idGame: String, tokenUser: String) =
+    override fun gameAlreadyEnd(idGame: String, tokenUser: String) =
         flow{
             try {
-                val response = apiService.endGame(idGame, token = "Bearer $tokenUser")
+                val response = apiService.gameAlreadyEnd(idGame, token = "Bearer $tokenUser")
+                emit(response)
+            }catch (e: Exception) {
+                Log.e("error", e.toString())
+            }
+        }.flowOn(Dispatchers.IO)
+
+    override fun forceEndgame(idGame: String, tokenUser: String)=
+        flow{
+            try {
+                val response = apiService.forceEndGame(idGame, token = "Bearer $tokenUser")
                 emit(response)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
@@ -75,7 +87,7 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.scoreMulti(id, token = "Bearer $tokenUser")
-                emit(response.message)
+                emit(response.data)
             }catch (e: Exception) {
                 Log.e("error", e.toString())
             }

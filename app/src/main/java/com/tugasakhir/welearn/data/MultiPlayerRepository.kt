@@ -1,6 +1,6 @@
 package com.tugasakhir.welearn.data
 
-import com.tugasakhir.welearn.core.utils.DataMapper
+import com.tugasakhir.welearn.utils.DataMapper
 import com.tugasakhir.welearn.data.source.remote.IMultiplayerDataSource
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
@@ -25,8 +25,11 @@ class MultiPlayerRepository constructor(
     override fun joinGame(idRoom: Int, authToken: String) =
         remoteDataSource.joinGame(idRoom, authToken).map { DataMapper.mapperJoinGame(it) }
 
-    override fun endGame(idGame: String, authToken: String) =
-        remoteDataSource.endGame(idGame, authToken).map { DataMapper.mapperString(it) }
+    override fun gameAlreadyEnd(idGame: String, authToken: String) =
+        remoteDataSource.gameAlreadyEnd(idGame, authToken).map { DataMapper.mapperGameAlreadyEnd(it) }
+
+    override fun forceEndGame(idGame: String, authToken: String) =
+        remoteDataSource.forceEndgame(idGame, authToken).map { DataMapper.mapperForcedEndGame(it) }
 
     override fun scoreMulti(idGame: Int, authToken: String) =
         remoteDataSource.scoreMulti(idGame, authToken).map { DataMapper.mapperScoreMulti(it) }

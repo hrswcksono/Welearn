@@ -1,7 +1,7 @@
 package com.tugasakhir.welearn.presentation.presenter.singleplayer
 
-import com.tugasakhir.welearn.core.di.networkModule
-import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.di.networkModule
+import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.ScoreUserPresenter

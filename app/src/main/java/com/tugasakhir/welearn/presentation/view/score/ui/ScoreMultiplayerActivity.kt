@@ -6,12 +6,13 @@ import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.MainActivity
+import com.tugasakhir.welearn.presentation.MainActivity
 import com.tugasakhir.welearn.R
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.view.score.adapter.ScoreMultiAdapter
+import com.tugasakhir.welearn.utils.Template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -50,7 +51,7 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
             }
         } else {
             binding.papanScoreBack.setImageResource(R.drawable.ic_baseline_home_24)
-            FirebaseMessaging.getInstance().unsubscribeFromTopic(sessionManager.fetchIDRoom().toString())
+            FirebaseMessaging.getInstance().unsubscribeFromTopic(Template.getTopic(sessionManager.fetchIDRoom().toString()))
             binding.papanScoreBack.setOnClickListener {
                 startActivity(Intent(this, MainActivity::class.java))
                 this.finish()

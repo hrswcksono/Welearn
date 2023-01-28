@@ -1,8 +1,7 @@
 package com.tugasakhir.welearn.data
 
-import com.tugasakhir.welearn.core.utils.DataMapper
+import com.tugasakhir.welearn.utils.DataMapper
 import com.tugasakhir.welearn.data.source.remote.ISinglePlayerDataSource
-import com.tugasakhir.welearn.data.source.remote.SinglePlayerDataSource
 import com.tugasakhir.welearn.domain.repository.ISinglePlayerRepository
 import kotlinx.coroutines.flow.map
 

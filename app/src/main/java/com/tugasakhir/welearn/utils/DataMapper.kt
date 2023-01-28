@@ -1,10 +1,18 @@
-package com.tugasakhir.welearn.core.utils
+package com.tugasakhir.welearn.utils
 
 import com.tugasakhir.welearn.data.source.remote.response.*
 import com.tugasakhir.welearn.domain.entity.*
 import com.tugasakhir.welearn.domain.entity.Room
 
 object DataMapper {
+
+    fun mapperGameAlreadyEnd(it: GameAlreadyEndResponse): String {
+        return it.data!!
+    }
+
+    fun mapperForcedEndGame(it: ForceEndGameResponse): String {
+        return it.data!!
+    }
 
     fun mapperPredictMulti(it: SavePredictMultiResponse) = SavePredictMulti(
         status = it.data!!
@@ -127,13 +135,13 @@ object DataMapper {
         return joinGameList
     }
 
-    fun mapperScoreMulti(input: List<ScoreMultiplayerResponse>): List<ScoreMulti> {
+    fun mapperScoreMulti(input: List<ScoreMultiItem>): List<ScoreMulti> {
         val scoreMultiList = ArrayList<ScoreMulti>()
         input.map {
             val scoreMulti = ScoreMulti(
                 name = it.name.toString(),
-                score = it.score!!,
-                duration = it.duration!!
+                score = it.score!!.toInt(),
+                duration = it.duration!!.toInt()
             )
             scoreMultiList.add(scoreMulti)
         }

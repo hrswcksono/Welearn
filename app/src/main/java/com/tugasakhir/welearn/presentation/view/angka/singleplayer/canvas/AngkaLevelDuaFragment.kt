@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import com.tugasakhir.welearn.core.utils.*
+import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter

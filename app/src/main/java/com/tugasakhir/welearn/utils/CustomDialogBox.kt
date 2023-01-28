@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.core.utils
+package com.tugasakhir.welearn.utils
 
 import android.app.Activity
 import android.content.Context

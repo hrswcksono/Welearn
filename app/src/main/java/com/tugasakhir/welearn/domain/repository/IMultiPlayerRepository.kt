@@ -10,7 +10,8 @@ interface IMultiPlayerRepository {
     fun pushNotification(body: PushNotification): Flow<PushNotificationResponse>
     fun makeRoomGame(id_jenis: Int, id_level: Int, authToken: String): Flow<Room>
     fun joinGame(idRoom: Int, authToken: String): Flow<JoinGame>
-    fun endGame(idGame: String, authToken: String): Flow<String>
+    fun gameAlreadyEnd(idGame: String, authToken: String): Flow<String>
+    fun forceEndGame(idGame: String, authToken: String): Flow<String>
     fun scoreMulti(idGame: Int, authToken: String): Flow<List<ScoreMulti>>
     fun predictHurufMulti(idGame: Int,idSoal: Int, score: Int, duration: Int, authToken: String): Flow<SavePredictMulti>
     fun predictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<SavePredictMulti>

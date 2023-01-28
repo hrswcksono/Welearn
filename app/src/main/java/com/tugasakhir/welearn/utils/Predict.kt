@@ -1,4 +1,4 @@
-package com.tugasakhir.welearn.core.utils
+package com.tugasakhir.welearn.utils
 
 import android.content.Context
 import android.graphics.Bitmap

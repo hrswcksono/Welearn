@@ -1,9 +1,9 @@
 package com.tugasakhir.welearn
 
-import com.tugasakhir.welearn.core.di.apiModule
-import com.tugasakhir.welearn.core.di.dataSourceModule
-import com.tugasakhir.welearn.core.di.networkModule
-import com.tugasakhir.welearn.core.di.repositoryModule
+import com.tugasakhir.welearn.data.di.apiModule
+import com.tugasakhir.welearn.data.di.dataSourceModule
+import com.tugasakhir.welearn.data.di.networkModule
+import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import org.junit.Test

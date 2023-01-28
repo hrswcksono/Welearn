@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityJoinedGameBinding
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinedUserPresenter
 import com.tugasakhir.welearn.presentation.view.score.adapter.JoinedGameAdapter

@@ -9,14 +9,15 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.core.utils.Constants
-import com.tugasakhir.welearn.core.utils.ExitApp
-import com.tugasakhir.welearn.core.utils.SharedPreference
+import com.tugasakhir.welearn.utils.Constants
+import com.tugasakhir.welearn.utils.ExitApp
+import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentAngkaReadyBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
+import com.tugasakhir.welearn.utils.Template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -48,10 +49,9 @@ class AngkaReadyFragment : Fragment() {
 
         sessionManager = SharedPreference(activity!!)
 
-        val idRoom = "7478"
 
         binding.btnAngkaReady.setOnClickListener {
-            joinGame(idRoom!!.toInt())
+            joinGame(binding.tfIdRoomAngka.text.toString().toInt())
         }
     }
 
@@ -68,13 +68,13 @@ class AngkaReadyFragment : Fragment() {
                             "",
                             0,
                             "gabung_angka"
-                        ), topic,
+                        ), Template.getTopic(topic),
                         "high"
                     )
                 ).collectLatest {
                     ExitApp.topic = topic
-                    FirebaseMessaging.getInstance().subscribeToTopic(topic)
-                    FirebaseMessaging.getInstance().subscribeToTopic(topic).addOnSuccessListener {
+                    FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic))
+                    FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic)).addOnSuccessListener {
                         dialogBox()
                     }
                 }
@@ -100,10 +100,5 @@ class AngkaReadyFragment : Fragment() {
             .setTitleText("Berhasil begabung...!")
             .setContentText("Harap menunggu pemain yang lain")
             .show()
-    }
-
-    override fun onStop() {
-        super.onStop()
-        FirebaseMessaging.getInstance().unsubscribeFromTopic("${Constants.TOPIC_BASE}${binding.tfIdRoomAngka.text.toString()}")
     }
 }
