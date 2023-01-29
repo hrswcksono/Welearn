@@ -13,6 +13,7 @@ class MultiPlayerRepository constructor(
 
     override fun getIDSoalMulti(jenis: Int, level: Int, authToken: String) =
         remoteDataSource.getIDSoalMulti(jenis, level, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapIDSoalMulti(it.data))
@@ -28,6 +29,7 @@ class MultiPlayerRepository constructor(
 
     override fun getSoalByID(id: Int, authToken: String) =
         remoteDataSource.getSoalByID(id, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperSoal(it.data))
@@ -43,6 +45,7 @@ class MultiPlayerRepository constructor(
 
     override fun pushNotification(body: PushNotification) =
         remoteDataSource.pushNotification(body).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperPushNotification(it.data))
@@ -58,6 +61,7 @@ class MultiPlayerRepository constructor(
 
     override fun makeRoom(id_jenis: Int, id_level: Int, authToken: String) =
         remoteDataSource.makeRoom(id_jenis, id_level, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperRoom(it.data.data!!))
@@ -73,6 +77,7 @@ class MultiPlayerRepository constructor(
 
     override fun joinGame(idRoom: Int, authToken: String) =
         remoteDataSource.joinGame(idRoom, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperJoinGame(it.data))
@@ -88,6 +93,7 @@ class MultiPlayerRepository constructor(
 
     override fun gameAlreadyEnd(idGame: String, authToken: String) =
         remoteDataSource.gameAlreadyEnd(idGame, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperGameAlreadyEnd(it.data))
@@ -103,6 +109,7 @@ class MultiPlayerRepository constructor(
 
     override fun forceEndGame(idGame: String, authToken: String) =
         remoteDataSource.forceEndGame(idGame, authToken).map {
+            Resource.Loading(it)
             when(it) {
             is ApiResponse.Success -> {
                 Resource.Success(DataMapper.mapperForcedEndGame(it.data))
@@ -117,6 +124,7 @@ class MultiPlayerRepository constructor(
 
     override fun getListScoreMulti(idGame: Int, authToken: String) =
         remoteDataSource.getListScoreMulti(idGame, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperScoreMulti(it.data))
@@ -137,6 +145,7 @@ class MultiPlayerRepository constructor(
         duration: Int,
         authToken: String
     ) = remoteDataSource.savePredictHurufMulti(idGame, idSoal,score, duration, authToken).map {
+        Resource.Loading(it)
         when(it) {
             is ApiResponse.Success -> {
                 Resource.Success(DataMapper.mapperPredictMulti(it.data))
@@ -157,6 +166,7 @@ class MultiPlayerRepository constructor(
         duration: Int,
         authToken: String
     ) = remoteDataSource.savePredictAngkaMulti(idGame, idSoal, score, duration, authToken).map {
+        Resource.Loading(it)
         when(it) {
             is ApiResponse.Success -> {
                 Resource.Success(DataMapper.mapperPredictMulti(it.data))
@@ -172,6 +182,7 @@ class MultiPlayerRepository constructor(
 
     override fun getListUserJoin(authToken: String) =
         remoteDataSource.getListUserJoin(authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperJoinedGame(it.data))
@@ -187,6 +198,7 @@ class MultiPlayerRepository constructor(
 
     override fun getListUserParticipant(idGame: Int, authToken: String) =
         remoteDataSource.getListUserParticipant(idGame, authToken).map {
+            Resource.Loading(it)
             when(it) {
                 is ApiResponse.Success -> {
                     Resource.Success(DataMapper.mapperUserParticipant(it.data))
