@@ -13,7 +13,7 @@
 .externalNativeBuild
 .cxx
 local.properties
-/app/src/main/java/com/tugasakhir/welearn/core/utils/Constants.kt
+/app/src/main/java/com/tugasakhir/welearn/utils/Constants.kt
 *.tflite
 /app/google-services.json
 

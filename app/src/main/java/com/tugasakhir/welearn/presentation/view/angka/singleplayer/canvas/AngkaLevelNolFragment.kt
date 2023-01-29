@@ -63,12 +63,12 @@ class AngkaLevelNolFragment : Fragment() {
             if (result == answer){
                 score = 10
             }
-            submitDrawing(idSoal, score, dialogText(result, accuracy*100))
+            submitDrawing(idSoal, score, dialogText(result, accuracy))
         }
     }
 
     private fun dialogText(answer: Char, accuracy: Float) : String {
-        return "Jawaban kamu $answer\n Ketelitian $accuracy%"
+        return "Jawaban kamu $answer\n Ketelitian ${(accuracy*100).toInt()}%"
     }
 
     private fun disableButton(){
