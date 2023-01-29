@@ -7,6 +7,6 @@ import com.tugasakhir.welearn.domain.usecase.multiplayer.MultiPlayerUseCase
 import kotlinx.coroutines.flow.Flow
 
 class PushNotificationPresenter(private val useCase: MultiPlayerUseCase): ViewModel() {
-    fun pushNotification(body: PushNotification): Flow<PushNotificationResponse> =
+    fun pushNotification(body: PushNotification) =
         useCase.pushNotification(body)
 }

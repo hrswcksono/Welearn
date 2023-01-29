@@ -8,6 +8,7 @@ import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.utils.Template
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
@@ -86,10 +87,19 @@ class AngkaLevelNolFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    answer = it.jawaban[0]
-                    binding.progressBarA0.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            answer = it.data.jawaban[0]
+                            binding.progressBarA0.visibility = View.INVISIBLE
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

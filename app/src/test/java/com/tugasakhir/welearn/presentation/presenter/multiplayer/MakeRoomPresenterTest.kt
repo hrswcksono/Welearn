@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.data.di.*
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
@@ -63,6 +64,20 @@ class MakeRoomPresenterTest : KoinTest {
 
         makeRoom.makeRoom(2,2, authToken).collectLatest {
             assertNotNull(it)
+        }
+    }
+
+    @Test
+    fun `random_id_multi_success`() = runBlocking{
+
+        makeRoom.randomIDSoalMultiByLevel(1, 2, authToken).collectLatest {
+            when(it){
+                is Resource.Success->{
+                    assertNotNull(it)
+                }
+                is Resource.Loading->{}
+                is Resource.Error->{}
+            }
         }
     }
 }

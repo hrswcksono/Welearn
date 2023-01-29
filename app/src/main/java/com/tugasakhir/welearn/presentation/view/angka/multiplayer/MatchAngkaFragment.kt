@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentMatchAngkaBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
@@ -46,6 +47,7 @@ class MatchAngkaFragment : Fragment() {
             view?.findNavController()?.navigateUp()
         }
         choseeLevel()
+        binding.progressBar4.visibility = View.GONE
     }
 
     private fun choseeLevel(){
@@ -100,10 +102,21 @@ class MatchAngkaFragment : Fragment() {
                     makeRoomPresenter.randomIDSoalMultiByLevel(2,
                         inputLevel, sessionManager.fetchAuthToken()!!
                     ).collectLatest {
-                        if (it.id_soal.isNotEmpty()){
-                            CustomDialogBox.dialogSoalMulti(context!!)
-                            makeRoom(inputLevel, it.id_soal)
-                            binding.btnAngkaAcak.setBackgroundResource(R.drawable.yellow)
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data?.id_soal?.isNotEmpty() == true){
+                                    CustomDialogBox.dialogSoalMulti(context!!)
+                                    makeRoom(inputLevel, it.data.id_soal)
+                                    binding.btnAngkaAcak.setBackgroundResource(R.drawable.yellow)
+                                }
+                            }
+                            is Resource.Loading ->{
+                                binding.progressBar4.visibility = View.VISIBLE
+                            }
+                            is Resource.Error ->{
+                                binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
                         }
                     }
                 }
@@ -140,11 +153,22 @@ class MatchAngkaFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 makeRoomPresenter.makeRoom(2, idLevel, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        sessionManager.saveIDRoom(it.id_room)
-                        ExitApp.topic = it.id_room.toString()
-                        binding.tvIdRoomAngka.text = it.id_room.toString()
-                        FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(it.id_room.toString()))
-                        startMatch(idLevel, idSoal, it.id_room.toString(), it.id_game.toString())
+                        when(it) {
+                            is Resource.Success ->{
+                                sessionManager.saveIDRoom(it.data!!.id_room)
+                                ExitApp.topic = it.data!!.id_room.toString()
+                                binding.tvIdRoomAngka.text = it.data!!.id_room.toString()
+                                FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(it.data.id_room.toString()))
+                                startMatch(idLevel, idSoal, it.data.id_room.toString(), it.data.id_game.toString())
+                            }
+                            is Resource.Loading ->{
+                                binding.progressBar4.visibility = View.VISIBLE
+                            }
+                            is Resource.Error ->{
+                                binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
             }
         }

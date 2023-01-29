@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -100,10 +102,19 @@ class HurufLevelDuaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    binding.progressBarH2.visibility = View.INVISIBLE
-                    refreshCanvas()
-                    answer = it.jawaban
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            binding.progressBarH2.visibility = View.INVISIBLE
+                            refreshCanvas()
+                            answer = it.data.jawaban
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }
