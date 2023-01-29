@@ -3,14 +3,16 @@ package com.tugasakhir.welearn.presentation.presenter.multiplayer
 import com.tugasakhir.welearn.data.di.authModule
 import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
+import com.tugasakhir.welearn.data.di.singleModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert.*
+
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -18,14 +20,12 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
-import org.koin.test.mock.MockProviderRule
-import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
-class JoinGamePresenterTest : KoinTest {
+class InGamePresenterTest : KoinTest {
 
-    val joinGame by inject<JoinGamePresenter>()
     val login by inject<LoginPresenter>()
+    val inGamePresenter by inject<InGamePresenter>()
     lateinit var authToken: String
 
     @get:Rule
@@ -43,21 +43,50 @@ class JoinGamePresenterTest : KoinTest {
     }
 
     @Before
-    fun before() = runBlocking {
+    fun setUp() = runBlocking {
         login.loginUser("admin", "admin123").collectLatest {
             authToken = it.token!!
         }
     }
 
     @After
-    fun after() {
+    fun tearDown() {
         stopKoin()
     }
 
     @Test
-    fun `join_game_success`() = runBlocking{
-        joinGame.joinGame(6861, authToken).collectLatest {
+    fun `get_user_participant_successs`() = runBlocking{
+        inGamePresenter.getListUserParticipant(2, authToken).collectLatest {
             assertNotNull(it)
         }
     }
+
+    @Test
+    fun `get_soal_success`() = runBlocking{
+        inGamePresenter.getSoalByID(1, authToken).collectLatest {
+            assertNotNull(it)
+        }
+    }
+    @Test
+    fun `save_predict_huruf_multi_success`() = runBlocking{
+        inGamePresenter.savePredictHurufMulti(1, 95, 10, 10, authToken).collectLatest {
+            assertEquals(it.status, "Berhasil Submit Nilai")
+        }
+    }
+
+    @Test
+    fun `save_predict_huruf_angka_success`() = runBlocking{
+        inGamePresenter.savePredictAngkaMulti(1, 1, 10, 10, authToken).collectLatest {
+            assertEquals(it.status, "Berhasil Submit Nilai")
+        }
+    }
+
+    @Test
+    fun `end_game_success`() = runBlocking{
+        inGamePresenter.gameAlreadyEnd("1", authToken).collectLatest {
+            assertNotNull(it)
+        }
+    }
+
+//    fun `forced`
 }

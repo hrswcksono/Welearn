@@ -1,9 +1,6 @@
 package com.tugasakhir.welearn
 
-import com.tugasakhir.welearn.data.di.apiModule
-import com.tugasakhir.welearn.data.di.dataSourceModule
-import com.tugasakhir.welearn.data.di.networkModule
-import com.tugasakhir.welearn.data.di.repositoryModule
+import com.tugasakhir.welearn.data.di.*
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import org.junit.Test
@@ -14,12 +11,12 @@ class CheckModule {
     @Test
     fun checkAllModules() = checkModules {
         modules(listOf(
-            apiModule,
-            dataSourceModule,
             networkModule,
-            repositoryModule,
             useCaseModule,
-            presentationModule
+            presentationModule,
+            authModule,
+            singleModule,
+            multiModule
         ))
     }
 

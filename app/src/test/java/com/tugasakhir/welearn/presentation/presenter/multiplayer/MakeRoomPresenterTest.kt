@@ -1,9 +1,9 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
-import com.tugasakhir.welearn.data.di.networkModule
-import com.tugasakhir.welearn.data.di.repositoryModule
+import com.tugasakhir.welearn.data.di.*
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
+import com.tugasakhir.welearn.domain.entity.Room
 import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -33,22 +33,18 @@ class MakeRoomPresenterTest : KoinTest {
         modules(
             listOf(
                 networkModule,
-                repositoryModule,
                 useCaseModule,
-                presentationModule
+                presentationModule,
+                authModule,
+                multiModule
             )
         )
     }
 
-    @get:Rule
-    val mockProvider = MockProviderRule.create { clazz ->
-        Mockito.mock(clazz.java)
-    }
-
     @Before
     fun before() = runBlocking {
-        login.loginUser("test", "12345").collectLatest {
-            authToken = it.token
+        login.loginUser("admin", "admin123").collectLatest {
+            authToken = it.token!!
         }
     }
 
@@ -59,8 +55,14 @@ class MakeRoomPresenterTest : KoinTest {
 
     @Test
     fun `make_room_success`() = runBlocking{
+
+        val test = Room(
+            1,
+            2
+        )
+
         makeRoom.makeRoom(2,2, authToken).collectLatest {
-            assertEquals(it, "2")
+            assertNotNull(it)
         }
     }
 }

@@ -136,7 +136,7 @@ object DataMapper {
         return joinGameList
     }
 
-    fun mapperScoreMulti(input: List<ScoreMultiItem>): List<ScoreMulti> {
+    fun mapperScoreMulti(input: List<ScoreMultiResponse>): List<ScoreMulti> {
         val scoreMultiList = ArrayList<ScoreMulti>()
         input.map {
             val scoreMulti = ScoreMulti(
@@ -157,8 +157,8 @@ object DataMapper {
         return input.message.toString()
     }
 
-    fun mapIDSoalMulti(input: SimpleResponse) = IDSoalMulti(
-        id_soal = input.message.toString()
+    fun mapIDSoalMulti(input: IDSoalMultiResponse) = IDSoalMulti(
+        id_soal = input.data.toString()
     )
 
 }

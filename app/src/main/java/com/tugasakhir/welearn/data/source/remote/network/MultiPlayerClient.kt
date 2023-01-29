@@ -13,7 +13,7 @@ interface MultiPlayerClient {
         @Path("jenis") jenis: Int,
         @Path("level") level: Int,
         @Header("Authorization") token: String
-    ): SimpleResponse
+    ): IDSoalMultiResponse
 
     @GET("soalbyID/{id}")
     suspend fun getSoalByID(
@@ -62,7 +62,7 @@ interface MultiPlayerClient {
     suspend fun getListScoreMulti(
         @Path("id") id: Int,
         @Header("Authorization") token: String
-    ): ScoreMultiResponse
+    ): ListScoreMultiResponse
 
     @FormUrlEncoded
     @POST("savePredictMulti")

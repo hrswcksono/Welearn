@@ -1,7 +1,8 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.di.authModule
+import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
-import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.ScoreMultiPresenter
@@ -33,22 +34,17 @@ class ScoreMultiPresenterTest  : KoinTest {
         printLogger()
         modules(listOf(
             networkModule,
-            repositoryModule,
             useCaseModule,
-            presentationModule
+            presentationModule,
+            authModule,
+            multiModule
         ))
     }
 
     @Before
     fun before() = runBlocking {
-        loadKoinModules(listOf(
-            networkModule,
-            repositoryModule,
-            useCaseModule,
-            presentationModule
-        ))
-        login.loginUser("Andi123", "12345").collectLatest {
-            authToken = it.token
+        login.loginUser("admin", "admin123").collectLatest {
+            authToken = it.token!!
         }
     }
 
@@ -60,6 +56,13 @@ class ScoreMultiPresenterTest  : KoinTest {
     @Test
     fun `show_list_score_multi_success`() = runBlocking{
         scoreMulti.scoreMulti(1, authToken).collectLatest {
+            assertNotNull(it)
+        }
+    }
+
+    @Test
+    fun `show_join_user_success`() = runBlocking {
+        scoreMulti.getJoinedGame(authToken).collectLatest {
             assertNotNull(it)
         }
     }

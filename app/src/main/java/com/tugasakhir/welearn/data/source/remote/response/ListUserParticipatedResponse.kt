@@ -5,10 +5,13 @@ import com.google.gson.annotations.SerializedName
 data class ListUserParticipatedResponse(
 
 	@field:SerializedName("success")
-	val success: String? = null,
+	val code: Int? = null,
 
-	@field:SerializedName("message")
-	val message: List<UserParticipatedResponse>
+	@field:SerializedName("status")
+	val status: String? = null,
+
+	@field:SerializedName("data")
+	val data: List<UserParticipatedResponse>
 )
 
 data class UserParticipatedResponse(

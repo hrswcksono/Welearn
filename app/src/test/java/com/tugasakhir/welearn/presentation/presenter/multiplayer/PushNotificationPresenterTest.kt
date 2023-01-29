@@ -1,15 +1,18 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.di.authModule
+import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
-import com.tugasakhir.welearn.data.di.repositoryModule
 import com.tugasakhir.welearn.di.presentationModule
 import com.tugasakhir.welearn.di.useCaseModule
-import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
+import com.tugasakhir.welearn.domain.entity.NotificationData
+import com.tugasakhir.welearn.domain.entity.PushNotification
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
-import org.junit.After
 import org.junit.Assert.*
+
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -17,15 +20,11 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
-import org.koin.test.mock.MockProviderRule
-import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
-class EndGamePresenterTest : KoinTest {
-
-    val endGame by inject<GameAlreadyEndPresenter>()
-    val login by inject<LoginPresenter>()
-    lateinit var authToken: String
+class PushNotificationPresenterTest : KoinTest {
+//
+    val pushNotification by inject<PushNotificationPresenter>()
 
     @get:Rule
     val koinTestRule = KoinTestRule.create {
@@ -33,34 +32,40 @@ class EndGamePresenterTest : KoinTest {
         modules(
             listOf(
                 networkModule,
-                repositoryModule,
                 useCaseModule,
-                presentationModule
+                presentationModule,
+                multiModule
             )
         )
     }
 
-    @get:Rule
-    val mockProvider = MockProviderRule.create { clazz ->
-        Mockito.mock(clazz.java)
-    }
-
     @Before
-    fun before() = runBlocking {
-        login.loginUser("test", "12345").collectLatest {
-            authToken = it.token
-        }
+    fun setUp() {
     }
 
     @After
-    fun after() {
+    fun tearDown() {
         stopKoin()
     }
 
     @Test
-    fun `end_game_success`() = runBlocking{
-        endGame.endGame("1", authToken).collectLatest {
-            assertEquals(it, "Berhasil End Game")
+    fun `push_notif_success`() = runBlocking{
+        pushNotification.pushNotification(
+            PushNotification(
+                NotificationData(
+                    "",
+                    "",
+                    "",
+                    "",
+                    1,
+                    ""
+                ), "/topics/text",
+                "high"
+            ),
+        ).collectLatest {
+            assertNotNull(it.message)
         }
     }
+
+
 }

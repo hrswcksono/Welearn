@@ -104,7 +104,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
         binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                inGamePresenter.predictHurufMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
+                inGamePresenter.savePredictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         endGame(idGame)
                     }

@@ -113,7 +113,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                inGamePresenter.predictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
+                inGamePresenter.savePredictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         endGame(idGame)
                     }

@@ -2,7 +2,7 @@ package com.tugasakhir.welearn.utils
 
 class Constants {
     companion object {
-        const val BASE_URL_API = "http://cc14-202-80-216-180.ngrok.io/api/v1/"
+        const val BASE_URL_API = "http://dc88-202-80-216-180.ngrok.io/api/v1/"
         const val FCM_BASE_URL = "https://fcm.googleapis.com/fcm/send"
         const val SERVER_KEY = "AAAASnE4AkQ:APA91bHV6p1aoCTA2yCUFQepL1uqwIj2eqJ_wqgOq5n0DUUKX5vT50wmmsTYD5bq3NHi1loop0YWEB80MAI_eBzOhOTOeSauZA8JJAnxFw2HGTg-VoDG6n_dEkRiu_3QNZU37WjoVJbM"
         const val CONTENT_TYPE = "application/json"
