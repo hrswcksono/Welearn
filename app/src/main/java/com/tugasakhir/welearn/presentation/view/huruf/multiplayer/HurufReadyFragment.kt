@@ -87,6 +87,11 @@ class HurufReadyFragment : Fragment() {
                     .collectLatest {
                         if (it.status == "Berhasil Join") {
                             ready(binding.tfIdRoomHuruf.text.toString())
+                        } else {
+                            SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Gagal begabung...!")
+                                .setContentText(it.status)
+                                .show()
                         }
                     }
             }

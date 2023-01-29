@@ -18,8 +18,6 @@ import org.koin.core.context.stopKoin
 import org.koin.test.KoinTest
 import org.koin.test.KoinTestRule
 import org.koin.test.inject
-import org.koin.test.mock.MockProviderRule
-import org.mockito.Mockito
 
 @ExperimentalCoroutinesApi
 class JoinGamePresenterTest : KoinTest {
@@ -57,7 +55,7 @@ class JoinGamePresenterTest : KoinTest {
     @Test
     fun `join_game_success`() = runBlocking{
         joinGame.joinGame(6861, authToken).collectLatest {
-            assertNotNull(it)
+            assertEquals(it.status, "Join Game Gagal")
         }
     }
 }

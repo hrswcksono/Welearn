@@ -9,15 +9,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
-import com.tugasakhir.welearn.utils.Constants
-import com.tugasakhir.welearn.utils.ExitApp
-import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentAngkaReadyBinding
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.utils.Template
+import com.tugasakhir.welearn.utils.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -75,7 +72,10 @@ class AngkaReadyFragment : Fragment() {
                     ExitApp.topic = topic
                     FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic))
                     FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(topic)).addOnSuccessListener {
-                        dialogBox()
+                        SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
+                            .setTitleText("Berhasil begabung...!")
+                            .setContentText("Harap menunggu pemain yang lain")
+                            .show()
                     }
                 }
             }
@@ -89,6 +89,11 @@ class AngkaReadyFragment : Fragment() {
                     .collectLatest {
                         if (it.status == "Berhasil Join") {
                             ready(binding.tfIdRoomAngka.text.toString())
+                        } else {
+                            SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                                .setTitleText("Gagal begabung...!")
+                                .setContentText(it.status)
+                                .show()
                         }
                     }
             }
@@ -96,10 +101,7 @@ class AngkaReadyFragment : Fragment() {
     }
 
     private fun dialogBox() {
-        SweetAlertDialog(activity, SweetAlertDialog.SUCCESS_TYPE)
-            .setTitleText("Berhasil begabung...!")
-            .setContentText("Harap menunggu pemain yang lain")
-            .show()
+
     }
 
     override fun onDestroy() {
