@@ -57,22 +57,31 @@ class HurufLevelNolFragment : Fragment() {
         showScreen(idSoal)
         binding.submitNolHuruf.setOnClickListener{
             val bitmap = binding.cnvsLevelNolHuruf.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(activity!!, bitmap, answer!!)
-            submitDrawing(idSoal, result)
+            val (result, accuracy) = Predict.predictHurufCoba(activity!!, bitmap)
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
+            submitDrawing(idSoal, score, dialogText(result, accuracy))
         }
     }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer dengan Ketelitian ${(accuracy*100).toInt()}%\n"
+    }
+
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarH0.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelNolFragmentDirections.toScoreHurufNol()) },
                             score,
+                            message
                         )
                     }
             }

@@ -62,14 +62,17 @@ class HurufLevelSatuFragment : Fragment() {
             val canvas1 = binding.cnvsLevelSatuHurufone.getBitmap().scale(224, 224)
             val canvas2 = binding.cnvsLevelSatuHuruftwo.getBitmap().scale(224, 224)
             val canvas3 = binding.cnvsLevelSatuHurufthree.getBitmap().scale(224, 224)
-            val result1 = Predict.predictHuruf(activity!!, canvas1, answer?.get(0)!!)
-            val result2 = Predict.predictHuruf(activity!!, canvas2, answer?.get(1)!!)
-            val result3 = Predict.predictHuruf(activity!!, canvas3, answer?.get(2)!!)
-            if ((result1 + result2 + result3) == 30) {
+            val (result1, accuracy1) = Predict.predictHurufCoba(activity!!, canvas1)
+            val (result2, accuracy2) = Predict.predictHurufCoba(activity!!, canvas2)
+            val (result3, accuracy3) = Predict.predictHurufCoba(activity!!, canvas3)
+            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2)){
                 score = 10
             }
-            submitDrawing(idSoal, score)
+            submitDrawing(idSoal, score, dialogText(result1, accuracy1, result2, accuracy2, result3, accuracy3))
         }
+    }
+    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float) : String {
+        return "Jawaban kamu $answer1, $answer2, $answer3  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%\n"
     }
 
     private fun disableButton(){
@@ -82,17 +85,18 @@ class HurufLevelSatuFragment : Fragment() {
         binding.submitSatuHuruf.isClickable = true
     }
 
-    private fun submitDrawing(id: Int, score : Int) {
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarH1.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarH1.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelSatuFragmentDirections.toScoreHurufSatu()) },
                             score,
+                            message
                         )
                     }
             }
