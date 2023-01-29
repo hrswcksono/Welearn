@@ -10,17 +10,17 @@ class MultiPlayerRepository constructor(
     private val remoteDataSource: IMultiplayerDataSource
 ): IMultiPlayerRepository {
 
-    override fun getIDSoalMultiplayer(jenis: Int, level: Int, authToken: String) =
-        remoteDataSource.soalMultiplayer(jenis, level, authToken).map { DataMapper.mapIDSoalMulti(it) }
+    override fun getIDSoalMulti(jenis: Int, level: Int, authToken: String) =
+        remoteDataSource.getIDSoalMulti(jenis, level, authToken).map { DataMapper.mapIDSoalMulti(it) }
 
-    override fun soalByID(id: Int, authToken: String) =
-        remoteDataSource.soalByID(id, authToken).map { DataMapper.mapperSoal(it) }
+    override fun getSoalByID(id: Int, authToken: String) =
+        remoteDataSource.getSoalByID(id, authToken).map { DataMapper.mapperSoal(it) }
 
     override fun pushNotification(body: PushNotification) =
         remoteDataSource.pushNotification(body)
 
-    override fun makeRoomGame(id_jenis: Int, id_level: Int, authToken: String) =
-        remoteDataSource.makeRoomGame(id_jenis, id_level, authToken).map { DataMapper.mapperRoom(it.data!!) }
+    override fun makeRoom(id_jenis: Int, id_level: Int, authToken: String) =
+        remoteDataSource.makeRoom(id_jenis, id_level, authToken).map { DataMapper.mapperRoom(it.data!!) }
 
     override fun joinGame(idRoom: Int, authToken: String) =
         remoteDataSource.joinGame(idRoom, authToken).map { DataMapper.mapperJoinGame(it) }
@@ -29,34 +29,34 @@ class MultiPlayerRepository constructor(
         remoteDataSource.gameAlreadyEnd(idGame, authToken).map { DataMapper.mapperGameAlreadyEnd(it) }
 
     override fun forceEndGame(idGame: String, authToken: String) =
-        remoteDataSource.forceEndgame(idGame, authToken).map { DataMapper.mapperForcedEndGame(it) }
+        remoteDataSource.forceEndGame(idGame, authToken).map { DataMapper.mapperForcedEndGame(it) }
 
-    override fun scoreMulti(idGame: Int, authToken: String) =
-        remoteDataSource.scoreMulti(idGame, authToken).map { DataMapper.mapperScoreMulti(it) }
+    override fun getListScoreMulti(idGame: Int, authToken: String) =
+        remoteDataSource.getListScoreMulti(idGame, authToken).map { DataMapper.mapperScoreMulti(it) }
 
-    override fun predictHurufMulti(
+    override fun savePredictHurufMulti(
         idGame: Int,
         idSoal: Int,
         score: Int,
         duration: Int,
         authToken: String
-    ) = remoteDataSource.predictHurufMulti(idGame, idSoal,score, duration, authToken).map {
+    ) = remoteDataSource.savePredictHurufMulti(idGame, idSoal,score, duration, authToken).map {
         DataMapper.mapperPredictMulti(it)
     }
 
-    override fun predictAngkaMulti(
+    override fun savePredictAngkaMulti(
         idGame: Int,
         idSoal: Int,
         score: Int,
         duration: Int,
         authToken: String
-    ) = remoteDataSource.predictAngkaMulti(idGame, idSoal, score, duration, authToken).map {
+    ) = remoteDataSource.savePredictAngkaMulti(idGame, idSoal, score, duration, authToken).map {
         DataMapper.mapperPredictMulti(it)
     }
 
-    override fun getJoinedGame(authToken: String) =
-        remoteDataSource.getJoinedGame(authToken).map { DataMapper.mapperJoinedGame(it) }
+    override fun getListUserJoin(authToken: String) =
+        remoteDataSource.getListUserJoin(authToken).map { DataMapper.mapperJoinedGame(it) }
 
-    override fun getUserParticipant(idGame: Int, authToken: String) =
-        remoteDataSource.userParticipant(idGame, authToken).map { DataMapper.mapperUserParticipant(it) }
+    override fun getListUserParticipant(idGame: Int, authToken: String) =
+        remoteDataSource.getListUserParticipant(idGame, authToken).map { DataMapper.mapperUserParticipant(it) }
 }

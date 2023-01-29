@@ -11,7 +11,6 @@ import androidx.navigation.findNavController
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.entity.Soal
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

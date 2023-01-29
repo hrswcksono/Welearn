@@ -95,7 +95,7 @@ object CustomDialogBox {
     fun dialogSoalMulti(context: Context) {
         AestheticDialog.Builder(context as Activity, DialogStyle.EMOTION, DialogType.SUCCESS)
             .setTitle("Berhasil")
-            .setMessage("Berhasil mengacak soal")
+            .setMessage("Berhasil membuat Room")
             .setCancelable(true)
             .setDarkMode(false)
             .setGravity(Gravity.CENTER)

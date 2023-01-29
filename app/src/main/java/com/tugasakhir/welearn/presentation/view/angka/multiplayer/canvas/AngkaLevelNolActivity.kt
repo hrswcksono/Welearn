@@ -12,7 +12,6 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.entity.Soal
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.*
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.SoalByIDPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -27,12 +26,9 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     }
 
     private lateinit var binding: ActivityAngkaLevelNolBinding
-    private val soalViewModel: SoalByIDPresenter by viewModel()
-    private val predictAngkaMultiPresenter: PredictAngkaMultiPresenter by viewModel()
+    private val inGamePresenter: InGamePresenter by viewModel()
     private val joinGamePresenter: JoinGamePresenter by viewModel()
-    private val gameAlreadyEndPresenter: GameAlreadyEndPresenter by viewModel()
     private val pushNotification: PushNotificationPresenter by viewModel()
-    private val listUserParticipantPresenter: UserParticipantPresenter by viewModel()
     private var answer: Char ?= null
     private lateinit var sessionManager: SharedPreference
 
@@ -103,7 +99,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.progressBarA0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                soalViewModel.getSoalByID(id.toInt(), sessionManager.fetchAuthToken()!!).collectLatest {
+                inGamePresenter.getSoalByID(id.toInt(), sessionManager.fetchAuthToken()!!).collectLatest {
                     showData(it)
                     showButton()
                     answer = it.jawaban[0]
@@ -117,7 +113,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun submitMulti(idGame: Int, idSoal: Int,duration: Int, score: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                predictAngkaMultiPresenter.predictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
+                inGamePresenter.predictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         endGame(idGame)
                     }
@@ -154,7 +150,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
     private fun endGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
-                gameAlreadyEndPresenter.gameAlreadyEnd(idGame.toString(), sessionManager.fetchAuthToken()!!)
+                inGamePresenter.gameAlreadyEnd(idGame.toString(), sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         if (it == "Room Berhasil Ditutup"){
                             showScoreMulti(idGame.toString())
@@ -200,7 +196,7 @@ class AngkaLevelNolActivity : AppCompatActivity() {
         binding.btnUserParticipantA0.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    listUserParticipantPresenter.getListUserParticipant(idGame, sessionManager.fetchAuthToken()!!).collectLatest {
+                    inGamePresenter.getListUserParticipant(idGame, sessionManager.fetchAuthToken()!!).collectLatest {
                         Template.listUser(it, this@AngkaLevelNolActivity)
                     }
                 }

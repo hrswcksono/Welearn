@@ -36,7 +36,7 @@ class ScoreHurufFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        sessionManager = activity?.let { SharedPreference(it) }!!
         showScore()
         header(View.INVISIBLE)
     }

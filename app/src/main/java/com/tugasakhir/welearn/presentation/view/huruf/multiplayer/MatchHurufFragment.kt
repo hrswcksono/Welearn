@@ -17,7 +17,6 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.MakeRoomPresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
-import com.tugasakhir.welearn.presentation.presenter.multiplayer.RandomIDSoalMultiPresenter
 import com.tugasakhir.welearn.utils.Template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -30,7 +29,6 @@ class MatchHurufFragment : Fragment() {
     private var _binding: FragmentMatchHurufBinding ?= null
     private val binding get() = _binding!!
     private val pushNotif: PushNotificationPresenter by viewModel()
-    private val viewModelRandom: RandomIDSoalMultiPresenter by viewModel()
     private val makeRoomPresenter: MakeRoomPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
 
@@ -93,7 +91,7 @@ class MatchHurufFragment : Fragment() {
         binding.btnHurufAcak.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    viewModelRandom.randomIDSoalMultiByLevel(1,
+                    makeRoomPresenter.randomIDSoalMultiByLevel(1,
                         inputLevel, sessionManager.fetchAuthToken()!!
                     ).collectLatest {
                         if (it.id_soal.isNotEmpty()){

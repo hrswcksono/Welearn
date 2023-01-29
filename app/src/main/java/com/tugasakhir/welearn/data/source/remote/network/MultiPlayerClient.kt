@@ -59,14 +59,14 @@ interface MultiPlayerClient {
     ): GameAlreadyEndResponse
 
     @GET("showScoreMulti/{id}")
-    suspend fun scoreMulti(
+    suspend fun getListScoreMulti(
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): ScoreMultiResponse
 
     @FormUrlEncoded
     @POST("savePredictMulti")
-    suspend fun predictAngkaMulti(
+    suspend fun savePredictAngkaMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,
         @Field("score") score : Int,
@@ -76,7 +76,7 @@ interface MultiPlayerClient {
 
     @FormUrlEncoded
     @POST("savePredictMulti")
-    suspend fun predictHurufMulti(
+    suspend fun savePredictHurufMulti(
         @Field("id_game") idGame : Int,
         @Field("id_soal") idSoal : Int,
         @Field("score") score : Int,
@@ -85,12 +85,12 @@ interface MultiPlayerClient {
     ): SavePredictMultiResponse
 
     @GET("joinedGame")
-    suspend fun joinedUser(
+    suspend fun getListUserJoin(
         @Header("Authorization") token: String
     ): ListJoinedGameResponse
 
     @GET("listJoin/{id}")
-    suspend fun getUserParticipant(
+    suspend fun getListUserParticipant(
         @Path("id") id: Int,
         @Header("Authorization") token: String
     ): ListUserParticipatedResponse
