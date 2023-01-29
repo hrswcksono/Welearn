@@ -126,7 +126,7 @@ object DataMapper {
         val joinGameList = ArrayList<UserJoinMulti>()
         input.map{
             val joinGame = UserJoinMulti(
-                id = it.idGame.toString(),
+                id = it.id_game.toString(),
                 username = it.pembuat_room.toString(),
                 jenisSoal = it.jenis_soal.toString(),
                 idLevel = it.id_level!!

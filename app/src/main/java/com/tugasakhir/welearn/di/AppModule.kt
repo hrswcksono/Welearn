@@ -26,8 +26,6 @@ val presentationModule = module {
     viewModel { ProfilePresenter(get<AuthUseCase>()) }
     viewModel { LogoutPresenter(get<AuthUseCase>()) }
     viewModel { RegisterPresenter(get<AuthUseCase>()) }
-
-
     viewModel { LevelSoalPresenter(get<SinglePlayerUseCase>()) }
     viewModel { ListSoalRandomPresenter(get<SinglePlayerUseCase>()) }
     viewModel { HighScorePresenter(get<SinglePlayerUseCase>()) }
@@ -41,5 +39,4 @@ val presentationModule = module {
     viewModel { JoinGamePresenter(get<MultiPlayerUseCase>()) }
     viewModel { ScoreMultiPresenter(get<MultiPlayerUseCase>()) }
     viewModel { InGamePresenter(get<MultiPlayerUseCase>())}
-
 }

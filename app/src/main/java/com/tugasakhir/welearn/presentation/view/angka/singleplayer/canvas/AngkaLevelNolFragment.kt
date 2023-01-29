@@ -12,6 +12,7 @@ import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.utils.Template
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.Soal
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.InGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -23,7 +24,7 @@ class AngkaLevelNolFragment : Fragment() {
 
     private var _binding: FragmentAngkaLevelNolBinding ?= null
     private val binding get() = _binding!!
-    private val soalViewModel: SoalByIDPresenter by viewModel()
+    private val soalViewModel: InGamePresenter by viewModel()
     private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
     private var answer: Char ?= null

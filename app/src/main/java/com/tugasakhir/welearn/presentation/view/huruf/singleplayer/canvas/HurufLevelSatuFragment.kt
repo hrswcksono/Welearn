@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelSatuBinding
 import com.tugasakhir.welearn.domain.entity.Soal
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.InGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictHurufPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +23,7 @@ class HurufLevelSatuFragment : Fragment() {
 
     private var _binding: FragmentHurufLevelSatuBinding ?= null
     private val binding get() = _binding!!
-    private val soalViewModel: SoalByIDPresenter by viewModel()
+    private val soalViewModel: InGamePresenter by viewModel()
     private val predictHurufPresenter: PredictHurufPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
     private var answer: String ?= null

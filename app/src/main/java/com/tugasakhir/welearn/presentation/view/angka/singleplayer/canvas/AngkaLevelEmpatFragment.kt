@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.entity.Soal
+import com.tugasakhir.welearn.presentation.presenter.multiplayer.InGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.singleplayer.PredictAngkaPresenter
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -22,7 +23,7 @@ class AngkaLevelEmpatFragment : Fragment() {
 
     private var _binding: FragmentAngkaLevelEmpatBinding ?= null
     private val binding get() = _binding!!
-    private val soalViewModel: SoalByIDPresenter by viewModel()
+    private val soalViewModel: InGamePresenter by viewModel()
     private val predictAngkaPresenter: PredictAngkaPresenter by viewModel()
     private lateinit var sessionManager: SharedPreference
     private var answer: String ?= null

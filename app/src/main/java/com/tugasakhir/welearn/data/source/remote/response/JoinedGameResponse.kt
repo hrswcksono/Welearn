@@ -17,7 +17,7 @@ data class ListJoinedGameResponse(
 data class JoinedGameResponse(
 
 	@field:SerializedName("id_game")
-	val idGame: Int? = null,
+	val id_game: Int? = null,
 
 	@field:SerializedName("pembuat_room")
 	val pembuat_room: String? = null,
