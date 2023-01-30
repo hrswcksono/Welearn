@@ -59,7 +59,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         binding.cnvsLevelTigaHuruftwo.setStrokeWidth(30f)
         binding.cnvsLevelTigaHurufthree.setStrokeWidth(30f)
         binding.cnvsLevelTigaHuruffour.setStrokeWidth(30f)
-        binding.cnvsLevelTigaHuruffive.setStrokeWidth(30f)
+//        binding.cnvsLevelTigaHuruffive.setStrokeWidth(30f)
         binding.cnvsLevelTigaHurufsix.setStrokeWidth(30f)
         binding.cnvsLevelTigaHurufseven.setStrokeWidth(30f)
         binding.cnvsLevelTigaHurufeight.setStrokeWidth(30f)
@@ -84,7 +84,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             val canvas2 = binding.cnvsLevelTigaHuruftwo.getBitmap().scale(224, 224)
             val canvas3 = binding.cnvsLevelTigaHurufthree.getBitmap().scale(224, 224)
             val canvas4 = binding.cnvsLevelTigaHuruffour.getBitmap().scale(224, 224)
-            val canvas5 = binding.cnvsLevelTigaHuruffive.getBitmap().scale(224, 224)
+//            val canvas5 = binding.cnvsLevelTigaHuruffive.getBitmap().scale(224, 224)
             val canvas6 = binding.cnvsLevelTigaHurufsix.getBitmap().scale(224, 224)
             val canvas7 = binding.cnvsLevelTigaHurufseven.getBitmap().scale(224, 224)
             val canvas8 = binding. cnvsLevelTigaHurufeight.getBitmap().scale(224, 224)
@@ -93,21 +93,33 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             val (result2, accuracy2) = Predict.predictHurufCoba(this, canvas2)
             val (result3, accuracy3) = Predict.predictHurufCoba(this, canvas3)
             val (result4, accuracy4) = Predict.predictHurufCoba(this, canvas4)
-            val (result5, accuracy5) = Predict.predictHurufCoba(this, canvas5)
+//            val (result5, accuracy5) = Predict.predictHurufCoba(this, canvas5)
             val (result6, accuracy6) = Predict.predictHurufCoba(this, canvas6)
             val (result7, accuracy7) = Predict.predictHurufCoba(this, canvas7)
             val (result8, accuracy8) = Predict.predictHurufCoba(this, canvas8)
             val (result9, accuracy9) = Predict.predictHurufCoba(this, canvas9)
-            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2) && result4 == answer?.get(3) && result5 == answer?.get(4)&& result6 == answer?.get(5)&& result7 == answer?.get(6)&& result8 == answer?.get(7)&& result9 == answer?.get(8)){
-                score =  10
+//            if (canvas5 == null){
+//                if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2) && result4 == answer?.get(3) && result6 == answer?.get(5)&& result7 == answer?.get(6)&& result8 == answer?.get(7)&& result9 == answer?.get(8)){
+//                    score = 10
+//                }else{
+//                    0
+//                }
+//                message = dialogTextOnCanvas(result1, accuracy1, result2, accuracy2, result3, accuracy3, result4, accuracy4, result6, accuracy6, result7, accuracy7, result8, accuracy8, result9, accuracy9)
+//            }else{
+//                score = 0
+//                message = "perhatikan lagi letak spasi, cukup dikosongi saja"
+//            }
+            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2) && result4 == answer?.get(3) && result6 == answer?.get(5)&& result7 == answer?.get(6)&& result8 == answer?.get(7)&& result9 == answer?.get(8)){
+                score = 10
             }
+            var message: String = dialogTextOnCanvas(result1, accuracy1, result2, accuracy2, result3, accuracy3, result4, accuracy4, result6, accuracy6, result7, accuracy7, result8, accuracy8, result9, accuracy9)
             val end = Date().time
             total = (end - begin)/1000
             CustomDialogBox.dialogPredictCoba(
                 this@HurufLevelTigaActivity,
                 {},
                 score,
-                dialogText(result1, accuracy1, result2, accuracy2, result3, accuracy3, result4, accuracy4, result5, accuracy5, result6, accuracy6, result7, accuracy7, result8, accuracy8, result9, accuracy9)
+                message
             )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
@@ -122,8 +134,12 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         }
     }
 
-    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float, answer4: Char, accuracy4: Float, answer5: Char, accuracy5: Float, answer6: Char, accuracy6: Float, answer7: Char, accuracy7: Float, answer8: Char, accuracy8: Float, answer9: Char, accuracy9: Float) : String {
-        return "Jawaban kamu $answer1, $answer2, $answer3, $answer4, $answer5, $answer6, $answer7, $answer8, $answer9  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%, ${(accuracy4*100).toInt()}%, ${(accuracy5*100).toInt()}%, ${(accuracy6*100).toInt()}%, ${(accuracy7*100).toInt()}%, ${(accuracy8*100).toInt()}%, ${(accuracy9*100).toInt()}%\n"
+//    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float, answer4: Char, accuracy4: Float, answer5: Char, accuracy5: Float, answer6: Char, accuracy6: Float, answer7: Char, accuracy7: Float, answer8: Char, accuracy8: Float, answer9: Char, accuracy9: Float) : String {
+//        return "Jawaban kamu $answer1, $answer2, $answer3, $answer4, $answer5, $answer6, $answer7, $answer8, $answer9  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%, ${(accuracy4*100).toInt()}%, ${(accuracy5*100).toInt()}%, ${(accuracy6*100).toInt()}%, ${(accuracy7*100).toInt()}%, ${(accuracy8*100).toInt()}%, ${(accuracy9*100).toInt()}%\n"
+//    }
+
+    private fun dialogTextOnCanvas(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float, answer4: Char, accuracy4: Float , answer6: Char, accuracy6: Float, answer7: Char, accuracy7: Float, answer8: Char, accuracy8: Float, answer9: Char, accuracy9: Float) : String {
+        return "Jawaban kamu $answer1, $answer2, $answer3, $answer4, $answer6, $answer7, $answer8, $answer9  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%, ${(accuracy4*100).toInt()}%, ${(accuracy6*100).toInt()}%, ${(accuracy7*100).toInt()}%, ${(accuracy8*100).toInt()}%, ${(accuracy9*100).toInt()}%\n"
     }
 
     private fun hideButton() {
@@ -201,7 +217,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         binding.cnvsLevelTigaHuruftwo.clearCanvas()
         binding.cnvsLevelTigaHurufthree.clearCanvas()
         binding.cnvsLevelTigaHuruffour.clearCanvas()
-        binding.cnvsLevelTigaHuruffive.clearCanvas()
+//        binding.cnvsLevelTigaHuruffive.clearCanvas()
         binding.cnvsLevelTigaHurufsix.clearCanvas()
         binding.cnvsLevelTigaHurufseven.clearCanvas()
         binding.cnvsLevelTigaHurufeight.clearCanvas()
