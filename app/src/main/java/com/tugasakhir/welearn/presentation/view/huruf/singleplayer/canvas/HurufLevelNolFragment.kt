@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelNolBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -57,22 +58,31 @@ class HurufLevelNolFragment : Fragment() {
         showScreen(idSoal)
         binding.submitNolHuruf.setOnClickListener{
             val bitmap = binding.cnvsLevelNolHuruf.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(activity!!, bitmap, answer!!)
-            submitDrawing(idSoal, result)
+            val (result, accuracy) = Predict.predictHurufCoba(activity!!, bitmap)
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
+            submitDrawing(idSoal, score, dialogText(result, accuracy))
         }
     }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer dengan Ketelitian ${(accuracy*100).toInt()}%\n"
+    }
+
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarH0.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarH0.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelNolFragmentDirections.toScoreHurufNol()) },
                             score,
+                            message
                         )
                     }
             }
@@ -84,10 +94,19 @@ class HurufLevelNolFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    binding.progressBarH0.visibility = View.INVISIBLE
-                    answer = it.jawaban[0]
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            binding.progressBarH0.visibility = View.INVISIBLE
+                            answer = it.data!!.jawaban[0]
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

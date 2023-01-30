@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityJoinedGameBinding
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.view.score.adapter.JoinedGameAdapter
+import com.tugasakhir.welearn.utils.CustomDialogBox
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -43,7 +45,16 @@ class JoinedGameActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 viewModel.getJoinedGame(sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        joinedGameAdapter.setData(it)
+                        when(it) {
+                            is Resource.Success ->{
+                                joinedGameAdapter.setData(it.data)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@JoinedGameActivity, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
             }
         }

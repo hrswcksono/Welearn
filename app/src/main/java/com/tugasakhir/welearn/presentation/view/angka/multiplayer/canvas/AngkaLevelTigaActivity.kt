@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelTigaBinding
@@ -62,6 +64,7 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         val arrayID = soalID.toString().split("|")
         val idGame = intent.getStringExtra(ID_GAME)
         listDialog(idGame!!.toInt())
+        dialogEndGame(idGame.toInt())
         var index = 0
         var total = 0L
         val begin = Date().time
@@ -120,11 +123,20 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 inGamePresenter.getSoalByID(idSoal.toInt(), sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    showButton()
-                    answer = it.jawaban[0]
-                    binding.progressBarA3.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            showButton()
+                            answer = it.data.jawaban[0]
+                            binding.progressBarA3.visibility = View.INVISIBLE
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(this@AngkaLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }
@@ -156,14 +168,58 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
         }
     }
 
+    private fun endGameByClick(idGame: Int){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                inGamePresenter.forceEndGame(idGame.toString(), sessionManager.fetchAuthToken()!!).collectLatest {
+                    when(it) {
+                        is Resource.Success ->{
+                            if (it.data == "Room Berhasil Ditutup"){
+                                showScoreMulti(idGame.toString())
+                            }
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(this@AngkaLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun dialogEndGame(idGame: Int){
+        binding.btnEndGameA3.setOnClickListener {
+            CustomDialogBox.withCancel(
+                this,
+                SweetAlertDialog.WARNING_TYPE,
+                "Tombol untuk menutup Room",
+                "Hanya gunakan jika ada masalah handphone pada teman anda",
+                "Akhiri",
+            ) {
+                endGameByClick(idGame)
+            }
+        }
+    }
+
     private fun endGame(idGame: Int){
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 inGamePresenter.gameAlreadyEnd(idGame.toString(), sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it == "Room Berhasil Ditutup"){
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data == "Room Berhasil Ditutup"){
 //                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
-                            showScoreMulti(idGame.toString())
+                                    showScoreMulti(idGame.toString())
+                                }
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@AngkaLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                            }
                         }
                     }
             }
@@ -207,7 +263,16 @@ class AngkaLevelTigaActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     inGamePresenter.getListUserParticipant(idGame, sessionManager.fetchAuthToken()!!).collectLatest {
-                        Template.listUser(it, this@AngkaLevelTigaActivity)
+                        when(it) {
+                            is Resource.Success ->{
+                                Template.listUser(it.data!!, this@AngkaLevelTigaActivity)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@AngkaLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
                 }
             }

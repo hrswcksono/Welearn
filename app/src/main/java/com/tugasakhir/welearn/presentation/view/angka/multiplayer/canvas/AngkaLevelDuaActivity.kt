@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
+import cn.pedant.SweetAlert.SweetAlertDialog
+import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.utils.Template.speak
 import com.tugasakhir.welearn.databinding.ActivityAngkaLevelDuaBinding
@@ -21,11 +24,8 @@ import java.util.*
 
 class AngkaLevelDuaActivity : AppCompatActivity() {
     companion object {
-        const val EXTRA_SOAL = "extra_soal"
-        const val GAME_MODE = "game_mode"
         const val LEVEL_SOAL = "level_soal"
         const val ID_GAME = "id_game"
-        const val NO_SOAL = "no_soal"
     }
 
     private lateinit var binding: ActivityAngkaLevelDuaBinding
@@ -58,6 +58,7 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         val soalID = intent.getStringExtra(LEVEL_SOAL)
         val arrayID = soalID.toString().split("|")
         val idGame = intent.getStringExtra(ID_GAME)
+        dialogEndGame(idGame!!.toInt())
         listDialog(idGame!!.toInt())
         var index = 0
         var total = 0L
@@ -123,12 +124,58 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 inGamePresenter.getSoalByID(id.toInt(), sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    showButton()
-                    answer = it.jawaban[0]
-                    binding.progressBarA2.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            if (it.data!!.soal!!.isNotEmpty()){
+                                showData(it.data)
+                                showButton()
+                                answer = it.data.jawaban[0]
+                                binding.progressBarA2.visibility = View.INVISIBLE
+                                refreshCanvas()
+                            }
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(this@AngkaLevelDuaActivity, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
+            }
+        }
+    }
+
+    private fun endGameByClick(idGame: Int){
+        lifecycleScope.launch(Dispatchers.Default) {
+            withContext(Dispatchers.Main) {
+                inGamePresenter.forceEndGame(idGame.toString(), sessionManager.fetchAuthToken()!!).collectLatest {
+                    when(it) {
+                        is Resource.Success ->{
+                            if (it.data == "Room Berhasil Ditutup"){
+                                showScoreMulti(idGame.toString())
+                            }
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(this@AngkaLevelDuaActivity, "Kesalahan Server", it.message.toString())
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun dialogEndGame(idGame: Int){
+        binding.btnEndGameA2.setOnClickListener {
+            CustomDialogBox.withCancel(
+                this,
+                SweetAlertDialog.WARNING_TYPE,
+                "Tombol untuk menutup Room",
+                "Hanya gunakan jika ada masalah handphone pada teman anda",
+                "Akhiri",
+            ) {
+                endGameByClick(idGame)
             }
         }
     }
@@ -164,9 +211,17 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 inGamePresenter.gameAlreadyEnd(idGame.toString(), sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it == "Room Berhasil Ditutup"){
-//                            Toast.makeText(this@HurufLevelNolActivity, "Pindah", Toast.LENGTH_SHORT).show()
-                            showScoreMulti(idGame.toString())
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data == "Room Berhasil Ditutup"){
+                                    showScoreMulti(idGame.toString())
+                                }
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@AngkaLevelDuaActivity, "Kesalahan Server", it.message.toString())
+                            }
                         }
                     }
             }
@@ -200,7 +255,16 @@ class AngkaLevelDuaActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     inGamePresenter.getListUserParticipant(idGame, sessionManager.fetchAuthToken()!!).collectLatest {
-                        Template.listUser(it, this@AngkaLevelDuaActivity)
+                        when(it) {
+                            is Resource.Success ->{
+                                Template.listUser(it.data!!, this@AngkaLevelDuaActivity)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@AngkaLevelDuaActivity, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
                 }
             }

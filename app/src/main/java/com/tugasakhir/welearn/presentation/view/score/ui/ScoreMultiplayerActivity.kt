@@ -5,13 +5,17 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.presentation.MainActivity
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.ActivityScoreMultiplayerBinding
+import com.tugasakhir.welearn.domain.entity.JoinGame
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.ScoreMultiPresenter
 import com.tugasakhir.welearn.presentation.view.score.adapter.ScoreMultiAdapter
+import com.tugasakhir.welearn.utils.CustomDialogBox
 import com.tugasakhir.welearn.utils.Template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -71,7 +75,16 @@ class ScoreMultiplayerActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 viewModel.scoreMulti(idGame!!.toInt(), sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        scoreMultiAdapter.setData(it)
+                        when(it) {
+                            is Resource.Success ->{
+                                scoreMultiAdapter.setData(it.data)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@ScoreMultiplayerActivity, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
             }
         }

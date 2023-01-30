@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.ExitApp
 import com.tugasakhir.welearn.utils.SharedPreference
 import com.tugasakhir.welearn.databinding.FragmentHurufReadyBinding
@@ -16,6 +17,7 @@ import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.PushNotificationPresenter
+import com.tugasakhir.welearn.utils.CustomDialogBox
 import com.tugasakhir.welearn.utils.Template
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -85,14 +87,24 @@ class HurufReadyFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_room, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it.status == "Berhasil Join") {
-                            ready(binding.tfIdRoomHuruf.text.toString())
-                        } else {
-                            SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Gagal begabung...!")
-                                .setContentText(it.status)
-                                .show()
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data!!.status == "Berhasil Join") {
+                                    ready(binding.tfIdRoomHuruf.text.toString())
+                                } else {
+                                    SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Gagal begabung...!")
+                                        .setContentText(it.data.status)
+                                        .show()
+                                }
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
                         }
+
                     }
             }
         }

@@ -8,7 +8,7 @@ data class SoalResponse(
 	val success: String? = null,
 
 	@field:SerializedName("message")
-	val message: SoalResponseMessage? = null
+	val message: SoalResponseMessage
 )
 
 data class SoalResponseMessage(

@@ -8,6 +8,8 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelDuaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -66,29 +68,33 @@ class HurufLevelDuaFragment : Fragment() {
             val canvas3 = binding.cnvsLevelDuaHurufthree.getBitmap().scale(224, 224)
             val canvas4 = binding.cnvsLevelDuaHuruffour.getBitmap().scale(224, 224)
             val canvas5 = binding.cnvsLevelDuaHuruffive.getBitmap().scale(224, 224)
-            val result1 = Predict.predictHuruf(activity!!, canvas1, answer?.get(0)!!)
-            val result2 = Predict.predictHuruf(activity!!, canvas2, answer?.get(1)!!)
-            val result3 = Predict.predictHuruf(activity!!, canvas3, answer?.get(2)!!)
-            val result4 = Predict.predictHuruf(activity!!, canvas4, answer?.get(3)!!)
-            val result5 = Predict.predictHuruf(activity!!, canvas5, answer?.get(4)!!)
-            if ((result1 + result2 + result3 + result4 + result5) == 50) {
+            val (result1, accuracy1) = Predict.predictHurufCoba(activity!!, canvas1)
+            val (result2, accuracy2) = Predict.predictHurufCoba(activity!!, canvas2)
+            val (result3, accuracy3) = Predict.predictHurufCoba(activity!!, canvas3)
+            val (result4, accuracy4) = Predict.predictHurufCoba(activity!!, canvas4)
+            val (result5, accuracy5) = Predict.predictHurufCoba(activity!!, canvas5)
+            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2) && result4 == answer?.get(3)&& result5 == answer?.get(4)){
                 score =  10
             }
-            submitDrawing(idSoal, score!!)
+            submitDrawing(idSoal, score, dialogText(result1, accuracy1, result2, accuracy2, result3, accuracy3, result4, accuracy4, result5, accuracy5))
         }
     }
+    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float, answer4: Char, accuracy4: Float, answer5: Char, accuracy5: Float) : String {
+        return "Jawaban kamu $answer1, $answer2, $answer3, $answer4, $answer5  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%, ${(accuracy4*100).toInt()}%, ${(accuracy5*100).toInt()}%\n"
+    }
 
-    private fun submitDrawing(id: Int, score: Int) {
+    private fun submitDrawing(id: Int, score: Int, message: String) {
         binding.progressBarH2.visibility = View.VISIBLE
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 predictHurufPresenter.predictHuruf(id, score, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
                         binding.progressBarH2.visibility = View.INVISIBLE
-                        CustomDialogBox.dialogPredict(
+                        CustomDialogBox.dialogPredictCoba(
                             context!!,
                             { view?.findNavController()?.navigate(HurufLevelDuaFragmentDirections.toScoreHurufDua()) },
                             score,
+                            message
                         )
                     }
             }
@@ -100,10 +106,19 @@ class HurufLevelDuaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    binding.progressBarH2.visibility = View.INVISIBLE
-                    refreshCanvas()
-                    answer = it.jawaban
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            binding.progressBarH2.visibility = View.INVISIBLE
+                            refreshCanvas()
+                            answer = it.data.jawaban
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

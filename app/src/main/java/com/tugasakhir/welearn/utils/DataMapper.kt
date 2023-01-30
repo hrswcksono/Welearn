@@ -6,6 +6,10 @@ import com.tugasakhir.welearn.domain.entity.Room
 
 object DataMapper {
 
+    fun mapperPushNotification(it: PushNotificationResponse): String {
+        return it.message
+    }
+
     fun mapperGameAlreadyEnd(it: GameAlreadyEndResponse): String {
         return it.data!!
     }
@@ -114,8 +118,7 @@ object DataMapper {
             val userParticipant =  UserPaticipantMulti(
                 idGame = it.idGame!!,
                 id = it.id!!,
-                username = it.id.toString()
-
+                username = it.name.toString()
             )
             userParticipantL.add(userParticipant)
         }
