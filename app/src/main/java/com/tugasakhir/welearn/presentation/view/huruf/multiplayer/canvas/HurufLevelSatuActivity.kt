@@ -73,18 +73,19 @@ class HurufLevelSatuActivity : AppCompatActivity() {
             val canvas1 = binding.cnvsLevelSatuHurufone.getBitmap().scale(224, 224)
             val canvas2 = binding.cnvsLevelSatuHuruftwo.getBitmap().scale(224, 224)
             val canvas3 = binding.cnvsLevelSatuHurufthree.getBitmap().scale(224, 224)
-            val result1 = Predict.predictHuruf(this, canvas1, answer?.get(0)!!)
-            val result2 = Predict.predictHuruf(this, canvas2, answer?.get(1)!!)
-            val result3 = Predict.predictHuruf(this, canvas3, answer?.get(2)!!)
-            if ((result1 + result2 + result3) == 30) {
+            val (result1, accuracy1) = Predict.predictHurufCoba(this, canvas1)
+            val (result2, accuracy2) = Predict.predictHurufCoba(this, canvas2)
+            val (result3, accuracy3) = Predict.predictHurufCoba(this, canvas3)
+            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2)){
                 score = 10
             }
             val end = Date().time
             total = (end - begin)/1000
-            CustomDialogBox.dialogPredict(
+            CustomDialogBox.dialogPredictCoba(
                 this@HurufLevelSatuActivity,
                 {},
                 score,
+                dialogText(result1, accuracy1, result2, accuracy2, result3, accuracy3)
             )
             submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
@@ -97,6 +98,10 @@ class HurufLevelSatuActivity : AppCompatActivity() {
                 binding.tvSelesaiH1.visibility = View.VISIBLE
             }
         }
+    }
+
+    private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float, answer3: Char, accuracy3: Float) : String {
+        return "Jawaban kamu $answer1, $answer2, $answer3  dengan Ketelitian ${(accuracy1*100).toInt()}%, ${(accuracy2*100).toInt()}%, ${(accuracy3*100).toInt()}%\n"
     }
 
     private fun hideButton() {
