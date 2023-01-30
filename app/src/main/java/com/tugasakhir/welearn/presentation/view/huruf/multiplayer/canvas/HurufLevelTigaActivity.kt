@@ -98,8 +98,8 @@ class HurufLevelTigaActivity : AppCompatActivity() {
             val (result7, accuracy7) = Predict.predictHurufCoba(this, canvas7)
             val (result8, accuracy8) = Predict.predictHurufCoba(this, canvas8)
             val (result9, accuracy9) = Predict.predictHurufCoba(this, canvas9)
-            if ((result1 + result2 + result3 + result4 + result5 + result6 +result7 + result8 +result9) == 90){
-                score = 10
+            if (result1 == answer?.get(0) && result2 == answer?.get(1) && result3 == answer?.get(2) && result4 == answer?.get(3) && result5 == answer?.get(4)&& result6 == answer?.get(5)&& result7 == answer?.get(6)&& result8 == answer?.get(7)&& result9 == answer?.get(8)){
+                score =  10
             }
             val end = Date().time
             total = (end - begin)/1000
