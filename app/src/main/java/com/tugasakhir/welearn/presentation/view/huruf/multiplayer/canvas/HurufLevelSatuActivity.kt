@@ -154,7 +154,7 @@ class HurufLevelSatuActivity : AppCompatActivity() {
         binding.spkSatuHuruf.setOnClickListener {
             speak(data.keterangan)
         }
-        binding.soalHurufDipilih.text = data.keterangan
+        binding.soalHurufDipilih.text = "Tuliskan kata " + "\"" + data.jawaban + "\""
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 

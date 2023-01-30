@@ -150,7 +150,7 @@ class HurufLevelTigaFragment : Fragment() {
         binding.spkTigaHuruf.setOnClickListener {
             Template.speak(data.keterangan)
         }
-        binding.soalHurufDipilih.text = data.keterangan
+        binding.soalHurufDipilih.text = "Tuliskan kata " + "\"" + data.jawaban + "\""
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 

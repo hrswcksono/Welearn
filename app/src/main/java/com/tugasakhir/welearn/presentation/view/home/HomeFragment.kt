@@ -18,6 +18,7 @@ import com.tugasakhir.welearn.databinding.FragmentHomeBinding
 import com.tugasakhir.welearn.presentation.view.auth.LoginActivity
 import com.tugasakhir.welearn.presentation.view.score.ui.ScoreActivity
 import com.tugasakhir.welearn.presentation.presenter.user.LogoutPresenter
+import com.tugasakhir.welearn.presentation.view.RuleActivity
 import com.tugasakhir.welearn.presentation.view.score.ui.JoinedGameActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
@@ -69,6 +70,10 @@ class HomeFragment : Fragment() {
 
         binding.btnHighscore.setOnClickListener {
             dialogScore()
+        }
+
+        binding.btnRule.setOnClickListener {
+            startActivity(Intent(activity, RuleActivity::class.java))
         }
 
     }

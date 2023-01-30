@@ -176,7 +176,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
         binding.spkTigaHuruf.setOnClickListener {
             speak(data.keterangan)
         }
-        binding.soalHurufDipilih.text = data.keterangan
+        binding.soalHurufDipilih.text = "Tuliskan kata " + "\"" + data.jawaban + "\""
         binding.levelHurufKe.text = "Level ke ${data.idLevel}"
     }
 

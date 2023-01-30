@@ -1,101 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.tugasakhir.welearn">
-<!-- permissions for INTERNET -->
-<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-    tools:ignore="ScopedStorage" />
-<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-<uses-permission android:name="android.permission.INTERNET" />
-<!-- receiving broadcast from GCM server -->
-<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+    <!-- permissions for INTERNET -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <!-- receiving broadcast from GCM server -->
+    <uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
 
-<application
-    android:name=".MyApplication"
-    android:allowBackup="true"
-    android:icon="@drawable/icon_welearn"
-    android:label="@string/app_name"
-    android:roundIcon="@drawable/icon_welearn"
-    android:supportsRtl="true"
-    android:theme="@style/Theme.Welearn"
-    android:usesCleartextTraffic="true">
-    <activity
-        android:name=".presentation.view.score.ui.JoinedGameActivity"
-        android:exported="false" />
-    <activity
-        android:name=".presentation.view.score.ui.ScoreMultiplayerActivity"
-        android:exported="false" />
-    <activity
-        android:name=".presentation.view.score.ui.ScoreActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <service
-        android:name="com.tugasakhir.welearn.utils.FirebaseService"
-        android:exported="false"
-        android:permission="com.google.android.c2dm.permission.SEND">
-        <intent-filter>
-            <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
-        </intent-filter>
-    </service>
-    <activity
-        android:name=".presentation.MainActivity"
-        android:exported="true"
-        android:screenOrientation="portrait">
-        <nav-graph android:value="@navigation/bot_nav" />
-    </activity>
-    <activity
-        android:name=".presentation.view.auth.RegisterActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name=".presentation.view.auth.LoginActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name=".presentation.SplashScreenActivity"
-        android:exported="true"
-        android:screenOrientation="portrait">
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
-    </activity>
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelEmpatActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelTigaActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelSatuActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelTigaActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelDuaActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelSatuActivity"
-        android:exported="false"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelNolActivity"
-        android:exported="true"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelDuaActivity"
-        android:exported="true"
-        android:screenOrientation="portrait" />
-    <activity
-        android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelNolActivity"
-        android:exported="true"
-        android:screenOrientation="portrait" />
-</application>
+    <application
+        android:name=".MyApplication"
+        android:allowBackup="true"
+        android:icon="@drawable/icon_welearn"
+        android:label="@string/app_name"
+        android:roundIcon="@drawable/icon_welearn"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Welearn"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".presentation.view.score.ui.JoinedGameActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.view.score.ui.ScoreMultiplayerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".presentation.view.score.ui.ScoreActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <service
+            android:name="com.tugasakhir.welearn.utils.FirebaseService"
+            android:exported="false"
+            android:permission="com.google.android.c2dm.permission.SEND">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </service>
+        <activity
+            android:name=".presentation.MainActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <nav-graph android:value="@navigation/bot_nav" />
+        </activity>
+        <activity
+            android:name=".presentation.view.auth.RegisterActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.view.auth.LoginActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".presentation.SplashScreenActivity"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelEmpatActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelTigaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelSatuActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelTigaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelDuaActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelSatuActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelNolActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.huruf.multiplayer.canvas.HurufLevelDuaActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.angka.multiplayer.canvas.AngkaLevelNolActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name="com.tugasakhir.welearn.presentation.view.RuleActivity"
+            android:exported="true"
+            android:screenOrientation="portrait" />
+    </application>
 
 </manifest>
