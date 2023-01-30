@@ -71,15 +71,21 @@ class HurufLevelNolActivity : AppCompatActivity() {
         binding.submitNolHuruf.setOnClickListener {
             hideButton()
             val bitmap = binding.cnvsLevelNolHuruf.getBitmap().scale(224, 224)
-            val result = Predict.predictHuruf(this, bitmap, answer!!)
+            val (result, accuracy) = Predict.predictHurufCoba(this, bitmap)
+            var score = 0
+            if (result == answer){
+                score = 10
+            }
             val end = Date().time
             total = (end - begin)/1000
-            CustomDialogBox.dialogPredict(
+            CustomDialogBox.dialogPredictCoba(
                 this@HurufLevelNolActivity,
                 {},
-                result,
+                score,
+                dialogText(result, accuracy)
             )
-            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), result)
+
+            submitMulti(idGame.toInt(),idSoal.toInt(),total.toInt(), score)
             index++
             if (index < 3) {
                 idSoal = arrayID[index]
@@ -93,6 +99,9 @@ class HurufLevelNolActivity : AppCompatActivity() {
         }
     }
 
+    private fun dialogText(answer: Char, accuracy: Float) : String {
+        return "Jawaban kamu $answer dengan Ketelitian ${(accuracy*100).toInt()}%\n"
+    }
     private fun hideButton() {
         binding.submitNolHuruf.visibility = View.GONE
         binding.refreshNolHuruf.visibility = View.GONE
@@ -109,7 +118,16 @@ class HurufLevelNolActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 inGamePresenter.savePredictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        endGame(idGame)
+                        when(it) {
+                            is Resource.Success ->{
+                                endGame(idGame)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                            }
+                        }
                     }
             }
         }
