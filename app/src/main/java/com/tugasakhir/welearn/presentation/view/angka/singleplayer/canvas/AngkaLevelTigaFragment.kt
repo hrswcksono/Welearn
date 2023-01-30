@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -106,10 +107,19 @@ class AngkaLevelTigaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(idSoal, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    answer = it.jawaban[0]
-                    binding.progressBarA3.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            answer = it.data.jawaban[0]
+                            binding.progressBarA3.visibility = View.INVISIBLE
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

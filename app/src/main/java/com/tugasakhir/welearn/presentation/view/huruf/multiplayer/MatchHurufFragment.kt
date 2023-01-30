@@ -7,8 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
 import com.tugasakhir.welearn.R
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.CustomDialogBox
 import com.tugasakhir.welearn.utils.ExitApp
 import com.tugasakhir.welearn.utils.SharedPreference
@@ -94,10 +96,19 @@ class MatchHurufFragment : Fragment() {
                     makeRoomPresenter.randomIDSoalMultiByLevel(1,
                         inputLevel, sessionManager.fetchAuthToken()!!
                     ).collectLatest {
-                        if (it.id_soal.isNotEmpty()){
-                            CustomDialogBox.dialogSoalMulti(context!!)
-                            makeRoom(inputLevel, it.id_soal)
-                            binding.btnHurufAcak.setBackgroundResource(R.drawable.yellow)
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data!!.id_soal.isNotEmpty()){
+                                    CustomDialogBox.dialogSoalMulti(context!!)
+                                    makeRoom(inputLevel, it.data.id_soal)
+                                    binding.btnHurufAcak.setBackgroundResource(R.drawable.yellow)
+                                }
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
                         }
                     }
                 }
@@ -133,11 +144,20 @@ class MatchHurufFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.IO) {
             withContext(Dispatchers.Default) {
                 makeRoomPresenter.makeRoom(1, idLevel, sessionManager.fetchAuthToken()!!).collectLatest {
-                    sessionManager.saveIDRoom(it.id_room)
-                    ExitApp.topic = it.id_room.toString()
-                    binding.tvIdRoom.text = it.id_room.toString()
-                    FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(it.id_room.toString()))
-                    startMatch(idLevel, idSoal, it.id_room.toString(), it.id_game.toString())
+                    when(it) {
+                        is Resource.Success ->{
+                            sessionManager.saveIDRoom(it.data!!.id_room)
+                            ExitApp.topic = it.data.id_room.toString()
+                            binding.tvIdRoom.text = it.data.id_room.toString()
+                            FirebaseMessaging.getInstance().subscribeToTopic(Template.getTopic(it.data.id_room.toString()))
+                            startMatch(idLevel, idSoal, it.data.id_room.toString(), it.data.id_game.toString())
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

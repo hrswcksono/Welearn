@@ -9,7 +9,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.messaging.FirebaseMessaging
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.databinding.FragmentAngkaReadyBinding
+import com.tugasakhir.welearn.domain.entity.JoinGame
 import com.tugasakhir.welearn.domain.entity.NotificationData
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.presentation.presenter.multiplayer.JoinGamePresenter
@@ -87,14 +89,24 @@ class AngkaReadyFragment : Fragment() {
             withContext(Dispatchers.Main) {
                 joinGamePresenter.joinGame(id_room, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        if (it.status == "Berhasil Join") {
-                            ready(binding.tfIdRoomAngka.text.toString())
-                        } else {
-                            SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
-                                .setTitleText("Gagal begabung...!")
-                                .setContentText(it.status)
-                                .show()
+                        when(it) {
+                            is Resource.Success<JoinGame> ->{
+                                if (it.data!!.status == "Berhasil Join") {
+                                    ready(binding.tfIdRoomAngka.text.toString())
+                                } else {
+                                    SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                                        .setTitleText("Gagal begabung...!")
+                                        .setContentText(it.data.status)
+                                        .show()
+                                }
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
                         }
+
                     }
             }
         }

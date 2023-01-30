@@ -48,7 +48,11 @@ class RegisterActivity : AppCompatActivity() {
         val retypePassword = binding.retypePasswordRegister.editableText
         val jenisKelamin = binding.jenisKelaminRegister.editableText
 
-        if (password.toString() == retypePassword.toString()){
+        if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
+            || retypePassword.isEmpty() || jenisKelamin.isEmpty()) {
+            CustomDialogBox.flatDialog(this,"Lengkapi terlebih dahulu", "Tidak Boleh yang Kosong")
+            binding.progressbarRegister.visibility = View.GONE
+        }else if (password.toString() == retypePassword.toString()){
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
                     viewModel.registerUser(
@@ -63,10 +67,6 @@ class RegisterActivity : AppCompatActivity() {
                     }
                 }
             }
-        }else if (name.isEmpty() || username.isEmpty() || email.isEmpty() || password.isEmpty()
-            || retypePassword.isEmpty() || jenisKelamin.isEmpty()) {
-            CustomDialogBox.flatDialog(this,"Lengkapi terlebih dahulu", "Tidak Boleh yang Kosong")
-            binding.progressbarRegister.visibility = View.GONE
         }else{
             CustomDialogBox.flatDialog(this,"Periksa Kembali Password Anda", "Passowrd tidak sesuai")
             binding.progressbarRegister.visibility = View.GONE

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentAngkaLevelEmpatBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -107,10 +108,19 @@ class AngkaLevelEmpatFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    showData(it)
-                    answer = it.jawaban
-                    binding.progressBarA4.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            showData(it.data!!)
+                            answer = it.data.jawaban
+                            binding.progressBarA4.visibility = View.INVISIBLE
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }

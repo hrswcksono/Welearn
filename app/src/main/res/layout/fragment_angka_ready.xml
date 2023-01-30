@@ -41,7 +41,7 @@
         android:fontFamily="@font/rubik_semi_bold"
         android:gravity="center"
         android:paddingHorizontal="10sp"
-        android:text="@string/menunggu_player_lain"
+        android:text="Bergabung Multiplayer Angka"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="25sp"

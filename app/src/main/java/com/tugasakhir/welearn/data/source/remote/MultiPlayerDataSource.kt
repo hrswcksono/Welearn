@@ -1,6 +1,7 @@
 package com.tugasakhir.welearn.data.source.remote
 
 import android.util.Log
+import com.tugasakhir.welearn.data.source.remote.network.ApiResponse
 import com.tugasakhir.welearn.utils.Constants
 import com.tugasakhir.welearn.data.source.remote.network.MultiPlayerClient
 import com.tugasakhir.welearn.data.source.remote.response.*
@@ -20,8 +21,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
     flow {
         try {
             val response = apiService.getIDSoalMulti(jenis ,level,token = "Bearer $tokenUser")
-            emit(response)
+            if (response.data!!.isNotEmpty()){
+                emit(ApiResponse.Success(response))
+            }else{
+                emit(ApiResponse.Empty)
+            }
         } catch (e: Exception) {
+            emit(ApiResponse.Error(e.toString()))
             Log.e("error", e.toString())
         }
     }.flowOn(Dispatchers.IO)
@@ -30,8 +36,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.getListScoreMulti(id, token = "Bearer $tokenUser")
-                emit(response.data)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response.data))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -40,18 +51,28 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow {
             try {
                 val response = apiService.getSoalByID(id, token = "Bearer $tokenUser")
-                emit(response.message)
+                if (response.success!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response.message))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             } catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
-        }.flowOn(Dispatchers.IO) as Flow<SoalResponseMessage>
+        }.flowOn(Dispatchers.IO)
 
     override fun pushNotification(body: PushNotification) =
         flow {
             try {
                 val response = apiService.postNotification(Constants.FCM_BASE_URL, body)
-                emit(response)
+                if (response.toString().isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -60,8 +81,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.makeRoom(id_jenis, id_level,token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data?.idRoom.toString().isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -70,8 +96,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.joinGame(idRoom, token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -80,8 +111,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.gameAlreadyEnd(idGame, token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -90,8 +126,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.forceEndGame(idGame, token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -106,8 +147,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.savePredictHurufMulti(idGame, idSoal,score, duration, token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -122,8 +168,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.savePredictAngkaMulti(idGame, idSoal,score, duration, token = "Bearer $tokenUser")
-                emit(response)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("error", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -132,8 +183,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow{
             try {
                 val response = apiService.getListUserJoin(token = "Bearer $tokenUser")
-                emit(response.data)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response.data))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)
@@ -145,8 +201,13 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
         flow {
             try {
                 val response = apiService.getListUserParticipant(id,token = "Bearer $tokenUser")
-                emit(response.data)
+                if (response.data!!.isNotEmpty()){
+                    emit(ApiResponse.Success(response.data))
+                }else{
+                    emit(ApiResponse.Empty)
+                }
             }catch (e: Exception) {
+                emit(ApiResponse.Error(e.toString()))
                 Log.e("RemoteDataSource", e.toString())
             }
         }.flowOn(Dispatchers.IO)

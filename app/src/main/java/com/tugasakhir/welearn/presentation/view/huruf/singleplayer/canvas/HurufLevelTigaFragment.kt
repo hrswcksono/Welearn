@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.graphics.scale
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.utils.*
 import com.tugasakhir.welearn.databinding.FragmentHurufLevelTigaBinding
 import com.tugasakhir.welearn.domain.entity.Soal
@@ -126,10 +127,19 @@ class HurufLevelTigaFragment : Fragment() {
         lifecycleScope.launch(Dispatchers.Default) {
             withContext(Dispatchers.Main) {
                 soalViewModel.getSoalByID(id, sessionManager.fetchAuthToken()!!).collectLatest {
-                    show(it)
-                    answer = it.jawaban
-                    binding.progressBarH3.visibility = View.INVISIBLE
-                    refreshCanvas()
+                    when(it) {
+                        is Resource.Success ->{
+                            show(it.data!!)
+                            answer = it.data.jawaban
+                            binding.progressBarH3.visibility = View.INVISIBLE
+                            refreshCanvas()
+                        }
+                        is Resource.Loading ->{}
+                        is Resource.Error ->{
+//                            binding.progressBar4.visibility = View.GONE
+                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                        }
+                    }
                 }
             }
         }
