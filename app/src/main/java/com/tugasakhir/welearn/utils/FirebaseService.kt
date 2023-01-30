@@ -124,7 +124,6 @@ class FirebaseService : FirebaseMessagingService() {
                 .setContentText(message.data["message"])
                 .setSmallIcon(R.drawable.ic_reaction)
                 .setAutoCancel(true)
-                .setContentIntent(pendingIntent1)
                 .build()
 
         notificationManager.notify(notificationID, notification)

@@ -106,8 +106,7 @@ class MatchHurufFragment : Fragment() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
                     }
@@ -146,13 +145,14 @@ class MatchHurufFragment : Fragment() {
                                         }
                                     }
                                 }else {
-                                    CustomDialogBox.flatDialog(context!!, "Belum ada yang bergabung", it.message.toString())
+                                    CustomDialogBox.dialogGagalStartGame(context!!)
+                                    binding.btnStartHuruf.setBackgroundResource(R.drawable.btn_rounded_green)
                                 }
                             }
                             is Resource.Loading ->{
                             }
                             is Resource.Error ->{
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
                     }
@@ -176,8 +176,7 @@ class MatchHurufFragment : Fragment() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(context!!)
                         }
                     }
                 }

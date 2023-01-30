@@ -50,7 +50,14 @@ class AngkaReadyFragment : Fragment() {
 
 
         binding.btnAngkaReady.setOnClickListener {
-            joinGame(binding.tfIdRoomAngka.text.toString().toInt())
+            if (binding.tfIdRoomAngka.text.toString().toIntOrNull() != null){
+                joinGame(binding.tfIdRoomAngka.text.toString().toInt())
+            } else{
+                SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Input salah...!")
+                    .setContentText("Hanya boleh masukkan angka")
+                    .show()
+            }
         }
     }
 
@@ -102,8 +109,7 @@ class AngkaReadyFragment : Fragment() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
 

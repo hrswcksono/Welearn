@@ -51,7 +51,14 @@ class HurufReadyFragment : Fragment() {
         sessionManager = SharedPreference(activity!!)
 
         binding.btnHurufReady.setOnClickListener {
-            joinGame(binding.tfIdRoomHuruf.text.toString().toInt())
+            if (binding.tfIdRoomHuruf.text.toString().toIntOrNull() != null){
+                joinGame(binding.tfIdRoomHuruf.text.toString().toInt())
+            } else{
+                SweetAlertDialog(activity, SweetAlertDialog.ERROR_TYPE)
+                    .setTitleText("Input salah...!")
+                    .setContentText("Hanya boleh masukkan angka")
+                    .show()
+            }
         }
     }
 
@@ -100,8 +107,7 @@ class HurufReadyFragment : Fragment() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
 

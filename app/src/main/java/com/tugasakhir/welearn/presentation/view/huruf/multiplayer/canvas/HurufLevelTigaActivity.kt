@@ -147,8 +147,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelTigaActivity)
                             }
                         }
                     }
@@ -171,8 +170,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@HurufLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@HurufLevelTigaActivity)
                         }
                     }
                 }
@@ -230,8 +228,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelTigaActivity)
                             }
                         }
                     }
@@ -272,8 +269,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelTigaActivity)
                             }
                         }
                     }
@@ -294,8 +290,7 @@ class HurufLevelTigaActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@HurufLevelTigaActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@HurufLevelTigaActivity)
                         }
                     }
                 }

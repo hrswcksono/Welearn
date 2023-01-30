@@ -109,6 +109,57 @@ object CustomDialogBox {
             .show()
     }
 
+    fun dialogGagalStartGame(context: Context) {
+        AestheticDialog.Builder(context as Activity, DialogStyle.EMOTION, DialogType.ERROR)
+            .setTitle("Gagal memulai permainan")
+            .setMessage("Belum ada yang bergabung")
+            .setCancelable(true)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    //actions...
+                }
+            })
+            .show()
+    }
+
+    fun dialogNoInternet(context: Context){
+        AestheticDialog.Builder(context as Activity, DialogStyle.EMOTION, DialogType.ERROR)
+            .setTitle("Internet Terputus")
+            .setMessage("Periksa kembali internet anda")
+            .setCancelable(true)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    //actions...
+                }
+            })
+            .show()
+    }
+
+    fun customDialog(context: Context, title: String, message: String){
+        AestheticDialog.Builder(context as Activity, DialogStyle.RAINBOW, DialogType.SUCCESS)
+            .setTitle(title)
+            .setMessage(message)
+            .setCancelable(true)
+            .setDarkMode(false)
+            .setGravity(Gravity.CENTER)
+            .setAnimation(DialogAnimation.SHRINK)
+            .setOnClickListener(object : OnDialogClickListener {
+                override fun onClick(dialog: AestheticDialog.Builder) {
+                    dialog.dismiss()
+                    //actions...
+                }
+            })
+            .show()
+    }
+
     fun flatDialog(context: Context, title: String, message: String) {
         AestheticDialog.Builder(context as Activity, DialogStyle.FLAT, DialogType.ERROR)
             .setTitle(title)

@@ -130,7 +130,7 @@ class MultiPlayerRepository constructor(
                     Resource.Success(DataMapper.mapperScoreMulti(it.data))
                 }
                 is ApiResponse.Empty -> {
-                    Resource.Success(it)
+                    Resource.Success("Data Kosong")
                 }
                 is ApiResponse.Error -> {
                     Resource.Error(it.errorMessage)
@@ -204,7 +204,7 @@ class MultiPlayerRepository constructor(
                     Resource.Success(DataMapper.mapperUserParticipant(it.data))
                 }
                 is ApiResponse.Empty -> {
-                    Resource.Success(it)
+                    Resource.Success("Data Kosong")
                 }
                 is ApiResponse.Error -> {
                     Resource.Error(it.errorMessage)

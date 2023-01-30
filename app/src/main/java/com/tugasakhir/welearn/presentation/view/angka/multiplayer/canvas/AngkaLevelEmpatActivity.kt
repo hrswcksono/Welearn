@@ -108,7 +108,15 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
             withContext(Dispatchers.Main) {
                 inGamePresenter.savePredictAngkaMulti(idGame, idSoal, score,  duration, sessionManager.fetchAuthToken()!!)
                     .collectLatest {
-                        endGame(idGame)
+                        when(it) {
+                            is Resource.Success ->{
+                                endGame(idGame)
+                            }
+                            is Resource.Loading ->{}
+                            is Resource.Error ->{
+                                CustomDialogBox.dialogNoInternet(this@AngkaLevelEmpatActivity)
+                            }
+                        }
                     }
             }
         }
@@ -129,8 +137,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@AngkaLevelEmpatActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@AngkaLevelEmpatActivity)
                         }
                     }
                 }
@@ -177,8 +184,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@AngkaLevelEmpatActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@AngkaLevelEmpatActivity)
                         }
                     }
                 }
@@ -214,8 +220,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@AngkaLevelEmpatActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@AngkaLevelEmpatActivity)
                             }
                         }
                     }
@@ -266,8 +271,7 @@ class AngkaLevelEmpatActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@AngkaLevelEmpatActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@AngkaLevelEmpatActivity)
                             }
                         }
                     }

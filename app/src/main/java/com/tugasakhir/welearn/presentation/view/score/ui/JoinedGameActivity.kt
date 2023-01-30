@@ -3,6 +3,7 @@ package com.tugasakhir.welearn.presentation.view.score.ui
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.tugasakhir.welearn.data.Resource
@@ -47,12 +48,19 @@ class JoinedGameActivity : AppCompatActivity() {
                     .collectLatest {
                         when(it) {
                             is Resource.Success ->{
-                                joinedGameAdapter.setData(it.data)
+                                binding.pgJoinGame.visibility = View.GONE
+                                if (it.data.toString() != "Data Kosong"){
+                                    joinedGameAdapter.setData(it.data)
+                                }else{
+                                    CustomDialogBox.customDialog(this@JoinedGameActivity,"Data Kosong", "Belum Ada user submit pada ruangan ini")
+                                }
                             }
-                            is Resource.Loading ->{}
+                            is Resource.Loading ->{
+                                binding.pgJoinGame.visibility = View.VISIBLE
+                            }
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@JoinedGameActivity, "Kesalahan Server", it.message.toString())
+                                binding.pgJoinGame.visibility = View.GONE
+                                CustomDialogBox.dialogNoInternet(this@JoinedGameActivity)
                             }
                         }
                     }

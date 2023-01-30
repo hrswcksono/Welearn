@@ -115,7 +115,7 @@ class MatchAngkaFragment : Fragment() {
                             }
                             is Resource.Error ->{
                                 binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
                     }
@@ -134,7 +134,8 @@ class MatchAngkaFragment : Fragment() {
                         when(it) {
                             is Resource.Success ->{
                                 if (it.data != "Berhasil"){
-                                    CustomDialogBox.flatDialog(context!!, "Belum ada yang bergabung", it.message.toString())
+                                    CustomDialogBox.dialogGagalStartGame(context!!)
+                                    binding.btnStartAngka.setBackgroundResource(R.drawable.btn_rounded_green)
                                 }else{
                                     lifecycleScope.launch(Dispatchers.Default) {
                                         withContext(Dispatchers.Main) {
@@ -161,7 +162,7 @@ class MatchAngkaFragment : Fragment() {
                             }
                             is Resource.Error ->{
                                 binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
                     }
@@ -188,7 +189,7 @@ class MatchAngkaFragment : Fragment() {
                             }
                             is Resource.Error ->{
                                 binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(context!!)
                             }
                         }
                     }

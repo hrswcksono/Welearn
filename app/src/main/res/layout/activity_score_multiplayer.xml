@@ -110,5 +110,15 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/trophy" />
 
+    <ProgressBar
+        android:id="@+id/pg_skor_multi"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -124,8 +124,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelNolActivity)
                             }
                         }
                     }
@@ -148,8 +147,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@HurufLevelNolActivity)
                         }
                     }
                 }
@@ -194,8 +192,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                         }
                         is Resource.Loading ->{}
                         is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                            CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                            CustomDialogBox.dialogNoInternet(this@HurufLevelNolActivity)
                         }
                     }
                 }
@@ -231,8 +228,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelNolActivity)
                             }
                         }
                     }
@@ -272,8 +268,7 @@ class HurufLevelNolActivity : AppCompatActivity() {
                             }
                             is Resource.Loading ->{}
                             is Resource.Error ->{
-//                            binding.progressBar4.visibility = View.GONE
-                                CustomDialogBox.flatDialog(this@HurufLevelNolActivity, "Kesalahan Server", it.message.toString())
+                                CustomDialogBox.dialogNoInternet(this@HurufLevelNolActivity)
                             }
                         }
                     }
