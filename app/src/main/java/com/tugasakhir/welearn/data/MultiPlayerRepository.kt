@@ -211,4 +211,20 @@ class MultiPlayerRepository constructor(
                 }
             } as Resource<List<UserPaticipantMulti>>
         }
+
+    override fun startGame(idGame: Int, authToken: String) =
+        remoteDataSource.startGame(idGame,authToken).map {
+            Resource.Loading(it)
+            when(it) {
+                is ApiResponse.Success -> {
+                    Resource.Success(DataMapper.mapperStartGame(it.data))
+                }
+                is ApiResponse.Empty -> {
+                    Resource.Success(it)
+                }
+                is ApiResponse.Error -> {
+                    Resource.Error(it.errorMessage)
+                }
+            } as Resource<String>
+        }
 }

@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.domain.usecase.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.domain.entity.PushNotification
 import com.tugasakhir.welearn.domain.repository.IMultiPlayerRepository
 import kotlinx.coroutines.flow.Flow
@@ -21,4 +22,5 @@ class MultiPlayerInteractor (private val welearnRepository: IMultiPlayerReposito
     override fun getIDSoalMulti(jenis: Int, level: Int, authToken: String) = welearnRepository.getIDSoalMulti(jenis, level, authToken)
     override fun getSoalByID(id: Int, authToken: String) = welearnRepository.getSoalByID(id, authToken)
     override fun getListScoreMulti(idGame: Int, authToken: String) = welearnRepository.getListScoreMulti(idGame, authToken)
+    override fun startGame(idGame: Int, authToken: String) = welearnRepository.startGame(idGame, authToken)
 }

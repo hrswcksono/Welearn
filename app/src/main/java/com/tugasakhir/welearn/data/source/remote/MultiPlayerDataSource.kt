@@ -212,4 +212,18 @@ class MultiPlayerDataSource constructor(private val apiService: MultiPlayerClien
             }
         }.flowOn(Dispatchers.IO)
 
+    override fun startGame(id: Int, tokenUser: String) = flow{
+        try {
+            val response = apiService.startGame(id,token = "Bearer $tokenUser")
+            if (response.data.toString().isNotEmpty()){
+                emit(ApiResponse.Success(response))
+            }else{
+                emit(ApiResponse.Empty)
+            }
+        }catch (e: Exception) {
+            emit(ApiResponse.Error(e.toString()))
+            Log.e("RemoteDataSource", e.toString())
+        }
+    }.flowOn(Dispatchers.IO)
+
 }

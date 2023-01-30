@@ -30,6 +30,13 @@ interface MultiPlayerClient {
     ): PushNotificationResponse
 
     @FormUrlEncoded
+    @POST("startGame")
+    suspend fun startGame(
+        @Field("id_game") idGame: Int,
+        @Header("Authorization") token: String
+    ): StartGameResponse
+
+    @FormUrlEncoded
     @POST("makeRoom")
     suspend fun makeRoom(
         @Field("id_jenis") idJenis : Int,

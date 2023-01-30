@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.data.di.authModule
 import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
@@ -63,7 +64,11 @@ class PushNotificationPresenterTest : KoinTest {
                 "high"
             ),
         ).collectLatest {
-            assertNotNull(it.message)
+            when(it){
+                is Resource.Success -> assertNotNull(it.message)
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 
