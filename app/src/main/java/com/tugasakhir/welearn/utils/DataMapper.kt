@@ -6,6 +6,10 @@ import com.tugasakhir.welearn.domain.entity.Room
 
 object DataMapper {
 
+    fun mapperStartGame(it: StartGameResponse): String {
+        return it.data!!
+    }
+
     fun mapperPushNotification(it: PushNotificationResponse): String {
         return it.message
     }

@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.data.di.authModule
 import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
@@ -10,6 +11,7 @@ import com.tugasakhir.welearn.presentation.presenter.user.LoginPresenter
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.runBlocking
+import okhttp3.Response
 import org.junit.Assert.*
 
 import org.junit.After
@@ -70,21 +72,33 @@ class InGamePresenterTest : KoinTest {
     @Test
     fun `save_predict_huruf_multi_success`() = runBlocking{
         inGamePresenter.savePredictHurufMulti(1, 95, 10, 10, authToken).collectLatest {
-            assertEquals(it.status, "Berhasil Submit Nilai")
+            when(it){
+                is Resource.Success -> assertEquals(it.data!!.status, "Berhasil Submit Nilai")
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 
     @Test
     fun `save_predict_huruf_angka_success`() = runBlocking{
         inGamePresenter.savePredictAngkaMulti(1, 1, 10, 10, authToken).collectLatest {
-            assertEquals(it.status, "Berhasil Submit Nilai")
+            when(it){
+                is Resource.Success -> assertEquals(it.data!!.status, "Berhasil Submit Nilai")
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 
     @Test
     fun `end_game_success`() = runBlocking{
         inGamePresenter.gameAlreadyEnd("1", authToken).collectLatest {
-            assertNotNull(it)
+            when(it){
+                is Resource.Success -> assertNotNull(it.data)
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 

@@ -121,22 +121,44 @@ class MatchHurufFragment : Fragment() {
             binding.btnStartHuruf.setBackgroundResource(R.drawable.yellow)
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    pushNotif.pushNotification(
-                        PushNotification(
-                            NotificationData(
-                                "Pertandingan telah dimulai",
-                                "Selamat mengerjakan !",
-                                "starthuruf",
-                                idSoal,
-                                idLevel,
-                                id_game
-                            ),
-                            Template.getTopic(topic),
-                            "high"
-                        )
-                    ).collectLatest {  }
+                    makeRoomPresenter.startGame(
+                        id_game.toInt(), sessionManager.fetchAuthToken()!!
+                    ).collectLatest {
+                        when (it) {
+                            is Resource.Success -> {
+                                if (it.data == "Berhasil"){
+                                    lifecycleScope.launch(Dispatchers.Default) {
+                                        withContext(Dispatchers.Main) {
+                                            pushNotif.pushNotification(
+                                                PushNotification(
+                                                    NotificationData(
+                                                        "Pertandingan telah dimulai",
+                                                        "Selamat mengerjakan !",
+                                                        "starthuruf",
+                                                        idSoal,
+                                                        idLevel,
+                                                        id_game
+                                                    ),
+                                                    Template.getTopic(topic),
+                                                    "high"
+                                                )
+                                            ).collectLatest {  }
+                                        }
+                                    }
+                                }else {
+                                    CustomDialogBox.flatDialog(context!!, "Belum ada yang bergabung", it.message.toString())
+                                }
+                            }
+                            is Resource.Loading ->{
+                            }
+                            is Resource.Error ->{
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
+                        }
+                    }
                 }
             }
+
         }
     }
 

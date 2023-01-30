@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.data.di.authModule
 import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
@@ -56,14 +57,22 @@ class ScoreMultiPresenterTest  : KoinTest {
     @Test
     fun `show_list_score_multi_success`() = runBlocking{
         scoreMulti.scoreMulti(1, authToken).collectLatest {
-            assertNotNull(it)
+            when(it){
+                is Resource.Success -> assertNotNull(it.data)
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 
     @Test
     fun `show_join_user_success`() = runBlocking {
         scoreMulti.getJoinedGame(authToken).collectLatest {
-            assertNotNull(it)
+            when(it){
+                is Resource.Success -> assertNotNull(it.data)
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 

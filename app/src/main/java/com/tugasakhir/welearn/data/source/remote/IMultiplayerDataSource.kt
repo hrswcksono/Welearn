@@ -18,4 +18,5 @@ interface IMultiplayerDataSource {
     fun savePredictHurufMulti(idGame: Int, idSoal: Int,score: Int , duration: Int, tokenUser: String): Flow<ApiResponse<SavePredictMultiResponse>>
     fun getListUserJoin(tokenUser: String): Flow<ApiResponse<List<JoinedGameResponse>>>
     fun getListUserParticipant(id: Int, tokenUser: String): Flow<ApiResponse<List<UserParticipatedResponse>>>
+    fun startGame(id: Int, tokenUser: String): Flow<ApiResponse<StartGameResponse>>
 }

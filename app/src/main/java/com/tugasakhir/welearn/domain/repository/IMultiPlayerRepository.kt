@@ -18,4 +18,5 @@ interface IMultiPlayerRepository {
     fun savePredictAngkaMulti(idGame: Int,idSoal: Int,score: Int , duration: Int, authToken: String): Flow<Resource<SavePredictMulti>>
     fun getListUserJoin(authToken: String): Flow<Resource<List<UserJoinMulti>>>
     fun getListUserParticipant(idGame: Int, authToken: String): Flow<Resource<List<UserPaticipantMulti>>>
+    fun startGame(idGame: Int, authToken: String): Flow<Resource<String>>
 }

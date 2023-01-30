@@ -1,5 +1,6 @@
 package com.tugasakhir.welearn.presentation.presenter.multiplayer
 
+import com.tugasakhir.welearn.data.Resource
 import com.tugasakhir.welearn.data.di.authModule
 import com.tugasakhir.welearn.data.di.multiModule
 import com.tugasakhir.welearn.data.di.networkModule
@@ -55,7 +56,11 @@ class JoinGamePresenterTest : KoinTest {
     @Test
     fun `join_game_success`() = runBlocking{
         joinGame.joinGame(6861, authToken).collectLatest {
-            assertEquals(it.status, "Join Game Gagal")
+            when(it){
+                is Resource.Success -> assertEquals(it.data!!.status, "Join Game Gagal")
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 }

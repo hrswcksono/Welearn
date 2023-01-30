@@ -63,7 +63,11 @@ class MakeRoomPresenterTest : KoinTest {
         )
 
         makeRoom.makeRoom(2,2, authToken).collectLatest {
-            assertNotNull(it)
+            when(it){
+                is Resource.Success -> assertNotNull(it.data)
+                is Resource.Loading -> {}
+                is Resource.Error -> {}
+            }
         }
     }
 

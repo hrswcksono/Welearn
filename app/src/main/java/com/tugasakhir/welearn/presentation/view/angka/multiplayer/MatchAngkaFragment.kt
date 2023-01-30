@@ -129,20 +129,42 @@ class MatchAngkaFragment : Fragment() {
             binding.btnStartAngka.setBackgroundResource(R.drawable.yellow)
             lifecycleScope.launch(Dispatchers.Default) {
                 withContext(Dispatchers.Main) {
-                    pushNotif.pushNotification(
-                        PushNotification(
-                            NotificationData(
-                                "Pertandingan telah dimulai",
-                                "Selamat mengerjakan !",
-                                "startangka",
-                                idSoal,
-                                idLevel,
-                                id_game
-                            ),
-                            Template.getTopic(topic),
-                            "high"
-                        )
-                    ).collectLatest {  }
+                    makeRoomPresenter.startGame(id_game.toInt(),sessionManager.fetchAuthToken()!!
+                    ).collectLatest {
+                        when(it) {
+                            is Resource.Success ->{
+                                if (it.data != "Berhasil"){
+                                    CustomDialogBox.flatDialog(context!!, "Belum ada yang bergabung", it.message.toString())
+                                }else{
+                                    lifecycleScope.launch(Dispatchers.Default) {
+                                        withContext(Dispatchers.Main) {
+                                            pushNotif.pushNotification(
+                                                PushNotification(
+                                                    NotificationData(
+                                                        "Pertandingan telah dimulai",
+                                                        "Selamat mengerjakan !",
+                                                        "startangka",
+                                                        idSoal,
+                                                        idLevel,
+                                                        id_game
+                                                    ),
+                                                    Template.getTopic(topic),
+                                                    "high"
+                                                )
+                                            ).collectLatest {  }
+                                        }
+                                    }
+                                }
+                            }
+                            is Resource.Loading ->{
+                                binding.progressBar4.visibility = View.VISIBLE
+                            }
+                            is Resource.Error ->{
+                                binding.progressBar4.visibility = View.GONE
+                                CustomDialogBox.flatDialog(context!!, "Kesalahan Server", it.message.toString())
+                            }
+                        }
+                    }
                 }
             }
         }

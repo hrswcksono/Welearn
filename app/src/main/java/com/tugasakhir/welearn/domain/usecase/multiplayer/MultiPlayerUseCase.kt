@@ -18,4 +18,5 @@ interface MultiPlayerUseCase {
     fun getIDSoalMulti(jenis: Int,level: Int, authToken: String): Flow<Resource<IDSoalMulti>>
     fun getSoalByID(id: Int, authToken: String): Flow<Resource<Soal>>
     fun getListScoreMulti(idGame: Int, authToken: String): Flow<Resource<List<ScoreMulti>>>
+    fun startGame(idGame: Int, authToken: String): Flow<Resource<String>>
 }
