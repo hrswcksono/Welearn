@@ -71,7 +71,7 @@ class AngkaLevelTigaFragment : Fragment() {
     }
 
     private fun dialogText(answer: Char, accuracy: Float) : String {
-        return "Jawaban kamu $answer\n Ketelitian  ${(accuracy*100).toInt()}"
+        return "Jawaban kamu $answer\n Ketelitian  ${(accuracy*100).toInt()}%"
     }
 
     private fun disableButton(){
