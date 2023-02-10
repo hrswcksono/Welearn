@@ -49,7 +49,7 @@ object CustomDialogBox {
         if (result == 0) {
             dialogType = DialogType.ERROR
             message = alert
-            title = "salah"
+            title = "Salah"
         }
         AestheticDialog.Builder(context as Activity, DialogStyle.FLASH, dialogType)
             .setTitle(title)

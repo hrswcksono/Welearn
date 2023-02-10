@@ -71,7 +71,7 @@ class AngkaLevelEmpatFragment : Fragment() {
     }
 
     private fun dialogText(answer1: Char, accuracy1: Float, answer2: Char, accuracy2: Float) : String {
-        return "Jawaban kamu $answer1 $answer2\n Ketelitian ${(accuracy1*100).toInt()}% & ${(accuracy2*100).toInt()}%"
+        return "Jawaban kamu $answer1$answer2\nKetelitian pada kanvas 1 : ${(accuracy1*100).toInt()}%\nKetelitian pada kanvas 2 : ${(accuracy2*100).toInt()}%"
     }
 
     private fun disableButton(){
